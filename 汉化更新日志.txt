@@ -1,0 +1,94 @@
+2022/5/1 Second Phase Tehnical Testing二期技术测试
+不兼容其他任何版本的存档
+- 再次重写了汉化
+- 汉化了部分贴图（docStrange.jpg、notetexture.jpg、badge1_tex.jpg）
+- 更新了部分贴图的汉化（docRP.jpg、badge1.jpg、doc427.jpg、doc106_2.jpg、docRAND3.jpg）
+- 将游戏引擎从Blitz3D改为Blitz3D TSS，使以下成为可能：
+    - 使用输入法输入中文
+    - 解决高速渲染文字时的延迟
+    - 不使用插件渲染中文
+- 汉化了地图制作器
+- 重新实现了更新检查系统
+- 汉化版的编码由ANSI改为UTF-8
+- 删除了“收容失效微维基”
+- 删除了“已知问题解答.html”
+- 删除了SpeedText插件
+- 修复了净化气体不渲染的bug
+- “致二创开发者.txt”合并至README.md内
+- 重写了物品中文名的实现方式
+- 汉化了原版更新日志的部分日志（v0.5.2-v0.6.5）
+- 文字抗锯齿不再应用
+- 修复了SCP-500文档贴图的后缀错误
+- 修复了提示框高度的问题
+- psd存档被集中储存（暂时删除）
+技术上更新：AAText库被删除，改为使用引擎的Text渲染文字
+
+2022/4/1 First Phase Testing一期测试
+- 汉化了部分贴图（kneelmortal.pd、chatscreen2.jpg）
+- 重写了汉化版本
+- 成就系统汉化完毕（存在显示问题）
+- 将启动器的字体从“Courier New”改为“Containment Breach”
+- 汉化版的编码由UTF-8改为ANSI（GB2312）
+- 添加了基于终极版的字幕系统（序章部分）
+- 添加了“收容失效微维基”（未完）
+
+2022/2/1 Pre-release Testing预发布测试
+- 汉化了部分贴图（docGonzales.jpg、doc513.jpg、doc682.jpg、doc714.jpg、map_logo.jpg、doc860.jpg、doc895.jpg、doc939.jpg、badge2.png、decalpd6.png、doc966.jpg、doc970.jpg、doc1048.jpg、doc1048a.jpg、doc1162.jpg、doc1499.png、doc8601.jpg、docAC.jpg、BurntNoteTexture.jpg、docMTF.jpg、1025_1.jpg、1025_2.jpg、1025_3.jpg、1025_4.jpg、1015_5.jpg、KeyPad.jpg、docOBJC.jpg、miscsigns4.jpg、miscsigns.jpg、miscsigns2.jpg、miscsigns3.jpg、miscsigns4.jpg、SLH_miscsigns.jpg、KeyPadHUD.jpg、docRP.jpg、docSC.jpg、ticket.png、860.jpg、rosewood.sc、conf.jpg、Nordy.jpg）
+- 汉化了Rmesh模型读取工具（独立工具）
+- 旧版汉化的存档以及原版的存档将不能在该版本读取
+- 汉化了原版更新日志的部分日志（v0.5-v0.5.2）
+- SCP-939的语音字幕已添加完毕
+- 添加了已知问题解答html文件
+- 为游戏添加了点阵字体（DigtalVonwaon）
+- 汉化了CPU信息显示工具（独立工具，原版无编译版本）
+- 正在计划重写汉化
+
+2022/1/1 Final Testing末期测试
+- 汉化了部分贴图（maynard.sc、372.jpg、docL1.jpg、docL2.jpg、docL3.jpg、docL4.jpg、docL5.jpg、docL6.jpg、doc106_2.jpg、docdan.jpg、f4.jpg、f5.jpg、f6.jpg、docIR106.jpg、doc372.jpg、doc1123.jpg、servers1.jpg、label008.jpg、label012.jpg、label035.jpg、label049.jpg、label079.jpg、label106.jpg、label173.jpg、label205.jpg、label372.jpg、label513.jpg、label895.jpg、label914.jpg、label966.jpg、label1123.png、labelmedicalbay.jpg、drL.jpg、doc427.jpg、note_tex.jpg、1025_0.jpg、leaflet.jpg）
+- 汉化了LightMapPNG转换器（独立工具）
+- 现在字幕的位置为相对坐标，而不是绝对坐标
+- 现在汉化版本的更新日志更名为“汉化更新日志.txt”，原版更新日志改为“原版更新日志.txt”
+- 汉化了原版更新日志的部分日志（v0.1.1-v0.3.2）
+技术上更新：重写了原版Text函数，使其使用TextDraw打印文字
+
+2021/12/1 Beta Testing后期测试
+- 汉化了部分贴图（docNDP.jpg、dh.jpg、doc173.jpg、sn.jpg、docMSP.jpg、doc093rm.jpg、doc500.jpg、docRAND2.jpg、doc012.jpg、doc914.jpg、doc008.jpg、doc035.jpg、doc035ad.jpg、doc038.jpg、doc049.jpg、LockdownScreen2.jpg、LockdownScreen.jpg、LockdownScreen3.jpg、doc096.jpg、doc079.jpg、papertexture.jpg、doc106.jpg、doc109.jpg、008.sc、012.jpg、205.jpg、gateb.sc、office.sc、chatscreen.jpg、MonitorTexture2.jpg）
+- 汉化了全部物品名称
+- Main.bb完全重写
+- 暂时放弃字幕系统，原先字幕会有显示问题
+- 修复了SCP-372文档中不显示维修通道大门密码的错误
+- 修复了存档系统的问题
+- 现在开始未命名的存档将以“untitled”名称保存，而不是“未命名”
+- 制作人员名单添加新显示类型
+- 废除RowText函数，使用SpeedText的TextDrawRect函数取而代之
+- 加载界面不再出现不同分辨率可能无法显示文字的函数问题
+- 加载界面已翻译完毕
+- 汉化了部分成就
+备注：dh.jpg文件原本为dh.s（处罚听证会记录DH-S-4137-17092），sn.jpg文件原为sn.it（难以理解的笔记）
+
+2021/11/3 Alpha Testing初期测试
+- 汉化了部分贴图（docmap.jpg、miscsign3.jpg、914labels.jpg、914panel.jpg、exit2.jpg）
+- 汉化了RoomMesh转换器（独立工具）
+- 汉化了ReadMe.txt和ReadMe.md文件
+- 修复了窗口标题显示错误的问题
+- 优化了字体加载，现在不再需要安装字体
+- 将制作人员名单的字体从“Courier New”改为“Containment Breach”
+- 汉化了部分加载界面的内容
+- 修复了在room2closets房间因物品刷新出错而崩溃的问题
+- 汉化了部分物品名称
+已知问题：存档系统错误、字幕技术问题、SCP-372文档不显示维修通道大门密码
+
+2021/10/17 Subtitle Tehnical Testing字幕技术测试
+- 汉化了启动器
+- 汉化了设置的部分提示条
+- 汉化了设置中滑动条的文字
+- 汉化了键位名称
+- 汉化了部分贴图（docRAND3.jpg、docORI.jpg、updater.jpg）
+- 删除了“清晰文本”
+- 添加了“显示字幕”选项，替代了“清晰文本”的显示位置
+- 向序章添加了部分字幕
+- 字体由“Courier New”改为“Containment Breach收容失效”（启动器除外）
+- 汉化了部分加载界面的内容
+
+2021/10/14 Technical Preview技术预览
+- 第一个汉化版本

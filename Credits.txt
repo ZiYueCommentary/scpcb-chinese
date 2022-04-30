@@ -1,0 +1,295 @@
+
+`汉化版本
+
+
+子悦汉化组 汉化
+	
+	
+*发起
+
+ZiYueCommentary("子悦解说")
+
+
+*核心技术
+
+飘流瓶儿
+
+
+*加载界面
+
+虚茼
+amigo
+德意志战车
+
+
+*物品
+
+________________________
+德意志战车
+ZiYueCommentary("子悦解说")
+
+
+*成就
+
+ZiYueCommentary("子悦解说")
+Four_P("four")
+南柯
+快乐快乐，更多快乐
+________________________
+
+
+*测试及宣传
+
+Mr.("掌柜KETER")
+ZiYueCommentary("子悦解说")
+
+
+*字幕系统
+
+ZiYueCommentary("子悦解说") - 翻译
+终极版开发团队 - 技术贡献
+
+
+*鸣谢
+
+HJ itfkqqug("HJ浩鈞")
+TheZihanGu("Fr0zen_F1sh")
+Asriel("AsrieI_Dreemurr")
+快乐男孩
+终极版开发团队
+		
+		
+
+`游戏原版
+
+*程序
+
+Joonas Rikkonen ("Regalis")
+CommanderMark
+Jesse Ludtke ("MonocleBios")
+Juan Pablo Arce ("Juanjpro")
+Luggs123
+Ryan Stillings ("Risingstar64")
+Sam Lynch ("InnocentSam")
+Shaun Gaylard ("ENDSHN")
+
+
+*3D模型
+
+Joonas Rikkonen ("Regalis")
+Apocryphos
+Atomicsneak
+Brandon Smith
+EternalError
+GamerEntitlement
+Hakkla
+Ivan Mikhailov ("Redbull.Ivan")
+James Bear ("Moonsaber")
+Kenneth Crooker
+Lionel Ruskin ("Cridone")
+Micro
+Night
+Prosth
+TheKMan
+Reilly Grindle ("Mirocaine")
+SaitoFox
+Sam Lynch ("InnocentSam")
+Shaun Gaylard ("ENDSHN")
+Tom Malinowski
+Vladislav Borisevich ("Vane Brain")
+
+
+*音效及音乐
+
+Joonas Rikkonen ("Regalis")
+Caleb Yu ("Omniary")
+Class401
+FireFox
+gmodfan11
+Kevin MacLeod
+phlip45
+revo794
+Shaun Gaylard ("ENDSHN")
+Slagar
+Tim Morrison
+Vladislav Borisevich ("Vane Brain")
+Walach
+
+
+*声优
+
+Aaron Mckee ("TheVolgun")
+Brendan Sussman ("DukeLovesYou")
+CDWinters
+Graham Ruruku ("Stealthy Zoroark")
+Hunter
+ItsDuke
+Joshofsouls
+Moonstiee
+SolidBaker
+Tallfellow
+
+
+*画面及脚本
+
+Joonas Rikkonen ("Regalis")
+Anon4743
+Balzac
+Brokami
+Caleb Yu ("Omniary")
+KyoteeWilliams
+Orgil Pount ("Destructoid")
+Pavel Lvovich Gorfunkel ("-Mark-")
+Shadowscale48
+Shaun Gaylard ("ENDSHN")
+Vladislav Borisevich ("Vane Brain")
+
+
+*剧情
+
+Joonas Rikkonen ("Regalis")
+Caleb Yu ("Omniary")
+Dr. Gears
+Irontaco
+Steelpoint
+Vladislav Borisevich ("Vane Brain")
+
+
+*测试
+
+Christian Rie?
+Emil215p
+Flipsy
+Inclination
+LordDeathv11
+Onemario1234
+RadReed
+TheHappyJammer
+Zadrakos
+
+
+*其他
+
+Agent G
+Gage Allen ("Lotims")
+Haversine
+Max Taylor
+Meow :3
+Nikita Sidorov ("Jabka")
+Turtle Sandwich/Catnipbuddy
+ /v/
+收容失效论坛的所有人
+
+
+*本游戏基于SCP基金会背景
+
+
+SCP和SCP收容失效图标 基于 图标
+作者 "far2"
+
+SCP-008 基于 "SCP-008 - 丧尸病毒"
+作者 "Lee 作者ron"
+
+SCP-012 基于 "SCP-012 - 未完乐章"
+作者未知
+
+SCP-035 基于 "SCP-035 - 占据面具"
+作者 "Kain Pathos Crow"
+
+SCP-049 基于 "SCP-049 - 瘟疫医生"
+作者 "Gabriel Jade"
+
+SCP-066 基于 "SCP-066 - 埃里克的玩具"
+作者 "Scantron"
+
+SCP-079 基于 "SCP-079 - 旧AI"
+作者未知
+
+SCP-096 基于 "SCP-096 - “羞涩”的人"
+作者 "Dr Dan"
+
+SCP-106 基于 "SCP-106 - 恐怖老人"
+作者 "Dr Gears"
+
+SCP-148 基于 "SCP-148 - 心灵遮断合金"
+作者 "Lt Masipag"
+
+SCP-173 基于 "SCP-173 - 雕塑"
+作者 "Moto42"
+
+SCP-205 基于 "SCP-205 - 幽影之灯"
+作者 "Sorts"
+
+SCP-294 基于 "SCP-294 - 咖啡机"
+作者 "far2"
+
+SCP-372 基于 "SCP-372 - 视外幻兽"
+作者 "Sylocat"
+
+SCP-420-J 基于 "SCP-420-J - 世界上最好的______" 
+作者 "Quikngruvn"
+
+SCP-427 基于 "SCP-427 - 洛夫克拉夫特吊坠"
+作者 "Dr Ouros"
+
+SCP-500 基于 "SCP-500 - 万能药"
+作者 "far2"
+
+SCP-513-1 基于 "SCP-513 - 牛铃"
+作者 "beefwit"
+
+SCP-714 基于 "SCP-714 - 疲惫玉戒"
+作者 "Arcalane"
+
+SCP-682 基于 "SCP-682 - 不灭孽蜥"
+作者 "Dr. Gears"
+
+SCP-789-J 基于 "SCP-789-J - 屁股鬼魂！！"
+作者 "Salman Corbette"
+
+SCP-860 基于 "SCP-860 - 蓝钥匙"
+作者 "Enma Ai"
+
+SCP-895 基于 "SCP-895 - 摄像干扰"
+作者 "Aelanna"
+
+SCP-914 基于 "SCP-914 - 万能转换机"
+作者 "Dr. Gears"
+
+SCP-939 基于 "SCP-939 - 千喉之兽"
+作者 "Adam Smascher"
+
+SCP-966 基于 "SCP-966 - 睡梦杀手"
+作者"Enma Ai"
+
+SCP-970 基于 "SCP-970 - 轮回之间"
+作者 "Freudian"	
+
+SCP-1025 基于 "SCP-1025 - 疾病大百科"
+作者 "Lasergoose"
+
+SCP-1048 基于 "SCP-1048 - 泰迪熊建造者"
+作者 "Researcher Dios"
+
+SCP-1123 基于 "SCP-1123 - 暴行头骨"
+作者 "sandrewswann"
+
+SCP-1162 基于 "SCP-1162 - 墙上一个洞"
+作者 "Dedaluminus"
+
+SCP-1499 基于 "SCP-1499 - 防毒面具"
+作者"Trasknari"
+
+异常鸭 基于 "异常鸭日志"
+作者 "Skara Brae"
+
+/
+十分感谢近年来支持该项目的所有人
+——如果没有你们，这个项目不会成长到如此地步
+	
+收容失效是一个大型合作项目，有几十位（几百位？）开发者
+为游戏制作素材、提供想法、反馈bug。
+我肯定会遗漏掉一些应该提及的人。如果你有贡献，同时想在游戏里留下你的名字，
+请通过Undertow Games论坛或contact@undertowgames.com联系我们！
+
+- Joonas Rikkonen ("Regalis")
