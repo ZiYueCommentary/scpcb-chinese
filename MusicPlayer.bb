@@ -1,6 +1,11 @@
+; 我才发现居然还有个这玩意
+; 收容失效的源码里虽然有这个文件，但没有BlitzAL插件
+; 所以到底有多少东西胎死腹中了？
+; ——子悦 2022年5月15日
+
 Include "BlitzAL.bb"
 
-AppTitle "SCP:CB Music Player"
+AppTitle "收容失效 音乐播放器"
 
 Graphics 800,600,0,2
 SetBuffer BackBuffer()
@@ -60,6 +65,8 @@ Global x#,y#,width#,height#
 Global PrevBarTime# = 0.0, CurrBarTime# = 0.0
 Global CurrPitch# = 1.0
 
+SetFont LoadFont("GFX\font\Containment Breach.ttf", 14)
+
 Repeat
 	Cls
 	ClsColor 200,200,200
@@ -84,7 +91,7 @@ Repeat
 					DebugLog "Playing Music: "+Music(i)
 					CurrBarTime# = 0.0
 					PrevBarTime# = 0.0
-					AppTitle "SCP:CB Music Player - playing "+Chr(34)+Music(i)+Chr(34)
+					AppTitle "收容失效 音乐播放器 - 正在播放："+Chr(34)+Music(i)+Chr(34)
 				EndIf
 			Else
 				Button(x,y,width,height,ShortLine(Music(i),25),True)
@@ -111,7 +118,7 @@ Repeat
 					DebugLog "Playing Music: "+Music(i+MusicAmount)
 					CurrBarTime# = 0.0
 					PrevBarTime# = 0.0
-					AppTitle "SCP:CB Music Player - playing "+Chr(34)+Music(i+MusicAmount)+Chr(34)
+					AppTitle "收容失效 音乐播放器 - 正在播放："+Chr(34)+Music(i+MusicAmount)+Chr(34)
 				EndIf
 			Else
 				Button(x,y,width,height,ShortLine(Music(i+MusicAmount),25),True)
@@ -140,25 +147,25 @@ Repeat
 	Color 40,50,80
 	Rect 0,y-20,800,20,True
 	If CurrMusicWindow = 0
-		If Button(750,y-20,50,20,"Next")
+		If Button(750,y-20,50,20,"下一页")
 			CurrMusicWindow = 1
 		EndIf
-		Button(0,y-20,50,20,"Prev",True)
+		Button(0,y-20,50,20,"上一页",True)
 		Color 140,140,140
-		Text 520,90,"Compatible Audio file(s): OGG",0,1
+		Text 800-13,90,"兼容的音频类型： OGG",2,1
 	Else
-		If Button(0,y-20,50,20,"Prev")
+		If Button(0,y-20,50,20,"上一页")
 			CurrMusicWindow = 0
 		EndIf
-		Button(750,y-20,50,20,"Next",True)
+		Button(750,y-20,50,20,"下一页",True)
 		Color 140,140,140
-		Text 520,90,"Compatible Audio file(s): OGG,WAV",0,1
+		Text 800-13,90,"兼容的音频类型： OGG,WAV",2,1
 	EndIf
 	Color 130,140,150
 	If CurrMusicWindow=0
-		Text GraphicsWidth()/2,y-11,"List of songs (in "+Chr(34)+MusicPath+Chr(34)+" folder):",1,1
+		Text GraphicsWidth()/2,y-11,"音乐列表 （“"+MusicPath+"”文件夹）：",1,1
 	Else
-		Text GraphicsWidth()/2,y-11,"List of songs (in "+Chr(34)+MusicPath2+Chr(34)+" folder):",1,1
+		Text GraphicsWidth()/2,y-11,"音乐列表 （“"+MusicPath2+"”文件夹）：",1,1
 	EndIf
 	If IsMusicPlaying=1
 		Color 100,100,100
@@ -168,18 +175,18 @@ Repeat
 		EndIf
 		Rect 10,10,780*CurrBarTime#,20,1
 		Color 140,140,140
-		Text GraphicsWidth()/2,40,"Playing Music: "+Chr(34)+ShortLine$(Music(MusicPlaying),38)+Chr(34),1,1
-		Text GraphicsWidth()/2,60,"Music Time: "+GetTime(Int(alSourceGetAudioTime(MusicCHN,0)-1))+"/"+GetTime(Int(alSourceGetLenght(MusicCHN,0)-1)),1,1
+		Text GraphicsWidth()/2,40,"正在播放： “"+ShortLine$(Music(MusicPlaying),38)+"”",1,1
+		Text GraphicsWidth()/2,60,"音乐时长： "+GetTime(Int(alSourceGetAudioTime(MusicCHN,0)-1))+"/"+GetTime(Int(alSourceGetLenght(MusicCHN,0)-1)),1,1
 		If alSourceIsPlaying(MusicCHN)
-			If Button(60,40,50,25,"Pause")
+			If Button(60,40,50,25,"暂停")
 				alSourcePause(MusicCHN)
 			EndIf
 		Else
-			If Button(60,40,50,25,"Play")
+			If Button(60,40,50,25,"播放")
 				alSourceResume(MusicCHN)
 			EndIf
 		EndIf
-		If Button(110,40,60,25,"Restart")
+		If Button(110,40,60,25,"重播")
 			alSourceStop(MusicCHN)
 			alSourceSeek(MusicCHN,0,0)
 			alSourcePlay_(MusicCHN,True)
@@ -192,12 +199,12 @@ Repeat
 		EndIf
 	Else
 		Color 140,140,140
-		Text GraphicsWidth()/2,40,"Playing Music: None",1,1
-		Text GraphicsWidth()/2,60,"Music Time: 00:00/00:00",1,1
-		Button(60,40,50,25,"Pause",True)
-		Button(110,40,60,25,"Restart",True)
+		Text GraphicsWidth()/2,40,"正在播放： 无",1,1
+		Text GraphicsWidth()/2,60,"音乐时长： 00:00/00:00",1,1
+		Button(60,40,50,25,"暂停",True)
+		Button(110,40,60,25,"重启",True)
 	EndIf
-	If Button(10,40,50,25,"Stop",(Not IsMusicPlaying))
+	If Button(10,40,50,25,"停止",(Not IsMusicPlaying))
 		CurrMusic = -1
 		IsMusicPlaying = 0
 		alSourceStop(MusicCHN)
@@ -205,17 +212,17 @@ Repeat
 		MusicPlaying = -1
 		CurrBarTime# = 0.0
 		PrevBarTime# = 0.0
-		AppTitle "SCP:CB Music Player"
+		AppTitle "收容失效 音乐播放器"
 	EndIf
 	Color 5,5,5
 	Rect 10,10,780,20,0
 	MusicVolume = (SlideBar(30, 80, 100, MusicVolume*100.0)/100.0)
 	Color 140,140,140
-	Text 90,110,"Music Volume: "+Int(MusicVolume*100)+"%",1,1
+	Text 90,110,"音乐音量： "+Int(MusicVolume*100)+"%",1,1
 	CurrPitch = (SlideBar(220, 80, 100, CurrPitch*50.0,0,200)/50.0)
 	Color 140,140,140
-	Text 280,110,"Music Pitch: "+Int(CurrPitch*100)+"%",1,1
-	If Button(675,40,115,25,"Close Program")
+	Text 280,110,"音乐音阶： "+Int(CurrPitch*100)+"%",1,1
+	If Button(675,40,115,25,"关闭程序")
 		alDestroy()
 		End
 	EndIf
@@ -270,14 +277,6 @@ Function Button%(x,y,width,height,txt$, disabled%=False)
 	Color 0,0,0
 	
 	If Pushed And MouseHit1 Then Return True
-End Function
-
-Function Min#(a#,b#)
-	If a < b Then Return a Else Return b
-End Function
-
-Function Max#(a#,b#)
-	If a > b Then Return a Else Return b
 End Function
 
 Function f2s$(n#, count%)
@@ -378,10 +377,11 @@ Function UpdateMusic()
 			alSourceSetPitch(MusicCHN, CurrPitch)
 		EndIf
 	EndIf
-	
 End Function
 
-
+Function Text(x%, y%, txt$, center% = 0, middle% = 0, encoding% = 0)
+	Blitz_Text(x, y+1, txt, center, middle, encoding)
+End Function
 
 
 

@@ -1,6 +1,7 @@
 
 Function SaveGame(file$)
 	CatchErrors("Uncaught (SaveGame)")
+	file = ConvertToANSI(file)
 	
 	If Not Playable Then Return ;don't save if the player can't move at all
 	
@@ -13,9 +14,9 @@ Function SaveGame(file$)
 	Local x%, y%, i%, temp%
 	Local n.NPCs, r.Rooms, do.Doors
 	
-	CreateDir(ConvertToANSI(file))
+	CreateDir(file)
 	
-	Local f% = WriteFile(ConvertToANSI(file) + "save.txt")
+	Local f% = WriteFile(file + "save.txt")
 	
 	WriteString f, CurrentTime()
 	WriteString f, CurrentDate()
@@ -459,9 +460,8 @@ Function SaveGame(file$)
 			PlaySound_Strict(LoadTempSound("SFX\General\Save1.ogg"))
 		EndIf
 		
-		Msg = "Game progress saved."
+		Msg = "游戏进度已保存"
 		MsgTimer = 70 * 4
-		;SetSaveMSG("Game progress saved.")
 	EndIf
 	
 	CatchErrors("SaveGame")
@@ -708,12 +708,12 @@ Function LoadGame(file$)
 	room2gw_x = ReadFloat(f)
 	room2gw_z = ReadFloat(f)
 	
-	If version = CompatibleNumber Then
+	;If version = CompatibleNumber Then
 		I_Zone\Transition[0] = ReadByte(f)
 		I_Zone\Transition[1] = ReadByte(f)
 		I_Zone\HasCustomForest = ReadByte(f)
 		I_Zone\HasCustomMT = ReadByte(f)
-	EndIf
+	;EndIf
 	
 	temp = ReadInt(f)
 	For i = 1 To temp
@@ -1543,12 +1543,12 @@ Function LoadGameQuick(file$)
 	room2gw_x = ReadFloat(f)
 	room2gw_z = ReadFloat(f)
 	
-	If version = CompatibleNumber Then
+	;If version = CompatibleNumber Then
 		I_Zone\Transition[0] = ReadByte(f)
 		I_Zone\Transition[1] = ReadByte(f)
 		I_Zone\HasCustomForest = ReadByte(f)
 		I_Zone\HasCustomMT = ReadByte(f)
-	EndIf
+	;EndIf
 	
 	temp = ReadInt(f)
 	For i = 1 To temp
@@ -2106,7 +2106,7 @@ Function LoadSavedMaps()
 						SavedMapsAuthor$(i) = ReadLine(f)
 						CloseFile f
 					Else
-						SavedMapsAuthor$(i) = "[Unknown]"
+						SavedMapsAuthor$(i) = "[未知]"
 					EndIf
 					i=i+1
 				EndIf

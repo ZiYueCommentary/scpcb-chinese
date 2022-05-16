@@ -2925,9 +2925,11 @@ Function FillRoom(r.Rooms)
 			
 			it = CreateItem("cup", "cup", r\x-508.0*RoomScale, -187*RoomScale, r\z+284.0*RoomScale, 240,175,70)
 			EntityParent(it\collider, r\obj) : it\displayName = "一杯橙汁"
+			EntityParent(it\collider, r\obj) : it\name = "cup of orange"
 			
 			it = CreateItem("cup", "cup", r\x+1412 * RoomScale, -187*RoomScale, r\z-716.0 * RoomScale, 87,62,45)
 			EntityParent(it\collider, r\obj) : it\displayName = "一杯咖啡"
+			EntityParent(it\collider, r\obj) : it\name = "cup of coffee"
 			
 			it = CreateItem("Empty Cup", "emptycup", r\x-540*RoomScale, -187*RoomScale, r\z+124.0*RoomScale)
 			EntityParent(it\collider, r\obj)

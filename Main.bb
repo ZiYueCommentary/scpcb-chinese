@@ -14,6 +14,7 @@ Local InitErrorStr$ = ""
 If FileSize("dplayx.dll")=0 Then InitErrorStr=InitErrorStr+ "dplayx.dll"+Chr(13)+Chr(10)
 If FileSize("FreeImage.dll")=0 Then InitErrorStr=InitErrorStr+ "FreeImage.dll"+Chr(13)+Chr(10)
 If FileSize("fmod.dll")=0 Then InitErrorStr=InitErrorStr+ "fmod.dll"+Chr(13)+Chr(10)
+If FileSize("opencc.dll")=0 Then InitErrorStr=InitErrorStr+ "opencc.dll"+Chr(13)+Chr(10)
 
 If Len(InitErrorStr)>0 Then
 	RuntimeError "游戏文件夹中缺失以下dll文件："+Chr(13)+Chr(10)+Chr(13)+Chr(10)+InitErrorStr
@@ -30,7 +31,6 @@ Include "Update.bb"
 Include "DevilParticleSystem.bb"
 
 ; 我不知道这堆玩意还有没有用，这得取决于我能不能把ErrorLog给引擎加回去		——子悦
-
 ;Global ErrorFile$ = "error_log_"
 ;Local ErrorFileInd% = 0
 ;While FileType(ErrorFile+Str(ErrorFileInd)+".txt")<>0
@@ -43,7 +43,7 @@ Global Font1%, Font2%, Font3%, Font4%, Font5%
 Global ConsoleFont%
 
 Global VersionNumber$ = "1.3.11"
-Global SinicizationNumber$ = "2022.05-Second Phase Tehnical Testing" ;汉化版本号
+Global SinicizationNumber$ = "2022.05.16-Second Phase Localization" ;汉化版本号
 Global CompatibleNumber$ = "1.3.11-2022.5" ;当存档与构建版本不兼容时再更改		——开发者 ENDSHN
 
 Global MenuWhite%, MenuBlack%
@@ -105,6 +105,11 @@ Global ConsoleOpening% = GetINIInt(OptionFile, "console", "auto opening")
 Global SFXVolume# = GetINIFloat(OptionFile, "audio", "sound volume")
 
 Global Bit16Mode = GetINIInt(OptionFile, "options", "16bit")
+
+Global TraditionalChinese% = GetINIInt(OptionFile, "options", "traditional chinese")
+Global TraditionalChinese_Prev% = TraditionalChinese
+
+If TraditionalChinese Then OpenCC "Traditional\OpenCC\s2twp.json"
 
 Include "Subtitles.bb"
 
@@ -208,7 +213,7 @@ Global GameSaved%
 
 Global CanSave% = True
 
-AppTitle "SCP - 收容失效 v"+VersionNumber+" 汉化版 - 二期技术测试"
+AppTitle "SCP - 收容失效 v"+VersionNumber+" 汉化版 - 二期汉化"
 
 PlayStartupVideos()
 
@@ -224,8 +229,8 @@ InitLoadingScreens("Loadingscreens\loadingscreens.ini")
 
 Font1% = LoadFont("GFX\font\Containment Breach.ttf", Int(16 * (GraphicHeight / 1024.0)))
 Font2% = LoadFont("GFX\font\Containment Breach.ttf", Int(55 * (GraphicHeight / 1024.0)))
-Font3% = LoadFont("GFX\font\DigtalVonwaon.ttf", Int(19 * (GraphicHeight / 1024.0)))
-Font4% = LoadFont("GFX\font\DigtalVonwaon.ttf", Int(57 * (GraphicHeight / 1024.0)))
+Font3% = LoadFont_Strict("GFX\font\Cubic.ttf", Int(19 * (GraphicHeight / 1024.0)))
+Font4% = LoadFont_Strict("GFX\font\Cubic.ttf", Int(57 * (GraphicHeight / 1024.0)))
 Font5% = LoadFont("GFX\font\Journal.ttf", Int(55 * (GraphicHeight / 1024.0)))
 
 Global CreditsFont%,CreditsFont2%,CreditsFont3%
@@ -852,7 +857,7 @@ Function UpdateConsole()
 						EndIf
 					Next
 					
-					If PlayerRoom\RoomTemplate\Name <> StrTemp Then CreateConsoleMsg("Room not found.",255,150,0)
+					If PlayerRoom\RoomTemplate\Name <> StrTemp Then CreateConsoleMsg("房间未找到",255,150,0)
 					;[End Block]
 				Case "spawnitem"
 					;[Block]
@@ -2734,19 +2739,6 @@ MainMenuOpen = True
 
 ;---------------------------------------------------------------------------------------------------
 
-Type MEMORYSTATUS
-    Field dwLength%
-    Field dwMemoryLoad%
-    Field dwTotalPhys%
-    Field dwAvailPhys%
-    Field dwTotalPageFile%
-    Field dwAvailPageFile%
-    Field dwTotalVirtual%
-    Field dwAvailVirtual%
-End Type
-
-Global m.MEMORYSTATUS = New MEMORYSTATUS
-
 FlushKeys()
 FlushMouse()
 
@@ -3685,12 +3677,8 @@ Function DrawEnding()
 			If ChannelPlaying(BreathCHN) Then StopChannel BreathCHN : Stamina = 100
 		EndIf
 		
-		;If EndingTimer <-400 Then 
-		;	ShouldPlay = 13
-		;EndIf
-		
 		If EndingScreen = 0 Then
-			EndingScreen = LoadImage_Strict("GFX\endingscreen.pt")
+			EndingScreen = LoadImage_Strict("GFX\endingscreen.jpg")
 			
 			ShouldPlay = 23
 			CurrMusicVolume = MusicVolume
@@ -3836,7 +3824,7 @@ Function InitCredits()
 	CreditsFont3% = LoadFont_Strict("GFX\font\Containment Breach Bold.ttf", Int(37 * (GraphicHeight / 1024.0)), 0,0,0)
 	
 	If CreditsScreen = 0
-		CreditsScreen = LoadImage_Strict("GFX\creditsscreen.pt")
+		CreditsScreen = LoadImage_Strict("GFX\creditsscreen.jpg")
 	EndIf
 	
 	Repeat
@@ -4559,7 +4547,7 @@ Function DrawGUI()
 						If e\img = 0 Then
 							If BlinkTimer > -5 Then
 								If e\img = 0 Then
-									e\img = LoadImage_Strict("GFX\kneelmortal.pd")
+									e\img = LoadImage_Strict("GFX\kneelmortal.jpg")
 									If (ChannelPlaying(e\SoundCHN)) Then
 										StopChannel(e\SoundCHN)
 									EndIf
@@ -4699,7 +4687,6 @@ Function DrawGUI()
 			Color 255, 255, 255
 			SetFont ConsoleFont
 			
-			;Text x + 250, 50, "Zone: " + (EntityZ(Collider)/8.0)
 			Text x - 50, 50, "玩家位置： (" + f2s(EntityX(Collider), 3) + ", " + f2s(EntityY(Collider), 3) + ", " + f2s(EntityZ(Collider), 3) + ")"
 			Text x - 50, 70, "视角位置： (" + f2s(EntityX(Camera), 3)+ ", " + f2s(EntityY(Camera), 3) +", " + f2s(EntityZ(Camera), 3) + ")"
 			Text x - 50, 100, "玩家方向： (" + f2s(EntityPitch(Collider), 3) + ", " + f2s(EntityYaw(Collider), 3) + ", " + f2s(EntityRoll(Collider), 3) + ")"
@@ -4724,7 +4711,6 @@ Function DrawGUI()
 			If Curr173 <> Null
 				Text x - 50, 410, "SCP-173位置 (collider)： (" + f2s(EntityX(Curr173\Collider), 3) + ", " + f2s(EntityY(Curr173\Collider), 3) + ", " + f2s(EntityZ(Curr173\Collider), 3) + ")"
 				Text x - 50, 430, "SCP-173位置 (obj)： (" + f2s(EntityX(Curr173\obj), 3) + ", " + f2s(EntityY(Curr173\obj), 3) + ", " + f2s(EntityZ(Curr173\obj), 3) + ")"
-				;Text x - 50, 410, "SCP - 173 Idle: " + Curr173\Idle
 				Text x - 50, 450, "SCP-173状态： " + Curr173\State
 			EndIf
 			If Curr106 <> Null
@@ -4757,8 +4743,7 @@ Function DrawGUI()
 			Else
 				Text x + 350, 50, "当前房间位置： ("+PlayerRoom\x+", "+PlayerRoom\y+", "+PlayerRoom\z+")"
 			EndIf
-			GlobalMemoryStatus m.MEMORYSTATUS
-			Text x + 350, 90, (m\dwAvailPhys%/1024/1024)+" MB/"+(m\dwTotalPhys%/1024/1024)+" MB ("+(m\dwAvailPhys%/1024)+" KB/"+(m\dwTotalPhys%/1024)+" KB)"
+			Text x + 350, 90, ((TotalPhys() / 1024) - (AvailPhys() / 1024)) + " MB/" + (TotalPhys() / 1024) + " MB"
 			Text x + 350, 110, "渲染的三角形： "+CurrTrisAmount
 			Text x + 350, 130, "激活的贴图： "+ActiveTextures()
 			Text x + 350, 150, "SCP-427状态 （秒）： "+Int(I_427\Timer/70.0)
@@ -7147,7 +7132,7 @@ Function DrawMenu()
 					
 					Color 255,255,255
 					Text(x, y, "粒子数量：")
-					ParticleAmount = Slider3(x+270*MenuScale,y+6*MenuScale,100*MenuScale,ParticleAmount,2,"MINIMAL","REDUCED","FULL")
+					ParticleAmount = Slider3(x+270*MenuScale,y+6*MenuScale,100*MenuScale,ParticleAmount,2,"最少","适中","最多")
 					If (MouseOn(x + 270 * MenuScale, y-6*MenuScale, 100*MenuScale+14, 20) And OnSliderID=0) Or OnSliderID=2
 						DrawOptionsTooltip(tx,ty,tw,th,"particleamount",ParticleAmount)
 					EndIf
@@ -7408,6 +7393,19 @@ Function DrawMenu()
 					If MouseOn(x+270*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
 						DrawOptionsTooltip(tx,ty,tw,th,"subtitle")
 					EndIf
+					
+					Color 255,255,255
+					y = y + 30*MenuScale
+					
+					Text(x, y + 3, "繁简转换：")
+					TraditionalChinese% = DrawTick(x + 270 * MenuScale, y, TraditionalChinese%)
+					If TraditionalChinese_Prev% <> TraditionalChinese
+						If TraditionalChinese Then OpenCC "Traditional\OpenCC\s2twp.json" Else OpenCC ""
+						TraditionalChinese_Prev% = TraditionalChinese
+					EndIf
+					If MouseOn(x+270*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+						DrawOptionsTooltip(tx,ty,tw,th,"traditional")
+					EndIf
 					;[End Block]
 			End Select
 		ElseIf AchievementsMenu <= 0 And OptionsMenu <= 0 And QuitMSG > 0 And KillTimer >= 0
@@ -7505,7 +7503,7 @@ Function DrawMenu()
 				y = y + 75*MenuScale
 				If (Not SelectedDifficulty\permaDeath) Then
 					If GameSaved Then
-						If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "加载游戏", True, True, -2) Then
+						If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "加载游戏", True, True) Then
 							DrawLoading(0)
 							
 							MenuOpen = False
@@ -7561,7 +7559,7 @@ Function DrawMenu()
 			Else
 				y = y+104*MenuScale
 				If GameSaved And (Not SelectedDifficulty\permaDeath) Then
-					If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "加载游戏", True, True, -2) Then
+					If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "加载游戏", True, True) Then
 						DrawLoading(0)
 						
 						MenuOpen = False
@@ -7604,7 +7602,7 @@ Function DrawMenu()
 				Else
 					DrawButton(x, y, 390*MenuScale, 60*MenuScale, "")
 					Color 50,50,50
-					Text(x + 185*MenuScale, y + 30*MenuScale, "加载游戏", True, True, -2)
+					Text(x + 185*MenuScale, y + 30*MenuScale, "加载游戏", True, True)
 				EndIf
 				If DrawButton(x, y + 80*MenuScale, 390*MenuScale, 60*MenuScale, "返回主菜单", True, True, -2) Then
 					NullGame()
@@ -7889,7 +7887,7 @@ Function LoadEntities()
 		DecalTextures(i) = LoadTexture_Strict("GFX\blooddrop"+(i-14)+".png", 1 + 2)	
 	Next
 	DecalTextures(17) = LoadTexture_Strict("GFX\decal8.png", 1 + 2)	
-	DecalTextures(18) = LoadTexture_Strict("GFX\decalpd6.dc", 1 + 2)	
+	DecalTextures(18) = LoadTexture_Strict("GFX\decalpd6.png", 1 + 2)	
 	DecalTextures(19) = LoadTexture_Strict("GFX\decal19.png", 1 + 2)
 	DecalTextures(20) = LoadTexture_Strict("GFX\decal427.png", 1 + 2)
 	
@@ -9931,6 +9929,7 @@ Function Use294()
 					
 					it.items = CreateItem("Cup", "cup", EntityX(PlayerRoom\Objects[1],True),EntityY(PlayerRoom\Objects[1],True),EntityZ(PlayerRoom\Objects[1],True), r,g,b,alpha)
 					it\displayName = "一杯"+Input294
+					it\name = "Cup of "+Input294
 					EntityType (it\collider, HIT_ITEM)
 					
 				Else
@@ -10890,10 +10889,11 @@ Function SaveOptionsINI()
 	PutINIValue(OptionFile, "options", "texture details", TextureDetails%)
 	PutINIValue(OptionFile, "console", "enabled", CanOpenConsole%)
 	PutINIValue(OptionFile, "console", "auto opening", ConsoleOpening%)
-	PutINIValue(OptionFile, "options", "antialiased text", TextEnable)
 	PutINIValue(OptionFile, "options", "particle amount", ParticleAmount)
 	PutINIValue(OptionFile, "options", "enable vram", EnableVRam)
 	PutINIValue(OptionFile, "options", "mouse smoothing", MouseSmooth)
+	PutINIValue(OptionFile, "options", "enable subtitles", EnableSubtitles)
+	PutINIValue(OptionFile, "options", "traditional chinese", TraditionalChinese)
 	
 	PutINIValue(OptionFile, "audio", "music volume", MusicVolume)
 	PutINIValue(OptionFile, "audio", "sound volume", PrevSFXVolume)
@@ -11425,14 +11425,14 @@ Function ScaledMouseY%()
 End Function
 
 Function CatchErrors(location$)
-	InitErrorMsgs(7)
+	InitErrorMsgs(6)
 	SetErrorMsg(0, "SCP - 收容失效 v" + VersionNumber + " 汉化版 出现错误！")
 	SetErrorMsg(1, "汉化版版本号："+SinicizationNumber)
 	SetErrorMsg(2, "地图种子：" + RandomSeed)
 	SetErrorMsg(3, "日期和时间：" + CurrentDate() + "，" + CurrentTime() + Chr(10) + "系统：" + SystemProperty("os") + " " + (32 + (GetEnv("ProgramFiles(X86)") <> 0) * 32) + " bit (Build: " + SystemProperty("osbuild") + ")" + Chr(10))
 	SetErrorMsg(4, "显示内存：" + ((TotalVidMem() / 1024) - (AvailVidMem() / 1024)) + " MB/" + (TotalVidMem() / 1024) + " MB" + Chr(10))
 	SetErrorMsg(5, "全局内存状态：" + ((TotalPhys() / 1024) - (AvailPhys() / 1024)) + " MB/" + (TotalPhys() / 1024) + " MB" + Chr(10))
-	SetErrorMsg(6, "出错位置：" + Location + Chr(10) + Chr(10) + "Please take a screenshot of this error and send it to us!") 
+	SetErrorMsg(6, "出错位置：" + Location + Chr(10) + Chr(10) + "请带着游戏截图联系我们！") 
 End Function
 
 Function Create3DIcon(width%,height%,modelpath$,modelX#=0,modelY#=0,modelZ#=0,modelPitch#=0,modelYaw#=0,modelRoll#=0,modelscaleX#=1,modelscaleY#=1,modelscaleZ#=1,withfog%=False)

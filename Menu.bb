@@ -53,7 +53,7 @@ LoadSaveGames()
 
 Global CurrLoadGamePage% = 0
 
-Function UpdateMainMenu()
+Function UpdateMainMenu()	
 	Local x%, y%, width%, height%, temp%
 	
 	Color 0,0,0
@@ -462,15 +462,15 @@ Function UpdateMainMenu()
 						If i <= SaveGameAmount Then
 							DrawFrame(x,y,540* MenuScale, 70* MenuScale)
 							
-							If SaveGameVersion(i - 1) <> CompatibleNumber Then Color 255,0,0 Else Color 255,255,255
+							If Left(SaveGameVersion(i - 1),6) <> "1.3.11" Then Color 255,0,0 Else Color 255,255,255
 							
 							Text(x + 20 * MenuScale, y + 10 * MenuScale, ConvertToUTF8(SaveGames(i - 1)))
-							Text(x + 20 * MenuScale, y + (10+18) * MenuScale, SaveGameTime(i - 1)) ;y + (10+23) * MenuScale
+							Text(x + 20 * MenuScale, y + (10+18) * MenuScale, SaveGameTime(i - 1))
 							Text(x + 120 * MenuScale, y + (10+18) * MenuScale, SaveGameDate(i - 1))
 							Text(x + 20 * MenuScale, y + (10+36) * MenuScale, SaveGameVersion(i - 1))
 							
 							If SaveMSG = "" Then
-								If SaveGameVersion(i - 1) <> CompatibleNumber Then
+								If Left(SaveGameVersion(i - 1),6) <> "1.3.11" Then
 									DrawFrame(x + 280 * MenuScale, y + 20 * MenuScale, 100 * MenuScale, 30 * MenuScale)
 									Color(255, 0, 0)
 									Text(x + 330 * MenuScale, y + 34 * MenuScale, "加载", True, True)
@@ -492,7 +492,7 @@ Function UpdateMainMenu()
 								EndIf
 							Else
 								DrawFrame(x + 280 * MenuScale, y + 20 * MenuScale, 100 * MenuScale, 30 * MenuScale)
-								If SaveGameVersion(i - 1) <> CompatibleNumber Then Color 255, 0, 0 Else Color 100, 100, 100
+								If Left(SaveGameVersion(i - 1),6) <> "1.3.11" Then Color 255, 0, 0 Else Color 100, 100, 100
 								Text(x + 330 * MenuScale, y + 34 * MenuScale, "加载", True, True)
 								
 								DrawFrame(x + 400 * MenuScale, y + 20 * MenuScale, 100 * MenuScale, 30 * MenuScale)
@@ -875,7 +875,7 @@ Function UpdateMainMenu()
 					;[End Block]
 				ElseIf MainMenuTab = 7 ;Advanced
 					;[Block]
-					height = 320 * MenuScale
+					height = 340 * MenuScale
 					DrawFrame(x, y, width, height)	
 					
 					y = y + 20*MenuScale
@@ -952,6 +952,19 @@ Function UpdateMainMenu()
 					EnableSubtitles% = DrawTick(x + 310 * MenuScale, y + MenuScale, EnableSubtitles%)
 					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
 						DrawOptionsTooltip(tx,ty,tw,th,"subtitle")
+					EndIf
+					
+					Color 255,255,255
+					y = y + 30*MenuScale
+					
+					Text(x + 20 * MenuScale, y + 2, "繁简转换：")
+					TraditionalChinese% = DrawTick(x + 310 * MenuScale, y, TraditionalChinese%)
+					If TraditionalChinese_Prev% <> TraditionalChinese
+						If TraditionalChinese Then OpenCC "Traditional\OpenCC\s2twp.json" Else OpenCC ""
+						TraditionalChinese_Prev% = TraditionalChinese
+					EndIf
+					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+						DrawOptionsTooltip(tx,ty,tw,th,"traditional")
 					EndIf
 					;[End Block]
 				EndIf
@@ -1106,7 +1119,9 @@ Function UpdateLauncher()
 	Next
 	
 	BlinkMeterIMG% = LoadImage_Strict("GFX\blinkmeter.jpg")
-	If CheckForUpdates() Then CheckForUpdates()
+	Local TimeOut = False
+	If CheckForUpdates() = -1 Then TimeOut = True
+	
 	
 	AppTitle "SCP - 收容失效汉化版 启动器"
 	
@@ -1118,8 +1133,10 @@ Function UpdateLauncher()
 		
 		MouseHit1 = MouseHit(1)
 		
-		Color 255, 255, 255
 		DrawImage(LauncherIMG, 0, 0)
+		
+		If TimeOut Then Color 255,255,0 : Text(0,5,"警告：检查更新失败（连接超时）")
+		Color 255, 255, 255
 		
 		Text(20, 240 - 65 + 3, "分辨率：")
 		
@@ -1956,6 +1973,9 @@ Function DrawOptionsTooltip(x%,y%,width%,height%,option$,value#=0,ingame%=False)
 		Case "vsync"
 			txt = "“垂直同步”意为在计算下一帧前，等待显示器完成当前刷新周期，防止出现画面撕裂等问题。"
 			txt2 = "这会强制将游戏的FPS限制在显示器刷新率之内,可能会导致画面延迟。"
+			R = 255
+			G = 255
+			B = 255
 		Case "antialias"
 			txt = "“抗锯齿”意为在显示之前平滑渲染图像,以减少模型边缘周围的锯齿。"
 			txt2 = "该选项只适用于全屏模式中。"
@@ -2061,6 +2081,11 @@ Function DrawOptionsTooltip(x%,y%,width%,height%,option$,value#=0,ingame%=False)
 			EndIf
 		Case "subtitle"
 			txt = "在游戏中显示人物说话的内容,字幕的位置与游戏原本的提示的位置不同。"
+		Case "traditional"
+			txt = "将游戏显示文本转换为繁体，使用中国台湾地域用语。启用后会自动读取繁体版贴图。"
+			R = 255
+			G = 255
+			txt2 = "该选项为实验功能，基于OpenCC制作。"
 			;[End Block]
 	End Select
 	

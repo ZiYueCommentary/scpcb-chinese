@@ -6,15 +6,15 @@
 
 ;safe loads for mav trapping media issues
 
-
-
-
 ;basic wrapper functions that check to make sure that the file exists before attempting to load it, raises an RTE if it doesn't
 ;more informative alternative to MAVs outside of debug mode, makes it immiediately obvious whether or not someone is loading resources
 ;likely to cause more crashes than 'clean' CB, as this prevents anyone from loading any assets that don't exist, regardless if they are ever used
 ;added zero checks since blitz load functions return zero sometimes even if the filetype exists
 Function LoadImage_Strict(file$)
-	If FileType(file$)<>1 Then RuntimeError "Image " + Chr(34) + file$ + Chr(34) + " missing. "
+	If TraditionalChinese Then
+		If FileType("Traditional\"+file) = 1 Then Return LoadImage("Traditional\"+file)
+	EndIf
+	If FileType(file$)<>1 Then RuntimeError "找不到图片：" + file$
 	tmp = LoadImage(file$)
 	Return tmp
 	;attempt to load the image again
@@ -295,6 +295,9 @@ Function UpdateStreamSoundOrigin(streamHandle%,cam%,entity%,range#=10,volume#=1.
 End Function
 
 Function LoadMesh_Strict(File$,parent=0)
+	If TraditionalChinese Then
+		If FileType("Traditional\"+file) = 1 Then Return LoadMesh("Traditional\"+file)
+	EndIf
 	If FileType(File$) <> 1 Then RuntimeError "3D Mesh " + File$ + " not found."
 	tmp = LoadMesh(File$, parent)
 	If tmp = 0 Then RuntimeError "Failed to load 3D Mesh: " + File$ 
@@ -302,6 +305,9 @@ Function LoadMesh_Strict(File$,parent=0)
 End Function   
 
 Function LoadAnimMesh_Strict(File$,parent=0)
+	If TraditionalChinese Then
+		If FileType("Traditional\"+file) = 1 Then Return LoadAnimMesh("Traditional\"+file)
+	EndIf
 	DebugLog File
 	If FileType(File$) <> 1 Then RuntimeError "3D Animated Mesh " + File$ + " not found."
 	tmp = LoadAnimMesh(File$, parent)
@@ -311,13 +317,19 @@ End Function
 
 ;don't use in LoadRMesh, as Reg does this manually there. If you wanna fuck around with the logic in that function, be my guest 
 Function LoadTexture_Strict(File$,flags=1)
-	If FileType(File$) <> 1 Then RuntimeError "Texture " + File$ + " not found."
+	If TraditionalChinese Then
+		If FileType("Traditional\"+file) = 1 Then Return LoadTexture("Traditional\"+file)
+	EndIf
+	If FileType(File$) <> 1 Then RuntimeError "贴图未找到：" + File$
 	tmp = LoadTexture(File$, flags+(256*(EnableVRam=True)))
 	If tmp = 0 Then RuntimeError "Failed to load Texture: " + File$ 
 	Return tmp 
 End Function   
 
 Function LoadBrush_Strict(file$,flags,u#=1.0,v#=1.0)
+	If TraditionalChinese Then
+		If FileType("Traditional\"+file) = 1 Then Return LoadBrush("Traditional\"+file)
+	EndIf
 	If FileType(file$)<>1 Then RuntimeError "Brush Texture " + file$ + "not found."
 	tmp = LoadBrush(file$, flags, u, v)
 	If tmp = 0 Then RuntimeError "Failed to load Brush: " + file$ 
@@ -325,20 +337,11 @@ Function LoadBrush_Strict(file$,flags,u#=1.0,v#=1.0)
 End Function 
 
 Function LoadFont_Strict(file$, height=13, bold=0, italic=0, underline=0)
-	If FileType(file$)<>1 Then RuntimeError "Font " + file$ + " not found."
+	If TraditionalChinese Then
+		If FileType("Traditional\"+file) = 1 Then Return LoadFont("Traditional\"+file)
+	EndIf
+	If FileType(file$)<>1 Then RuntimeError "字体未找到：" + file$
 	tmp = LoadFont(file, height)  
 	If tmp = 0 Then RuntimeError "Failed to load Font: " + file$ 
 	Return tmp
 End Function
-
-
-
-
-
-
-
-
-
-;~IDEal Editor Parameters:
-;~F#F#34#3B
-;~C#Blitz3D

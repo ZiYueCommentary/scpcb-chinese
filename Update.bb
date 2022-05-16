@@ -17,7 +17,7 @@ End Type
 Global UpdaterIMG
 Global LinesAmount% = 0
 
-Function CheckForUpdates()
+Function CheckForUpdates%()
 	AppTitle "SCP - 收容失效汉化版 更新检查器"
 	
 	If Not UpdateCheckEnabled Then Return
@@ -26,7 +26,7 @@ Function CheckForUpdates()
 	Cls
 	Color 255,255,255
 	Text 320,240,"正在检查更新...",True,True
-	Text 320,240+20,"（这东西真的有用，相信子悦，别禁用）",True,True ;我就是担心有人觉得这玩意没用给禁用了，真那样那我写更新检查有歌姬用
+	;Text 320,240+20,"（这东西真的有用，相信子悦，别禁用）",True,True ;我就是担心有人觉得这玩意没用给禁用了，真那样那我写更新检查有歌姬用
 	Flip
 	
 	; 获取域名TXT回答（version.scpcbgame.cn），并用ParseDomainTXT解析其中内容
@@ -37,9 +37,16 @@ Function CheckForUpdates()
 	; version.scpcbgame.cn是收失中文网站用于回复最新版本信息的域名，如果你有域名也可以这么搞
 	; 至于为什么要在这里大费周章呢？是因为这俩函数是我写的，我骄傲（bushi
 	; ——子悦 2022/4/29
-	Local domainTXT$ = ParseDomainTXT(GetDomainTXT("version.scpcbgame.cn"), "version")
+	Local domainTXT$ = GetDomainTXT("version.scpcbgame.cn")
+	Local versionTXT$ = ParseDomainTXT(domainTXT, "version")
+	Local dateTXT$ = ParseDomainTXT(domainTXT, "date")
+	DebugLog domainTXT
+	If versionTXT = "" Then 
+		DebugLog "Get TXT failed!"
+		Return -1
+	EndIf
 
-	If domainTXT <> SinicizationNumber And domainTXT<>"" Then ;检测到新版本（TXT回答与汉化版本号不符）
+	If versionTXT <> SinicizationNumber Then ;检测到新版本（TXT回答与汉化版本号不符）
 		DebugLog "Newer version!"
 		DownloadFile("https://scpcbgame.cn/changelog.txt", "changelog_website.txt") ;下载文件，命名为changelog_website.txt
 		;Local ChangeLogFile% = ReadFile(ConvertToANSI("汉化更新日志.txt"))
@@ -50,24 +57,34 @@ Function CheckForUpdates()
 		
 		Local ChangeLogLineAmount% = 0
 		Local firstLine% = 1
-		While Not Eof(ChangeLogFile)
-			l$ = ReadLine(ChangeLogFile)
-			If l <> ""
-				chl.ChangeLogLines = New ChangeLogLines
-				If firstLine
-					chl\txt$ = "新更新："+l
-					firstLine = 0
+		If ChangeLogFile <> 0 Then ;如果读取成功
+			While Not Eof(ChangeLogFile)
+				l$ = ReadLine(ChangeLogFile)
+				If l <> ""
+					chl.ChangeLogLines = New ChangeLogLines
+					If firstLine Then
+						chl\txt$ = "新更新："+l
+						firstLine = 0
+					Else
+						chl\txt$ = l
+					EndIf
+					ChangeLogLineAmount = ChangeLogLineAmount + 1
 				Else
-					chl\txt$ = l
+					Exit
 				EndIf
-				ChangeLogLineAmount = ChangeLogLineAmount + 1
-			Else
-				Exit
-			EndIf
-		Wend
-		CloseFile(ChangeLogFile) ;关闭读取
-		DeleteFile("changelog_website.txt") ;删除文件
-		
+			Wend
+			CloseFile(ChangeLogFile) ;关闭读取
+			DeleteFile("changelog_website.txt") ;删除文件
+		Else ;如果读取失败
+			chl.ChangeLogLines = New ChangeLogLines
+			chl\txt$ = "更新日志下载失败。"
+			chl.ChangeLogLines = New ChangeLogLines
+			chl\txt$ = "最新版本："+versionTXT
+			chl.ChangeLogLines = New ChangeLogLines
+			chl\txt$ = "更新时间："+dateTXT
+			chl.ChangeLogLines = New ChangeLogLines
+			chl\txt$ = "更新日志链接：https://scpcbgame.cn/changelog.txt"
+		EndIf
 		UpdaterFont = LoadFont("GFX\font\Containment Breach.ttf",16)
 		
 		Repeat
@@ -87,6 +104,7 @@ Function CheckForUpdates()
 				For chl.ChangeLogLines = Each ChangeLogLines
 					Color 1,0,0
 					If Left(chl\txt$,3) = "新更新" Then Color 200,0,0
+					If chl\txt$ = "更新日志下载失败。" Then Color 255,0,0
 					RowText2(chl\txt$,2,y#-195,430,254)
 					y# = y#+(20*GetLineAmount2(chl\txt$,432,254))
 					LinesAmount = LinesAmount + (GetLineAmount2(chl\txt$,432,254))
@@ -95,7 +113,7 @@ Function CheckForUpdates()
 				DrawImage UpdaterIMG,20,195
 				Color 10,10,10
 				Rect 452,195,20,254,True
-				ScrollMenuHeight# = LinesAmount-13
+				ScrollMenuHeight# = LinesAmount-12.7
 				ScrollBarY = DrawScrollBar(452,195,20,254,452,195+(254-(254-4*ScrollMenuHeight))*ScrollBarY,20,254-(4*ScrollMenuHeight),ScrollBarY,1)
 			Else
 				y# = 201
@@ -103,6 +121,7 @@ Function CheckForUpdates()
 				For chl.ChangeLogLines = Each ChangeLogLines
 					Color 1,0,0
 					If Left(chl\txt$,3) = "新更新" Then Color 200,0,0
+					If chl\txt$ = "更新日志下载失败。" Then Color 255,0,0
 					RowText2(chl\txt$,21,y#,431,253)
 					y# = y#+(20*GetLineAmount2(chl\txt$,432,254))
 					LinesAmount = LinesAmount + (GetLineAmount2(chl\txt$,432,254))
@@ -118,7 +137,8 @@ Function CheckForUpdates()
 			If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 100, 100, 30, "重试", False, False, False)
 				Delete Each ChangeLogLines
 				If UpdaterIMG <> 0 Then FreeImage UpdaterIMG
-				Return True
+				CheckForUpdates()
+				Return 0
 			EndIf
 			If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 50, 100, 30, "下载", False, False, False)
 				ExecFile("https://scpcbgame.cn/#download")
@@ -138,5 +158,5 @@ Function CheckForUpdates()
 	EndIf
 	Delete Each ChangeLogLines
 	If UpdaterIMG <> 0 Then FreeImage UpdaterIMG
-	Return False
+	Return 0
 End Function
