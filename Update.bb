@@ -7,6 +7,7 @@
 ; DownloadFile函数是Blitz3D TSS（子悦版）的独占内容
 ; 允许下载网络文件，理论上什么都可以，只要浏览器能下这玩意就能下
 ; 优点就是比用Blitz3D写下载函数稳定快捷的多，缺点暂时不知道
+; 为了测试，该部分使用了现代逻辑运算符
 Global UpdateCheckEnabled% = GetINIInt(OptionFile, "options", "check for updates")
 Global UpdaterBG
 
@@ -20,7 +21,7 @@ Global LinesAmount% = 0
 Function CheckForUpdates%()
 	AppTitle "SCP - 收容失效汉化版 更新检查器"
 	
-	If Not UpdateCheckEnabled Then Return
+	If !UpdateCheckEnabled Then Return 0
 	
 	SetBuffer BackBuffer()
 	Cls
@@ -46,7 +47,7 @@ Function CheckForUpdates%()
 		Return -1
 	EndIf
 
-	If versionTXT <> SinicizationNumber Then ;检测到新版本（TXT回答与汉化版本号不符）
+	If versionTXT != SinicizationNumber Then ;检测到新版本（TXT回答与汉化版本号不符）
 		DebugLog "Newer version!"
 		DownloadFile("https://scpcbgame.cn/changelog.txt", "changelog_website.txt") ;下载文件，命名为changelog_website.txt
 		;Local ChangeLogFile% = ReadFile(ConvertToANSI("汉化更新日志.txt"))
@@ -56,15 +57,15 @@ Function CheckForUpdates%()
 		UpdaterIMG = CreateImage(452,254)
 		
 		Local ChangeLogLineAmount% = 0
-		Local firstLine% = 1
-		If ChangeLogFile <> 0 Then ;如果读取成功
+		Local FirstLine% = True
+		If ChangeLogFile != 0 Then ;如果读取成功
 			While Not Eof(ChangeLogFile)
 				l$ = ReadLine(ChangeLogFile)
-				If l <> ""
+				If l != ""
 					chl.ChangeLogLines = New ChangeLogLines
-					If firstLine Then
+					If FirstLine Then
 						chl\txt$ = "新更新："+l
-						firstLine = 0
+						FirstLine = False
 					Else
 						chl\txt$ = l
 					EndIf
@@ -85,7 +86,7 @@ Function CheckForUpdates%()
 			chl.ChangeLogLines = New ChangeLogLines
 			chl\txt$ = "更新日志链接：https://scpcbgame.cn/changelog.txt"
 		EndIf
-		UpdaterFont = LoadFont("GFX\font\Containment Breach.ttf",16)
+		UpdaterFont = LoadFont_Strict("GFX\font\Containment Breach.ttf",16)
 		
 		Repeat
 			SetBuffer BackBuffer()
@@ -98,7 +99,7 @@ Function CheckForUpdates%()
 			SetFont UpdaterFont
 			If LinesAmount > 13
 				y# = 200-(20*ScrollMenuHeight*ScrollBarY)
-				LinesAmount%=0
+				LinesAmount% = 0
 				SetBuffer(ImageBuffer(UpdaterIMG))
 				DrawImage UpdaterBG,-20,-195
 				For chl.ChangeLogLines = Each ChangeLogLines
@@ -113,11 +114,11 @@ Function CheckForUpdates%()
 				DrawImage UpdaterIMG,20,195
 				Color 10,10,10
 				Rect 452,195,20,254,True
-				ScrollMenuHeight# = LinesAmount-12.7
+				ScrollMenuHeight# = LinesAmount-12.3
 				ScrollBarY = DrawScrollBar(452,195,20,254,452,195+(254-(254-4*ScrollMenuHeight))*ScrollBarY,20,254-(4*ScrollMenuHeight),ScrollBarY,1)
 			Else
 				y# = 201
-				LinesAmount%=0
+				LinesAmount% = 0
 				For chl.ChangeLogLines = Each ChangeLogLines
 					Color 1,0,0
 					If Left(chl\txt$,3) = "新更新" Then Color 200,0,0
@@ -129,14 +130,14 @@ Function CheckForUpdates%()
 				ScrollMenuHeight# = LinesAmount
 			EndIf
 			Color 255,255,255
-			Rect(480, 200, 140, 95)
+			Rect 480, 200, 140, 95
 			Color 0,0,0
 			RowText2("当前版本："+SinicizationNumber,482,210,137,90)
 			
 			SetFont Font1
 			If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 100, 100, 30, "重试", False, False, False)
 				Delete Each ChangeLogLines
-				If UpdaterIMG <> 0 Then FreeImage UpdaterIMG
+				If UpdaterIMG != 0 Then FreeImage UpdaterIMG
 				CheckForUpdates()
 				Return 0
 			EndIf
@@ -157,6 +158,6 @@ Function CheckForUpdates%()
 		DebugLog "No newer version!"
 	EndIf
 	Delete Each ChangeLogLines
-	If UpdaterIMG <> 0 Then FreeImage UpdaterIMG
+	If UpdaterIMG != 0 Then FreeImage UpdaterIMG
 	Return 0
 End Function

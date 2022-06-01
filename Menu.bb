@@ -27,7 +27,6 @@ Global MenuStr$, MenuStrX%, MenuStrY%
 
 Global MainMenuTab%
 
-
 Global IntroEnabled% = GetINIInt(OptionFile, "options", "intro enabled")
 
 Global SelectedInputBox%
@@ -125,9 +124,7 @@ Function UpdateMainMenu()
 		DrawTiledImageRect(MenuWhite, 0, 5, 512, 7 * MenuScale, 985.0 * MenuScale, 407.0 * MenuScale, (GraphicWidth - 1240 * MenuScale) + 300, 7 * MenuScale)
 	EndIf
 	
-	If (Not MouseDown1)
-		OnSliderID = 0
-	EndIf
+	If (Not MouseDown1) Then OnSliderID = 0
 	
 	If MainMenuTab = 0 Then
 		For i% = 0 To 3
@@ -206,10 +203,8 @@ Function UpdateMainMenu()
 			End Select
 			
 			DrawButton(x, y, width, height, txt, True, False, -3)
-		Next	
-		
+		Next
 	Else
-		
 		x = 159 * MenuScale
 		y = 286 * MenuScale
 		
@@ -246,7 +241,6 @@ Function UpdateMainMenu()
 		Select MainMenuTab
 			Case 1 ; New game
 				;[Block]
-				
 				x = 159 * MenuScale
 				y = 286 * MenuScale
 				
@@ -306,7 +300,6 @@ Function UpdateMainMenu()
 				Text(x + 20 * MenuScale, y + 110 * MenuScale + 3, "启用序章：")
 				IntroEnabled = DrawTick(x + 280 * MenuScale, y + 110 * MenuScale, IntroEnabled)	
 				
-				;Local modeName$, modeDescription$, selectedDescription$
 				Text (x + 20 * MenuScale, y + 150 * MenuScale + 3, "难度：")				
 				For i = SAFE To CUSTOM
 					If DrawTick(x + 20 * MenuScale, y + (180+30*i) * MenuScale, (SelectedDifficulty = difficulties(i))) Then SelectedDifficulty = difficulties(i)
@@ -366,7 +359,8 @@ Function UpdateMainMenu()
 				SetFont Font2
 				
 				If DrawButton(x + 420 * MenuScale, y + height + 20 * MenuScale, 160 * MenuScale, 70 * MenuScale, "开始", False) Then
-					If CurrSave = "" Then CurrSave = "未命名"
+					CurrSave = ConvertToANSI(CurrSave)
+					If CurrSave = "" Then CurrSave = ConvertToANSI("未命名")
 					
 					If RandomSeed = "" Then
 						RandomSeed = Abs(MilliSecs())
@@ -396,10 +390,8 @@ Function UpdateMainMenu()
 				;[End Block]
 			Case 2 ;load game
 				;[Block]
-				
 				y = y + height + 20 * MenuScale
 				width = 580 * MenuScale
-				;height = 300 * MenuScale
 				height = 510 * MenuScale
 				
 				DrawFrame(x, y, width, height)
@@ -522,9 +514,6 @@ Function UpdateMainMenu()
 						EndIf
 					EndIf
 				EndIf
-				
-				
-				
 				;[End Block]
 			Case 3,5,6,7 ;options
 				;[Block]
@@ -575,399 +564,396 @@ Function UpdateMainMenu()
 				Local tw# = 400*MenuScale
 				Local th# = 150*MenuScale
 				
-				;DrawOptionsTooltip(tx,ty,tw,th,"")
-				
-				If MainMenuTab = 3 ;Graphics
-					;[Block]
-					;height = 380 * MenuScale
-					height = 330 * MenuScale
-					DrawFrame(x, y, width, height)
-					
-					y=y+20*MenuScale
-					
-					Color 255,255,255				
-					Text(x + 20 * MenuScale, y + 4, "启用凹凸贴图：")	
-					BumpEnabled = DrawTick(x + 310 * MenuScale, y + MenuScale, BumpEnabled)
-					If MouseOn(x + 310 * MenuScale, y + MenuScale, 20*MenuScale,20*MenuScale) And OnSliderID=0
-						;DrawTooltip("Not available in this version")
-						DrawOptionsTooltip(tx,ty,tw,th,"bump")
-					EndIf
-					
-					y=y+30*MenuScale
-					
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 4, "垂直同步：")
-					Vsync% = DrawTick(x + 310 * MenuScale, y + MenuScale, Vsync%)
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale) And OnSliderID=0
-						DrawOptionsTooltip(tx,ty,tw,th,"vsync")
-					EndIf
-					
-					y=y+30*MenuScale
-					
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 4, "抗锯齿：")
-					Opt_AntiAlias = DrawTick(x + 310 * MenuScale, y + MenuScale, Opt_AntiAlias%)
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale) And OnSliderID=0
-						DrawOptionsTooltip(tx,ty,tw,th,"antialias")
-					EndIf
-					
-					y=y+30*MenuScale ;40
-					
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 5, "启用房间光亮：")
-					EnableRoomLights = DrawTick(x + 310 * MenuScale, y + MenuScale, EnableRoomLights)
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale) And OnSliderID=0
-						DrawOptionsTooltip(tx,ty,tw,th,"roomlights")
-					EndIf
-					
-					y=y+30*MenuScale
-					
-					ScreenGamma = (SlideBar(x + 310*MenuScale, y+6*MenuScale, 150*MenuScale, ScreenGamma*50.0)/50.0)
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 7, "屏幕伽马值")
-					If MouseOn(x+310*MenuScale,y+6*MenuScale,150*MenuScale+14,20) And OnSliderID=0
-						DrawOptionsTooltip(tx,ty,tw,th,"gamma",ScreenGamma)
-					EndIf
-					
-					y=y+50*MenuScale
-					
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 4, "粒子数量：")
-					ParticleAmount = Slider3(x+310*MenuScale,y+6*MenuScale,150*MenuScale,ParticleAmount,2,"最少","适中","最多")
-					If (MouseOn(x + 310 * MenuScale, y-6*MenuScale, 150*MenuScale+14, 20) And OnSliderID=0) Or OnSliderID=2
-						DrawOptionsTooltip(tx,ty,tw,th,"particleamount",ParticleAmount)
-					EndIf
-					
-					y=y+50*MenuScale
-					
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 3, "纹理细节层次：")
-					TextureDetails = Slider5(x+310*MenuScale,y+6*MenuScale,150*MenuScale,TextureDetails,3,"0.8","0.4","0.0","-0.4","-0.8")
-					Select TextureDetails%
-						Case 0
-							TextureFloat# = 0.8
-						Case 1
-							TextureFloat# = 0.4
-						Case 2
-							TextureFloat# = 0.0
-						Case 3
-							TextureFloat# = -0.4
-						Case 4
-							TextureFloat# = -0.8
-					End Select
-					TextureLodBias TextureFloat
-					If (MouseOn(x+310*MenuScale,y-6*MenuScale,150*MenuScale+14,20) And OnSliderID=0) Or OnSliderID=3
-						DrawOptionsTooltip(tx,ty,tw,th+100*MenuScale,"texquality")
-					EndIf
-					
-					y=y+50*MenuScale
-					
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 5, "在VRAM中存储贴图：")
-					EnableVRam = DrawTick(x + 310 * MenuScale, y + MenuScale, EnableVRam)
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale) And OnSliderID=0
-						DrawOptionsTooltip(tx,ty,tw,th,"vram")
-					EndIf
-					
-					;[End Block]
-				ElseIf MainMenuTab = 5 ;Audio
-					;[Block]
-					height = 220 * MenuScale
-					DrawFrame(x, y, width, height)	
-					
-					y = y + 20*MenuScale
-					
-					MusicVolume = (SlideBar(x + 310*MenuScale, y-4*MenuScale, 150*MenuScale, MusicVolume*100.0)/100.0)
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 1, "音乐大小：")
-					If MouseOn(x+310*MenuScale,y-4*MenuScale,150*MenuScale+14,20)
-						DrawOptionsTooltip(tx,ty,tw,th,"musicvol",MusicVolume)
-					EndIf
-					
-					y = y + 40*MenuScale
-					
-					PrevSFXVolume = (SlideBar(x + 310*MenuScale, y-4*MenuScale, 150*MenuScale, SFXVolume*100.0)/100.0)
-					SFXVolume = PrevSFXVolume
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 1, "音效大小：")
-					If MouseOn(x+310*MenuScale,y-4*MenuScale,150*MenuScale+14,20)
-						DrawOptionsTooltip(tx,ty,tw,th,"soundvol",PrevSFXVolume)
-					EndIf
-					
-					y = y + 30*MenuScale
-					
-					Color 255,255,255
-					Text x + 20 * MenuScale, y + 2, "自动释放音频："
-					EnableSFXRelease = DrawTick(x + 310 * MenuScale, y + MenuScale, EnableSFXRelease)
-					If EnableSFXRelease_Prev% <> EnableSFXRelease
-						If EnableSFXRelease%
-							For snd.Sound = Each Sound
-								For i=0 To 31
-									If snd\channels[i]<>0 Then
-										If ChannelPlaying(snd\channels[i]) Then
-											StopChannel(snd\channels[i])
-										EndIf
-									EndIf
-								Next
-								If snd\internalHandle<>0 Then
-									FreeSound snd\internalHandle
-									snd\internalHandle = 0
-								EndIf
-								snd\releaseTime = 0
-							Next
-						Else
-							For snd.Sound = Each Sound
-								If snd\internalHandle = 0 Then snd\internalHandle = LoadSound(snd\name)
-							Next
+				Select MainMenuTab
+					Case 3: ;Graphics
+						;[Block]
+						height = 330 * MenuScale
+						DrawFrame(x, y, width, height)
+
+						y=y+20*MenuScale
+
+						Color 255,255,255				
+						Text(x + 20 * MenuScale, y + 4, "启用凹凸贴图：")	
+						BumpEnabled = DrawTick(x + 310 * MenuScale, y + MenuScale, BumpEnabled)
+						If MouseOn(x + 310 * MenuScale, y + MenuScale, 20*MenuScale,20*MenuScale) And OnSliderID=0
+							DrawOptionsTooltip(tx,ty,tw,th,"bump")
 						EndIf
-						EnableSFXRelease_Prev% = EnableSFXRelease
-					EndIf
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th+220*MenuScale,"sfxautorelease")
-					EndIf
-					y = y + 30*MenuScale
-					
-					Color 255,255,255
-					Text x + 20 * MenuScale, y + 2, "启用自定频道："
-					EnableUserTracks = DrawTick(x + 310 * MenuScale, y + MenuScale, EnableUserTracks)
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"usertrack")
-					EndIf
-					
-					If EnableUserTracks
-						y = y + 30 * MenuScale
+
+						y=y+30*MenuScale
+
 						Color 255,255,255
-						Text x + 20 * MenuScale, y + 3, "自定频道模式："
-						UserTrackMode = DrawTick(x + 310 * MenuScale, y + MenuScale, UserTrackMode)
-						If UserTrackMode
-							Text x + 350 * MenuScale, y + MenuScale + 3, "循环"
-						Else
-							Text x + 350 * MenuScale, y + MenuScale + 3, "随机"
+						Text(x + 20 * MenuScale, y + 4, "垂直同步：")
+						Vsync% = DrawTick(x + 310 * MenuScale, y + MenuScale, Vsync%)
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale) And OnSliderID=0
+							DrawOptionsTooltip(tx,ty,tw,th,"vsync")
+						EndIf
+
+						y=y+30*MenuScale
+
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 4, "抗锯齿：")
+						Opt_AntiAlias = DrawTick(x + 310 * MenuScale, y + MenuScale, Opt_AntiAlias%)
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale) And OnSliderID=0
+							DrawOptionsTooltip(tx,ty,tw,th,"antialias")
+						EndIf
+
+						y=y+30*MenuScale ;40
+
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 5, "启用房间光亮：")
+						EnableRoomLights = DrawTick(x + 310 * MenuScale, y + MenuScale, EnableRoomLights)
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale) And OnSliderID=0
+							DrawOptionsTooltip(tx,ty,tw,th,"roomlights")
+						EndIf
+
+						y=y+30*MenuScale
+
+						ScreenGamma = (SlideBar(x + 310*MenuScale, y+6*MenuScale, 150*MenuScale, ScreenGamma*50.0)/50.0)
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 7, "屏幕伽马值")
+						If MouseOn(x+310*MenuScale,y+6*MenuScale,150*MenuScale+14,20) And OnSliderID=0
+							DrawOptionsTooltip(tx,ty,tw,th,"gamma",ScreenGamma)
+						EndIf
+
+						y=y+50*MenuScale
+
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 4, "粒子数量：")
+						ParticleAmount = Slider3(x+310*MenuScale,y+6*MenuScale,150*MenuScale,ParticleAmount,2,"最少","适中","最多")
+						If (MouseOn(x + 310 * MenuScale, y-6*MenuScale, 150*MenuScale+14, 20) And OnSliderID=0) Or OnSliderID=2
+							DrawOptionsTooltip(tx,ty,tw,th,"particleamount",ParticleAmount)
+						EndIf
+
+						y=y+50*MenuScale
+
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 3, "纹理细节层次：")
+						TextureDetails = Slider5(x+310*MenuScale,y+6*MenuScale,150*MenuScale,TextureDetails,3,"0.8","0.4","0.0","-0.4","-0.8")
+						Select TextureDetails%
+							Case 0
+								TextureFloat# = 0.8
+							Case 1
+								TextureFloat# = 0.4
+							Case 2
+								TextureFloat# = 0.0
+							Case 3
+								TextureFloat# = -0.4
+							Case 4
+								TextureFloat# = -0.8
+						End Select
+						TextureLodBias TextureFloat
+						If (MouseOn(x+310*MenuScale,y-6*MenuScale,150*MenuScale+14,20) And OnSliderID=0) Or OnSliderID=3
+							DrawOptionsTooltip(tx,ty,tw,th+100*MenuScale,"texquality")
+						EndIf
+
+						y=y+50*MenuScale
+
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 5, "在VRAM中存储贴图：")
+						EnableVRam = DrawTick(x + 310 * MenuScale, y + MenuScale, EnableVRam)
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale) And OnSliderID=0
+							DrawOptionsTooltip(tx,ty,tw,th,"vram")
+						EndIf
+
+						;[End Block]
+					Case 5: ;Audio
+						;[Block]
+						height = 220 * MenuScale
+						DrawFrame(x, y, width, height)	
+
+						y = y + 20*MenuScale
+
+						MusicVolume = (SlideBar(x + 310*MenuScale, y-4*MenuScale, 150*MenuScale, MusicVolume*100.0)/100.0)
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 1, "音乐大小：")
+						If MouseOn(x+310*MenuScale,y-4*MenuScale,150*MenuScale+14,20)
+							DrawOptionsTooltip(tx,ty,tw,th,"musicvol",MusicVolume)
+						EndIf
+
+						y = y + 40*MenuScale
+
+						PrevSFXVolume = (SlideBar(x + 310*MenuScale, y-4*MenuScale, 150*MenuScale, SFXVolume*100.0)/100.0)
+						SFXVolume = PrevSFXVolume
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 1, "音效大小：")
+						If MouseOn(x+310*MenuScale,y-4*MenuScale,150*MenuScale+14,20)
+							DrawOptionsTooltip(tx,ty,tw,th,"soundvol",PrevSFXVolume)
+						EndIf
+
+						y = y + 30*MenuScale
+
+						Color 255,255,255
+						Text x + 20 * MenuScale, y + 2, "自动释放音频："
+						EnableSFXRelease = DrawTick(x + 310 * MenuScale, y + MenuScale, EnableSFXRelease)
+						If EnableSFXRelease_Prev% <> EnableSFXRelease
+							If EnableSFXRelease%
+								For snd.Sound = Each Sound
+									For i=0 To 31
+										If snd\channels[i]<>0 Then
+											If ChannelPlaying(snd\channels[i]) Then
+												StopChannel(snd\channels[i])
+											EndIf
+										EndIf
+									Next
+									If snd\internalHandle<>0 Then
+										FreeSound snd\internalHandle
+										snd\internalHandle = 0
+									EndIf
+									snd\releaseTime = 0
+								Next
+							Else
+								For snd.Sound = Each Sound
+									If snd\internalHandle = 0 Then snd\internalHandle = LoadSound(snd\name)
+								Next
+							EndIf
+							EnableSFXRelease_Prev% = EnableSFXRelease
 						EndIf
 						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-							DrawOptionsTooltip(tx,ty,tw,th,"usertrackmode")
+							DrawOptionsTooltip(tx,ty,tw,th+220*MenuScale,"sfxautorelease")
 						EndIf
-						If DrawButton(x + 20 * MenuScale, y + 30 * MenuScale + 1, 190 * MenuScale, 25 * MenuScale, "扫描自定频道",False)
-							DebugLog "User Tracks Check Started"
-							
-							UserTrackCheck% = 0
-							UserTrackCheck2% = 0
-							
-							Dir=ReadDir("SFX\Radio\UserTracks\")
-							Repeat
-								file$=NextFile(Dir)
-								If file$="" Then Exit
-								If FileType("SFX\Radio\UserTracks\"+file$) = 1 Then
-									UserTrackCheck = UserTrackCheck + 1
-									test = LoadSound("SFX\Radio\UserTracks\"+file$)
-									If test<>0
-										UserTrackCheck2 = UserTrackCheck2 + 1
+						y = y + 30*MenuScale
+
+						Color 255,255,255
+						Text x + 20 * MenuScale, y + 2, "启用自定频道："
+						EnableUserTracks = DrawTick(x + 310 * MenuScale, y + MenuScale, EnableUserTracks)
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+							DrawOptionsTooltip(tx,ty,tw,th,"usertrack")
+						EndIf
+
+						If EnableUserTracks
+							y = y + 30 * MenuScale
+							Color 255,255,255
+							Text x + 20 * MenuScale, y + 3, "自定频道模式："
+							UserTrackMode = DrawTick(x + 310 * MenuScale, y + MenuScale, UserTrackMode)
+							If UserTrackMode
+								Text x + 350 * MenuScale, y + MenuScale + 3, "循环"
+							Else
+								Text x + 350 * MenuScale, y + MenuScale + 3, "随机"
+							EndIf
+							If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+								DrawOptionsTooltip(tx,ty,tw,th,"usertrackmode")
+							EndIf
+							If DrawButton(x + 20 * MenuScale, y + 30 * MenuScale + 1, 190 * MenuScale, 25 * MenuScale, "扫描自定频道",False)
+								DebugLog "User Tracks Check Started"
+
+								UserTrackCheck% = 0
+								UserTrackCheck2% = 0
+
+								Dir=ReadDir("SFX\Radio\UserTracks\")
+								Repeat
+									file$=NextFile(Dir)
+									If file$="" Then Exit
+									If FileType("SFX\Radio\UserTracks\"+file$) = 1 Then
+										UserTrackCheck = UserTrackCheck + 1
+										test = LoadSound("SFX\Radio\UserTracks\"+file$)
+										If test<>0
+											UserTrackCheck2 = UserTrackCheck2 + 1
+										EndIf
+										FreeSound test
 									EndIf
-									FreeSound test
-								EndIf
-							Forever
-							CloseDir Dir
-							
-							DebugLog "User Tracks Check Ended"
+								Forever
+								CloseDir Dir
+
+								DebugLog "User Tracks Check Ended"
+							EndIf
+							If MouseOn(x+20*MenuScale,y+30*MenuScale,190*MenuScale,25*MenuScale)
+								DrawOptionsTooltip(tx,ty,tw,th,"usertrackscan")
+							EndIf
+							If UserTrackCheck%>0
+								Text x + 20 * MenuScale, y + 100 * MenuScale, "自定频道已创建 （"+UserTrackCheck2+"/"+UserTrackCheck+" 个文件已加载）"
+							EndIf
+						Else
+							UserTrackCheck%=0
 						EndIf
-						If MouseOn(x+20*MenuScale,y+30*MenuScale,190*MenuScale,25*MenuScale)
-							DrawOptionsTooltip(tx,ty,tw,th,"usertrackscan")
+						;[End Block]
+					Case 6: ;Controls
+						;[Block]
+						height = 270 * MenuScale
+						DrawFrame(x, y, width, height)	
+
+						y = y + 20*MenuScale
+
+						MouseSens = (SlideBar(x + 310*MenuScale, y-4*MenuScale, 150*MenuScale, (MouseSens+0.5)*100.0)/100.0)-0.5
+						Color(255, 255, 255)
+						Text(x + 20 * MenuScale, y + 2, "鼠标灵敏度：")
+						If MouseOn(x+310*MenuScale,y-4*MenuScale,150*MenuScale+14,20)
+							DrawOptionsTooltip(tx,ty,tw,th,"mousesensitivity",MouseSens)
 						EndIf
-						If UserTrackCheck%>0
-							Text x + 20 * MenuScale, y + 100 * MenuScale, "自定频道已创建 （"+UserTrackCheck2+"/"+UserTrackCheck+" 个文件已加载）"
+
+						y = y + 40*MenuScale
+
+						Color(255, 255, 255)
+						Text(x + 20 * MenuScale, y + 5, "反转鼠标Y轴：")
+						InvertMouse = DrawTick(x + 310 * MenuScale, y + MenuScale, InvertMouse)
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+							DrawOptionsTooltip(tx,ty,tw,th,"mouseinvert")
 						EndIf
-					Else
-						UserTrackCheck%=0
-					EndIf
-					;[End Block]
-				ElseIf MainMenuTab = 6 ;Controls
-					;[Block]
-					height = 270 * MenuScale
-					DrawFrame(x, y, width, height)	
-					
-					y = y + 20*MenuScale
-					
-					MouseSens = (SlideBar(x + 310*MenuScale, y-4*MenuScale, 150*MenuScale, (MouseSens+0.5)*100.0)/100.0)-0.5
-					Color(255, 255, 255)
-					Text(x + 20 * MenuScale, y + 2, "鼠标灵敏度：")
-					If MouseOn(x+310*MenuScale,y-4*MenuScale,150*MenuScale+14,20)
-						DrawOptionsTooltip(tx,ty,tw,th,"mousesensitivity",MouseSens)
-					EndIf
-					
-					y = y + 40*MenuScale
-					
-					Color(255, 255, 255)
-					Text(x + 20 * MenuScale, y + 5, "反转鼠标Y轴：")
-					InvertMouse = DrawTick(x + 310 * MenuScale, y + MenuScale, InvertMouse)
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"mouseinvert")
-					EndIf
-					
-					y = y + 40*MenuScale
-					
-					MouseSmooth = (SlideBar(x + 310*MenuScale, y-4*MenuScale, 150*MenuScale, (MouseSmooth)*50.0)/50.0)
-					Color(255, 255, 255)
-					Text(x + 20 * MenuScale, y + 1, "鼠标平滑度：")
-					If MouseOn(x+310*MenuScale,y-4*MenuScale,150*MenuScale+14,20)
-						DrawOptionsTooltip(tx,ty,tw,th,"mousesmoothing",MouseSmooth)
-					EndIf
-					
-					Color(255, 255, 255)
-					
-					y = y + 30*MenuScale
-					Text(x + 20 * MenuScale, y, "键位设置：")
-					y = y + 10*MenuScale
-					
-					Text(x + 20 * MenuScale, y + 20 * MenuScale + 2, "向前")
-					InputBox(x + 160 * MenuScale, y + 20 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_UP,210)),5)		
-					Text(x + 20 * MenuScale, y + 40 * MenuScale + 2, "向左")
-					InputBox(x + 160 * MenuScale, y + 40 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_LEFT,210)),3)	
-					Text(x + 20 * MenuScale, y + 60 * MenuScale + 2, "后退")
-					InputBox(x + 160 * MenuScale, y + 60 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_DOWN,210)),6)				
-					Text(x + 20 * MenuScale, y + 80 * MenuScale + 2, "向右")
-					InputBox(x + 160 * MenuScale, y + 80 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_RIGHT,210)),4)	
-					Text(x + 20 * MenuScale, y + 100 * MenuScale + 2, "快速保存")
-					InputBox(x + 160 * MenuScale, y + 100 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_SAVE,210)),11)
-					
-					Text(x + 280 * MenuScale, y + 20 * MenuScale + 2, "手动眨眼")
-					InputBox(x + 470 * MenuScale, y + 20 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_BLINK,210)),7)				
-					Text(x + 280 * MenuScale, y + 40 * MenuScale + 2, "疾跑")
-					InputBox(x + 470 * MenuScale, y + 40 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_SPRINT,210)),8)
-					Text(x + 280 * MenuScale, y + 60 * MenuScale + 2, "物品栏")
-					InputBox(x + 470 * MenuScale, y + 60 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_INV,210)),9)
-					Text(x + 280 * MenuScale, y + 80 * MenuScale + 2, "蹲下")
-					InputBox(x + 470 * MenuScale, y + 80 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_CROUCH,210)),10)	
-					Text(x + 280 * MenuScale, y + 100 * MenuScale + 2, "控制台")
-					InputBox(x + 470 * MenuScale, y + 100 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_CONSOLE,210)),12)
-					
-					If MouseOn(x+20*MenuScale,y,width-40*MenuScale,120*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"controls")
-					EndIf
-					
-					For i = 0 To 227
-						If KeyHit(i) Then key = i : Exit
-					Next
-					If key<>0 Then
-						Select SelectedInputBox
-							Case 3
-								KEY_LEFT = key
-							Case 4
-								KEY_RIGHT = key
-							Case 5
-								KEY_UP = key
-							Case 6
-								KEY_DOWN = key
-							Case 7
-								KEY_BLINK = key
-							Case 8
-								KEY_SPRINT = key
-							Case 9
-								KEY_INV = key
-							Case 10
-								KEY_CROUCH = key
-							Case 11
-								KEY_SAVE = key
-							Case 12
-								KEY_CONSOLE = key
-						End Select
-						SelectedInputBox = 0
-					EndIf
-					;[End Block]
-				ElseIf MainMenuTab = 7 ;Advanced
-					;[Block]
-					height = 340 * MenuScale
-					DrawFrame(x, y, width, height)	
-					
-					y = y + 20*MenuScale
-					
-					Color 255,255,255				
-					Text(x + 20 * MenuScale, y + 5, "显示HUD：")	
-					HUDenabled = DrawTick(x + 310 * MenuScale, y + MenuScale, HUDenabled)
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"hud")
-					EndIf
-					
-					y=y+30*MenuScale
-					
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 3, "启用控制台：")
-					CanOpenConsole = DrawTick(x + 310 * MenuScale, y + MenuScale, CanOpenConsole)
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"consoleenable")
-					EndIf
-					
-					y = y + 30*MenuScale
-					
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 3, "出现错误时打开控制台：")
-					ConsoleOpening = DrawTick(x + 310 * MenuScale, y + MenuScale, ConsoleOpening)
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"consoleerror")
-					EndIf
-					
-					y = y + 50*MenuScale
-					
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 3, "成就提示：")
-					AchvMSGenabled% = DrawTick(x + 310 * MenuScale, y + MenuScale, AchvMSGenabled%)
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"achpopup")
-					EndIf
-					
-					y = y + 50*MenuScale
-					
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 2, "显示FPS：")
-					ShowFPS% = DrawTick(x + 310 * MenuScale, y + MenuScale, ShowFPS%)
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"showfps")
-					EndIf
-					
-					y = y + 30*MenuScale
-					
-					Color 255,255,255
-					Text(x + 20 * MenuScale, y + 2, "帧数限制：")
-					Color 255,255,255
-					If DrawTick(x + 310 * MenuScale, y, CurrFrameLimit > 0.0) Then
-						CurrFrameLimit# = (SlideBar(x + 150*MenuScale, y+30*MenuScale, 100*MenuScale, CurrFrameLimit#*99.0)/99.0)
-						CurrFrameLimit# = Max(CurrFrameLimit, 0.01)
-						Framelimit% = 19+(CurrFrameLimit*100.0)
-						Color 255,255,0
-						Text(x + 25 * MenuScale, y + 25 * MenuScale + 7, Framelimit%+" FPS")
-					Else
-						CurrFrameLimit# = 0.0
-						Framelimit = 0
-					EndIf
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
-					EndIf
-					If MouseOn(x+150*MenuScale,y+30*MenuScale,100*MenuScale+14,20)
-						DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
-					EndIf
-					
-					Color 255,255,255
-					y = y + 70*MenuScale
-					
-					Text(x + 20 * MenuScale, y + 2, "显示字幕：")
-					EnableSubtitles% = DrawTick(x + 310 * MenuScale, y + MenuScale, EnableSubtitles%)
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"subtitle")
-					EndIf
-					
-					Color 255,255,255
-					y = y + 30*MenuScale
-					
-					Text(x + 20 * MenuScale, y + 2, "繁简转换：")
-					TraditionalChinese% = DrawTick(x + 310 * MenuScale, y, TraditionalChinese%)
-					If TraditionalChinese_Prev% <> TraditionalChinese
-						If TraditionalChinese Then OpenCC "Traditional\OpenCC\s2twp.json" Else OpenCC ""
-						TraditionalChinese_Prev% = TraditionalChinese
-					EndIf
-					If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"traditional")
-					EndIf
-					;[End Block]
-				EndIf
+
+						y = y + 40*MenuScale
+
+						MouseSmooth = (SlideBar(x + 310*MenuScale, y-4*MenuScale, 150*MenuScale, (MouseSmooth)*50.0)/50.0)
+						Color(255, 255, 255)
+						Text(x + 20 * MenuScale, y + 1, "鼠标平滑度：")
+						If MouseOn(x+310*MenuScale,y-4*MenuScale,150*MenuScale+14,20)
+							DrawOptionsTooltip(tx,ty,tw,th,"mousesmoothing",MouseSmooth)
+						EndIf
+
+						Color(255, 255, 255)
+
+						y = y + 30*MenuScale
+						Text(x + 20 * MenuScale, y, "键位设置：")
+						y = y + 10*MenuScale
+
+						Text(x + 20 * MenuScale, y + 20 * MenuScale + 2, "向前")
+						InputBox(x + 160 * MenuScale, y + 20 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_UP,210)),5)		
+						Text(x + 20 * MenuScale, y + 40 * MenuScale + 2, "向左")
+						InputBox(x + 160 * MenuScale, y + 40 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_LEFT,210)),3)	
+						Text(x + 20 * MenuScale, y + 60 * MenuScale + 2, "后退")
+						InputBox(x + 160 * MenuScale, y + 60 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_DOWN,210)),6)				
+						Text(x + 20 * MenuScale, y + 80 * MenuScale + 2, "向右")
+						InputBox(x + 160 * MenuScale, y + 80 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_RIGHT,210)),4)	
+						Text(x + 20 * MenuScale, y + 100 * MenuScale + 2, "快速保存")
+						InputBox(x + 160 * MenuScale, y + 100 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_SAVE,210)),11)
+
+						Text(x + 280 * MenuScale, y + 20 * MenuScale + 2, "手动眨眼")
+						InputBox(x + 470 * MenuScale, y + 20 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_BLINK,210)),7)				
+						Text(x + 280 * MenuScale, y + 40 * MenuScale + 2, "疾跑")
+						InputBox(x + 470 * MenuScale, y + 40 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_SPRINT,210)),8)
+						Text(x + 280 * MenuScale, y + 60 * MenuScale + 2, "物品栏")
+						InputBox(x + 470 * MenuScale, y + 60 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_INV,210)),9)
+						Text(x + 280 * MenuScale, y + 80 * MenuScale + 2, "蹲下")
+						InputBox(x + 470 * MenuScale, y + 80 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_CROUCH,210)),10)	
+						Text(x + 280 * MenuScale, y + 100 * MenuScale + 2, "控制台")
+						InputBox(x + 470 * MenuScale, y + 100 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_CONSOLE,210)),12)
+
+						If MouseOn(x+20*MenuScale,y,width-40*MenuScale,120*MenuScale)
+							DrawOptionsTooltip(tx,ty,tw,th,"controls")
+						EndIf
+
+						For i = 0 To 227
+							If KeyHit(i) Then key = i : Exit
+						Next
+						If key<>0 Then
+							Select SelectedInputBox
+								Case 3
+									KEY_LEFT = key
+								Case 4
+									KEY_RIGHT = key
+								Case 5
+									KEY_UP = key
+								Case 6
+									KEY_DOWN = key
+								Case 7
+									KEY_BLINK = key
+								Case 8
+									KEY_SPRINT = key
+								Case 9
+									KEY_INV = key
+								Case 10
+									KEY_CROUCH = key
+								Case 11
+									KEY_SAVE = key
+								Case 12
+									KEY_CONSOLE = key
+							End Select
+							SelectedInputBox = 0
+						EndIf
+						;[End Block]
+					Case 7: ;Advanced
+						;[Block]
+						height = 340 * MenuScale
+						DrawFrame(x, y, width, height)	
+
+						y = y + 20*MenuScale
+
+						Color 255,255,255				
+						Text(x + 20 * MenuScale, y + 5, "显示HUD：")	
+						HUDenabled = DrawTick(x + 310 * MenuScale, y + MenuScale, HUDenabled)
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+							DrawOptionsTooltip(tx,ty,tw,th,"hud")
+						EndIf
+
+						y=y+30*MenuScale
+
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 3, "启用控制台：")
+						CanOpenConsole = DrawTick(x + 310 * MenuScale, y + MenuScale, CanOpenConsole)
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+							DrawOptionsTooltip(tx,ty,tw,th,"consoleenable")
+						EndIf
+
+						y = y + 30*MenuScale
+
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 3, "出现错误时打开控制台：")
+						ConsoleOpening = DrawTick(x + 310 * MenuScale, y + MenuScale, ConsoleOpening)
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+							DrawOptionsTooltip(tx,ty,tw,th,"consoleerror")
+						EndIf
+
+						y = y + 50*MenuScale
+
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 3, "成就提示：")
+						AchvMSGenabled% = DrawTick(x + 310 * MenuScale, y + MenuScale, AchvMSGenabled%)
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+							DrawOptionsTooltip(tx,ty,tw,th,"achpopup")
+						EndIf
+
+						y = y + 50*MenuScale
+
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 2, "显示FPS：")
+						ShowFPS% = DrawTick(x + 310 * MenuScale, y + MenuScale, ShowFPS%)
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+							DrawOptionsTooltip(tx,ty,tw,th,"showfps")
+						EndIf
+
+						y = y + 30*MenuScale
+
+						Color 255,255,255
+						Text(x + 20 * MenuScale, y + 2, "帧数限制：")
+						Color 255,255,255
+						If DrawTick(x + 310 * MenuScale, y, CurrFrameLimit > 0.0) Then
+							CurrFrameLimit# = (SlideBar(x + 150*MenuScale, y+30*MenuScale, 100*MenuScale, CurrFrameLimit#*99.0)/99.0)
+							CurrFrameLimit# = Max(CurrFrameLimit, 0.01)
+							Framelimit% = 19+(CurrFrameLimit*100.0)
+							Color 255,255,0
+							Text(x + 25 * MenuScale, y + 25 * MenuScale + 7, Framelimit%+" FPS")
+						Else
+							CurrFrameLimit# = 0.0
+							Framelimit = 0
+						EndIf
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+							DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
+						EndIf
+						If MouseOn(x+150*MenuScale,y+30*MenuScale,100*MenuScale+14,20)
+							DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
+						EndIf
+
+						Color 255,255,255
+						y = y + 70*MenuScale
+
+						Text(x + 20 * MenuScale, y + 2, "显示字幕：")
+						EnableSubtitles% = DrawTick(x + 310 * MenuScale, y + MenuScale, EnableSubtitles%)
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+							DrawOptionsTooltip(tx,ty,tw,th,"subtitle")
+						EndIf
+
+						Color 255,255,255
+						y = y + 30*MenuScale
+
+						Text(x + 20 * MenuScale, y + 2, "繁简转换：")
+						TraditionalChinese% = DrawTick(x + 310 * MenuScale, y, TraditionalChinese%)
+						If TraditionalChinese_Prev% <> TraditionalChinese
+							If TraditionalChinese Then OpenCC "Traditional\OpenCC\s2twp.json" Else OpenCC ""
+							TraditionalChinese_Prev% = TraditionalChinese
+						EndIf
+						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
+							DrawOptionsTooltip(tx,ty,tw,th,"traditional")
+						EndIf
+						;[End Block]
+				End Select
 				;[End Block]
 			Case 4 ; load map
 				;[Block]
@@ -1040,9 +1026,9 @@ Function UpdateMainMenu()
 							DrawFrame(x,y,540* MenuScale, 70* MenuScale)
 							
 							Text(x + 20 * MenuScale, y + 10 * MenuScale, SavedMaps(i - 1))
-							Text(x + 20 * MenuScale, y + (10+27) * MenuScale, ConvertToUTF8(SavedMapsAuthor(i - 1)))
+							Text(x + 20 * MenuScale, y + (10+27) * MenuScale, SavedMapsAuthor(i - 1))
 							
-							If DrawButton(x + 400 * MenuScale, y + 20 * MenuScale, 100 * MenuScale, 30 * MenuScale, "Load", False) Then
+							If DrawButton(x + 400 * MenuScale, y + 20 * MenuScale, 100 * MenuScale, 30 * MenuScale, "加载", False) Then
 								SelectedMap=SavedMaps(i - 1)
 								MainMenuTab = 1
 							EndIf
@@ -1071,7 +1057,6 @@ Function UpdateMainMenu()
 	Text GraphicWidth-20,10,"汉化制作：子悦汉化组",2
 	Text GraphicWidth-20,(10+FontHeight())+FontHeight(),"对外交流群：1006841985",2
 	Text GraphicWidth-20,(10+FontHeight()*2)+FontHeight()+FontHeight(),"scpcbgame.cn",2
-	;DrawTiledImageRect(MenuBack, 985 * MenuScale, 860 * MenuScale, 200 * MenuScale, 20 * MenuScale, 1200 * MenuScale, 866 * MenuScale, 300, 20 * MenuScale)
 	
 	If Fullscreen Then DrawImage CursorIMG, ScaledMouseX(),ScaledMouseY()
 	
@@ -1082,8 +1067,6 @@ Function UpdateLauncher()
 	MenuScale = 1
 	
 	Graphics3DExt(LauncherWidth, LauncherHeight, 0, 2)
-
-	;InitExt
 	
 	SetBuffer BackBuffer()
 	
@@ -1126,8 +1109,6 @@ Function UpdateLauncher()
 	AppTitle "SCP - 收容失效汉化版 启动器"
 	
 	Repeat
-		
-		;Cls
 		Color 0,0,0
 		Rect 0,0,LauncherWidth,LauncherHeight,True
 		
@@ -1168,7 +1149,7 @@ Function UpdateLauncher()
 		For i = 1 To CountGfxDrivers()
 			Color 0, 0, 0
 			If SelectedGFXDriver = i Then Rect(x - 1, y - 1, 290, 20, False)
-			LimitText(GfxDriverName(i), x, y + 4, 290, False)
+			LimitText(ConvertToUTF8(GfxDriverName(i)), x, y + 4, 290, False)
 			If MouseOn(x - 1, y - 1, 290, 20) Then
 				Color 100, 100, 100
 				Rect(x - 1, y - 1, 290, 20, False)
@@ -1273,9 +1254,7 @@ Function UpdateLauncher()
 	
 End Function
 
-
 Function DrawTiledImageRect(img%, srcX%, srcY%, srcwidth#, srcheight#, x%, y%, width%, height%)
-	
 	Local x2% = x
 	While x2 < x+width
 		Local y2% = y
@@ -1287,9 +1266,7 @@ Function DrawTiledImageRect(img%, srcX%, srcY%, srcwidth#, srcheight#, x%, y%, w
 		Wend
 		x2 = x2 + srcwidth
 	Wend
-	
 End Function
-
 
 
 Type LoadingScreens
@@ -1351,10 +1328,7 @@ Function InitLoadingScreens(file$)
 	CloseFile f
 End Function
 
-
-
 Function DrawLoading(percent%, shortloading=False)
-	
 	Local x%, y%
 	
 	If percent = 0 Then
@@ -1372,14 +1346,8 @@ Function DrawLoading(percent%, shortloading=False)
 	
 	firstloop = True
 	Repeat 
-		
-		;Color 0,0,0
-		;Rect 0,0,GraphicWidth,GraphicHeight,True
-		;Color 255, 255, 255
 		ClsColor 0,0,0
 		Cls
-		
-		;Cls(True,False)
 		
 		If percent > 20 Then
 			UpdateMusic()
@@ -1570,8 +1538,6 @@ Function DrawLoading(percent%, shortloading=False)
 	Until (GetKey()<>0 Or MouseHit(1))
 End Function
 
-
-
 Function InputBox$(x%, y%, width%, height%, Txt$, ID% = 0)
 	;TextBox(x,y,width,height,Txt$)
 	Color (255, 255, 255)
@@ -1628,7 +1594,6 @@ Function DrawButton%(x%, y%, width%, height%, txt$, bigfont% = True, waitForMous
 	Text(x + width / 2, y + height / 2 - 1 - fontOffset, txt, True, True)
 	
 	Return clicked
-	clicked = False
 End Function
 
 Function DrawButton2%(x%, y%, width%, height%, txt$, bigfont% = True)
@@ -1684,7 +1649,6 @@ Function DrawTick%(x%, y%, selected%, locked% = False)
 End Function
 
 Function SlideBar#(x%, y%, width%, value#)
-	
 	If MouseDown1 And OnSliderID=0 Then
 		If ScaledMouseX() >= x And ScaledMouseX() <= x + width + 14 And ScaledMouseY() >= y And ScaledMouseY() <= y + 20 Then
 			value = Min(Max((ScaledMouseX() - x) * 100 / width, 0), 100)
@@ -1701,11 +1665,7 @@ Function SlideBar#(x%, y%, width%, value#)
 	Text (x + width + 38 * MenuScale, (y+4*MenuScale)+2, "高")	
 	
 	Return value
-	
 End Function
-
-
-
 
 Function RowText(A$, X, Y, W, H, align% = 0, Leading#=1)
 	;Display A$ starting at X,Y - no wider than W And no taller than H (all in pixels).
@@ -1753,7 +1713,6 @@ Function RowText(A$, X, Y, W, H, align% = 0, Leading#=1)
 			Text(X, LinesShown * Height + Y, b) ;Print any remaining Text If it'll fit vertically
 		EndIf
 	EndIf
-	
 End Function
 
 Function RowText2(A$, X, Y, W, H, align% = 0, Leading#=1)
@@ -1802,13 +1761,11 @@ Function RowText2(A$, X, Y, W, H, align% = 0, Leading#=1)
 			Text(X, LinesShown * Height + Y, b) ;Print any remaining Text If it'll fit vertically
 		EndIf
 	EndIf
-	
 End Function
 
 Function GetLineAmount(A$, W, H, Leading#=1)
 	;Display A$ starting at X,Y - no wider than W And no taller than H (all in pixels).
 	;Leading is optional extra vertical spacing in pixels
-	
 	If H<1 Then H=2048
 	
 	Local LinesShown = 0
@@ -1840,7 +1797,6 @@ Function GetLineAmount(A$, W, H, Leading#=1)
 	Wend
 	
 	Return LinesShown+1
-	
 End Function
 
 Function GetLineAmount2(A$, W, H, Leading#=1)
@@ -1878,7 +1834,6 @@ Function GetLineAmount2(A$, W, H, Leading#=1)
 	Wend
 	
 	Return LinesShown+1
-	
 End Function
 
 Function LimitText%(txt$, x%, y%, width%, usingAA%=True)
@@ -1890,22 +1845,21 @@ Function LimitText%(txt$, x%, y%, width%, usingAA%=True)
 		TextLength = StringWidth(txt)
 		UnFitting = TextLength - width
 		If UnFitting <= 0 Then ;mahtuu
-			Text(x, y, txt, 0, 0, 1)
+			Text(x, y, txt, 0, 0)
 		Else ;ei mahdu
 			LetterWidth = TextLength / Len(txt)
-			
-			Text(x, y, Left(txt, Max(Len(txt) - UnFitting / LetterWidth - 4, 1)) + "...", 0, 0, 1)
+			Text(x, y, Left(txt, Max(Len(txt) - UnFitting / LetterWidth - 4, 1)) + "...", 0, 0)
 		End If
 	Else
 		If txt = "" Or width = 0 Then Return 0
 		TextLength = StringWidth(txt)
 		UnFitting = TextLength - width
 		If UnFitting <= 0 Then ;mahtuu
-			Text(x, y, txt, 0, 0, 1)
+			Text(x, y, txt, 0, 0)
 		Else ;ei mahdu
 			LetterWidth = TextLength / Len(txt)
 			
-			Text(x, y, Left(txt, Max(Len(txt) - UnFitting / LetterWidth - 4, 1)) + "...", 0, 0, 1)
+			Text(x, y, Left(txt, Max(Len(txt) - UnFitting / LetterWidth - 4, 1)) + "...", 0, 0)
 		End If
 	EndIf
 End Function
@@ -1928,13 +1882,12 @@ Global QuickLoadPercent_DisplayTimer# = 0
 Global QuickLoad_CurrEvent.Events
 
 Function DrawQuickLoading()
-	
 	If QuickLoadPercent > -1
 		MidHandle QuickLoadIcon
 		DrawImage QuickLoadIcon,GraphicWidth-90,GraphicHeight-150
 		Color 255,255,255
 		SetFont Font1
-		Text GraphicWidth-100,GraphicHeight-90,"LOADING: "+QuickLoadPercent+"%",1
+		Text GraphicWidth-100,GraphicHeight-90,"加载中： "+QuickLoadPercent+"%",1
 		If QuickLoadPercent > 99
 			If QuickLoadPercent_DisplayTimer < 70
 				QuickLoadPercent_DisplayTimer# = Min(QuickLoadPercent_DisplayTimer+FPSfactor,70)
@@ -1948,7 +1901,6 @@ Function DrawQuickLoading()
 		QuickLoadPercent_DisplayTimer# = 0
 		QuickLoad_CurrEvent = Null
 	EndIf
-	
 End Function
 
 Function DrawOptionsTooltip(x%,y%,width%,height%,option$,value#=0,ingame%=False)
@@ -2112,7 +2064,6 @@ Function DrawOptionsTooltip(x%,y%,width%,height%,option$,value#=0,ingame%=False)
 			DrawImage Menu_TestIMG,x+(width/2),y+100*MenuScale+(((StringHeight(txt)*lines)+(10+lines)*MenuScale)+(StringHeight(txt2)*lines2)+(10+lines2)*MenuScale)
 		EndIf
 	EndIf
-	
 End Function
 
 Function DrawMapCreatorTooltip(x%,y%,width%,height%,mapname$)
@@ -2130,8 +2081,8 @@ Function DrawMapCreatorTooltip(x%,y%,width%,height%,mapname$)
 		txt[0] = Left(mapname$,Len(mapname$)-7)
 		Local f% = OpenFile("Map Creator\Maps\"+mapname$)
 		
-		Local author$ = ReadLine(f)
-		Local descr$ = ReadLine(f)
+		Local author$ = ConvertToUTF8(ReadLine(f))
+		Local descr$ = ConvertToUTF8(ReadLine(f))
 		ReadByte(f)
 		ReadByte(f)
 		Local ramount% = ReadInt(f)
@@ -2155,8 +2106,8 @@ Function DrawMapCreatorTooltip(x%,y%,width%,height%,mapname$)
 		hasForest% = False
 		hasMT% = False
 	EndIf
-	txt[1] = "作者： "+ConvertToUTF8(author)
-	txt[2] = "描述： "+ConvertToUTF8(descr)
+	txt[1] = "作者： "+author
+	txt[2] = "描述： "+descr
 	If ramount > 0 Then
 		txt[3] = "房间数量： "+ramount
 	Else
@@ -2183,11 +2134,9 @@ Function DrawMapCreatorTooltip(x%,y%,width%,height%,mapname$)
 	Text(fx,fy+((StringHeight(txt[0])*2)+StringHeight(txt[2])*lines+5*MenuScale),txt[3])
 	Text(fx,fy+((StringHeight(txt[0])*3)+StringHeight(txt[2])*lines+5*MenuScale),txt[4])
 	Text(fx,fy+((StringHeight(txt[0])*4)+StringHeight(txt[2])*lines+5*MenuScale),txt[5])
-	
 End Function
 
 Function ChangeMenu_TestIMG(change$)
-	
 	If Menu_TestIMG <> 0 Then FreeImage Menu_TestIMG
 	AmbientLightRoomTex% = CreateTexture(2,2,257)
 	TextureBlend AmbientLightRoomTex,5
@@ -2201,13 +2150,11 @@ Function ChangeMenu_TestIMG(change$)
 	FreeTexture AmbientLightRoomTex : AmbientLightRoomTex = 0
 	
 	CurrMenu_TestIMG = change$
-	
 End Function
 
 Global OnSliderID% = 0
 
 Function Slider3(x%,y%,width%,value%,ID%,val1$,val2$,val3$)
-	
 	If MouseDown1 Then
 		If (ScaledMouseX() >= x) And (ScaledMouseX() <= x+width+14) And (ScaledMouseY() >= y-8) And (ScaledMouseY() <= y+10)
 			OnSliderID = ID
@@ -2255,11 +2202,9 @@ Function Slider3(x%,y%,width%,value%,ID%,val1$,val2$,val3$)
 	EndIf
 	
 	Return value
-	
 End Function
 
 Function Slider4(x%,y%,width%,value%,ID%,val1$,val2$,val3$,val4$)
-	
 	If MouseDown1 Then
 		If (ScaledMouseX() >= x) And (ScaledMouseX() <= x+width+14) And (ScaledMouseY() >= y-8) And (ScaledMouseY() <= y+10)
 			OnSliderID = ID
@@ -2314,11 +2259,9 @@ Function Slider4(x%,y%,width%,value%,ID%,val1$,val2$,val3$,val4$)
 	EndIf
 	
 	Return value
-	
 End Function
 
 Function Slider5(x%,y%,width%,value%,ID%,val1$,val2$,val3$,val4$,val5$)
-	
 	If MouseDown1 Then
 		If (ScaledMouseX() >= x) And (ScaledMouseX() <= x+width+14) And (ScaledMouseY() >= y-8) And (ScaledMouseY() <= y+10)
 			OnSliderID = ID
@@ -2380,11 +2323,9 @@ Function Slider5(x%,y%,width%,value%,ID%,val1$,val2$,val3$,val4$,val5$)
 	EndIf
 	
 	Return value
-	
 End Function
 
 Function Slider7(x%,y%,width%,value%,ID%,val1$,val2$,val3$,val4$,val5$,val6$,val7$)
-	
 	If MouseDown1 Then
 		If (ScaledMouseX() >= x) And (ScaledMouseX() <= x+width+14) And (ScaledMouseY() >= y-8) And (ScaledMouseY() <= y+10)
 			OnSliderID = ID
@@ -2460,7 +2401,6 @@ Function Slider7(x%,y%,width%,value%,ID%,val1$,val2$,val3$,val4$,val5$,val6$,val
 	EndIf
 	
 	Return value
-	
 End Function
 
 Global OnBar%
@@ -2469,12 +2409,10 @@ Global ScrollMenuHeight# = 0.0
 
 Function DrawScrollBar#(x, y, width, height, barx, bary, barwidth, barheight, bar#, dir = 0)
 	;0 = vaakasuuntainen, 1 = pystysuuntainen
-	
 	Local MouseSpeedX = MouseXSpeed()
 	Local MouseSpeedY = MouseYSpeed()
 	
 	Color(0, 0, 0)
-	;Rect(x, y, width, height)
 	Button(barx, bary, barwidth, barheight, "")
 	
 	If dir = 0 Then ;vaakasuunnassa
@@ -2517,8 +2455,13 @@ Function DrawScrollBar#(x, y, width, height, barx, bary, barwidth, barheight, ba
 		EndIf
 	EndIf
 	
-	Return bar
+	Local MouseSpeedZ = MouseZSpeed()
+			
+	If MouseSpeedZ<>0 Then ;Only for vertical scroll bars
+		Return Min(Max(bar - (MouseSpeedZ*3) / Float(height - barheight), 0), 1)
+    EndIf
 	
+	Return bar
 End Function
 
 Function Button%(x,y,width,height,txt$, disabled%=False)
@@ -2566,13 +2509,3 @@ Function Button%(x,y,width,height,txt$, disabled%=False)
 	
 	If Pushed And MouseHit1 Then PlaySound_Strict ButtonSFX : Return True
 End Function
-
-
-
-
-
-
-;~IDEal Editor Parameters:
-;~F#33#499#4AB#4B5#4E8#5C3#5D6#5F3#5FA#615#629#64A#662#693#6C4#6EA#710#72D#73E#756
-;~F#764#787#79F#7A8#7D9#7ED#821#867#8A9
-;~C#Blitz3D

@@ -70,6 +70,3 @@ difficulties(CUSTOM)\g = 255
 difficulties(CUSTOM)\b = 255
 
 SelectedDifficulty = difficulties(SAFE)
-;~IDEal Editor Parameters:
-;~F#0
-;~C#Blitz3D

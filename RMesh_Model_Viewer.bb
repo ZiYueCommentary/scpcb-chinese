@@ -1,6 +1,6 @@
 Global XE_XF,XE_MAXtextures
 
-SetFont LoadFont("GFX\font\Containment Breach.ttf", 15)
+SetFont LoadFont_Strict("GFX\font\Containment Breach.ttf", 15)
 
 Type XE_texdata
 	Field idx,h,fn$
@@ -46,7 +46,6 @@ Function writemesh(mesh,e_filename$)
 	WriteLine XE_XF,"      0.000000,0.000000,0.000000,1.000000;;"
 	WriteLine XE_XF,"   }"
 
-	;chiname$=EntityName(mesh)
 	RecursiveAddMesh(mesh)
 
 	WriteLine XE_XF,"} //End of root"
@@ -68,20 +67,11 @@ Function writemesh(mesh,e_filename$)
 					If Instr (l$,"//") Then l$=USV(ReadLine(rfile),1,"//")
 					l$=Trim(l$)
 					WriteLine wfile,l$
-					;dat$=dat$+l$
-					;If MilliSecs()>gtime+1000 gtime=MilliSecs():messagebox(-1,0,300,"Truncating ","Collapsing whitespace, end Of Line characters and ","comments, Please Wait..","","Line "+lines+" "+ l$)
-
 				EndIf
 			Wend
 			CloseFile rfile
 			CloseFile wfile
-		Else
-			
-			
-		EndIf	
        EndIf
-       ;CopyFile filenameout$+"temp",filenameout$
-
        ;anti NAN patch for X exporter
        fileR=OpenFile (filenameout)
        fileW=OpenFile (tempfilename)
@@ -94,13 +84,10 @@ Function writemesh(mesh,e_filename$)
       CloseFile fileW
       CopyFile fileW,fileR
       DeleteFile fileW
-
-	
 End Function
 
-
 Function RecursiveAddMaterial(h,forcematerial$,e_directory$="")
-DebugLog CountChildren(h)
+	DebugLog CountChildren(h)
 
 	If EntityClass$(h)="Mesh"
 		;get neccacaries
@@ -156,8 +143,7 @@ DebugLog CountChildren(h)
 	For cc =CountChildren(h) To 1 Step -1
 		chi=GetChild (h,cc)
 		RecursiveAddMaterial(chi,forcematerial$)
-	Next 
-
+	Next
 End Function
 
 Function GetStringofMatElement$(mesh,x,y)
@@ -189,9 +175,7 @@ Function RecursiveAddMesh(h,basescaleX#=1,basescaleY#=1,basescaleZ#=1)
 		DebugLog "Recursing "+chiname+" Childs="+CountChildren(h)+" Depth="+recuse_depth
 		If chiname="" Or Instr(chiname,"NoName") chiname="NoName"+MilliSecs()
 		DebugLog chiname
-		
-;		mesh=CopyEntity(h)
-;		EntityParent mesh,0
+
 		mesh=h
 
 		WriteLine XE_XF,"   Frame "+ChiName$+" {"
@@ -210,23 +194,19 @@ Function RecursiveAddMesh(h,basescaleX#=1,basescaleY#=1,basescaleZ#=1)
 				tris=CountTriangles(surf)
 				;meshinfo
 				WriteLine XE_XF,"      Mesh "+ChiName$+" {"
-	
-	
+				
 				;Number of verts;
 				WriteLine XE_XF,"         "+verts+";"
-	
-	
+				
 				;X;Y;Z; of verts;
 				For v=0 To verts-1
 					If v=verts-1 Then term$=";;" Else term$=";,"
 					WriteLine XE_XF,"         "+VertexX (surf,v)+";"+VertexY (surf,v)+";"+VertexZ (surf,v)+term$
 				Next
-	
 				
 				;No of tris;
 				WriteLine XE_XF,"         "+tris+";"
-	
-	
+				
 				;Tri ordering 3;t0,t1,t2;,
 				For t=0 To Tris-1
 					If t=tris-1 Then term$=";;" Else term$=";,"
@@ -284,9 +264,6 @@ Function RecursiveAddMesh(h,basescaleX#=1,basescaleY#=1,basescaleZ#=1)
 	
 			Next	 
 		EndIf
-
-		;FreeEntity mesh
-		
 		;do all childs.. of childs etc
 		DebugLog "has "+CountChildren(h)
 		For cc=CountChildren(h) To 1 Step -1
@@ -301,7 +278,6 @@ Function RecursiveAddMesh(h,basescaleX#=1,basescaleY#=1,basescaleZ#=1)
 
 
 	recuse_depth=recuse_depth-1
-
 End Function
 
 Function LookUpTindex(surf)
@@ -312,66 +288,40 @@ Function LookUpTindex(surf)
 End Function
 
 Function strip_path$(f$)
-	 	f$=Lower$(f$) ; Full (!) Texture Path
-		lastknown=0
-		For p=1 To Len (f$)
-			If Instr(f$,"\",p) Then lastknown=lastknown+1
-		Next
-		fnl=Len(f$)-lastknown
-		f$=Right(f$,fnl)
- 		;DebugLog "filename stripped"+ f$
+	 f$=Lower$(f$) ; Full (!) Texture Path
+	lastknown=0
+	For p=1 To Len (f$)
+		If Instr(f$,"\",p) Then lastknown=lastknown+1
+	Next
+	fnl=Len(f$)-lastknown
+	f$=Right(f$,fnl)
 
-		Return f$
+	Return f$
 End Function
 
 ;'user separated values
 
 Function USV$(in$,which%=1,sep$=",")
-
 ;''pipe seprated values
-
 	Local n% = 1
-
 	Local offset% = 0
-
 	Local nextoffset% = 1
-
 	Local ValueRet$ =""
-
 	
-
 	While offset<Len(in$)
-
 		nextoffset = Instr(in$,sep$,offset+1)
-
 		If nextoffset = 0
-
 			nextoffset = Len(in$)+1
-
 			which = n
-
 		End If
-
 		ValueRet$ = Mid$(in$,offset+1,nextoffset-offset-1)
-
 		If which = n	
-
 			Return ValueRet	
-
 		End If
-
 		offset = nextoffset
-
 		n=n+1
-
 	Wend
-
-
-
 	Return n-1
-
-
-
 End Function
 
 ;RMESH STUFF;;;;
@@ -402,15 +352,12 @@ Function StripPath$(file$)
 	Local name$=""
 	If Len(file$)>0 
 		For i=Len(file$) To 1 Step -1 
-			
 			mi$=Mid$(file$,i,1) 
 			If mi$="\" Or mi$="/" Then Return name$
 			
 			name$=mi$+name$ 
 		Next 
-		
-	EndIf 
-	
+	EndIf
 	Return name$ 
 End Function
 
@@ -460,13 +407,6 @@ Function GetTextureFromCache%(name$)
 	Return 0
 End Function
 
-;Function GetBumpFromCache%(name$)
-;	For tc.Materials=Each Materials
-;		If tc\name = name Then Return tc\Bump
-;	Next
-;	Return 0
-;End Function
-
 Function GetCache.Materials(name$)
 	For tc.Materials=Each Materials
 		If tc\name = name Then Return tc
@@ -479,13 +419,6 @@ Function AddTextureToCache(texture%)
 	If tc.Materials=Null Then
 		tc.Materials=New Materials
 		tc\name=StripPath(TextureName(texture))
-		;Local temp$=GetINIString("Data\materials.ini",tc\name,"bump")
-		;If temp<>"" Then
-		;	tc\Bump=LoadTexture_Strict(temp)
-		;	TextureBlend tc\Bump,FE_BUMP
-		;Else
-		;	tc\Bump=0
-		;EndIf
 		tc\Diff=0
 	EndIf
 	If tc\Diff=0 Then tc\Diff=texture
@@ -494,7 +427,6 @@ End Function
 Function ClearTextureCache()
 	For tc.Materials=Each Materials
 		If tc\Diff<>0 Then FreeTexture tc\Diff
-		;If tc\Bump<>0 Then FreeTexture tc\Bump
 		Delete tc
 	Next
 End Function
@@ -502,8 +434,7 @@ End Function
 Function FreeTextureCache()
 	For tc.Materials=Each Materials
 		If tc\Diff<>0 Then FreeTexture tc\Diff
-		;If tc\Bump<>0 Then FreeTexture tc\Bump
-		tc\Diff = 0; : tc\Bump = 0
+		tc\Diff = 0
 	Next
 End Function
 
@@ -718,7 +649,7 @@ Next
 Local fname$ = Input("RMesh文件路径：")
 
 Graphics3D 1280,720,32,2
-SetFont LoadFont("GFX\font\Containment Breach.ttf", 15)
+SetFont LoadFont_Strict("GFX\font\Containment Breach.ttf", 15)
 ;Global bump% = LoadTexture("scpcb/gfx/map/tilebump.jpg")
 ;TextureBlend bump,6
 ;TextureBumpEnvMat bump,0,0,1.009
@@ -816,12 +747,5 @@ While Not KeyHit(1)
 	If KeyHit(48) Then
 		BumpEnvMat = BumpEnvMat*3
 	EndIf
-	
-	;TextureBumpEnvMat bump,0,0,-BumpEnvMat
-	;TextureBumpEnvMat bump,0,1,-BumpEnvMat
-	;TextureBumpEnvMat bump,1,0,BumpEnvMat
-	;TextureBumpEnvMat bump,1,1,BumpEnvMat
-	;TextureBumpEnvOffset bump,0.5
-	
 	Flip
 Wend

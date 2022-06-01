@@ -40,5 +40,3 @@ Repeat
 	Delay 8
 Until WaitKey()
 End
-;~IDEal Editor Parameters:
-;~C#Blitz3D

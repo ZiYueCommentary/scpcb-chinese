@@ -1,5 +1,3 @@
-
-
 Dim ParticleTextures%(10)
 
 Type Particles
@@ -53,8 +51,6 @@ Function UpdateParticles()
 		
 		PositionEntity(p\obj, EntityX(p\pvt,True), EntityY(p\pvt,True), EntityZ(p\pvt,True), True)
 		
-		;TurnEntity(p\obj, 0, 0, FPSfactor)
-		
 		If p\Achange <> 0 Then
 			p\A=Min(Max(p\A+p\Achange * FPSfactor,0.0),1.0)
 			EntityAlpha(p\obj, p\A)		
@@ -104,7 +100,6 @@ Function UpdateEmitters()
 	InSmoke = False
 	For e.emitters = Each Emitters
 		If FPSfactor > 0 And (PlayerRoom = e\room Or e\room\dist < 8) Then
-			;If ParticleAmount = 2 Or SmokeDelay#=0.0
 			Local p.Particles = CreateParticle(EntityX(e\obj, True), EntityY(e\obj, True), EntityZ(e\obj, True), Rand(e\minimage, e\maximage), e\size, e\gravity, e\lifetime)
 			p\speed = e\speed
 			RotateEntity(p\pvt, EntityPitch(e\Obj, True), EntityYaw(e\Obj, True), EntityRoll(e\Obj, True), True)
@@ -115,7 +110,6 @@ Function UpdateEmitters()
 			p\SizeChange = e\SizeChange
 			
 			p\Achange = e\achange
-			;EndIf
 			e\SoundCHN = LoopSound2(HissSFX, e\SoundCHN, Camera, e\Obj)
 			
 			If InSmoke = False Then
@@ -126,20 +120,13 @@ Function UpdateEmitters()
 					EndIf
 				EndIf					
 			EndIf
-			;If ParticleAmount <> 2
-			;	If SmokeDelay#<(10-(5*ParticleAmount))
-			;		SmokeDelay#=SmokeDelay#+FPSfactor
-			;	Else
-			;		SmokeDelay#=0.0
-			;	EndIf
-			;EndIf
 		EndIf
 	Next
 	
 	If InSmoke Then
 		If EyeIrritation > (70 * 6) Then BlurVolume = Max(BlurVolume, (EyeIrritation - (70 * 6)) / (70.0 * 24.0))
 		If EyeIrritation > (70 * 24) Then 
-			DeathMSG = "Subject D-9341 found dead in [DATA REDACTED]. Cause of death: Suffocation due to decontamination gas."
+			DeathMSG = "对象D-9341的尸体在[数据删除]找到。死亡原因：吸入净化气体导致窒息。"
 			Kill()
 		EndIf
 		
@@ -192,7 +179,6 @@ Function CreateEmitter.Emitters(x#, y#, z#, emittertype%)
 	Next
 	
 	Return e
-		
 End Function
 
 Type DevilEmitters
@@ -254,7 +240,7 @@ Function UpdateDevilEmitters()
 	If InSmoke Then
 		If EyeIrritation > (70 * 6) Then BlurVolume = Max(BlurVolume, (EyeIrritation - (70 * 6)) / (70.0 * 24.0))
 		If EyeIrritation > (70 * 24) Then 
-			DeathMSG = "Subject D-9341 found dead in [DATA REDACTED]. Cause of death: Suffocation due to decontamination gas."
+			DeathMSG = "对象D-9341的尸体在[数据删除]找到。死亡原因：吸入净化气体导致窒息。"
 			Kill()
 		EndIf
 		
@@ -270,20 +256,8 @@ Function UpdateDevilEmitters()
 		
 		EyeIrritation=EyeIrritation+FPSfactor * 4
 	EndIf
-	
 End Function
 
 Function DeleteDevilEmitters()
-	
 	Delete Each DevilEmitters
-	
 End Function
-
-
-
-
-
-
-;~IDEal Editor Parameters:
-;~F#4#10#2E#4A#54#66#A0#C5#D0#E0#112
-;~C#Blitz3D

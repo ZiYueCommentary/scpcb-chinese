@@ -1,9 +1,10 @@
-;编码ANSI，使用BlitzPlus编译
+; 编码ANSI，使用BlitzPlus编译
 
-;由于地图制作器使用BlitzPlus编写，所以只能用BlitzPlus编译
-;而BlitzPlus不支持中文，但制作器其实并未使用BlitzPlus的文字渲染，而是系统渲染
-;而系统的编码是ANSI，所以编码改为ANSI即可显示，不需要关心BlitzPlus不支持的问题
-;至于地图的名称和描述在游戏中的显示问题，转换编码即可（游戏编码为UTF-8）
+; 由于地图制作器使用BlitzPlus编写，所以只能用BlitzPlus编译
+; 而BlitzPlus不支持中文，但制作器其实并未使用BlitzPlus的文字渲染，而是系统渲染
+; 而系统的编码是ANSI，所以编码改为ANSI即可显示，不需要关心BlitzPlus不支持的问题
+; 至于地图的名称和描述在游戏中的显示问题，转换编码即可（游戏编码为UTF-8）
+; ——子悦 2022年4月29日
 
 Const ResWidth% = 910
 Const ResHeight% = 660
@@ -32,7 +33,6 @@ SetGadgetLayout listbox, 3,3,2,2
 
 InitEvents("..\Data\events.ini")
 AddEvents()
-;room_desc = CreateLabel("房间描述：",5,40+ResHeight/2,ResWidth/4,ResHeight/8.05,WinHandle,3)
 Global room_desc = CreateLabel("房间描述：",5,40+ResHeight/2,ResWidth/4,ResHeight/11.8,WinHandle,3)
 SetGadgetLayout room_desc , 3,3,2,2
 
@@ -56,9 +56,6 @@ menu=WindowMenu(WinHandle)
 
 Global combobox = CreateComboBox(5, 95+ResHeight/2, ResWidth/4,ResHeight-ResHeight/1.39, winhandle) ;150
 
-;For i = 1 To 5
-;	InsertGadgetItem combobox, 0, "Event #"+i
-;Next
 SetGadgetLayout combobox , 3,3,2,2
 DisableGadget combobox
 
@@ -67,8 +64,6 @@ SetGadgetText txtbox,"" ;set ;text in that ;textfield for info
 ok=CreateButton("搜索",155,40,50,20,winhandle) ;create button
 clean_txt=CreateButton("X",210,40,20,20,winhandle) ;create button
 
-;map_2d = CreateLabel("",300,25,550,550,WinHandle,3)
-;SetGadgetLayout map_2d , 3,3,2,2
 Global ShowGrid% = True
 map_2d = CreateCanvas(300,25,551,551,WinHandle)
 Dim MapIcons(5,4)
@@ -118,26 +113,19 @@ For i = 1 To 2
 		MidHandle(SpecialIcons(i,n))
 	Next
 Next
-;------------------------------------------------------------------------------Facility
+;------------------------------------------------------------------------------主设施
 Const MapWidth = 18, MapHeight = 18
 Dim Map.RoomTemplates(MapWidth, MapHeight)
 Dim MapAngle%(MapWidth, MapHeight)
 Dim MapEvent$(MapWidth, MapHeight)
 Dim MapEventProb#(MapWidth, MapHeight)
-;For rt.RoomTemplates = Each RoomTemplates
-;	If rt\Name = "start" Then
-;		Map(MapWidth/2,MapHeight)=rt
-;		MapEvent(MapWidth/2,MapHeight)="alarm"
-;		MapAngle(MapWidth/2,MapHeight)=180
-;	EndIf
-;Next
 
-;------------------------------------------------------------------------------Forest
+;------------------------------------------------------------------------------森林
 Const ForestGridSize = 9
 Dim ForestPlace.RoomTemplates(ForestGridSize, ForestGridSize)
 Dim ForestPlaceAngle%(ForestGridSize, ForestGridSize)
 
-;------------------------------------------------------------------------------Maintenance Tunnels
+;------------------------------------------------------------------------------维修通道
 Const MT_GridSize = 18
 Dim MTRoom.RoomTemplates(MT_GridSize, MT_GridSize)
 Dim MTRoomAngle%(MT_GridSize, MT_GridSize)
@@ -211,7 +199,6 @@ CreateMenu "关于"+Chr$(8)+"F12",40,edit ; Child menu with Alt Shortcut
 
 HotKeyEvent 59,0,$1001,6
 
-;HotKeyEvent 47,2,$1001,5
 HotKeyEvent 88,0,$1001,40
 
 ; Finally, once all menus are set up / updated, we call UpdateWindowMenu to tell the OS about the menu
@@ -245,10 +232,6 @@ Global bluecursor = GetINIInt("options.INI","3d scene","cursor color B")
 labelrange=CreateLabel("渲染距离",20,170,80,20, optionwin)
 Global camerarange = CreateTextField(25, 150, 40, 20, optionwin)
 SetGadgetText CameraRange, GetINIInt("options.INI","3d scene","camera range")
-
-;labelrange=CreateLabel("Camera Range",10,140,80,20, optionwin)
-;camerarange = CreateTextField(25, 145, 40, 20, optionwin)
-;SetGadgetText camerarange, GetINIInt("options.INI","3d scene","camera range")
 
 Global vsync = CreateButton("垂直同步", 123, 145, 70, 30, optionwin, 2)
 SetButtonState vsync, GetINIInt("options.INI","3d scene","vsync")
@@ -436,17 +419,6 @@ Repeat
 		If CurrMapGrid%=0
 			For x = 0 To MapWidth
 				For y = 0 To MapHeight
-					;If GetZone(y)=0
-					;	Color 255,255,255
-					;ElseIf GetZone(y)=1
-					;	Color 255,125,125
-					;Else
-					;	Color 255,255,125
-					;EndIf
-					;
-					;If y=zonetransvalue1 Then Color 255,200,200
-					;If y=zonetransvalue2 Then Color 255,200,125
-					
 					If y<zonetransvalue2 Then
 						Color 255,255,125
 					ElseIf y=zonetransvalue2 Then
@@ -475,10 +447,6 @@ Repeat
 								EndIf
 								If MouseHit1
 									If Grid_SelectedX=x And Grid_SelectedY=y
-										;Grid_SelectedX=-1
-										;Grid_SelectedY=-1
-										;ChangeGridGadget = True
-										;GridGadgetText = ""
 									Else
 										item = SelectedGadgetItem( listbox )
 										If Map(x,y)<>Null
@@ -581,9 +549,6 @@ Repeat
 									ChangeGridGadget = True
 									GridGadgetText = ""
 									SetSliderValue(event_prob,99)
-									;If GadgetText(event_prob_label)<>""
-									;	SetGadgetText event_prob_label,"事件概率："+SliderValue(event_prob)+"%"
-									;EndIf
 									SetGadgetText event_prob_label,""
 									DisableGadget event_prob
 									SetGadgetText event_desc,""
@@ -602,9 +567,6 @@ Repeat
 									ChangeGridGadget = True
 									GridGadgetText = ""
 									SetSliderValue(event_prob,99)
-									;If GadgetText(event_prob_label)<>""
-									;	SetGadgetText event_prob_label,"事件概率："+SliderValue(event_prob)+"%"
-									;EndIf
 									SetGadgetText event_prob_label,""
 									DisableGadget event_prob
 									SetGadgetText event_desc,""
@@ -613,19 +575,6 @@ Repeat
 								EndIf
 							EndIf
 						EndIf
-					;EndIf
-					
-					;If (MouseX()-GadgetX(map_2d))>(GadgetX(WinHandle)) And (MouseX()-GadgetX(map_2d))<(Float(width)+GadgetX(WinHandle))
-					;	offset% = 45
-					;	If (MouseY()-GadgetY(map_2d))>(GadgetY(WinHandle)+offset) And (MouseY()-GadgetY(map_2d))<(Float(height)+GadgetY(WinHandle)+offset)
-					;		If MouseHit2
-					;			Grid_SelectedX=-1
-					;			Grid_SelectedY=-1
-					;			ChangeGridGadget = True
-					;			GridGadgetText = ""
-					;		EndIf
-					;	EndIf
-					;EndIf
 					
 					If Grid_SelectedX=x And Grid_SelectedY=y
 						Color 150,150,150
@@ -633,11 +582,6 @@ Repeat
 					EndIf
 					
 					If Map(x,y) = Null
-						;If x=0 Or x=MapWidth Or y=0 Or y=MapHeight
-						;	Color 170, 170, 170
-						;Else
-						;	Color 90,90,90
-						;EndIf
 						Color 90,90,90
 						Rect Float(width)/Float(MapWidth+1)*x+1,Float(height)/Float(MapHeight+1)*y+1,(Float(width)/Float(MapWidth+1))-1,(Float(height)/Float(MapHeight+1))-1,False
 					Else
@@ -653,7 +597,6 @@ Repeat
 									SetSliderValue(event_prob,Int(MapEventProb(x,y)*100)-1)
 								Else
 									GridGadgetText = "房间名："+Map(x,y)\Name+Chr(13)+"旋转角度："+MapAngle(x,y)+"°"
-									;SetSliderValue(event_prob,99)
 								EndIf
 								If GadgetText(event_prob_label)<>""
 									SetGadgetText event_prob_label,"事件概率："+(SliderValue(event_prob)+1)+"%"
@@ -1286,7 +1229,6 @@ Repeat
 			zonetransvalue2 = (MapHeight)-Int(TextFieldText$(zonetrans2))
 		EndIf
 		If EventSource()=ok Then ; when ok is pressed
-			;Notify ""+Chr$(13)+TextFieldText$(txtbox); <---TO GET ;text FROM ;textFIELD
 			ClearGadgetItems listbox
 			For rt.RoomTemplates = Each RoomTemplates
 				If rt\MapGrid = CurrMapGrid
@@ -1344,7 +1286,6 @@ Repeat
 				
                ;Bezeichnung des Eintrags herausfinden
                name$ = GadgetItemText$(listbox, item)
-               ;Notify name$ + " selected!"
 				
 				ClearGadgetItems combobox
 				
@@ -1425,9 +1366,6 @@ Repeat
 Forever
 End
 
-
-
-
 Function StripPath$(file$) 
 	Local name$=""
 	If Len(file$)>0 
@@ -1460,7 +1398,6 @@ Function Piece$(s$,entry,char$=" ")
 	EndIf
 	Return a
 End Function
-
 
 Function GetINIString$(file$, section$, parameter$)
 	Local TemporaryString$ = ""
@@ -1502,7 +1439,6 @@ Function GetINIFloat#(file$, section$, parameter$)
 End Function
 
 Function PutINIValue%(INI_sAppName$, INI_sSection$, INI_sKey$, INI_sValue$)
-	
 ; Returns: True (Success) or False (Failed)
 	
 	INI_sSection = "[" + Trim$(INI_sSection) + "]"
@@ -1578,11 +1514,9 @@ Function PutINIValue%(INI_sAppName$, INI_sSection$, INI_sKey$, INI_sValue$)
 	CloseFile INI_lFileHandle
 	
 	Return True ; Success
-	
 End Function
 
 Function INI_FileToString$(INI_sFilename$)
-	
 	INI_sString$ = ""
 	INI_lFileHandle% = ReadFile(INI_sFilename)
 	If INI_lFileHandle <> 0 Then
@@ -1592,22 +1526,17 @@ Function INI_FileToString$(INI_sFilename$)
 		CloseFile INI_lFileHandle
 	End If
 	Return INI_sString
-	
 End Function
 
 Function INI_CreateSection$(INI_lFileHandle%, INI_sNewSection$)
-	
 	If FilePos(INI_lFileHandle) <> 0 Then WriteLine INI_lFileHandle, "" ; Blank line between sections
 	WriteLine INI_lFileHandle, INI_sNewSection
 	Return INI_sNewSection
-	
 End Function
 
 Function INI_CreateKey%(INI_lFileHandle%, INI_sKey$, INI_sValue$)
-	
 	WriteLine INI_lFileHandle, INI_sKey + "=" + INI_sValue
 	Return True
-	
 End Function
 
 Function Min#(a#,b#)
@@ -1797,7 +1726,6 @@ Function InitEvents(file$)
 	Wend
 	
 	CloseFile f
-	
 End Function
 
 Function AddEvents()
@@ -1812,18 +1740,15 @@ Function AddEvents()
 			Next
 		Next
 	Next
-	
 End Function
 
 Function AssignEventToRoomTemplate(rt.RoomTemplates,e.Event)
-	
 	For i = 0 To 5
 		If rt\events[i]=""
 			rt\events[i]=e\Name
 			Exit
 		EndIf
 	Next
-	
 End Function
 
 Function GetZone(y%)
@@ -1893,7 +1818,6 @@ Function EraseMap()
 	MapAuthor$ = ""
 	MapDescription$ = ""
 	SetGadgetText map_author_text,""
-	
 End Function
 
 Function LoadMap(file$)
@@ -2131,7 +2055,6 @@ Function MilliSecs2()
 End Function
 
 Function WriteOptions()
-	
 	f = WriteFile("CONFIG_OPTINIT.SI")
 	WriteInt f,redfog
 	WriteInt f,greenfog
@@ -2144,7 +2067,4 @@ Function WriteOptions()
 	WriteByte f,ButtonState(showfps)
 	WriteByte f,MenuChecked(adjdoor_place)
 	CloseFile f
-	
 End Function
-;~IDEal Editor Parameters:
-;~C#Blitz3D

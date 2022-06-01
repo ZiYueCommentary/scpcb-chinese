@@ -1,4 +1,3 @@
-
 Function sky_CreateSky(filename$,parent%=0)
 	Local sky
 
@@ -69,6 +68,3 @@ Data -1,-1,-1,1,0
 Data +1,-1,-1,1,1
 Data +1,-1,+1,0,1
 Data -1,-1,+1,0,0
-;~IDEal Editor Parameters:
-;~F#1#1B#1F
-;~C#Blitz3D

@@ -1,3 +1,9 @@
+; 编码UTF-8，使用无OpenCC插件版Blitz3D TSS构建
+; 注意：无OpenCC插件版本！！！
+; OpenCC要求构建的程序目录必须有opencc.dll才能运行，而OpenCC插件在地图制作器里根本没用过
+; 所以要用无OpenCC插件版的Blitz3D TSS
+; ——子悦 2022年5月22日
+
 Const C_GWL_STYLE = -16
 Const C_WS_POPUP = $80000000
 Const C_HWND_TOP = 0
@@ -61,7 +67,6 @@ Global Door_Button = LoadMesh("..\GFX\map\Button.x")
 HideEntity Door_Button
 
 Global MenuOpen% = True
-;Global RandomSeed$ = "testseed"
 
 Const ROOM1% = 1, ROOM2% = 2, ROOM2C% = 3, ROOM3% = 4, ROOM4% = 5
 
@@ -72,15 +77,6 @@ Global RoomTempID%
 Global FileLocation$ = "..\Data\rooms.ini"
 LoadRoomTemplates(FileLocation)
 LoadMaterials("..\Data\materials.ini")
-
-;If RandomSeed = "" Then
-;	RandomSeed = Abs(MilliSecs())
-;EndIf
-;Local strtemp$ = ""
-;For i = 1 To Len(RandomSeed)
-;	strtemp = strtemp+Asc(Mid(RandomSeed,i,1))
-;Next
-;SeedRnd Abs(Int(strtemp))
 
 Global RoomScale# = 8.0 / 2048.0
 Const ZONEAMOUNT = 3
@@ -111,12 +107,9 @@ Global CurrSelectedRoom.Rooms
 
 ChangeDir ".."
 
-;CreateMap()
 LoadRoomTemplateMeshes()
 
 FreeTextureCache
-
-;PlaceRoom("start",MapWidth/2-1,MapHeight,0,1,ROOM1,"alarm")
 
 ChangeDir "Map Creator"
 
@@ -236,8 +229,6 @@ Repeat
 		
 		CurrMapGrid = ReadInt(f)
 		
-		;While Not Eof(f)
-		
 		Select CurrMapGrid
 			Case 0
 				;Room data
@@ -253,10 +244,6 @@ Repeat
 					
 					For rt.RoomTemplates=Each RoomTemplates
 						If Lower(rt\Name) = name
-							;If angle<>90 And angle<>270
-							;	angle = angle - 180
-							;EndIf
-							
 							r = PlaceRoom(name,MapWidth-x,y,GetZone(y),rt\Shape,ename,eprob)
 							r\GridX = x
 							r\GridZ = y
@@ -313,15 +300,9 @@ Repeat
 							If r\angle<>90 And r\angle<>270
 								r\angle = r\angle + 180
 							EndIf
-							;If rt\Shape = ROOM2C Or rt\Shape = ROOM3 Then
-							;	r\angle = r\angle - 90
-							;EndIf
 							r\angle = WrapAngle(r\angle)
 							
 							TurnEntity(r\obj, 0, r\angle, 0)
-							
-							;MapTemp(MapWidth-x,y)=1
-							
 							Exit
 						EndIf
 					Next
@@ -378,9 +359,6 @@ Repeat
 							r\angle = WrapAngle(r\angle)
 							
 							TurnEntity(r\obj, 0, r\angle, 0)
-							
-							;MapTemp(MapWidth-x,y)=1
-							
 							Exit
 						EndIf
 					Next
@@ -657,20 +635,7 @@ Function LoadRoomTemplates(file$)
 			rt\DisableDecals = GetINIInt(file, TemporaryString, "disabledecals")
 		EndIf
 	Wend
-	
-;	i = 1
-;	Repeat
-;		StrTemp = GetINIString(file, "room ambience", "ambience"+i)
-;		If StrTemp = "" Then Exit
-;		
-;		RoomAmbience[i]=LoadSound_Strict(StrTemp)
-;		i=i+1
-;	Forever
-	
-	
-	
 	CloseFile f
-	
 End Function
 
 Function LoadRoomTemplateMeshes()
@@ -765,7 +730,6 @@ Function LoadRoomTemplateMeshes()
 		FreeImage(hmap[i])
 		FreeTexture(mask[i])
 	Next
-	
 End Function
 
 Function PlaceRoom.Rooms(name$,x%,z%,zone%,shape%,event$="",eventchance#=1.0,mapgrid%=0)
@@ -832,11 +796,9 @@ Function GetMeshExtents2(mesh)
 	Mesh_MagX = xmax-xmin
 	Mesh_MagY = ymax-ymin
 	Mesh_MagZ = zmax-zmin
-	
 End Function
 
 Function SetRoom(room_name$,room_type%,pos%,min_pos%,max_pos%) ;place a room without overwriting others
-	
 	If max_pos<min_pos Then DebugLog "Can't place "+room_name : Return False
 	
 	DebugLog "--- SETROOM: "+Upper(room_name)+" ---"
@@ -976,7 +938,6 @@ Function CreateRoom.Rooms(zone%, roomshape%, x#, y#, z#, name$ = "")
 			EndIf
 		Next
 	EndIf
-	
 End Function
 
 Function CreateOverLapBox(r.Rooms)
@@ -1021,21 +982,16 @@ Function CreateOverLapBox(r.Rooms)
 	AddTriangle s,0,1,2
 	AddTriangle s,0,2,3
 	EntityAlpha r\overlapcheckbox,0.5
-	
 End Function
 
 Function LoadRoomMesh(rt.RoomTemplates)
-	
 	If Instr(rt\objPath,".rmesh")<>0 Then ;file is roommesh
 		rt\obj = LoadRMesh(rt\objPath, rt)
-	Else ;file is b3d
-		;If rt\objPath <> "" Then rt\obj = LoadWorld(rt\objPath, rt) Else rt\obj = CreatePivot()
 	EndIf
 	
-	If (Not rt\obj) Then RuntimeError "Failed to load map file "+Chr(34)+rt\objPath+Chr(34)+"."
+	If (Not rt\obj) Then RuntimeError "加载地图文件失败："+rt\objPath
 	
 	HideEntity(rt\obj)
-	
 End Function
 
 Function StripFilename$(file$)
@@ -1078,22 +1034,7 @@ Function LoadMaterials(file$)
 			mat.Materials = New Materials
 			
 			mat\name = Lower(TemporaryString)
-			
-;			If BumpEnabled Then
-;				StrTemp = GetINIString(file, TemporaryString, "bump")
-;				If StrTemp <> "" Then 
-;					mat\Bump =  LoadTexture_Strict(StrTemp)
-;					
-;					TextureBlend mat\Bump, 6
-;					TextureBumpEnvMat mat\Bump,0,0,-0.012
-;					TextureBumpEnvMat mat\Bump,0,1,-0.012
-;					TextureBumpEnvMat mat\Bump,1,0,0.012
-;					TextureBumpEnvMat mat\Bump,1,1,0.012
-;					TextureBumpEnvOffset mat\Bump,0.5
-;					TextureBumpEnvScale mat\Bump,1.0				
-;				EndIf
-;			EndIf
-			
+
 			mat\StepSound = (GetINIInt(file, TemporaryString, "stepsound")+1)
 		EndIf
 	Wend
@@ -1334,9 +1275,7 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 			AddMesh childMesh,Opaque
 			EntityParent childMesh,collisionMeshes
 			EntityAlpha childMesh,0.0
-			;EntityType childMesh,HIT_MAP
-			;EntityPickMode childMesh,2
-			
+
 			;make collision double-sided
 			Local flipChild% = CopyMesh(childMesh)
 			FlipMesh(flipChild)
@@ -1392,45 +1331,33 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 		temp1s=ReadString(f)
 		Select temp1s
 			Case "screen"
-				
 				ReadFloat(f)
 				ReadFloat(f)
 				ReadFloat(f)
 				ReadString(f)
-				
 			Case "waypoint"
-				
 				ReadFloat(f)
 				ReadFloat(f)
 				ReadFloat(f)
-				
 			Case "light"
-				
 				ReadFloat(f)
 				ReadFloat(f)
 				ReadFloat(f)
 				ReadFloat(f) : ReadString(f) : ReadFloat(f)
-				
 			Case "spotlight"
-				
 				ReadFloat(f)
 				ReadFloat(f)
 				ReadFloat(f)
 				ReadFloat(f) : ReadString(f) : ReadFloat(f) : ReadString(f) : ReadInt(f) : ReadInt(f)
-				
 			Case "soundemitter"
-				
 				ReadFloat(f)
 				ReadFloat(f)
 				ReadFloat(f)
 				ReadInt(f)
 				ReadFloat(f)
-				
 			Case "playerstart"
-				
 				ReadFloat(f) : ReadFloat(f) : ReadFloat(f)
 				ReadString(f)
-				
 			Case "model"
 				file = ReadString(f)
 				If file<>""
@@ -1447,13 +1374,10 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 					
 					EntityParent model,Opaque
 					EntityType model,HIT_MAP
-					;EntityPickMode model,2
 				Else
 					DebugLog "file = 0"
 					temp1=ReadFloat(f) : temp2=ReadFloat(f) : temp3=ReadFloat(f)
 					DebugLog temp1+", "+temp2+", "+temp3
-					
-					;Stop
 				EndIf
 		End Select
 	Next
@@ -1475,11 +1399,7 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 	EntityAlpha hiddenMesh,0.0
 	EntityAlpha Opaque,1.0
 	
-	;EntityType Opaque,HIT_MAP
-	;EntityType hiddenMesh,HIT_MAP
 	FreeTexture blankTexture
-	
-	;AddMesh hiddenMesh,BigRoomMesh
 	
 	obj=CreatePivot()
 	CreatePivot(obj) ;skip "meshes" object
@@ -1493,7 +1413,6 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 	CloseFile f
 	
 	Return obj%
-	
 End Function
 
 Function StripPath$(file$) 
@@ -1506,7 +1425,6 @@ Function StripPath$(file$)
 			
 			name$=mi$+name$ 
 		Next 
-		
 	EndIf 
 	
 	Return name$ 
@@ -1591,7 +1509,6 @@ Function GetINIFloat#(file$, section$, parameter$)
 End Function
 
 Function PutINIValue%(INI_sAppName$, INI_sSection$, INI_sKey$, INI_sValue$)
-	
 ; Returns: True (Success) or False (Failed)
 	
 	INI_sSection = "[" + Trim$(INI_sSection) + "]"
@@ -1667,11 +1584,9 @@ Function PutINIValue%(INI_sAppName$, INI_sSection$, INI_sKey$, INI_sValue$)
 	CloseFile INI_lFileHandle
 	
 	Return True ; Success
-	
 End Function
 
 Function INI_FileToString$(INI_sFilename$)
-	
 	INI_sString$ = ""
 	INI_lFileHandle% = ReadFile(INI_sFilename)
 	If INI_lFileHandle <> 0 Then
@@ -1681,30 +1596,17 @@ Function INI_FileToString$(INI_sFilename$)
 		CloseFile INI_lFileHandle
 	End If
 	Return INI_sString
-	
 End Function
 
 Function INI_CreateSection$(INI_lFileHandle%, INI_sNewSection$)
-	
 	If FilePos(INI_lFileHandle) <> 0 Then WriteLine INI_lFileHandle, "" ; Blank line between sections
 	WriteLine INI_lFileHandle, INI_sNewSection
 	Return INI_sNewSection
-	
 End Function
 
 Function INI_CreateKey%(INI_lFileHandle%, INI_sKey$, INI_sValue$)
-	
 	WriteLine INI_lFileHandle, INI_sKey + "=" + INI_sValue
 	Return True
-	
-End Function
-
-Function Min#(a#,b#)
-	If a < b Then Return a Else Return b
-End Function
-
-Function Max#(a#,b#)
-	If a > b Then Return a Else Return b
 End Function
 
 Function Button%(x,y,width,height,txt$, disabled%=False)
@@ -1768,7 +1670,7 @@ Function InputBox$(x,y,width,height,Txt$,ID=0)
 	If MouseOnBox = False And MouseHit1 And SelectedTextBox = ID Then SelectedTextBox = 0
 	
 	If SelectedTextBox = ID Then
-		Txt = rInput(Txt)
+		Txt = TextInput(Txt)
 		Color 0,0,0
 		If (MilliSecs() Mod 800) < 400 Then  Rect ((x+width/2 + StringWidth(Txt)/2 + 2))*ResFactor, (y+height/2-5)*ResFactor, 2*ResFactor, 12*ResFactor
 	EndIf
@@ -1795,18 +1697,6 @@ Function TextBox(x,y,width,height,Txt$)
 	Text (x+width/2)*ResFactor,(y+height/2)*ResFactor, Txt, True, True
 End Function
 
-Function rInput$(aString$)
-	value = GetKey()
-	length = Len(aString$)
-	If value = 8 Then value = 0 :If length > 0 Then aString$ = Left$(aString,Length-1)
-	If value = 13 Then Goto ende
-	If value = 0 Then Goto ende
-	If value>0 And value<7 Or value>26 And value<32 Or value=9 Then Goto ende
-	aString$=aString$ + Chr$(value)
-	.ende
-	Return aString$
-End Function
-
 Function MilliSecs2()
 	Local retVal% = MilliSecs()
 	If retVal < 0 Then retVal = retVal + 2147483648
@@ -1814,7 +1704,6 @@ Function MilliSecs2()
 End Function
 
 Function WrapAngle#(angle#)
-	;If angle = INFINITY Then Return 0.0
 	While angle < 0
 		angle = angle + 360
 	Wend 
@@ -1876,18 +1765,13 @@ Function CreateDoor.Doors(x#, y#, z#, angle#, room.Rooms, big% = False)
 	If d\obj2 <> 0 Then
 		PositionEntity d\obj2, x, y, z
 		RotateEntity(d\obj2, 0, angle + 180, 0)
-		;EntityParent(d\obj2, parent)
 	EndIf
-	
-	;EntityParent(d\frameobj, parent)
-	;EntityParent(d\obj, parent)
 	
 	d\angle = angle
 	
 	d\dir=big
 	
 	Return d
-	
 End Function
 
 Function PlaceAdjacentDoors()
@@ -1897,16 +1781,7 @@ Function PlaceAdjacentDoors()
 	Local x,y
 	Local r.Rooms,d.Doors
 	
-	For y = MapHeight To 0 Step -1
-		
-		;If GetZone(y)=0
-		;	zone=1
-		;ElseIf GetZone(y)=1
-		;	zone=2
-		;Else
-		;	zone=3
-		;EndIf
-		
+	For y = MapHeight To 0 Step -1		
 		If y<zonetransvalue2 Then
 			zone=3
 		ElseIf y>=zonetransvalue2 And y<zonetransvalue1 Then
@@ -1945,8 +1820,6 @@ Function PlaceAdjacentDoors()
 						If shouldSpawnDoor
 							If (x+1)<(MapWidth+1)
 								If MapTemp(x + 1, y) > 0 Then
-									;d.Doors = CreateDoor(r\zone, Float(x) * spacing + spacing / 2.0, 0, Float(y) * spacing, 90, r, Max(Rand(-3, 1), 0), temp)
-									;r\AdjDoor[0] = d
 									d.Doors = CreateDoor(Float(x) * spacing + spacing / 2.0, 0, Float(y) * spacing, 90, r, temp)
 									r\AdjDoor[0] = d
 								EndIf
@@ -1977,8 +1850,6 @@ Function PlaceAdjacentDoors()
 						If shouldSpawnDoor
 							If (y+1)<(MapHeight+1)
 								If MapTemp(x, y + 1) > 0 Then
-									;d.Doors = CreateDoor(r\zone, Float(x) * spacing, 0, Float(y) * spacing + spacing / 2.0, 0, r, Max(Rand(-3, 1), 0), temp)
-									;r\AdjDoor[3] = d
 									d.Doors = CreateDoor(Float(x) * spacing, 0, Float(y) * spacing + spacing / 2.0, 0, r, temp)
 									r\AdjDoor[3] = d
 								EndIf
@@ -2014,16 +1885,16 @@ Function load_terrain(hmap,yscale#=0.7,t1%,t2%,mask%)
 	DebugLog "load_terrain: "+hmap
 	
 	; load the heightmap
-	If hmap = 0 Then RuntimeError "Heightmap image "+hmap+" does not exist."
+	If hmap = 0 Then RuntimeError "高度图不存在："+hmap
 	
 	; store heightmap dimensions
 	Local x = ImageWidth(hmap)-1, y = ImageHeight(hmap)-1
 	Local lx,ly,index
 	
 	; load texture and lightmaps
-	If t1 = 0 Then RuntimeError "load_terrain error: invalid texture 1"
-	If t2 = 0 Then RuntimeError "load_terrain error: invalid texture 2"
-	If mask = 0 Then RuntimeError "load_terrain error: invalid texture mask"
+	If t1 = 0 Then RuntimeError "加载地形错误：非法贴图1"
+	If t2 = 0 Then RuntimeError "加载地形错误：非法贴图2"
+	If mask = 0 Then RuntimeError "加载地形错误：非法贴图遮罩"
 	
 	; auto scale the textures to the right size
 	If t1 Then ScaleTexture t1,x/4,y/4
@@ -2101,15 +1972,3 @@ Function load_terrain(hmap,yscale#=0.7,t1%,t2%,mask%)
 	
 	Return mesh
 End Function
-
-
-
-
-
-
-
-;~IDEal Editor Parameters:
-;~F#258#263#26E#2A7#306#322#349#368#36C#371#37F#39C#3D9#406#414#423#42B#453#45A#461
-;~F#468#481#489#491#5DE#5EE#5FF#615#62A#638#63C#68C#69A#6A2#6A9#6AD#6B1#6DF#6F6#709
-;~F#715#71B#726#72C#768#7DF
-;~C#Blitz3D

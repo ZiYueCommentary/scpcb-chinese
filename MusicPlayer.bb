@@ -10,6 +10,7 @@ AppTitle "收容失效 音乐播放器"
 Graphics 800,600,0,2
 SetBuffer BackBuffer()
 
+DisableClose() ;禁用标题栏的关闭按钮
 alInitialise()
 
 Global CurrMusicWindow%=0
@@ -382,9 +383,3 @@ End Function
 Function Text(x%, y%, txt$, center% = 0, middle% = 0, encoding% = 0)
 	Blitz_Text(x, y+1, txt, center, middle, encoding)
 End Function
-
-
-
-;~IDEal Editor Parameters:
-;~F#E4#112#116#11A#11E#126#13A#156#160
-;~C#Blitz3D

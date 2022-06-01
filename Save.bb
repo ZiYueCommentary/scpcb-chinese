@@ -1,7 +1,5 @@
-
 Function SaveGame(file$)
 	CatchErrors("Uncaught (SaveGame)")
-	file = ConvertToANSI(file)
 	
 	If Not Playable Then Return ;don't save if the player can't move at all
 	
@@ -35,7 +33,6 @@ Function SaveGame(file$)
 	WriteFloat f, EntityPitch(Collider)
 	WriteFloat f, EntityYaw(Collider)
 	
-	;WriteString f, VersionNumber
 	WriteString f, CompatibleNumber
 	
 	WriteFloat f, BlinkTimer
@@ -596,7 +593,7 @@ Function LoadGame(file$)
 		Next
 	Next
 	
-	If ReadInt(f) <> 113 Then RuntimeError("Couldn't load the game, save file corrupted (error 2.5)")
+	If ReadInt(f) <> 113 Then RuntimeError("无法加载存档，存档文件已损坏（错误2.5）")
 	
 	temp = ReadInt(f)
 	For i = 1 To temp
@@ -702,12 +699,14 @@ Function LoadGame(file$)
 		MTFroomState[i]=ReadInt(f)
 	Next
 	
-	If ReadInt(f) <> 632 Then RuntimeError("Couldn't load the game, save file corrupted (error 1)")
+	If ReadInt(f) <> 632 Then RuntimeError("无法加载存档，存档文件已损坏（错误1）")
 	
 	room2gw_brokendoor = ReadInt(f)
 	room2gw_x = ReadFloat(f)
 	room2gw_z = ReadFloat(f)
 	
+	; 就因为这么个判断所以旧版存档没法读
+	; 包括但不限于汉化版和原版
 	;If version = CompatibleNumber Then
 		I_Zone\Transition[0] = ReadByte(f)
 		I_Zone\Transition[1] = ReadByte(f)
@@ -729,9 +728,6 @@ Function LoadGame(file$)
 		
 		temp2 = ReadByte(f)		
 		
-;		If angle >= 360
-;            angle = angle-360
-;        EndIf
 		angle=WrapAngle(angle)
 		
 		For rt.roomtemplates = Each RoomTemplates
@@ -835,7 +831,7 @@ Function LoadGame(file$)
 		EndIf
 	Next
 	
-	If ReadInt(f) <> 954 Then RuntimeError("Couldn't load the game, save file may be corrupted (error 2)")
+	If ReadInt(f) <> 954 Then RuntimeError("无法加载存档，存档文件可能损坏（错误2）")
 	
 	Local spacing# = 8.0
 	Local zone%,shouldSpawnDoor%
@@ -969,7 +965,7 @@ Function LoadGame(file$)
 	
 	InitWayPoints()
 	
-	If ReadInt(f) <> 1845 Then RuntimeError("Couldn't load the game, save file corrupted (error 3)")
+	If ReadInt(f) <> 1845 Then RuntimeError("无法加载存档，存档文件已损坏（错误3）")
 	
 	Local d.Decals
 	For d.Decals = Each Decals
@@ -1165,8 +1161,6 @@ Function LoadGame(file$)
 		EndIf
 	Next
 	
-	;If ReadInt(f) <> 994 Then RuntimeError("Couldn't load the game, save file corrupted (error 4)")
-	
 	If ReadInt(f)<>994
 		UsedConsole = True
 		DebugLog "Used Console"
@@ -1313,14 +1307,12 @@ Function LoadGameQuick(file$)
 	
 	PlayTime = ReadInt(f)
 	
-	;HideEntity Head
 	HideEntity Collider
 	
 	x = ReadFloat(f)
 	y = ReadFloat(f)
 	z = ReadFloat(f)	
 	PositionEntity(Collider, x, y+0.05, z)
-	;ResetEntity(Collider)
 	
 	ShowEntity Collider
 	
@@ -1429,7 +1421,7 @@ Function LoadGameQuick(file$)
 		Next
 	Next
 	
-	If ReadInt(f) <> 113 Then RuntimeError("Couldn't load the game, save file corrupted (error 2.5)")
+	If ReadInt(f) <> 113 Then RuntimeError("无法加载存档，存档文件已损坏（错误2.5）")
 	
 	For n.NPCs = Each NPCs
 		RemoveNPC(n)
@@ -1537,7 +1529,7 @@ Function LoadGameQuick(file$)
 		MTFroomState[i]=ReadInt(f)
 	Next
 	
-	If ReadInt(f) <> 632 Then RuntimeError("Couldn't load the game, save file corrupted (error 1)")
+	If ReadInt(f) <> 632 Then RuntimeError("无法加载存档，存档文件已损坏（错误1）")
 	
 	room2gw_brokendoor = ReadInt(f)
 	room2gw_x = ReadFloat(f)
@@ -1651,7 +1643,7 @@ Function LoadGameQuick(file$)
 	
 	;InitWayPoints()
 	
-	If ReadInt(f) <> 954 Then RuntimeError("Couldn't load the game, save file may be corrupted (error 2)")
+	If ReadInt(f) <> 954 Then RuntimeError("无法加载存档，存档文件可能损坏（错误2）")
 	
 	temp = ReadInt (f)
 	
@@ -1700,7 +1692,7 @@ Function LoadGameQuick(file$)
 		Next		
 	Next
 	
-	If ReadInt(f) <> 1845 Then RuntimeError("Couldn't load the game, save file corrupted (error 3)")
+	If ReadInt(f) <> 1845 Then RuntimeError("无法加载存档，存档文件已损坏（错误3）")
 	
 	Local d.Decals
 	For d.Decals = Each Decals
@@ -1753,7 +1745,6 @@ Function LoadGameQuick(file$)
 		z = ReadFloat(f)
 		For r.Rooms = Each Rooms
 			If EntityX(r\obj) = x And EntityZ(r\obj) = z Then
-				;If e\EventName = "room2servers" Then Stop
 				e\room = r
 				Exit
 			EndIf
@@ -1879,8 +1870,6 @@ Function LoadGameQuick(file$)
 		EndIf
 	Next
 	
-	;If ReadInt(f) <> 994 Then RuntimeError("Couldn't load the game, save file corrupted (error 4)")
-	
 	If ReadInt(f)<>994
 		UsedConsole = True
 		DebugLog "Used Console"
@@ -1997,7 +1986,7 @@ End Function
 Function LoadSaveGames()
 	CatchErrors("Uncaught (LoadSaveGames)")
 	SaveGameAmount = 0
-	If FileType(SavePath)=1 Then RuntimeError "Can't create dir "+Chr(34)+SavePath+Chr(34)
+	If FileType(SavePath)=1 Then RuntimeError "无法创建文件夹："+SavePath
 	If FileType(SavePath)=0 Then CreateDir(ConvertToANSI(SavePath))
 	myDir=ReadDir(SavePath) 
 	Repeat 
@@ -2103,7 +2092,7 @@ Function LoadSavedMaps()
 					SavedMaps(i) = file
 					If Right(file,6)="cbmap2" Then
 						Local f = ReadFile("Map Creator\Maps\"+file)
-						SavedMapsAuthor$(i) = ReadLine(f)
+						SavedMapsAuthor$(i) = ConvertToUTF8(ReadLine(f))
 						CloseFile f
 					Else
 						SavedMapsAuthor$(i) = "[未知]"
@@ -2321,10 +2310,6 @@ Function LoadMap(file$)
 				DebugLog "created mtunnel piece "+Chr(34)+name+Chr(34)+" successfully"
 			EndIf
 		Next
-		
-		;If MTRoom<>Null Then
-		;	PlaceGrid_MapCreator(MTRoom)
-		;EndIf
 	Else
 		I_Zone\Transition[0] = 13
 		I_Zone\Transition[1] = 7
@@ -2472,9 +2457,6 @@ Function LoadMap(file$)
 		Next
 	Next
 	
-	;r = CreateRoom(0, ROOM1, 8, 0, (MapHeight-1) * 8, "173")
-	;r = CreateRoom(0, ROOM1, (MapWidth-1) * 8, 0, (MapHeight-1) * 8, "pocketdimension")
-	;r = CreateRoom(0, ROOM1, 0, 0, 8, "gatea")
 	If IntroEnabled Then r = CreateRoom(0, ROOM1, 8, 0, (MapHeight+2) * 8, "173")
 	r = CreateRoom(0, ROOM1, (MapWidth+2) * 8, 0, (MapHeight+2) * 8, "pocketdimension")
 	r = CreateRoom(0, ROOM1, 0, 500, -16, "gatea")
@@ -2526,13 +2508,3 @@ Function LoadMap(file$)
 	
 	CatchErrors("LoadMap")
 End Function
-
-
-
-
-
-
-
-
-;~IDEal Editor Parameters:
-;~C#Blitz3D

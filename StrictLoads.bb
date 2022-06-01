@@ -23,7 +23,6 @@ Function LoadImage_Strict(file$)
 	Return tmp2
 End Function
 
-
 Type Sound
 	Field internalHandle%
 	Field name$
@@ -65,7 +64,7 @@ Function PlaySound_Strict%(sndHandle%)
 				If Not ChannelPlaying(snd\channels[i]) Then
 					If snd\internalHandle = 0 Then
 						If FileType(snd\name) <> 1 Then
-							CreateConsoleMsg("Sound " + Chr(34) + snd\name + Chr(34) + " not found.")
+							CreateConsoleMsg("声音未找到：" + snd\name)
 							If ConsoleOpening
 								ConsoleOpen = True
 							EndIf
@@ -73,7 +72,7 @@ Function PlaySound_Strict%(sndHandle%)
 							If EnableSFXRelease Then snd\internalHandle = LoadSound(snd\name)
 						EndIf
 						If snd\internalHandle = 0 Then
-							CreateConsoleMsg("Failed to load Sound: " + Chr(34) + snd\name + Chr(34))
+							CreateConsoleMsg("声音加载失败：" + snd\name)
 							If ConsoleOpening
 								ConsoleOpen = True
 							EndIf
@@ -94,7 +93,7 @@ Function PlaySound_Strict%(sndHandle%)
 			Else
 				If snd\internalHandle = 0 Then
 					If FileType(snd\name) <> 1 Then
-						CreateConsoleMsg("Sound " + Chr(34) + snd\name + Chr(34) + " not found.")
+						CreateConsoleMsg("声音未找到：" + snd\name)
 						If ConsoleOpening
 							ConsoleOpen = True
 						EndIf
@@ -103,7 +102,7 @@ Function PlaySound_Strict%(sndHandle%)
 					EndIf
 						
 					If snd\internalHandle = 0 Then
-						CreateConsoleMsg("Failed to load Sound: " + Chr(34) + snd\name + Chr(34))
+						CreateConsoleMsg("声音加载失败：" + snd\name)
 						If ConsoleOpening
 							ConsoleOpen = True
 						EndIf
@@ -168,7 +167,7 @@ Const TwoD% = 8192
 
 Function StreamSound_Strict(file$,volume#=1.0,custommode=Mode)
 	If FileType(file$)<>1
-		CreateConsoleMsg("Sound " + Chr(34) + file$ + Chr(34) + " not found.")
+		CreateConsoleMsg("声音未找到：" + file$)
 		If ConsoleOpening
 			ConsoleOpen = True
 		EndIf
@@ -180,10 +179,8 @@ Function StreamSound_Strict(file$,volume#=1.0,custommode=Mode)
 	st\chn = PlayMusic(File, CustomMode + TwoD)
 
 	If st\chn = -1
-		CreateConsoleMsg("Failed to stream Sound (returned -1): " + Chr(34) + file$ + Chr(34))
-		If ConsoleOpening
-			ConsoleOpen = True
-		EndIf
+		CreateConsoleMsg("声音流加载失败（返回值-1）：" + file$)
+		If ConsoleOpening Then ConsoleOpen = True
 		Return -1
 	EndIf
 	
@@ -198,7 +195,7 @@ Function StopStream_Strict(streamHandle%)
 	If st = Null Then Return
 
 	If st\chn=0 Lor st\chn=-1
-		CreateConsoleMsg("Failed to stop stream Sound: Return value "+st\chn)
+		CreateConsoleMsg("声音流停止失败：返回值"+st\chn)
 		Return
 	EndIf
 	
@@ -210,12 +207,9 @@ End Function
 Function SetStreamVolume_Strict(streamHandle%,volume#)
 	Local st.Stream = Object.Stream(streamHandle)
 	
-	If st = Null
-		;CreateConsoleMsg("Failed to set stream Sound volume: Unknown Stream")
-		Return
-	EndIf
+	If st = Null Then Return
 	If st\chn=0 Or st\chn=-1
-		CreateConsoleMsg("Failed to set stream Sound volume: Return value "+st\chn)
+		CreateConsoleMsg("声音流音量设置失败：返回值"+st\chn)
 		Return
 	EndIf
 	
@@ -225,12 +219,9 @@ End Function
 Function SetStreamPaused_Strict(streamHandle%,paused%)
 	Local st.Stream = Object.Stream(streamHandle)
 	
-	If st = Null
-		;CreateConsoleMsg("Failed to pause/unpause stream Sound: Unknown Stream")
-		Return
-	EndIf
+	If st = Null Then Return
 	If st\chn=0 Or st\chn=-1
-		CreateConsoleMsg("Failed to pause/unpause stream Sound: Return value "+st\chn)
+		CreateConsoleMsg("声音流暂停/恢复失败：返回值"+st\chn)
 		Return
 	EndIf
 	
@@ -244,12 +235,9 @@ End Function
 Function IsStreamPlaying_Strict(streamHandle%)
 	Local st.Stream = Object.Stream(streamHandle)
 	
-	If st = Null
-		;CreateConsoleMsg("Failed to find stream Sound: Unknown Stream")
-		Return
-	EndIf
+	If st = Null Then Return
 	If st\chn=0 Lor st\chn=-1
-		CreateConsoleMsg("Failed to find stream Sound: Return value "+st\chn)
+		CreateConsoleMsg("声音流寻找失败：返回值"+st\chn)
 		Return
 	EndIf
 	
@@ -259,12 +247,9 @@ End Function
 Function SetStreamPan_Strict(streamHandle%,pan#)
 	Local st.Stream = Object.Stream(streamHandle)
 	
-	If st = Null
-		;CreateConsoleMsg("Failed to find stream Sound: Unknown Stream")
-		Return
-	EndIf
+	If st = Null Then Return
 	If st\chn=0 Lor st\chn=-1
-		CreateConsoleMsg("Failed to find stream Sound: Return value "+st\chn)
+		CreateConsoleMsg("声音流寻找失败：返回值"+st\chn)
 		Return
 	EndIf
 	
@@ -272,11 +257,9 @@ Function SetStreamPan_Strict(streamHandle%,pan#)
 End Function
 
 Function UpdateStreamSoundOrigin(streamHandle%,cam%,entity%,range#=10,volume#=1.0)
-	;Local st.Stream = Object.Stream(streamHandle)
 	range# = Max(range,1.0)
 	
 	If volume>0 Then
-		
 		Local dist# = EntityDistance(cam, entity) / range#
 		If 1 - dist# > 0 And 1 - dist# < 1 Then
 			
@@ -298,20 +281,17 @@ Function LoadMesh_Strict(File$,parent=0)
 	If TraditionalChinese Then
 		If FileType("Traditional\"+file) = 1 Then Return LoadMesh("Traditional\"+file)
 	EndIf
-	If FileType(File$) <> 1 Then RuntimeError "3D Mesh " + File$ + " not found."
+	If FileType(File$) <> 1 Then RuntimeError "3D Mesh未找到：" + File$
 	tmp = LoadMesh(File$, parent)
-	If tmp = 0 Then RuntimeError "Failed to load 3D Mesh: " + File$ 
+	If tmp = 0 Then RuntimeError "3D Mesh加载失败：" + File$ 
 	Return tmp  
 End Function   
 
 Function LoadAnimMesh_Strict(File$,parent=0)
-	If TraditionalChinese Then
-		If FileType("Traditional\"+file) = 1 Then Return LoadAnimMesh("Traditional\"+file)
-	EndIf
 	DebugLog File
-	If FileType(File$) <> 1 Then RuntimeError "3D Animated Mesh " + File$ + " not found."
+	If FileType(File$) <> 1 Then RuntimeError "3D Animated Mesh未找到：" + File$
 	tmp = LoadAnimMesh(File$, parent)
-	If tmp = 0 Then RuntimeError "Failed to load 3D Animated Mesh: " + File$ 
+	If tmp = 0 Then RuntimeError "3D Animated Mesh加载失败：" + File$ 
 	Return tmp
 End Function   
 
@@ -322,17 +302,14 @@ Function LoadTexture_Strict(File$,flags=1)
 	EndIf
 	If FileType(File$) <> 1 Then RuntimeError "贴图未找到：" + File$
 	tmp = LoadTexture(File$, flags+(256*(EnableVRam=True)))
-	If tmp = 0 Then RuntimeError "Failed to load Texture: " + File$ 
+	If tmp = 0 Then RuntimeError "贴图加载失败：" + File$ 
 	Return tmp 
 End Function   
 
 Function LoadBrush_Strict(file$,flags,u#=1.0,v#=1.0)
-	If TraditionalChinese Then
-		If FileType("Traditional\"+file) = 1 Then Return LoadBrush("Traditional\"+file)
-	EndIf
-	If FileType(file$)<>1 Then RuntimeError "Brush Texture " + file$ + "not found."
+	If FileType(file$)<>1 Then RuntimeError "Brush贴图未找到：" + file$
 	tmp = LoadBrush(file$, flags, u, v)
-	If tmp = 0 Then RuntimeError "Failed to load Brush: " + file$ 
+	If tmp = 0 Then RuntimeError "Brush加载失败：" + file$ 
 	Return tmp 
 End Function 
 
@@ -342,6 +319,6 @@ Function LoadFont_Strict(file$, height=13, bold=0, italic=0, underline=0)
 	EndIf
 	If FileType(file$)<>1 Then RuntimeError "字体未找到：" + file$
 	tmp = LoadFont(file, height)  
-	If tmp = 0 Then RuntimeError "Failed to load Font: " + file$ 
+	If tmp = 0 Then RuntimeError "字体加载失败：" + file$ 
 	Return tmp
 End Function

@@ -47,7 +47,6 @@ Function UpdateEvents()
 				;[End Block]
 			Case "alarm" ;the alarm in the starting room
 				;[Block]
-				
 				If e\room\RoomDoors[5]=Null Then
 					For i=0 To 3
 						If e\room\AdjDoor[i]<>Null Then
@@ -135,7 +134,6 @@ Function UpdateEvents()
 						e\EventState = 1
 					EndIf
 				Else
-					
 					If e\room\NPC[0] <> Null Then AnimateNPC(e\room\NPC[0], 249, 286, 0.4, False)
 					
 					CurrTrigger = CheckTriggers()
@@ -155,7 +153,6 @@ Function UpdateEvents()
 						e\EventState = e\EventState+FPSfactor
 						
 						If e\EventState2 = 0 Then
-							;CanSave = False
 							ShowEntity Curr173\obj
 							If e\EventState > 900 And e\room\RoomDoors[5]\open Then
 								If e\EventState - FPSfactor <= 900 Then 
@@ -313,9 +310,7 @@ Function UpdateEvents()
 				;[End Block]
 			Case "173" ;the intro sequence
 				;[Block]
-				
 				If KillTimer >= 0 And e\EventState2 = 0 Then
-					
 					PlayerZone = 0
 					
 					If e\EventState3>0 Then
@@ -408,8 +403,7 @@ Function UpdateEvents()
 							
 							If SelectedItem <> Null Then
 								e\EventState3 = e\EventState3+FPSfactor/5.0
-							EndIf							
-							
+							EndIf
 						ElseIf e\EventState3 => 150.0 And e\EventState3 < 700
 							If e\room\NPC[3]\State = 7 Then
 								If e\room\NPC[3]\Sound2 = 0
@@ -490,7 +484,6 @@ Function UpdateEvents()
 										
 										EyeIrritation=Max(EyeIrritation+FPSfactor * 4, 1.0)
 									EndIf
-									
 								EndIf
 							EndIf
 						ElseIf e\EventState3 < 800
@@ -571,7 +564,6 @@ Function UpdateEvents()
 							
 							If e\room\NPC[8]<>Null Then ;the 2 guards and ClassD
 								If e\room\NPC[8]\State = 7 Then
-									;If e\room\RoomDoors[7]\open Then 
 									If Distance(EntityX(Collider), EntityZ(Collider), EntityX(e\room\obj,True)-6688*RoomScale, EntityZ(e\room\obj,True)-1252*RoomScale)<2.5 Then
 										e\room\NPC[8]\State = 10
 										e\room\NPC[9]\State = 1
@@ -670,7 +662,6 @@ Function UpdateEvents()
 										RotateEntity e\room\NPC[3]\Collider,0,CurveValue(EntityYaw(e\room\NPC[3]\obj),EntityYaw(e\room\NPC[3]\Collider),20.0),0,True
 										
 										If e\room\NPC[3]\PathStatus = 2 Then
-											;e\room\NPC[3]\PathStatus = FindPath(e\room\NPC[3],EntityX(e\room\obj,True)-1584*RoomScale, 0.3, EntityZ(e\room\obj,True)-1040*RoomScale)
 											e\room\NPC[3]\PathStatus = FindPath(e\room\NPC[3],PlayerRoom\x-320*RoomScale, 0.3, PlayerRoom\z-704*RoomScale)
 											e\room\NPC[4]\PathStatus = FindPath(e\room\NPC[4],PlayerRoom\x-320*RoomScale, 0.3, PlayerRoom\z-704*RoomScale)
 											e\room\NPC[3]\State = 3
@@ -697,7 +688,6 @@ Function UpdateEvents()
 										e\room\NPC[3]\EnemyX = EntityX(Collider)
 										e\room\NPC[3]\EnemyY = EntityY(Collider)
 										e\room\NPC[3]\EnemyZ = EntityZ(Collider)
-										;e\room\NPC[3]\PathStatus = FindPath(e\room\NPC[3],EntityY(Collider), 0.3, EntityZ(Collider))
 									EndIf
 								EndIf	
 								
@@ -726,8 +716,6 @@ Function UpdateEvents()
 								e\room\NPC[2] = CreateNPC(NPCtypeD, EntityX(e\room\Objects[2], True), 0.5, EntityZ(e\room\Objects[2], True))
 								PointEntity(e\room\NPC[2]\Collider, e\room\Objects[5])
 								ChangeNPCTextureID(e\room\NPC[2],6)
-								;EntityTexture e\room\NPC[2]\obj, DTextures[7]
-								;FreeTexture DTextures[7]
 								e\room\NPC[3]\State = 9								
 								
 								If e\room\NPC[7]\SoundChn<>0 Then
@@ -856,9 +844,7 @@ Function UpdateEvents()
 								EndIf
 							EndIf
 						Next
-						
 					Else
-						
 						;ambience inside the chamber
 						If IntroSFX(18)<>0 Then e\SoundCHN2 = LoopSound2(IntroSFX(18), e\SoundCHN2, Camera, e\room\Objects[4], 6)
 						
@@ -964,7 +950,6 @@ Function UpdateEvents()
 										
 										PointEntity(e\room\NPC[i]\obj, e\room\Objects[i + 2])
 										RotateEntity(e\room\NPC[i]\Collider, 0, CurveValue(EntityYaw(e\room\NPC[i]\obj),EntityYaw(e\room\NPC[i]\Collider),15.0),0)
-										;moveentity(e\room\npc(i).Collider, 0, 0, 0.015 * FPSfactor)
 										If e\EventState > (200 + i * 30) Then e\room\NPC[i]\State = 1
 										temp = False
 									Else
@@ -983,7 +968,6 @@ Function UpdateEvents()
 										e\room\NPC[6]\SoundChn = PlaySound_Strict(IntroSFX(5))
 									ElseIf e\EventState => 850 And e\EventState - (FPSfactor/3) < 850 ;"fire at will"
 										UseDoor(e\room\RoomDoors[1],False)
-										;e\room\RoomDoors[1]\open = False
 										e\room\NPC[6]\SoundChn = PlaySound_Strict(IntroSFX(6))
 									ElseIf e\EventState > 1000
 										e\room\NPC[0]\State = 1
@@ -1117,7 +1101,6 @@ Function UpdateEvents()
 									BlinkTimer = -10
 									If e\room\NPC[1]\State = 0 Then PlaySound2(NeckSnapSFX(Rand(0, 2)),Camera,Curr173\Collider)
 									
-									;e\room\NPC[0]\State=8
 									SetAnimTime e\room\NPC[1]\obj, 0
 									e\room\NPC[1]\State = 6
 									PositionEntity(Curr173\Collider, EntityX(e\room\NPC[1]\obj), EntityY(Curr173\Collider), EntityZ(e\room\NPC[1]\obj))
@@ -1153,7 +1136,6 @@ Function UpdateEvents()
 							ElseIf e\EventState < 14200 ;kills the other class d
 								Animate2(e\room\NPC[1]\obj, AnimTime(e\room\NPC[1]\obj), 0, 19, 0.2, False)
 								
-								;Animate2(e\room\NPC[0]\obj, AnimTime(e\room\NPC[0]\obj), 110, 120, 0.2, False)
 								e\room\NPC[0]\State=8
 								If e\EventState > 14105 Then
 									If e\room\NPC[2]\State<>6 Then PlaySound2 (NeckSnapSFX(1), Camera, e\room\NPC[2]\Collider, 8.0)
@@ -1215,7 +1197,6 @@ Function UpdateEvents()
 									UpdateSoundOrigin(e\room\NPC[0]\SoundChn,Camera,e\room\NPC[0]\Collider,20)
 									If e\EventState > 20260 And e\EventState - FPSfactor < 20260 Then PlaySound_Strict(IntroSFX(12))
 								Else ;lights out, guard dies
-									
 									If e\EventState - FPSfactor < 20300 Then
 										BlinkTimer = -10 : LightBlink = 1.0
 										CameraShake = 3
@@ -1276,7 +1257,6 @@ Function UpdateEvents()
 													RemoveNPC(e\room\NPC[i])
 												Next
 												r\NPC[1]=e\room\NPC[6]
-												;RemoveNPC(e\room\NPC[7])
 												
 												FreeEntity e\room\obj
 												Delete e\room
@@ -1296,16 +1276,11 @@ Function UpdateEvents()
 											EndIf
 										Next
 									EndIf
-									
 								EndIf
-								
 							EndIf
 						EndIf
-						
 						;[End block]
-						
 					EndIf
-					
 				Else
 					If KillTimer<0 Then
 						If e\room\NPC[3]\State = 1 Then 
@@ -1361,11 +1336,6 @@ Function UpdateEvents()
 			Case "checkpoint"
 				;[Block]
 				If PlayerRoom = e\room Then
-					;If e\room\RoomDoors[0]\open <> e\EventState Then
-					;	If e\Sound = 0 Then LoadEventSound(e,"SFX\Door\DoorCheckpoint.Ogg")
-					;	PlaySound_Strict e\Sound
-					;EndIf
-					
 					;play a sound clip when the player passes through the gate
 					If e\EventState2 = 0 Then
 						If EntityZ(Collider) < e\room\z Then
@@ -1468,7 +1438,6 @@ Function UpdateEvents()
 				;[End Block]
 			Case "coffin", "coffin106"
 				;[Block]
-				
 				If e\EventState < MilliSecs2() Then
 					;SCP-079 starts broadcasting 895 camera feed on monitors after leaving the first zone
 					If PlayerZone > 0 Then 
@@ -1484,7 +1453,6 @@ Function UpdateEvents()
 							Next
 						EndIf						
 					EndIf
-					
 					e\EventState = MilliSecs2()+3000
 				EndIf
 				
@@ -1869,7 +1837,6 @@ Function UpdateEvents()
 				;[End Block]
 			Case "pocketdimension"
 				;[Block]
-				
 				;eventstate: a timer for scaling the tunnels in the starting room
 				;eventstate2:
 					;0 if the player is in the starting room
@@ -4407,7 +4374,7 @@ Function UpdateEvents()
 								EndIf
 							Case 60
 								If (Not HalloweenTex) Then
-									Local tex970 = LoadTexture_Strict("GFX\npcs\173h.pt", 1)
+									Local tex970 = LoadTexture_Strict("GFX\npcs\173h.jpg", 1)
 									EntityTexture Curr173\obj, tex970, 0, 0
 									FreeTexture tex970
 								EndIf
@@ -6955,8 +6922,7 @@ Function UpdateEvents()
 							Else
 								e\EventState=e\EventState+FPSfactor
 								AnimateNPC(e\room\NPC[0], 11, 19, 0.25, False)
-								If e\Sound=0 Then 
-									;e\Sound = LoadSound("SFX\General\BodyFall.ogg")
+								If e\Sound=0 Then
 									LoadEventSound(e,"SFX\General\BodyFall.ogg")
 									PlaySound_Strict e\Sound
 									
@@ -6972,9 +6938,7 @@ Function UpdateEvents()
 							
 						EndIf
 					EndIf
-					
 				EndIf
-				
 				;[End Block]
 			Case "106sinkhole"
 				;[Block]
@@ -7047,8 +7011,6 @@ Function UpdateEvents()
 			Case "914"
 				;[Block]
 				If PlayerRoom = e\room Then
-					;GiveAchievement(Achv914)
-					
 					If e\room\RoomDoors[2]\open
 						GiveAchievement(Achv914)
 						e\EventState2=1
@@ -7365,7 +7327,6 @@ Function UpdateEvents()
 						EndIf
 					EndIf
 				EndIf
-				
 				;[End Block]
 			;New Events in SCP:CB version 1.3 - ENDSHN
 			Case "room4tunnels"
@@ -7376,14 +7337,12 @@ Function UpdateEvents()
 					tex = LoadTexture_Strict(e\room\NPC[0]\texture)
 					EntityTexture(e\room\NPC[0]\obj, tex)
 					FreeTexture tex
-					;EntityTexture e\room\NPC[0]\obj,NTF_BodyTextures(0)
 					
 					RotateEntity e\room\NPC[0]\Collider, 0, EntityYaw(e\room\obj)-(Rand(20,60)),0, True	
 					
 					SetNPCFrame e\room\NPC[0], 19
 					e\room\NPC[0]\State=8
 					
-					;Delete e
 					RemoveEvent(e)
 				EndIf
 				;[End Block]
@@ -7412,7 +7371,6 @@ Function UpdateEvents()
 				;[End Block]
 			Case "room2scps2"
 				;[Block]
-				;If PlayerRoom = e\room
 				If e\room\dist < 15
 					If Contained106 Then e\EventState = 2.0
 					If Curr106\State < 0 Then e\EventState = 2.0
@@ -8398,7 +8356,7 @@ Function UpdateEvents()
 				If PlayerRoom=e\room Then
 					UpdateButton(e\room\Objects[2])
 					If ClosestButton = e\room\Objects[2] And MouseHit1 Then
-						Msg = "The elevator appears to be broken."
+						Msg = "电梯看起来坏了"
 						PlaySound2(ButtonSFX2, Camera, e\room\Objects[2])
 						MsgTimer = 5*70
 						MouseHit1=0
@@ -8411,7 +8369,7 @@ Function UpdateEvents()
 					For i = 0 To 1
 						UpdateButton(e\room\Objects[i])
 						If ClosestButton = e\room\Objects[i] And MouseHit1 Then
-							Msg = "The elevator appears to be broken."
+							Msg = "电梯看起来坏了"
 							PlaySound2(ButtonSFX2, Camera, e\room\Objects[i])
 							MsgTimer = 5*70
 							MouseHit1=0
@@ -9829,46 +9787,5 @@ Function UpdateEndings()
 			;causing the UpdateEvent function to be called again and crashing the game
 			PositionEntity Collider, EntityX(Collider), 200, EntityZ(Collider)
 		EndIf
-		
 	EndIf
-	
 End Function
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-;~IDEal Editor Parameters:
-;~F#1#14#29#13B#343#535#545#5B1#630#68D#6B4#6C2#6CC#6D9#8CA#8EB#93F#976#983#9BD
-;~F#9CE#9EE#9F7#A01#A10#B0B#B2D#DE2#E29#E3F#E4B#E68#EB9#ED2#FA1#10A3#1123#113C#115B#11C6
-;~F#11D3#11EC#1284#1439#152D#1581#1633#16D4#1796#17A9#187A#18A7#18C4#18EB#191B#1941#1969#19BB#19F8#1A29
-;~F#1A3C#1AFD#1B6A#1B7D#1B8B#1BCF#1BF0#1CDE#1D53#1E50#1ED1#1F1F#1F24#1F73#1F79#213E
-;~B#10D3#1DD1
-;~C#Blitz3D

@@ -1,0 +1,53 @@
+如何配置源代码：
+
+原版源码可从Github获取：https://github.com/Regalis11/scpcb
+SCPCB TSS可从Github获取：https://github.com/ZiYueCommentary/scpcb-tss
+汉化计划源码可从Github获取：https://github.com/ZiYueCommentary/scpcb-chinese
+
+你需要下载Blitz3D TSS（https://github.com/ZiYueCommentary/Blitz3D），随后将目录里所有.decls文件和.dll文件放到“Blitz3D\userlibs\”文件夹内。
+
+----------------------------------------------------------------------------------------
+
+如何添加新房间：
+
+- 首先，你需要在Data\rooms.ini里添加房间的信息
+	- "mesh path"是房间模型的路径
+	- 形状决定房间的布局：
+		- 1 = 只有一扇门的“死胡同”
+		- 2 = 有两扇门的房间（走廊）
+		- 2C = 有两扇门的转角房间，例如气锁室
+		- 3 = 有三扇门的T形房间（丁字路口）
+		- 4 = 有四扇门的房间，例如“room4tunnels”（十字路口）
+	- commoness（常见度）决定地图算法生成房间的频率
+	如果你希望房间在地图内只刷新一次，请设置commonness为0，随后将房间添加到“MapSystem.bb”的“CreateMap”函数中
+
+- 如果你想要在房间内放置物品、陷阱、其他门或者其他东西，请查看“MapSystem.bb”的“FillRoom”函数
+
+----------------------------------------------------------------------------------------
+
+如何添加新事件：
+
+- 房间事件储存在“Main.bb”的“InitEvents”函数中
+- 你可以使用“CreateEvent”函数来添加新事件，该函数参数如下：
+	- eventname$ = 事件的名称。它可以为任意内容，只要保证与UpdateEvents函数中的名称一致即可
+	- roomname$ = 该事件仅分配给此名称的房间
+	- id% = 决定将此事件分配给哪些房间：
+		- 0将分配给第一个生成的房间，1为第二个，以此类推
+	- prob# = 将此事件随机分配到某些房间：
+		- 0.5表示有50%的几率分配给房间
+		- 1.0表示将事件分配给每个房间
+		- 如果prob#参数大于0.0，则忽略id%参数
+		- 如果prob#参数为0.0，则忽略此参数
+
+- 事件将在“UpdateEvents”函数中更新。查看现有事件以了解事件的工作方式。
+
+- 事件类型具有以下参数，你可以在更新事件时使用这些参数：
+	- room = 事件已分配的房间
+		- room参数可以用于房间中的对象、门和陷阱。
+		例如，你可以向Objects[n]中保存句柄，并使用event\room\objects[n]来访问它
+	- Eventstate#, Eventstate2#, Eventstate3# = 三个可作为计时器的浮点变量示例
+	- Sound% = 存储声音的变量，以便在不使用时释放声音
+	- SoundCHN%, SoundCHN2% = 这些参数可以用来跟踪声音是否播放（使用“ChannelPlaying”函数）
+	当物品栏或菜单打开时，它们也会自动暂停。
+	- img% = 用于储存图像的参数，如果事件需要的话。
+

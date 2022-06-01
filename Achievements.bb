@@ -40,8 +40,6 @@ Function GiveAchievement(achvname%, showMessage%=True)
 		If AchvMSGenabled And showMessage Then
 			Local loc2% = GetINISectionLocation("Data\achievementstrings.ini", "s"+achvname)
 			Local AchievementName$ = GetINIString2("Data\achievementstrings.ini", loc2, "string1")
-			;Msg = "Achievement Unlocked - "+AchievementName
-			;MsgTimer=70*7
 			CreateAchievementMsg(achvname,AchievementName)
 		EndIf
 	EndIf
@@ -157,10 +155,3 @@ Function UpdateAchievementMsg()
 	Next
 	
 End Function
-
-
-
-
-;~IDEal Editor Parameters:
-;~F#31#48
-;~C#Blitz3D

@@ -25,20 +25,22 @@ Type ItemTemplates
 	Field isAnim%
 	
 	Field scale#
-	;Field bumptex%
 	Field tex%, texpath$
 End Type 
 
 Function CreateItemTemplate.ItemTemplates(displayName$, name$, tempname$, objpath$, invimgpath$, imgpath$, scale#, texturepath$ = "",invimgpath2$="",Anim%=0, texflags%=9)
 	Local it.ItemTemplates = New ItemTemplates, n
 	
-	
 	;if another item shares the same object, copy it
 	For it2.itemtemplates = Each ItemTemplates
-		If it2\objpath = objpath And it2\obj <> 0 Then it\obj = CopyEntity(it2\obj) : it\parentobjpath=it2\objpath : Exit
+		If it2\objpath = objpath And it2\obj <> 0 Then
+			it\obj = CopyEntity(it2\obj)
+			it\parentobjpath=it2\objpath
+			Exit
+		EndIf
 	Next
 	
-	If it\obj = 0 Then; it\obj = LoadMesh(objpath)
+	If it\obj = 0 Then
 		If Anim<>0 Then
 			it\obj = LoadAnimMesh_Strict(objpath)
 			it\isAnim=True
@@ -59,7 +61,10 @@ Function CreateItemTemplate.ItemTemplates(displayName$, name$, tempname$, objpat
 				Exit
 			EndIf
 		Next
-		If texture=0 Then texture=LoadTexture_Strict(texturepath,texflags%) : it\texpath = texturepath; : DebugLog texturepath
+		If texture=0 Then
+			texture=LoadTexture_Strict(texturepath,texflags%)
+			it\texpath = texturepath
+		EndIf
 		EntityTexture it\obj, texture
 		it\tex = texture
 	EndIf  
@@ -70,9 +75,9 @@ Function CreateItemTemplate.ItemTemplates(displayName$, name$, tempname$, objpat
 	;if another item shares the same object, copy it
 	For it2.itemtemplates = Each ItemTemplates
 		If it2\invimgpath = invimgpath And it2\invimg <> 0 Then
-			it\invimg = it2\invimg ;CopyImage()
+			it\invimg = it2\invimg
 			If it2\invimg2<>0 Then
-				it\invimg2=it2\invimg2 ;CopyImage()
+				it\invimg2=it2\invimg2
 			EndIf
 			Exit
 		EndIf
@@ -94,14 +99,6 @@ Function CreateItemTemplate.ItemTemplates(displayName$, name$, tempname$, objpat
 	
 	it\imgpath = imgpath
 	
-	;If imgpath<>"" Then
-	;	it\img=LoadImage(imgpath)
-	;	
-	;	;DebugLog imgpath
-	;	
-	;	If it\img<>0 Then ResizeImage(it\img, ImageWidth(it\img) * MenuScale, ImageHeight(it\img) * MenuScale)
-	;EndIf
-	
 	it\tempname = tempname
 	it\name = name
 	it\displayName = displayName
@@ -111,7 +108,6 @@ Function CreateItemTemplate.ItemTemplates(displayName$, name$, tempname$, objpat
 	HideEntity it\obj
 	
 	Return it
-	
 End Function
 
 ; 简单介绍一下新的物品系统
@@ -119,8 +115,7 @@ End Function
 ; 该参数会用作物品栏中的名称显示，以及控制台声明生成成功的物品名称
 ; 总的来说，这么写避免很多问题，这里就不说了，反正很多就对了
 ; 二期技术测试的新输入系统支持输入中文，使用此物品系统在控制台spawnitem命令写显示名、物品英文名、物品ID均可刷出指定物品
-; 子悦 2022/4/25
-
+; ——子悦 2022/4/25
 Function InitItemTemplates()
 	Local it.ItemTemplates,it2.ItemTemplates
 	
@@ -285,8 +280,8 @@ Function InitItemTemplates()
 	
 	it = CreateItemTemplate("SCP-1123", "SCP-1123", "1123", "GFX\items\HGIB_Skull1.b3d", "GFX\items\inv1123.jpg", "", 0.015) : it\sound = 2
 	
-	;it = CreateItemTemplate("Document SCP-1074", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\doc1074.jpg", 0.003) : it\sound = 0
-	;it = CreateItemTemplate("SCP-1074 Containment Notice", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\doc_arce.jpg", 0.003) : it\sound = 0
+	;it = CreateItemTemplate("SCP-1074文档", "Document SCP-1074", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\doc1074.jpg", 0.003) : it\sound = 0
+	;it = CreateItemTemplate("SCP-1074收容通知", "SCP-1074 Containment Notice", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\doc_arce.jpg", 0.003) : it\sound = 0
 	
 	it = CreateItemTemplate("夜视仪", "Night Vision Goggles", "supernv", "GFX\items\NVG.b3d", "GFX\items\INVsupernightvision.jpg", "", 0.02) : it\sound = 2
 	it = CreateItemTemplate("夜视仪", "Night Vision Goggles", "nvgoggles", "GFX\items\NVG.b3d", "GFX\items\INVnightvision.jpg", "", 0.02) : it\sound = 2
@@ -333,13 +328,11 @@ Function InitItemTemplates()
 					EndIf
 				Next
 			EndIf
-			FreeTexture it\tex : it\tex = 0
+			FreeTexture it\tex
+			it\tex = 0
 		EndIf
 	Next
-	
 End Function 
-
-
 
 Type Items
 	Field displayName$
@@ -395,7 +388,7 @@ Function CreateItem.Items(name$, tempname$, x#, y#, z#, r%=0,g%=0,b%=0,a#=1.0,in
 	
 	i\WontColl = False
 	
-	If i\itemtemplate = Null Then RuntimeError("Item template not found ("+name+", "+tempname+")")
+	If i\itemtemplate = Null Then RuntimeError("物品模板未找到（"+name+"，"+tempname+"）")
 	
 	ResetEntity i\collider		
 	PositionEntity(i\collider, x, y, z, True)
@@ -486,7 +479,6 @@ Function RemoveItem(i.Items)
 	
 	CatchErrors("RemoveItem")
 End Function
-
 
 Function UpdateItems()
 	CatchErrors("Uncaught (UpdateItems)")
@@ -596,11 +588,8 @@ Function UpdateItems()
 	Next
 	
 	If ClosestItem <> Null Then
-		;DrawHandIcon = True
-		
 		If MouseHit1 Then PickItem(ClosestItem)
 	EndIf
-	
 End Function
 
 Function PickItem(item.Items)
@@ -616,7 +605,7 @@ Function PickItem(item.Items)
 	Next
 	
 	If WearingHazmat > 0 Then
-		Msg = "You cannot pick up any items while wearing a hazmat suit."
+		Msg = "你不能在穿着防护服时捡起物品"
 		MsgTimer = 70*5
 		Return
 	EndIf
@@ -632,10 +621,10 @@ Function PickItem(item.Items)
 								ShowEntity Light
 								LightFlash = 7
 								PlaySound_Strict(LoadTempSound("SFX\SCP\1123\Touch.ogg"))		
-								DeathMSG = "Subject D-9341 was shot dead after attempting to attack a member of Nine-Tailed Fox. Surveillance tapes show that the subject had been "
-								DeathMSG = DeathMSG + "wandering around the site approximately 9 minutes prior, shouting the phrase " + Chr(34) + "get rid of the four pests" + Chr(34)
-								DeathMSG = DeathMSG + " in chinese. SCP-1123 was found in [REDACTED] nearby, suggesting the subject had come into physical contact with it. How "
-								DeathMSG = DeathMSG + "exactly SCP-1123 was removed from its containment chamber is still unknown."
+								DeathMSG = "对象D-9341在试图袭击一名九尾狐成员后被击毙。"
+								DeathMSG = DeathMSG + "监控录像显示，对象在大约9分钟前在现场徘徊，用中文高喊“消灭四害”。"
+								DeathMSG = DeathMSG + "SCP-1123在[已编辑]的附近找到，证明对象与它发生了肢体接触。"
+								DeathMSG = DeathMSG + "目前尚未知SCP-1123是如何从收容室离开的。"
 								Kill()
 							EndIf
 							For e.Events = Each Events
@@ -646,7 +635,6 @@ Function PickItem(item.Items)
 										PlaySound_Strict(LoadTempSound("SFX\SCP\1123\Touch.ogg"))
 									EndIf
 									e\eventstate = Max(1, e\eventstate)
-									
 									Exit
 								EndIf
 							Next
@@ -657,8 +645,8 @@ Function PickItem(item.Items)
 						ShowEntity Light
 						LightFlash = 1.0
 						PlaySound_Strict(IntroSFX(11))
-						DeathMSG = "Subject D-9341 found dead inside SCP-914's output booth next to what appears to be an ordinary nine-volt battery. The subject is covered in severe "
-						DeathMSG = DeathMSG + "electrical burns, and assumed to be killed via an electrical shock caused by the battery. The battery has been stored for further study."
+						DeathMSG = "对象D-9341的尸体在SCP-914的输出隔间找到，旁边似乎是一个普通的9V电池。"
+						DeathMSG = DeathMSG + "对象身体严重受伤，原因可能是电池引起的电击致死。电池已被储存起来以供进一步研究。"
 						Kill()
 					Case "scp148"
 						GiveAchievement(Achv148)	
@@ -669,7 +657,7 @@ Function PickItem(item.Items)
 					Case "key6"
 						GiveAchievement(AchvOmni)
 					Case "veryfinevest"
-						Msg = "The vest is too heavy to pick up."
+						Msg = "这个防弹背心太重了，捡不起来"
 						MsgTimer = 70*6
 						Exit
 					Case "firstaid", "finefirstaid", "veryfinefirstaid", "firstaid2"
@@ -691,15 +679,14 @@ Function PickItem(item.Items)
 						Next
 						
 						If canpickitem=False Then
-							Msg = "You are not able to wear two hazmat suits at the same time."
+							Msg = "你不能同时穿着两副防护服"
 							MsgTimer = 70 * 5
 							Return
 						ElseIf canpickitem=2 Then
-							Msg = "You are not able to wear a vest and a hazmat suit at the same time."
+							Msg = "你不能在穿着防护服时穿上防弹背心"
 							MsgTimer = 70 * 5
 							Return
 						Else
-							;TakeOffStuff(1+16)
 							SelectedItem = item
 						EndIf
 					Case "vest","finevest"
@@ -717,15 +704,14 @@ Function PickItem(item.Items)
 						Next
 						
 						If canpickitem=False Then
-							Msg = "You are not able to wear two vests at the same time."
+							Msg = "你不能同时穿着两副防弹背心"
 							MsgTimer = 70 * 5
 							Return
 						ElseIf canpickitem=2 Then
-							Msg = "You are not able to wear a vest and a hazmat suit at the same time."
+							Msg = "你不能在穿着防弹背心时穿上防护服"
 							MsgTimer = 70 * 5
 							Return
 						Else
-							;TakeOffStuff(2)
 							SelectedItem = item
 						EndIf
 				End Select
@@ -743,7 +729,7 @@ Function PickItem(item.Items)
 			EndIf
 		Next
 	Else
-		Msg = "You cannot carry any more items."
+		Msg = "你不能捡起更多物品了"
 		MsgTimer = 70 * 5
 	EndIf
 	CatchErrors("PickItem")
@@ -751,7 +737,7 @@ End Function
 
 Function DropItem(item.Items,playdropsound%=True)
 	If WearingHazmat > 0 Then
-		Msg = "You cannot drop any items while wearing a hazmat suit."
+		Msg = "你不能在穿着防护服时丢掉物品"
 		MsgTimer = 70*5
 		Return
 	EndIf
@@ -818,8 +804,6 @@ Function Update294()
 			CameraShake = Rnd(0, 2)
 		EndIf
 		
-;		If (MilliSecs2() Mod 1000) < Rand(1200) Then 
-		
 		If Rand(50) = 50 And (MilliSecs2() Mod 4000) < 200 Then PlaySound_Strict(CoughSFX(Rand(0,2)))
 		
 		;Regurgitate when timer is below 10 seconds. (ew)
@@ -885,14 +869,3 @@ Function Update294()
 	
 	CatchErrors("Update294")
 End Function
-
-
-
-
-
-
-
-
-;~IDEal Editor Parameters:
-;~F#B#1E
-;~C#Blitz3D

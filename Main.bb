@@ -1,12 +1,12 @@
 ;SCP - 收容失效 汉化计划
 
-;    游戏基于SCP基金会背景(http:/scp-wiki-cn.wikidot.com/)
+;    游戏基于SCP基金会背景(http://scp-wiki-cn.wikidot.com/)
 
 ;	 汉化版基于SCP - Containment Breach TSS制作（https://github.com/ZiYueCommentary/scpcb-tss）
 ;	 汉化版源码可于https://github.com/ZiYueCommentary/scpcb-chinese拉取
 
 ;	 游戏遵循知识共享许可协议BY-SA 3.0（即必须署名、可商用、可二创、可二创商用）
-;	 https:/creativecommons.org/licenses/by-sa/3.0/deed.zh
+;	 https://creativecommons.org/licenses/by-sa/3.0/deed.zh
 
 ;    打开"Credits.txt"文件查看详细制作人员名单
 
@@ -25,25 +25,16 @@ Include "fullscreen_window_fix.bb"
 Include "KeyName.bb"
 
 Global OptionFile$ = "options.ini"
-
 Include "Update.bb"
 
 Include "DevilParticleSystem.bb"
-
-; 我不知道这堆玩意还有没有用，这得取决于我能不能把ErrorLog给引擎加回去		——子悦
-;Global ErrorFile$ = "error_log_"
-;Local ErrorFileInd% = 0
-;While FileType(ErrorFile+Str(ErrorFileInd)+".txt")<>0
-;	ErrorFileInd = ErrorFileInd+1
-;Wend
-;ErrorFile = ErrorFile+Str(ErrorFileInd)+".txt"
 
 Global UpdaterFont%
 Global Font1%, Font2%, Font3%, Font4%, Font5%
 Global ConsoleFont%
 
 Global VersionNumber$ = "1.3.11"
-Global SinicizationNumber$ = "2022.05.16-Second Phase Localization" ;汉化版本号
+Global SinicizationNumber$ = "2022.06-Debug Testing" ;汉化版本号
 Global CompatibleNumber$ = "1.3.11-2022.5" ;当存档与构建版本不兼容时再更改		——开发者 ENDSHN
 
 Global MenuWhite%, MenuBlack%
@@ -142,7 +133,6 @@ If LauncherEnabled Then
 			Graphics3DExt(GraphicWidth, GraphicHeight, 0, 2)
 		End If
 	EndIf
-	
 Else
 	For i% = 1 To TotalGFXModes
 		Local samefound% = False
@@ -185,7 +175,6 @@ Else
 			Graphics3DExt(GraphicWidth, GraphicHeight, 0, 2)
 		End If
 	EndIf
-	
 EndIf
 
 Global MenuScale# = (GraphicHeight / 1024.0)
@@ -213,7 +202,7 @@ Global GameSaved%
 
 Global CanSave% = True
 
-AppTitle "SCP - 收容失效 v"+VersionNumber+" 汉化版 - 二期汉化"
+AppTitle "SCP - 收容失效 v"+VersionNumber+" 汉化版 - 排错测试"
 
 PlayStartupVideos()
 
@@ -227,15 +216,15 @@ Global SelectedLoadingScreen.LoadingScreens, LoadingScreenAmount%, LoadingScreen
 Global LoadingBack% = LoadImage_Strict("Loadingscreens\loadingback.jpg")
 InitLoadingScreens("Loadingscreens\loadingscreens.ini")
 
-Font1% = LoadFont("GFX\font\Containment Breach.ttf", Int(16 * (GraphicHeight / 1024.0)))
-Font2% = LoadFont("GFX\font\Containment Breach.ttf", Int(55 * (GraphicHeight / 1024.0)))
+Font1% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(16 * (GraphicHeight / 1024.0)))
+Font2% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(55 * (GraphicHeight / 1024.0)))
 Font3% = LoadFont_Strict("GFX\font\Cubic.ttf", Int(19 * (GraphicHeight / 1024.0)))
 Font4% = LoadFont_Strict("GFX\font\Cubic.ttf", Int(57 * (GraphicHeight / 1024.0)))
-Font5% = LoadFont("GFX\font\Journal.ttf", Int(55 * (GraphicHeight / 1024.0)))
+Font5% = LoadFont_Strict("GFX\font\Journal.ttf", Int(55 * (GraphicHeight / 1024.0)))
 
 Global CreditsFont%,CreditsFont2%,CreditsFont3%
 
-ConsoleFont% = LoadFont("GFX\font\Containment Breach.ttf", Int(17 * (GraphicHeight / 1024.0)))
+ConsoleFont% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(17 * (GraphicHeight / 1024.0)))
 
 SetFont Font2
 
@@ -680,7 +669,7 @@ Function UpdateConsole()
 							CreateConsoleMsg("可生成能在物品栏里出现的物品")
 							CreateConsoleMsg("在二期技术测试之后，游戏支持输入法")
 							CreateConsoleMsg("因此在汉化版中，你可以使用物品中文名、物品英文名或物品ID生成物品")
-							CreateConsoleMsg("示例: spawnitem 万能钥匙卡 / spawnitem key card omni")
+							CreateConsoleMsg("示例: spawnitem 万能钥匙卡 / spawnitem key card omni / spawnitem key6")
 							CreateConsoleMsg("******************************")
 						Case "spawn"
 							CreateConsoleMsg("帮助 - spawn")
@@ -728,11 +717,9 @@ Function UpdateConsole()
 							CreateConsoleMsg("******************************")
 							CreateConsoleMsg("将播放在"+Chr(34)+"SFX\Music\Custom\"+Chr(34)+"文件夹内的.ogg/.wav格式文件")
 							CreateConsoleMsg("******************************")
-							
 						Default
 							CreateConsoleMsg("该命令没有可用的帮助",255,150,0)
 					End Select
-					
 					;[End Block]
 				Case "asd"
 					;[Block]
@@ -804,24 +791,20 @@ Function UpdateConsole()
 					;[Block]
 					SelectedEnding = Lower(Right(ConsoleInput, Len(ConsoleInput) - Instr(ConsoleInput, " ")))
 					KillTimer = -0.1
-					;EndingTimer = -0.1
 					;[End Block]
 				Case "noclipspeed"
 					;[Block]
 					StrTemp$ = Lower(Right(ConsoleInput, Len(ConsoleInput) - Instr(ConsoleInput, " ")))
-					
 					NoClipSpeed = Float(StrTemp)
 					;[End Block]
 				Case "injure"
 					;[Block]
 					StrTemp$ = Lower(Right(ConsoleInput, Len(ConsoleInput) - Instr(ConsoleInput, " ")))
-					
 					Injuries = Float(StrTemp)
 					;[End Block]
 				Case "infect"
 					;[Block]
 					StrTemp$ = Lower(Right(ConsoleInput, Len(ConsoleInput) - Instr(ConsoleInput, " ")))
-					
 					Infect = Float(StrTemp)
 					;[End Block]
 				Case "heal"
@@ -844,7 +827,6 @@ Function UpdateConsole()
 					
 					For r.Rooms = Each Rooms
 						If r\RoomTemplate\Name = StrTemp Then
-							;PositionEntity (Collider, EntityX(r\obj), 0.7, EntityZ(r\obj))
 							PositionEntity (Collider, EntityX(r\obj), EntityY(r\obj)+0.7, EntityZ(r\obj))
 							ResetEntity(Collider)
 							UpdateDoors()
@@ -976,7 +958,7 @@ Function UpdateConsole()
 					;[Block]
 					HalloweenTex = Not HalloweenTex
 					If HalloweenTex Then
-						Local tex = LoadTexture_Strict("GFX\npcs\173h.pt", 1)
+						Local tex = LoadTexture_Strict("GFX\npcs\173h.jpg", 1)
 						EntityTexture Curr173\obj, tex, 0, 0
 						FreeTexture tex
 						CreateConsoleMsg("南瓜173 启用")
@@ -1251,14 +1233,14 @@ Function UpdateConsole()
 						Case 1
 							DeathMSG = "[已编辑]"
 						Case 2
-							DeathMSG = "对象D-9341尸体在[已编辑]区找到"
+							DeathMSG = "对象D-9341的尸体在[已编辑]区找到。"
 							DeathMSG = DeathMSG + "对象似乎没有受到任何物理伤害，也没有明显迹象表明是什么杀死了他。"
 							DeathMSG = DeathMSG + "尸体已被送去医检。"
 						Case 3
 							DeathMSG = "EXCP_ACCESS_VIOLATION 意外的访问冲突"
 						Case 4
-							DeathMSG = "对象D-9341尸体在[已编辑]区找到"
-							DeathMSG = DeathMSG + "对象似乎在他身边用自己的血液写下了字母“kys”"
+							DeathMSG = "对象D-9341的尸体在[已编辑]区找到。"
+							DeathMSG = DeathMSG + "对象似乎在他身边用自己的血液写下了字母“kys”。"
 							DeathMSG = DeathMSG + "没有其他身体创伤或挣扎的迹象，尸体被送去尸检。"
 					End Select
 					;[End Block]
@@ -1468,16 +1450,11 @@ Function UpdateConsole()
 				EndIf
 				TempY = TempY - 15*MenuScale
 			EndIf
-			
 		Next
-		
 		Color 255,255,255
-		
 		If Fullscreen Then DrawImage CursorIMG, ScaledMouseX(),ScaledMouseY()
 	End If
-	
 	SetFont Font1
-	
 End Function
 
 ConsoleR = 0 : ConsoleG = 255 : ConsoleB = 255
@@ -1524,7 +1501,7 @@ Global MouseSens# = GetINIFloat("options.ini", "options", "mouse sensitivity")
 
 Global EnableVRam% = GetINIInt("options.ini", "options", "enable vram")
 
-Include "dreamfilter.bb"
+Include "Dreamfilter.bb"
 
 Dim LightSpriteTex(10)
 
@@ -1567,7 +1544,6 @@ Music(24) = "Credits"
 Music(25) = "SaveMeFrom"
 
 Global MusicVolume# = GetINIFloat(OptionFile, "audio", "music volume")
-;Global MusicCHN% = StreamSound_Strict("SFX\Music\"+Music(2)+".ogg", MusicVolume, CurrMusicStream)
 
 Global CurrMusicStream, MusicCHN
 MusicCHN = StreamSound_Strict("SFX\Music\"+Music(2)+".ogg",MusicVolume,Mode)
@@ -1656,10 +1632,6 @@ DrawLoading(25, True)
 
 Dim IntroSFX%(20)
 
-;IntroSFX(13) = LoadSound_Strict("SFX\intro\shoot1.ogg")
-;IntroSFX(14) = LoadSound_Strict("SFX\intro\shoot2.ogg")
-
-
 Dim AlarmSFX%(5)
 
 Dim CommotionState%(25)
@@ -1694,9 +1666,6 @@ DrawLoading(30, True)
 
 ;New Sounds and Meshes/Other things in SCP:CB 1.3 - ENDSHN
 ;[Block]
-;Global NTF_1499EnterSFX% = LoadSound_Strict("SFX\SCP\1499\Enter.ogg")
-;Global NTF_1499LeaveSFX% = LoadSound_Strict("SFX\SCP\1499\Exit.ogg")
-
 Global PlayCustomMusic% = False, CustomMusic% = 0
 
 Global Monitor2, Monitor3, MonitorTexture2, MonitorTexture3, MonitorTexture4, MonitorTextureOff
@@ -1893,10 +1862,8 @@ Function CreateDoor.Doors(lvl, x#, y#, z#, angle#, room.Rooms, dopen% = False,  
 		d\obj2 = CopyEntity(DoorOBJ)
 		
 		ScaleEntity(d\obj2, (204.0 * RoomScale) / MeshWidth(d\obj), 312.0 * RoomScale / MeshHeight(d\obj), 16.0 * RoomScale / MeshDepth(d\obj))
-		;entityType d\obj2, HIT_MAP
 	End If
 	
-	;scaleentity(d\obj, 0.1, 0.1, 0.1)
 	PositionEntity d\frameobj, x, y, z	
 	ScaleEntity(d\frameobj, (8.0 / 2048.0), (8.0 / 2048.0), (8.0 / 2048.0))
 	EntityPickMode d\frameobj,2
@@ -2001,9 +1968,7 @@ Function CreateDoor.Doors(lvl, x#, y#, z#, angle#, room.Rooms, dopen% = False,  
 			HideEntity d\DoorHitOBJ
 		EndIf
 	EndIf
-	
 	Return d
-	
 End Function
 
 Function CreateButton(x#,y#,z#, pitch#,yaw#,roll#=0)
@@ -2020,7 +1985,6 @@ Function CreateButton(x#,y#,z#, pitch#,yaw#,roll#=0)
 End Function
 
 Function UpdateDoors()
-	
 	Local i%, d.Doors, x#, z#, dist#
 	If UpdateDoorsTimer =< 0 Then
 		For d.Doors = Each Doors
@@ -2369,7 +2333,6 @@ Function UseDoor(d.Doors, showmsg%=True, playsfx%=True)
 	If d\LinkedDoor <> Null Then d\LinkedDoor\open = (Not d\LinkedDoor\open)
 	
 	Local sound = 0
-	;If d\dir = 1 Then sound = 0 Else sound=Rand(0, 2)
 	If d\dir = 1 Then sound=Rand(0, 1) Else sound=Rand(0, 2)
 	
 	If playsfx=True Then
@@ -2622,13 +2585,6 @@ Function InitEvents()
 	CreateEvent("room966","room966", 0)
 	
 	CreateEvent("room1123", "room1123", 0, 0)
-	;CreateEvent("room2test1074","room2test1074",0)
-	;CreateEvent("room038","room038",0,0)
-	;CreateEvent("room009","room009",0,0)
-	;CreateEvent("medibay", "medibay", 0)
-	;CreateEvent("room409", "room409", 0)
-	;CreateEvent("room178", "room178", 0)
-	;CreateEvent("room020", "room020", 0)
 	CreateEvent("room2tesla", "room2tesla_lcz", 0, 0.9)
 	CreateEvent("room2tesla", "room2tesla_hcz", 0, 0.9)
 	
@@ -2775,7 +2731,6 @@ Global I_Zone.MapZones = New MapZones
 ;----------------------------------------------------------------------------------------------------------------------------------------------------
 
 Repeat
-	
 	Cls
 	
 	CurTime = MilliSecs2()
@@ -3727,7 +3682,7 @@ Function DrawEnding()
 				
 				Color(255, 255, 255)
 				SetFont Font2
-				Text(x + width / 2 + 40*MenuScale, y + 20*MenuScale, "结束", True)
+				Text(x + width / 2 + 40*MenuScale, y + 20*MenuScale + 10, "结束", True)
 				SetFont Font1
 				
 				If AchievementsMenu=0 Then 
@@ -3769,11 +3724,11 @@ Function DrawEnding()
 					x = x+width/2
 					y = y+height-100*MenuScale
 					
-					If DrawButton(x-145*MenuScale,y-200*MenuScale,390*MenuScale,60*MenuScale,"成就", True) Then
+					If DrawButton(x-145*MenuScale,y-200*MenuScale + 5,390*MenuScale,60*MenuScale,"成就", True) Then
 						AchievementsMenu = 1
 					EndIf
 					
-					If DrawButton(x-145*MenuScale,y-100*MenuScale,390*MenuScale,60*MenuScale,"主菜单", True)
+					If DrawButton(x-145*MenuScale,y-100*MenuScale + 5,390*MenuScale,60*MenuScale,"主菜单", True)
 						ShouldPlay = 24
 						NowPlaying = ShouldPlay
 						For i=0 To 9
@@ -5549,7 +5504,6 @@ Function DrawGUI()
 						Msg = "你摘下了戒指"
 						Wearing714 = False
 					Else
-						;Achievements(Achv714)=True
 						Msg = "你戴上了戒指"
 						Wearing714 = 2
 					EndIf
@@ -6056,7 +6010,7 @@ Function DrawGUI()
 											DebugLog UserTrackName$(RadioState(0))
 										EndIf
 									EndIf
-								Case 1 ;h????��??��lytyskanava
+								Case 1 ;hälytyskanava
 									DebugLog RadioState(1) 
 									
 									ResumeChannel(RadioCHN(1))
@@ -6271,7 +6225,7 @@ Function DrawGUI()
 											If RadioCHN(Int(SelectedItem\state2)) <> 0 Then PauseChannel(RadioCHN(Int(SelectedItem\state2)))
 										EndIf
 										SelectedItem\state2 = i-2
-										;jos nykyist????��??�� kanavaa ollaan soitettu, laitetaan jatketaan toistoa samasta kohdasta
+										;jos nykyistä kanavaa ollaan soitettu, laitetaan jatketaan toistoa samasta kohdasta
 										If RadioCHN(SelectedItem\state2)<>0 Then ResumeChannel(RadioCHN(SelectedItem\state2))
 									EndIf
 								Next
@@ -7041,10 +6995,10 @@ Function DrawMenu()
 		If AchievementsMenu <= 0 And OptionsMenu <= 0 And QuitMSG <= 0
 			SetFont Font1
 			Text x, y, "难度： "+SelectedDifficulty\name
-			Text x, y+20*MenuScale, "存档名： "+CurrSave
+			Text x, y+20*MenuScale, "存档名： "+ConvertToUTF8(CurrSave)
 			Text x, y+40*MenuScale, "地图种子： "+RandomSeed
 		ElseIf AchievementsMenu <= 0 And OptionsMenu > 0 And QuitMSG <= 0 And KillTimer >= 0
-			If DrawButton(x + 101 * MenuScale, y + 390 * MenuScale, 230 * MenuScale, 60 * MenuScale, "返回", True, True, -2) Then
+			If DrawButton(x + 101 * MenuScale, y + 390 * MenuScale, 230 * MenuScale, 60 * MenuScale, "返回", True, False, -2) Then
 				AchievementsMenu = 0
 				OptionsMenu = 0
 				QuitMSG = 0
@@ -7417,7 +7371,7 @@ Function DrawMenu()
 				If (Not CanSave) Then AbleToSave = False
 				If AbleToSave
 					QuitButton = 140
-					If DrawButton(x, y + 60*MenuScale, 390*MenuScale, 60*MenuScale, "保存并退出", True, True, -2) Then
+					If DrawButton(x, y + 60*MenuScale, 390*MenuScale, 60*MenuScale, "保存并退出", True, False, -2) Then
 						DropSpeed = 0
 						SaveGame(SavePath + CurrSave + "\")
 						NullGame()
@@ -7430,7 +7384,7 @@ Function DrawMenu()
 				EndIf
 			EndIf
 			
-			If DrawButton(x, y + QuitButton*MenuScale, 390*MenuScale, 60*MenuScale, "退出", True, True, -2) Then
+			If DrawButton(x, y + QuitButton*MenuScale, 390*MenuScale, 60*MenuScale, "退出", True, False, -2) Then
 				NullGame()
 				MenuOpen = False
 				MainMenuOpen = True
@@ -7439,14 +7393,14 @@ Function DrawMenu()
 				FlushKeys()
 			EndIf
 			
-			If DrawButton(x+101*MenuScale, y + 344*MenuScale, 230*MenuScale, 60*MenuScale, "返回", True, True, -2) Then
+			If DrawButton(x+101*MenuScale, y + 344*MenuScale, 230*MenuScale, 60*MenuScale, "返回", True, False, -2) Then
 				AchievementsMenu = 0
 				OptionsMenu = 0
 				QuitMSG = 0
 				MouseHit1 = False
 			EndIf
 		Else
-			If DrawButton(x+101*MenuScale, y + 344*MenuScale, 230*MenuScale, 60*MenuScale, "返回", True, True, -2) Then
+			If DrawButton(x+101*MenuScale, y + 344*MenuScale, 230*MenuScale, 60*MenuScale, "返回", True, False, -2) Then
 				AchievementsMenu = 0
 				OptionsMenu = 0
 				QuitMSG = 0
@@ -7494,7 +7448,7 @@ Function DrawMenu()
 			If KillTimer >= 0 Then	
 				y = y+ 72*MenuScale
 				
-				If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "继续", True, True, -2) Then
+				If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "继续", True, False, -2) Then
 					MenuOpen = False
 					ResumeSounds()
 					MouseXSpeed() : MouseYSpeed() : MouseZSpeed() : mouse_x_speed_1#=0.0 : mouse_y_speed_1#=0.0
@@ -7503,7 +7457,7 @@ Function DrawMenu()
 				y = y + 75*MenuScale
 				If (Not SelectedDifficulty\permaDeath) Then
 					If GameSaved Then
-						If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "加载游戏", True, True) Then
+						If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "加载游戏", True, False) Then
 							DrawLoading(0)
 							
 							MenuOpen = False
@@ -7552,14 +7506,14 @@ Function DrawMenu()
 					y = y + 75*MenuScale
 			EndIf
 				
-				If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "成就", True, True, -2) Then AchievementsMenu = 1
+				If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "成就", True, False, -2) Then AchievementsMenu = 1
 				y = y + 75*MenuScale
-				If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "设置", True, True, -2) Then OptionsMenu = 1
+				If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "设置", True, False, -2) Then OptionsMenu = 1
 				y = y + 75*MenuScale
 			Else
 				y = y+104*MenuScale
 				If GameSaved And (Not SelectedDifficulty\permaDeath) Then
-					If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "加载游戏", True, True) Then
+					If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "加载游戏", True, False, -2) Then
 						DrawLoading(0)
 						
 						MenuOpen = False
@@ -7604,7 +7558,7 @@ Function DrawMenu()
 					Color 50,50,50
 					Text(x + 185*MenuScale, y + 30*MenuScale, "加载游戏", True, True)
 				EndIf
-				If DrawButton(x, y + 80*MenuScale, 390*MenuScale, 60*MenuScale, "返回主菜单", True, True, -2) Then
+				If DrawButton(x, y + 80*MenuScale, 390*MenuScale, 60*MenuScale, "返回主菜单", True, False, -2) Then
 					NullGame()
 					MenuOpen = False
 					MainMenuOpen = True
@@ -7616,7 +7570,7 @@ Function DrawMenu()
 			EndIf
 			
 			If KillTimer >= 0 And (Not MainMenuOpen)
-				If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "退出", True, True, -2) Then
+				If DrawButton(x, y, 390*MenuScale, 60*MenuScale, "退出", True, False, -2) Then
 					QuitMSG = 1
 				EndIf
 			EndIf
@@ -7979,7 +7933,7 @@ Function LoadEntities()
 	ParticleTextures(0) = LoadTexture_Strict("GFX\smoke.png", 1 + 2)
 	ParticleTextures(1) = LoadTexture_Strict("GFX\flash.jpg", 1 + 2)
 	ParticleTextures(2) = LoadTexture_Strict("GFX\dust.jpg", 1 + 2)
-	ParticleTextures(3) = LoadTexture_Strict("GFX\npcs\hg.pt", 1 + 2)
+	ParticleTextures(3) = LoadTexture_Strict("GFX\npcs\hg.jpg", 1 + 2)
 	ParticleTextures(4) = LoadTexture_Strict("GFX\map\sun.jpg", 1 + 2)
 	ParticleTextures(5) = LoadTexture_Strict("GFX\bloodsprite.png", 1 + 2)
 	ParticleTextures(6) = LoadTexture_Strict("GFX\smoke2.png", 1 + 2)
@@ -8046,7 +8000,6 @@ Function LoadEntities()
 	OBJTunnel(6)=LoadRMesh("GFX\map\mt_generator.rmesh",Null)
 	HideEntity OBJTunnel(6)
 	
-	;TextureLodBias TextureBias
 	TextureLodBias TextureFloat#
 	;Devil Particle System
 	;ParticleEffect[] numbers:
@@ -8070,7 +8023,6 @@ Function LoadEntities()
 	SetTemplateAlignToFall(ParticleEffect[0], True, 45)
 	SetTemplateGravity(ParticleEffect[0], 0.001)
 	SetTemplateAlphaVel(ParticleEffect[0], True)
-	;SetTemplateSize(ParticleEffect[0], 0.0625, 0.125, 0.7, 1)
 	SetTemplateSize(ParticleEffect[0], 0.03125, 0.0625, 0.7, 1)
 	SetTemplateColors(ParticleEffect[0], $0000FF, $6565FF)
 	SetTemplateFloor(ParticleEffect[0], 0.0, 0.5)
@@ -8082,12 +8034,9 @@ Function LoadEntities()
 	SetTemplateEmitterLifeTime(ParticleEffect[1], 3)
 	SetTemplateParticleLifeTime(ParticleEffect[1], 30, 45)
 	SetTemplateTexture(ParticleEffect[1], "GFX\smoke2.png", 2, 1)
-	;SetTemplateOffset(ParticleEffect[1], -.3, .3, -.3, .3, -.3, .3)
 	SetTemplateOffset(ParticleEffect[1], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-	;SetTemplateVelocity(ParticleEffect[1], -.04, .04, .1, .2, -.04, .04)
 	SetTemplateVelocity(ParticleEffect[1], 0.0, 0.0, 0.02, 0.025, 0.0, 0.0)
 	SetTemplateAlphaVel(ParticleEffect[1], True)
-	;SetTemplateSize(ParticleEffect[1], 3, 3, .5, 1.5)
 	SetTemplateSize(ParticleEffect[1], 0.4, 0.4, 0.5, 1.5)
 	SetTemplateSizeVel(ParticleEffect[1], .01, 1.01)
 	
@@ -8125,9 +8074,6 @@ Function LoadEntities()
 	HideEntity(Room2slCam)
 	
 	DrawLoading(30)
-	
-	;LoadRoomMeshes()
-	
 	CatchErrors("LoadEntities")
 End Function
 
@@ -8318,8 +8264,6 @@ Function InitLoadGame()
 	
 	ResetEntity Collider
 	
-	;InitEvents()
-	
 	DrawLoading(90)
 	
 	MoveMouse viewport_center_x,viewport_center_y
@@ -8349,7 +8293,6 @@ Function InitLoadGame()
 				FreeTexture planetex%
 				PositionEntity e\room\Objects[0],0,EntityY(e\room\obj),0
 				EntityType e\room\Objects[0],HIT_MAP
-				;EntityParent e\room\Objects[0],e\room\obj
 				DrawLoading(92)
 				NTF_1499Sky = sky_CreateSky("GFX\map\sky\1499sky")
 				DrawLoading(93)
@@ -8368,8 +8311,6 @@ Function InitLoadGame()
 				Next
 				DrawLoading(98)
 				UpdateChunks(e\room,15,False)
-				;MoveEntity Collider,0,10,0
-				;ResetEntity Collider
 				
 				DebugLog "Loaded dimension1499 successful"
 				
@@ -8657,8 +8598,6 @@ Function NullGame(playbuttonsfx%=True)
 	Delete Each AchievementMsg
 	CurrAchvMSGID = 0
 	
-	;DeInitExt
-	
 	ClearWorld
 	Camera = 0
 	ark_blur_cam = 0
@@ -8697,19 +8636,16 @@ Function LoopSound2%(SoundHandle%, Chn%, cam%, entity%, range# = 10, volume# = 1
 	If volume>0 Then
 		
 		Local dist# = EntityDistance(cam, entity) / range#
-		;If 1 - dist# > 0 And 1 - dist# < 1 Then
-			
-			Local panvalue# = Sin(-DeltaYaw(cam,entity))
-			
-			If Chn = 0 Then
-				Chn% = PlaySound_Strict (SoundHandle)
-			Else
-				If (Not ChannelPlaying(Chn)) Then Chn% = PlaySound_Strict (SoundHandle)
-			EndIf
-			
-			ChannelVolume(Chn, volume# * (1 - dist#)*SFXVolume#)
-			ChannelPan(Chn, panvalue)
-		;EndIf
+		Local panvalue# = Sin(-DeltaYaw(cam,entity))
+		
+		If Chn = 0 Then
+			Chn% = PlaySound_Strict (SoundHandle)
+		Else
+			If (Not ChannelPlaying(Chn)) Then Chn% = PlaySound_Strict (SoundHandle)
+		EndIf
+		
+		ChannelVolume(Chn, volume# * (1 - dist#)*SFXVolume#)
+		ChannelPan(Chn, panvalue)
 	Else
 		If Chn <> 0 Then
 			ChannelVolume (Chn, 0)
@@ -8730,7 +8666,6 @@ Function LoadTempSound(file$)
 End Function
 
 Function LoadEventSound(e.Events,file$,num%=0)
-	
 	If num=0 Then
 		If e\Sound<>0 Then FreeSound_Strict e\Sound : e\Sound=0
 		e\Sound=LoadSound_Strict(file)
@@ -8743,7 +8678,6 @@ Function LoadEventSound(e.Events,file$,num%=0)
 End Function
 
 Function UpdateMusic()
-	
 	If ConsoleFlush Then
 		If Not ChannelPlaying(ConsoleMusPlay) Then ConsoleMusPlay = PlaySound(ConsoleMusFlush)
 	ElseIf (Not PlayCustomMusic)
@@ -8775,8 +8709,7 @@ Function UpdateMusic()
 			ChannelVolume MusicCHN,1.0*MusicVolume
 		EndIf
 	EndIf
-	
-End Function 
+End Function
 
 Function PauseSounds()
 	For e.events = Each Events
@@ -8983,7 +8916,6 @@ Function KillSounds()
 	Next
 	
 	DebugLog "Terminated all sounds"
-	
 End Function
 
 Function GetStepSound(entity%)
@@ -9117,7 +9049,6 @@ Function AnimateNPC(n.NPCs, start#, quit#, speed#, loop=True)
 		EndIf
 	EndIf
 	SetNPCFrame(n, newTime)
-	
 End Function
 
 Function SetNPCFrame(n.NPCs, frame#)
@@ -9129,7 +9060,6 @@ Function SetNPCFrame(n.NPCs, frame#)
 End Function
 
 Function Animate2#(entity%, curr#, start%, quit%, speed#, loop=True)
-	
 	Local newTime#
 	
 	If speed > 0.0 Then 
@@ -9137,13 +9067,10 @@ Function Animate2#(entity%, curr#, start%, quit%, speed#, loop=True)
 		
 		If loop Then
 			If newTime => quit Then 
-				;SetAnimTime entity, start
 				newTime = start
 			Else
-				;SetAnimTime entity, newTime
 			EndIf
 		Else
-			;SetAnimTime entity, newTime
 		EndIf
 	Else
 		If start < quit Then
@@ -9157,22 +9084,16 @@ Function Animate2#(entity%, curr#, start%, quit%, speed#, loop=True)
 			
 			If newTime < quit Then newTime = start
 			If newTime > start Then newTime = quit
-			
-			;SetAnimTime entity, newTime
 		Else
-			;SetAnimTime (entity, Max(Min(curr + speed * FPSfactor,start),quit))
 			newTime = Max(Min(curr + speed * FPSfactor,start),quit)
 		EndIf
 	EndIf
 	
 	SetAnimTime entity, newTime
 	Return newTime
-	
 End Function 
 
-
 Function Use914(item.Items, setting$, x#, y#, z#)
-	
 	RefinedItems = RefinedItems+1
 	
 	Local it2.Items
@@ -9712,9 +9633,7 @@ Function Use914(item.Items, setting$, x#, y#, z#)
 					it2 = CreateItem("Upgraded pill", "scp500death", x, y, z)
 					RemoveItem(item)
 			End Select
-			
 		Default
-			
 			Select item\itemtemplate\tempname
 				Case "cup"
 					Select setting
@@ -9969,7 +9888,6 @@ Function Use294()
 			PlayerRoom\SoundCHN=0
 		EndIf
 	EndIf
-	
 End Function
 
 Function Use427()
@@ -10063,9 +9981,7 @@ Function Use427()
 			Crouch = True
 		EndIf
 	EndIf
-	
 End Function
-
 
 Function UpdateMTF%()
 	If PlayerRoom\RoomTemplate\Name = "gateaentrance" Then Return
@@ -10073,7 +9989,7 @@ Function UpdateMTF%()
 	Local r.Rooms, n.NPCs
 	Local dist#, i%
 	
-	;mtf ei viel????��??�� spawnannut, spawnataan jos pelaaja menee tarpeeksi l????��??��helle gate b:t????��??��
+	;mtf ei vielä spawnannut, spawnataan jos pelaaja menee tarpeeksi lähelle gate b:tä
 	If MTFtimer = 0 Then
 		If Rand(30)=1 And PlayerRoom\RoomTemplate\Name$ <> "dimension1499" Then
 			
@@ -10084,9 +10000,7 @@ Function UpdateMTF%()
 			
 			If entrance <> Null Then 
 				If Abs(EntityZ(entrance\obj)-EntityZ(Collider))<30.0 Then
-					;If PlayerRoom\RoomTemplate\Name<>"room860" And PlayerRoom\RoomTemplate\Name<>"pocketdimension" Then
 					If PlayerInReachableRoom()
-						;PlaySound_Strict LoadTempSound("SFX\Character\MTF\Announc.ogg")
 						PlayAnnouncement("SFX\Character\MTF\Announc.ogg")
 					EndIf
 					
@@ -10151,9 +10065,7 @@ Function UpdateMTF%()
 			
 		EndIf
 	EndIf
-	
 End Function
-
 
 Function UpdateInfect()
 	Local temp#, i%, r.Rooms
@@ -10322,9 +10234,7 @@ Function UpdateInfect()
 					DeathMSG = ""
 				EndIf
 			EndIf
-		EndIf
-		
-		
+		EndIf		
 	Else
 		HideEntity InfectOverlay
 	EndIf
@@ -10347,7 +10257,6 @@ Function Distance#(x1#, y1#, x2#, y2#)
 	Return(Sqr(x*x + y*y))
 End Function
 
-
 Function CurveValue#(number#, old#, smooth#)
 	If FPSfactor = 0 Then Return old
 	
@@ -10367,9 +10276,6 @@ Function CurveAngle#(val#, old#, smooth#)
    Return WrapAngle(old + diff * (1.0 / smooth * FPSfactor))
 End Function
 
-
-
-
 Function WrapAngle#(angle#)
 	If angle = INFINITY Then Return 0.0
 	While angle < 0
@@ -10386,14 +10292,13 @@ Function GetAngle#(x1#, y1#, x2#, y2#)
 End Function
 
 Function CircleToLineSegIsect% (cx#, cy#, r#, l1x#, l1y#, l2x#, l2y#)
-	
 	;Palauttaa:
 	;  True (1) kun:
-	;      Ympyr????��??�� [keskipiste = (cx, cy): s????��??��de = r]
+	;      Ympyrä [keskipiste = (cx, cy): säde = r]
 	;      leikkaa janan, joka kulkee pisteiden (l1x, l1y) & (l2x, l2y) kaitta
 	;  False (0) muulloin
 	
-	;Ympyr????��??��n keskipisteen ja (ainakin toisen) janan p????��??��????��??��tepisteen et????��??��isyys < r
+	;Ympyrän keskipisteen ja (ainakin toisen) janan päätepisteen etäisyys < r
 	;-> leikkaus
 	If Distance(cx, cy, l1x, l1y) <= r Then
 		Return True
@@ -10403,7 +10308,7 @@ Function CircleToLineSegIsect% (cx#, cy#, r#, l1x#, l1y#, l2x#, l2y#)
 		Return True
 	EndIf	
 	
-	;Vektorit (janan vektori ja vektorit janan p????��??��????��??��tepisteist????��??�� ympyr????��??��n keskipisteeseen)
+	;Ympyrän keskipisteen ja (ainakin toisen) janan päätepisteen etäisyys < r
 	Local SegVecX# = l2x - l1x
 	Local SegVecY# = l2y - l1y
 	
@@ -10426,21 +10331,19 @@ Function CircleToLineSegIsect% (cx#, cy#, r#, l1x#, l1y#, l2x#, l2y#)
 		Return False
 	EndIf
 	
-	;Janan p????��??��????��??��tepisteiden kautta kulkevan suoran ;yht????��??��l??; (ax + by + c = 0)
+	;Janan päätepisteiden kautta kulkevan suoran ;yhtälö; (ax + by + c = 0)
 	Local a# = (l2y - l1y) / (l2x - l1x)
 	Local b# = -1
 	Local c# = -(l2y - l1y) / (l2x - l1x) * l1x + l1y
 	
-	;Ympyr????��??��n keskipisteen et????��??��isyys suorasta
+	;Ympyrän keskipisteen etäisyys suorasta
 	Local d# = Abs(a * cx + b * cy + c) / Sqr(a * a + b * b)
 	
-	;Ympyr????��??�� on liian kaukana
+	;Ympyrä on liian kaukana
 	;-> ei leikkausta
 	If d > r Then Return False
 	
-	;Local kateetin_pituus# = Cos(angle) * hyp
-	
-	;Jos p????��??��????��??��st????��??��????��??��n t????��??��nne saakka, ympyr????��??�� ja jana leikkaavat (tai ovat sis????��??��kk????��??��in)
+	;Jos päästään tänne saakka, ympyrä ja jana leikkaavat (tai ovat sisäkkäin)
 	Return True
 End Function
 
@@ -10472,9 +10375,7 @@ Function angleDist#(a0#,a1#)
 End Function
 
 Function Inverse#(number#)
-	
 	Return Float(1.0-number#)
-	
 End Function
 
 Function Rnd_Array#(numb1#,numb2#,Array1#,Array2#)
@@ -10485,7 +10386,6 @@ Function Rnd_Array#(numb1#,numb2#,Array1#,Array2#)
 	Else
 		Return Rnd(numb2#,Array2#)
 	EndIf
-	
 End Function
 
 ;--------------------------------------- decals -------------------------------------------------------
@@ -10654,7 +10554,6 @@ Function GetINIString$(file$, section$, parameter$, defaultvalue$="")
 	
 	section = Lower(section)
 	
-	;While Not Eof(f)
 	While lfile\bankOffset<lfile\size
 		Local strtemp$ = ReadINILine(lfile)
 		If Left(strtemp,1) = "[" Then
@@ -10663,12 +10562,10 @@ Function GetINIString$(file$, section$, parameter$, defaultvalue$="")
 				Repeat
 					TemporaryString = ReadINILine(lfile)
 					If Lower(Trim(Left(TemporaryString, Max(Instr(TemporaryString, "=") - 1, 0)))) = Lower(parameter) Then
-						;CloseFile f
 						Return Trim( Right(TemporaryString,Len(TemporaryString)-Instr(TemporaryString,"=")) )
 					EndIf
 				Until (Left(TemporaryString, 1) = "[") Or (lfile\bankOffset>=lfile\size)
 				
-				;CloseFile f
 				Return defaultvalue
 			EndIf
 		EndIf
@@ -10733,7 +10630,6 @@ Function GetINIInt2%(file$, start%, parameter$, defaultvalue$="")
 	EndIf
 End Function
 
-
 Function GetINISectionLocation%(file$, section$)
 	Local Temp%
 	Local f% = ReadFile(file)
@@ -10758,7 +10654,6 @@ Function GetINISectionLocation%(file$, section$)
 	
 	CloseFile f
 End Function
-
 
 
 Function PutINIValue%(file$, INI_sSection$, INI_sKey$, INI_sValue$)
@@ -10844,7 +10739,6 @@ Function PutINIValue%(file$, INI_sSection$, INI_sKey$, INI_sValue$)
 End Function
 
 Function INI_FileToString$(INI_sFilename$)
-	
 	Local INI_sString$ = ""
 	Local INI_lFileHandle%= ReadFile(INI_sFilename)
 	If INI_lFileHandle <> 0 Then
@@ -10854,22 +10748,17 @@ Function INI_FileToString$(INI_sFilename$)
 		CloseFile INI_lFileHandle
 	End If
 	Return INI_sString
-	
 End Function
 
 Function INI_CreateSection$(INI_lFileHandle%, INI_sNewSection$)
-	
 	If FilePos(INI_lFileHandle) <> 0 Then WriteLine INI_lFileHandle, "" ; Blank Line between sections
 	WriteLine INI_lFileHandle, INI_sNewSection
 	Return INI_sNewSection
-	
 End Function
 
 Function INI_CreateKey%(INI_lFileHandle%, INI_sKey$, INI_sValue$)
-	
 	WriteLine INI_lFileHandle, INI_sKey + " = " + INI_sValue
 	Return True
-	
 End Function
 
 ;Save options to .ini.
@@ -10887,13 +10776,14 @@ Function SaveOptionsINI()
 	PutINIValue(OptionFile, "options", "achievement popup enabled", AchvMSGenabled%)
 	PutINIValue(OptionFile, "options", "room lights enabled", EnableRoomLights%)
 	PutINIValue(OptionFile, "options", "texture details", TextureDetails%)
-	PutINIValue(OptionFile, "console", "enabled", CanOpenConsole%)
-	PutINIValue(OptionFile, "console", "auto opening", ConsoleOpening%)
 	PutINIValue(OptionFile, "options", "particle amount", ParticleAmount)
 	PutINIValue(OptionFile, "options", "enable vram", EnableVRam)
 	PutINIValue(OptionFile, "options", "mouse smoothing", MouseSmooth)
 	PutINIValue(OptionFile, "options", "enable subtitles", EnableSubtitles)
 	PutINIValue(OptionFile, "options", "traditional chinese", TraditionalChinese)
+	
+	PutINIValue(OptionFile, "console", "enabled", CanOpenConsole%)
+	PutINIValue(OptionFile, "console", "auto opening", ConsoleOpening%)
 	
 	PutINIValue(OptionFile, "audio", "music volume", MusicVolume)
 	PutINIValue(OptionFile, "audio", "sound volume", PrevSFXVolume)
@@ -10911,7 +10801,6 @@ Function SaveOptionsINI()
 	PutINIValue(OptionFile, "binds", "Crouch key", KEY_CROUCH)
 	PutINIValue(OptionFile, "binds", "Save key", KEY_SAVE)
 	PutINIValue(OptionFile, "binds", "Console key", KEY_CONSOLE)
-	
 End Function
 
 ;--------------------------------------- MakeCollBox -functions -------------------------------------------------------
@@ -10966,31 +10855,12 @@ Function GetMeshExtents(Mesh%)
 	Mesh_MagX = maxx-minx
 	Mesh_MagY = maxy-miny
 	Mesh_MagZ = maxz-minz
-	
 End Function
 
-Function EntityScaleX#(entity%, globl% = False)
-	If globl Then TFormVector 1, 0, 0, entity, 0 Else TFormVector 1, 0, 0, entity, GetParent(entity)
-	Return Sqr(TFormedX() * TFormedX() + TFormedY() * TFormedY() + TFormedZ() * TFormedZ())
-End Function 
-
-Function EntityScaleY#(entity%, globl% = False)
-	If globl Then TFormVector 0, 1, 0, entity, 0 Else TFormVector 0, 1, 0, entity, GetParent(entity)
-	Return Sqr(TFormedX() * TFormedX() + TFormedY() * TFormedY() + TFormedZ() * TFormedZ())
-End Function 
-
-Function EntityScaleZ#(entity%, globl% = False)
-	If globl Then TFormVector 0, 0, 1, entity, 0 Else TFormVector 0, 0, 1, entity, GetParent(entity)
-	Return Sqr(TFormedX() * TFormedX() + TFormedY() * TFormedY() + TFormedZ() * TFormedZ())
-End Function 
-
 Function Graphics3DExt%(width%,height%,depth%=32,mode%=2)
-	;If FE_InitExtFlag = 1 Then DeInitExt() ;prevent FastExt from breaking itself
 	Graphics3D width,height,depth,mode
 	InitFastResize()
-	;InitExt()
 	AntiAlias GetINIInt(OptionFile,"options","antialias")
-	;TextureAnisotropy% (GetINIInt(OptionFile,"options","anisotropy"),-1)
 End Function
 
 Function ResizeImage2(image%,width%,height%)
@@ -11008,7 +10878,6 @@ Function ResizeImage2(image%,width%,height%)
     FreeImage image
     Return img
 End Function
-
 
 Function RenderWorld2()
 	CameraProjMode ark_blur_cam,0
@@ -11094,7 +10963,7 @@ Function RenderWorld2()
 			temp% = CreatePivot() : temp2% = CreatePivot()
 			PositionEntity temp, EntityX(Collider), EntityY(Collider), EntityZ(Collider)
 			
-			Color 255,255,255;*(NVTimer/600.0)
+			Color 255,255,255;
 			
 			For np.NPCs = Each NPCs
 				If np\NVName<>"" And (Not np\HideFromNVG) Then ;don't waste your time if the string is empty
@@ -11172,7 +11041,6 @@ Function RenderWorld2()
 	EndIf
 End Function
 
-
 Function ScaleRender(x#,y#,hscale#=1.0,vscale#=1.0)
 	If Camera<>0 Then HideEntity Camera
 	WireFrame 0
@@ -11198,9 +11066,6 @@ Function InitFastResize()
 	
 	fresize_cam = cam
 	
-    ;ark_sw = GraphicsWidth()
-    ;ark_sh = GraphicsHeight()
-	
     ;Create sprite
 	Local spr% = CreateMesh(cam)
 	Local sf% = CreateSurface(spr)
@@ -11225,7 +11090,6 @@ Function InitFastResize()
 	ClsColor 0,0,0
 	Cls
 	SetBuffer(BackBuffer())
-	;TextureAnisotropy(fresize_texture)
 	EntityTexture spr, fresize_texture,0,0
 	EntityTexture spr, fresize_texture2,0,1
 	
@@ -11291,7 +11155,6 @@ Function UpdateLeave1499()
 			EndIf
 		Next
 	EndIf
-	
 End Function
 
 Function CheckForPlayerInFacility()
@@ -11348,18 +11211,12 @@ Function ControlSoundVolume()
 	
 	For snd.Sound = Each Sound
 		For i=0 To 31
-			;If snd\channels[i]<>0 Then
-			;	ChannelVolume snd\channels[i],SFXVolume#
-			;Else
-				ChannelVolume snd\channels[i],SFXVolume#
-			;EndIf
+			ChannelVolume snd\channels[i],SFXVolume#
 		Next
 	Next
-	
 End Function
 
 Function UpdateDeafPlayer()
-	
 	If DeafTimer > 0
 		DeafTimer = DeafTimer-FPSfactor
 		SFXVolume# = 0.0
@@ -11369,16 +11226,10 @@ Function UpdateDeafPlayer()
 		DebugLog DeafTimer
 	Else
 		DeafTimer = 0
-		;If SFXVolume# < PrevSFXVolume#
-		;	SFXVolume# = Min(SFXVolume# + (0.001*PrevSFXVolume)*FPSfactor,PrevSFXVolume#)
-		;	ControlSoundVolume()
-		;Else
-			SFXVolume# = PrevSFXVolume#
-			If DeafPlayer Then ControlSoundVolume()
-			DeafPlayer = False
-		;EndIf
+		SFXVolume# = PrevSFXVolume#
+		If DeafPlayer Then ControlSoundVolume()
+		DeafPlayer = False
 	EndIf
-	
 End Function
 
 Function CheckTriggers$()
@@ -11413,7 +11264,6 @@ Function CheckTriggers$()
 		
 		If inside% > -1 Then Return PlayerRoom\TriggerboxName[inside%]
 	EndIf
-	
 End Function
 
 Function ScaledMouseX%()
@@ -11425,14 +11275,16 @@ Function ScaledMouseY%()
 End Function
 
 Function CatchErrors(location$)
-	InitErrorMsgs(6)
+	InitErrorMsgs(9)
 	SetErrorMsg(0, "SCP - 收容失效 v" + VersionNumber + " 汉化版 出现错误！")
 	SetErrorMsg(1, "汉化版版本号："+SinicizationNumber)
 	SetErrorMsg(2, "地图种子：" + RandomSeed)
-	SetErrorMsg(3, "日期和时间：" + CurrentDate() + "，" + CurrentTime() + Chr(10) + "系统：" + SystemProperty("os") + " " + (32 + (GetEnv("ProgramFiles(X86)") <> 0) * 32) + " bit (Build: " + SystemProperty("osbuild") + ")" + Chr(10))
-	SetErrorMsg(4, "显示内存：" + ((TotalVidMem() / 1024) - (AvailVidMem() / 1024)) + " MB/" + (TotalVidMem() / 1024) + " MB" + Chr(10))
-	SetErrorMsg(5, "全局内存状态：" + ((TotalPhys() / 1024) - (AvailPhys() / 1024)) + " MB/" + (TotalPhys() / 1024) + " MB" + Chr(10))
-	SetErrorMsg(6, "出错位置：" + Location + Chr(10) + Chr(10) + "请带着游戏截图联系我们！") 
+	SetErrorMsg(3, "日期和时间：" + CurrentDate() + "，" + CurrentTime())
+	SetErrorMsg(4, "系统：" + SystemProperty("os") + " " + (32 + (GetEnv("ProgramFiles(X86)") <> 0) * 32) + " bit (Build: " + SystemProperty("osbuild") + ")" + Chr(10))
+	SetErrorMsg(5, "显示内存：" + ((TotalVidMem() / 1024) - (AvailVidMem() / 1024)) + " MB/" + (TotalVidMem() / 1024) + " MB")
+	SetErrorMsg(6, "全局内存状态：" + ((TotalPhys() / 1024) - (AvailPhys() / 1024)) + " MB/" + (TotalPhys() / 1024) + " MB")
+	SetErrorMsg(7, "出错位置：" + Location + Chr(10))
+	SetErrorMsg(8, "请带着游戏截图联系我们！") 
 End Function
 
 Function Create3DIcon(width%,height%,modelpath$,modelX#=0,modelY#=0,modelZ#=0,modelPitch#=0,modelYaw#=0,modelRoll#=0,modelscaleX#=1,modelscaleY#=1,modelscaleZ#=1,withfog%=False)
@@ -11466,14 +11318,12 @@ Function Create3DIcon(width%,height%,modelpath$,modelX#=0,modelY#=0,modelZ#=0,mo
 End Function
 
 Function PlayAnnouncement(file$) ;This function streams the announcement currently playing
-	
 	If IntercomStreamCHN <> 0 Then
 		StopStream_Strict(IntercomStreamCHN)
 		IntercomStreamCHN = 0
 	EndIf
 	
 	IntercomStreamCHN = StreamSound_Strict(file$,SFXVolume,0)
-	
 End Function
 
 Function UpdateStreamSounds()
@@ -11519,7 +11369,6 @@ Function UpdateStreamSounds()
 			EndIf
 		EndIf
 	EndIf
-	
 End Function
 
 Function TeleportEntity(entity%,x#,y#,z#,customradius#=0.3,isglobal%=False,pickrange#=2.0,dir%=0)
@@ -11549,11 +11398,9 @@ Function TeleportEntity(entity%,x#,y#,z#,customradius#=0.3,isglobal%=False,pickr
 	FreeEntity pvt
 	ResetEntity entity
 	DebugLog "Teleported entity to: "+EntityX(entity)+"/"+EntityY(entity)+"/"+EntityZ(entity)
-	
 End Function
 
 Function PlayStartupVideos()
-	
 	If GetINIInt("options.ini","options","play startup video")=0 Then Return
 	
 	HidePointer()
@@ -11583,13 +11430,6 @@ Function PlayStartupVideos()
 		End Select
 		
 		Movie% = OpenMovie(MovieFile + ".avi")
-		
-		If (Not Movie) Then
-			PutINIValue(OptionFile, "Advanced", "Play Startup Videos", 0)
-			RuntimeError("Movie " + Chr(34) + MovieFile + Chr(34) + " not found.")
-		EndIf
-		Movie = OpenMovie(MovieFile + ".avi")
-		
 		SplashScreenAudio% = StreamSound_Strict(MovieFile + ".ogg", SFXVolume, 0)
 		
 		Repeat
@@ -11604,46 +11444,6 @@ Function PlayStartupVideos()
 		Flip()
 	Next
 	ShowPointer()
-End Function
-
-Function ProjectImage(img, w#, h#, Quad%, Texture%)
-	
-	Local img_w# = ImageWidth(img)
-	Local img_h# = ImageHeight(img)
-	If img_w > 2048 Then img_w = 2048
-	If img_h > 2048 Then img_h = 2048
-	If img_w < 1 Then img_w = 1
-	If img_h < 1 Then img_h = 1
-	
-	If w > 2048 Then w = 2048
-	If h > 2048 Then h = 2048
-	If w < 1 Then w = 1
-	If h < 1 Then h = 1
-	
-	Local w_rel# = w# / img_w#
-	Local h_rel# = h# / img_h#
-	Local g_rel# = 2048.0 / Float(RealGraphicWidth)
-	Local dst_x = 1024 - (img_w / 2.0)
-	Local dst_y = 1024 - (img_h / 2.0)
-	CopyRect 0, 0, img_w, img_h, dst_x, dst_y, ImageBuffer(img), TextureBuffer(Texture)
-	ScaleEntity Quad, w_rel * g_rel, h_rel * g_rel, 0.0001
-	RenderWorld()
-	
-End Function
-
-Function CreateQuad()
-	
-	mesh = CreateMesh()
-	surf = CreateSurface(mesh)
-	v0 = AddVertex(surf,-1.0, 1.0, 0, 0, 0)
-	v1 = AddVertex(surf, 1.0, 1.0, 0, 1, 0)
-	v2 = AddVertex(surf, 1.0,-1.0, 0, 1, 1)
-	v3 = AddVertex(surf,-1.0,-1.0, 0, 0, 1)
-	AddTriangle(surf, v0, v1, v2)
-	AddTriangle(surf, v0, v2, v3)
-	UpdateNormals mesh
-	Return mesh
-	
 End Function
 
 Function CanUseItem(canUseWithHazmat%, canUseWithGasMask%, canUseWithEyewear%)
@@ -11663,7 +11463,6 @@ Function CanUseItem(canUseWithHazmat%, canUseWithGasMask%, canUseWithEyewear%)
 End Function
 
 Function ResetInput()
-	
 	FlushKeys()
 	FlushMouse()
 	MouseHit1 = 0
@@ -11675,7 +11474,6 @@ Function ResetInput()
 	MouseDown(1)
 	GrabbedEntity = 0
 	Input_ResetTime# = 10.0
-	
 End Function
 
 Function Update096ElevatorEvent#(e.Events,EventState#,d.Doors,elevatorobj%)
@@ -11734,7 +11532,6 @@ Function Update096ElevatorEvent#(e.Events,EventState#,d.Doors,elevatorobj%)
 		EventState = EventState + FPSfactor * 1.4
 	EndIf
 	Return EventState
-	
 End Function
 
 Function RotateEntity90DegreeAngles(entity%)
@@ -11749,7 +11546,6 @@ Function RotateEntity90DegreeAngles(entity%)
 	Else
 		Return 270
 	EndIf
-	
 End Function
 
 Function Text(x%, y%, txt$, xPos% = 0, yPos% = 0, encoding% = 0, a# = 1.0)
@@ -11759,21 +11555,3 @@ Function Text(x%, y%, txt$, xPos% = 0, yPos% = 0, encoding% = 0, a# = 1.0)
 	Color oldr,oldg,oldb
 	Return
 End Function
-
-
-
-;~IDEal Editor Parameters:
-;~F#39#D8#177#17D#18D#241#2EC#2F5#315#329#32E#334#33A#340#346#34B#369#37F#394#39A
-;~F#3A0#3A7#3AE#3BB#3C1#3C7#3CD#3D4#3E3#3EC#3F8#40A#423#43F#444#451#463#47E#485#48B
-;~F#499#4AC#4B5#4BE#4E4#4F6#50D#519#525#538#53E#544#548#54E#553#572#581#590#596#5A5
-;~F#600#6A3#716#73A#7DC#7E9#8BC#959#972#980#9B2#A70#A7F#AB7#AD1#ADA#BB9#CFB#D0C#D43
-;~F#D6B#D7A#DA2#DCC#DE5#DF8#E28#E40#EF3#EFC#F13#F71#F9E#10E7#11D4#1365#14E9#1542#1571#158C
-;~F#15A3#15B6#15C9#15DC#15EB#1607#160B#160F#1618#1633#1666#16C0#16CB#16D7#16E3#170E#171E#175D#176A#1777
-;~F#178C#18D1#18ED#18FD#190D#191A#1944#196A#1983#1A3C#1A96#1AAC#1AB8#1ACF#1ADA#1AE7#1AF1#1AFF#1B58#1BD2
-;~F#1C2C#1C67#1CB7#1E05#1E11#1ED3#1FAF#203D#20D9#2106#2137#224C#225E#227A#2284#2291#22B5#22F5#2335#2385
-;~F#23BE#23D2#23E7#23EB#240B#2413#243E#26A5#2763#27C2#281A#28C6#28D0#28D6#28E0#28EC#28F7#28FB#2936#293E
-;~F#2946#294D#2954#2961#2967#2972#29B1#29C0#29DE#2A0C#2A13#2A26#2A3F#2A6C#2A77#2A7C#2A96#2AA2#2ABD#2B0F
-;~F#2B1D#2B25#2B2D#2B59#2B62#2B8B#2B90#2B95#2B9A#2BA3#2BB4#2C59#2C67#2CD2#2CE4#2D03#2D12#2D29#2D4C#2D50
-;~F#2D54#2D82#2DA0#2DAB#2DD9#2DF7#2E42#2E5B#2E6A#2E7A#2E8A#2EC5
-;~B#11DC#1454#1BF2
-;~C#Blitz3D
