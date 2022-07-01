@@ -34,7 +34,7 @@ Global Font1%, Font2%, Font3%, Font4%, Font5%
 Global ConsoleFont%
 
 Global VersionNumber$ = "1.3.11"
-Global SinicizationNumber$ = "2022.06-Debug Testing" ;汉化版本号
+Global SinicizationNumber$ = "2022.07-Release" ;汉化版本号
 Global CompatibleNumber$ = "1.3.11-2022.5" ;当存档与构建版本不兼容时再更改		——开发者 ENDSHN
 
 Global MenuWhite%, MenuBlack%
@@ -202,7 +202,7 @@ Global GameSaved%
 
 Global CanSave% = True
 
-AppTitle "SCP - 收容失效 v"+VersionNumber+" 汉化版 - 排错测试"
+AppTitle "SCP - 收容失效 v"+VersionNumber+" 汉化版"
 
 PlayStartupVideos()
 
@@ -1092,9 +1092,9 @@ Function UpdateConsole()
 					End Select
 					
 					If DebugHUD Then
-						CreateConsoleMsg("调试模式 启用")
+						CreateConsoleMsg("调试界面 启用")
 					Else
-						CreateConsoleMsg("调试模式 禁用")
+						CreateConsoleMsg("调试界面 禁用")
 					EndIf
 					;[End Block]
 				Case "stopsound", "stfu"
@@ -1165,9 +1165,9 @@ Function UpdateConsole()
 					End Select
 					
 					If InfiniteStamina
-						CreateConsoleMsg("无限疾跑 启用")
+						CreateConsoleMsg("无限奔跑 启用")
 					Else
-						CreateConsoleMsg("无限疾跑 禁用")	
+						CreateConsoleMsg("无限奔跑 禁用")	
 					EndIf
 					;[End Block]
 				Case "asd2"
@@ -1307,7 +1307,7 @@ Function UpdateConsole()
 					If NoTarget% = False Then
 						CreateConsoleMsg("无互动 禁用")
 					Else
-						CreateConsoleMsg("无碰撞 启用")	
+						CreateConsoleMsg("无互动 启用")	
 					EndIf
 					;[End Block]
 				Case "spawnradio"
@@ -3304,7 +3304,6 @@ Function QuickLoadEvents()
 					If e\room\NPC[0]=Null Then
 						For n.NPCs = Each NPCs
 							If n\NPCtype = NPCtype049
-								;e\room\NPC[0] = n
 								skip = True
 								Exit
 							EndIf
@@ -3327,15 +3326,6 @@ Function QuickLoadEvents()
 					QuickLoadPercent = 80
 					e\EventStr = "load3"
 				ElseIf e\EventStr = "load3"
-					;PositionEntity e\room\NPC[0]\Collider,EntityX(e\room\Objects[7],True),EntityY(e\room\Objects[7],True)+5,EntityZ(e\room\Objects[7],True)
-					;ResetEntity e\room\NPC[0]\Collider
-					;RotateEntity e\room\NPC[0]\Collider,0,e\room\angle+180,0
-					
-					;DebugLog(EntityX(e\room\Objects[7],True)+", "+EntityY(e\room\Objects[7],True)+", "+EntityZ(e\room\Objects[7],True))
-					
-					;e\room\NPC[0]\State = 0
-					;e\room\NPC[0]\PrevState = 2
-					
 					e\EventState = 1
 					If e\EventState2 = 0 Then e\EventState2 = -(70*5)
 					
@@ -3469,14 +3459,11 @@ Function QuickLoadEvents()
 					QuickLoadPercent = 70
 					e\EventStr = "load6"
 				ElseIf e\EventStr = "load6"
-					;GiveAchievement(Achv205)
-					
 					HideEntity(e\room\Objects[3])
 					HideEntity(e\room\Objects[4])
 					HideEntity(e\room\Objects[5])
 					QuickLoadPercent = 100
 					e\EventStr = "loaddone"
-					;e\EventState = 1
 				EndIf
 			EndIf
 			;[End Block]
@@ -3485,7 +3472,6 @@ Function QuickLoadEvents()
 			If e\EventStr = "load0"
 				QuickLoadPercent = 15
 				ForestNPC = CreateSprite()
-				;0.75 = 0.75*(410.0/410.0) - 0.75*(width/height)
 				ScaleSprite ForestNPC,0.75*(140.0/410.0),0.75
 				SpriteViewMode ForestNPC,4
 				EntityFX ForestNPC,1+8
@@ -3530,10 +3516,6 @@ Function QuickLoadEvents()
 				If e\EventStr = "load0"
 					QuickLoadPercent = 10
 					e\room\Objects[0] = LoadMesh_Strict("GFX\map\dimension1499\1499plane.b3d")
-					;Local planetex% = LoadTexture_Strict("GFX\map\dimension1499\grit3.jpg")
-					;ScaleTexture planetex%,0.5,0.5
-					;EntityTexture e\room\Objects[0],planetex%
-					;FreeTexture planetex%
 					HideEntity e\room\Objects[0]
 					e\EventStr = "load1"
 				ElseIf e\EventStr = "load1"
@@ -3570,7 +3552,6 @@ Function QuickLoadEvents()
 	End Select
 	
 	CatchErrors("QuickLoadEvents "+e\EventName)
-	
 End Function
 
 Function Kill()
@@ -3598,11 +3579,9 @@ Function Kill()
 End Function
 
 Function DrawEnding()
-	
 	ShowPointer()
 	
 	FPSfactor = 0
-	;EndingTimer=EndingTimer-FPSfactor2
 	If EndingTimer>-2000
 		EndingTimer=Max(EndingTimer-FPSfactor2,-1111)
 	Else
@@ -3627,7 +3606,6 @@ Function DrawEnding()
 	Cls
 	
 	If EndingTimer<-200 Then
-		
 		If BreathCHN <> 0 Then
 			If ChannelPlaying(BreathCHN) Then StopChannel BreathCHN : Stamina = 100
 		EndIf
@@ -3646,10 +3624,7 @@ Function DrawEnding()
 			PlaySound_Strict LightSFX
 		EndIf
 		
-		If EndingTimer > -700 Then 
-			
-			;-200 -> -700
-			;Max(50 - (Abs(KillTimer)-200),0)    =    0->50
+		If EndingTimer > -700 Then
 			If Rand(1,150)<Min((Abs(EndingTimer)-200),155) Then
 				DrawImage EndingScreen, GraphicWidth/2-400, GraphicHeight/2-400
 			Else
@@ -3665,10 +3640,8 @@ Function DrawEnding()
 					Case "b1", "b2", "b3"
 						PlaySound_Strict LoadTempSound("SFX\Ending\GateB\Ending"+SelectedEnding+".ogg")
 				End Select
-			EndIf			
-			
+			EndIf
 		Else
-			
 			DrawImage EndingScreen, GraphicWidth/2-400, GraphicHeight/2-400
 			
 			If EndingTimer < -1000 And EndingTimer > -2000
@@ -3724,11 +3697,11 @@ Function DrawEnding()
 					x = x+width/2
 					y = y+height-100*MenuScale
 					
-					If DrawButton(x-145*MenuScale,y-200*MenuScale + 5,390*MenuScale,60*MenuScale,"成就", True) Then
+					If DrawButton(x-145*MenuScale,y-200*MenuScale + 5,390*MenuScale,60*MenuScale,"成就", True, False, -2) Then
 						AchievementsMenu = 1
 					EndIf
 					
-					If DrawButton(x-145*MenuScale,y-100*MenuScale + 5,390*MenuScale,60*MenuScale,"主菜单", True)
+					If DrawButton(x-145*MenuScale,y-100*MenuScale + 5,390*MenuScale,60*MenuScale,"主菜单", True, False, -2)
 						ShouldPlay = 24
 						NowPlaying = ShouldPlay
 						For i=0 To 9
@@ -3750,9 +3723,7 @@ Function DrawEnding()
 				ShouldPlay = 24
 				DrawCredits()
 			EndIf
-			
 		EndIf
-		
 	EndIf
 	
 	If Fullscreen Then DrawImage CursorIMG, ScaledMouseX(),ScaledMouseY()
@@ -3790,7 +3761,6 @@ Function InitCredits()
 	
 	Delete First CreditsLine
 	CreditsTimer = 0
-	
 End Function
 
 Function DrawCredits()
@@ -7224,7 +7194,7 @@ Function DrawMenu()
 					
 					Text(x, y + 100 * MenuScale, "手动眨眼")
 					InputBox(x + 200 * MenuScale, y + 100 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_BLINK,210)),7)				
-					Text(x, y + 120 * MenuScale, "疾跑")
+					Text(x, y + 120 * MenuScale, "奔跑")
 					InputBox(x + 200 * MenuScale, y + 120 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_SPRINT,210)),8)
 					Text(x, y + 140 * MenuScale, "物品栏")
 					InputBox(x + 200 * MenuScale, y + 140 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_INV,210)),9)
@@ -9976,7 +9946,7 @@ Function Use427()
 		EndIf
 		If I_427\Timer >= 70*420 Then
 			Kill()
-			DeathMSG = "“请求MTF Nu-7提供支持，我们需要更多的火力来击落这东西。”"
+			DeathMSG = "“请求MTF Nu-7提供支持，我们需要更多的火力来打败这东西。”"
 		ElseIf I_427\Timer >= 70*390 Then
 			Crouch = True
 		EndIf
@@ -11275,7 +11245,7 @@ Function ScaledMouseY%()
 End Function
 
 Function CatchErrors(location$)
-	InitErrorMsgs(9)
+	InitErrorMsgs(10)
 	SetErrorMsg(0, "SCP - 收容失效 v" + VersionNumber + " 汉化版 出现错误！")
 	SetErrorMsg(1, "汉化版版本号："+SinicizationNumber)
 	SetErrorMsg(2, "地图种子：" + RandomSeed)
@@ -11285,6 +11255,7 @@ Function CatchErrors(location$)
 	SetErrorMsg(6, "全局内存状态：" + ((TotalPhys() / 1024) - (AvailPhys() / 1024)) + " MB/" + (TotalPhys() / 1024) + " MB")
 	SetErrorMsg(7, "出错位置：" + Location + Chr(10))
 	SetErrorMsg(8, "请带着游戏截图联系我们！") 
+	SetErrorMsg(9, "Bug反馈： bugs.scpcbgame.cn") 
 End Function
 
 Function Create3DIcon(width%,height%,modelpath$,modelX#=0,modelY#=0,modelZ#=0,modelPitch#=0,modelYaw#=0,modelRoll#=0,modelscaleX#=1,modelscaleY#=1,modelscaleZ#=1,withfog%=False)
@@ -11323,7 +11294,7 @@ Function PlayAnnouncement(file$) ;This function streams the announcement current
 		IntercomStreamCHN = 0
 	EndIf
 	
-	IntercomStreamCHN = StreamSound_Strict(file$,SFXVolume,0)
+	IntercomStreamCHN = PlaySound_Strict(LoadTempSound(file))
 End Function
 
 Function UpdateStreamSounds()

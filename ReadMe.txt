@@ -43,7 +43,7 @@ https://creativecommons.org/licenses/by-sa/3.0/deed.zh
 
 	WASD			-	移动
 	空格			-	手动眨眼
-	左Shift			-	疾跑
+	左Shift			-	奔跑
 	左Control			-	蹲下
 	Tab			-	物品栏
 	F5			-	保存

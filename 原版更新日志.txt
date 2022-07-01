@@ -1019,11 +1019,11 @@ dripping water near a pipe or a quiet humming sound near a ventilation shaft
 ----------------------------------------------------------------------------------
 
 v0.6.6
-- some additions to the pocket dimension
-- more sound clips for the MTF
-- minor bugfixes in MTF AI
-- some new prop models in the office rooms
-- containing 106 now works the way it should, thanks to MonocleBios
+- 为口袋空间补充了一些内容
+- 更多MTF声音片段
+- 修复MTF的AI的一些bug
+- 办公室中新的物品模型
+- 由于MonocleBios的努力，106收容措施终于正常工作了。
 - the server rooms are a bit easier to get through now
 - changed the "Input"-label on SCP-914 to "Intake"
 

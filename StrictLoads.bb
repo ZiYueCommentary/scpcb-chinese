@@ -160,6 +160,8 @@ End Function
 Type Stream
 	Field sfx%
 	Field chn%
+	Field HasSubtitles%
+	Field name%
 End Type
 
 Const Mode% = 2
@@ -175,13 +177,23 @@ Function StreamSound_Strict(file$,volume#=1.0,custommode=Mode)
 	EndIf
 	
 	Local st.Stream = New Stream
+	st\name = file
+	If EnableSubtitles Then
+		If GetINISectionLocation(SubtitlesFile, File) <> 0 Then
+			st\HasSubtitles = True
+		EndIf
+	EndIf
 	
 	st\chn = PlayMusic(File, CustomMode + TwoD)
-
+	
 	If st\chn = -1
 		CreateConsoleMsg("声音流加载失败（返回值-1）：" + file$)
 		If ConsoleOpening Then ConsoleOpen = True
 		Return -1
+	EndIf
+	
+	If EnableSubtitles Then
+		If st\HasSubtitles Then ShowSubtitles(st\Name)
 	EndIf
 	
 	ChannelVolume(st\chn, Volume * 1.0)

@@ -24,7 +24,7 @@ Function UpdateSubtitles%()
 			For i = ANNOUNCEMENT To THIRD_PERSON
 				If sub\Timer[i] > 0.0 Then
 					ShouldDeleteSubtitles = False
-					sub\Timer[i] = sub\Timer[i] - FPSfactor
+					sub\Timer[i] = sub\Timer[i] - FPSfactor2
 				EndIf
 			Next
 			If ShouldDeleteSubtitles Then Delete(sub)
@@ -66,20 +66,13 @@ Function ShowSubtitles%(Name$)
 	
 	Select Person
 		Case 1
-			;[Block]
 			SubID = FIRST_PERSON
-			;[End Block]
 		Case 2
-			;[Block]
 			SubID = SECOND_PERSON
-			;[End Block]
 		Case 3
 			SubID = THIRD_PERSON
-			;[End Block]
 		Default
-			;[Block]
 			SubID = ANNOUNCEMENT
-			;[End Block]
 	End Select
 	
 	For sub.Subtitles = Each Subtitles

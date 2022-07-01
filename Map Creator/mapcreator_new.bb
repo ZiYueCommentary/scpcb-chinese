@@ -62,7 +62,7 @@ DisableGadget combobox
 txtbox=CreateTextField(5,40,150,20,winhandle) ;create ;textfield in that window
 SetGadgetText txtbox,"" ;set ;text in that ;textfield for info
 ok=CreateButton("搜索",155,40,50,20,winhandle) ;create button
-clean_txt=CreateButton("X",210,40,20,20,winhandle) ;create button
+clean_txt=CreateButton("×",210,40,20,20,winhandle) ;create button
 
 Global ShowGrid% = True
 map_2d = CreateCanvas(300,25,551,551,WinHandle)
@@ -1198,7 +1198,7 @@ Repeat
 		EndIf	
 		If EventSource()=saveopt_button Then
 			HideGadget optionwin
-			SetStatusText(winhandle, "New settings are saved")
+			SetStatusText(winhandle, "新设置已保存")
 			PutINIValue("options.INI","3d scene","bg color R",redfog)
 			PutINIValue("options.INI","3d scene","bg color G",greenfog)
 			PutINIValue("options.INI","3d scene","bg color B",bluefog)
@@ -1690,7 +1690,6 @@ Function LoadRoomTemplates(file$)
 	rt\MapGrid = 2
 	
 	CloseFile f
-	
 End Function
 
 Const MaxEvents = 9
@@ -1829,8 +1828,8 @@ Function LoadMap(file$)
 	If Right(file$,6)="cbmap2"
 		MapAuthor$ = ReadLine(f)
 		MapDescription$ = ReadLine(f)
-		If MapAuthor$ = "[Unknown]" Then MapAuthor$ = ""
-		If MapDescription$ = "[No description]" Then MapDescription$ = ""
+		If MapAuthor$ = "[未知]" Then MapAuthor$ = ""
+		If MapDescription$ = "[无描述]" Then MapDescription$ = ""
 		SetGadgetText map_author_text,MapAuthor$
 		SetGadgetText descr_text,MapDescription$
 		zonetransvalue1 = ReadByte(f)
@@ -1932,13 +1931,13 @@ Function SaveMap(file$,streamtoprgm%=False,old%=0)
 	If old%=0 Then
 		MapAuthor$ = TextFieldText(map_author_text)
 		If Trim(MapAuthor$)=""
-			WriteLine f,"[Unknown]"
+			WriteLine f,"[未知]"
 		Else
 			WriteLine f,MapAuthor$
 		EndIf
 		MapDescription$ = TextAreaText(descr_text)
 		If Trim(MapDescription$)=""
-			WriteLine f,"[No description]"
+			WriteLine f,"[无描述]"
 		Else
 			WriteLine f,MapDescription$
 		EndIf

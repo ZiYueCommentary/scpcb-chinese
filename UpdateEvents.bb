@@ -2538,6 +2538,7 @@ Function UpdateEvents()
 									it2\Picked = True
 									it2\Dropped = -1
 									it2\itemtemplate\found=True
+									it2\displayName = "硬币"
 									it\SecondInv[i] = it2
 									HideEntity(it2\collider)
 									EntityType(it2\collider, HIT_ITEM)
@@ -2922,7 +2923,6 @@ Function UpdateEvents()
 						If Float(e\EventStr) < 70*10 Then
 							If ParticleAmount > 0 Then
 								If Rand(20-(10*(ParticleAmount-1)))=1 Then
-									;p.Particles = CreateParticle(EntityX(e\room\NPC[0]\Collider),EntityY(e\room\NPC[0]\obj)+0.05,EntityZ(e\room\NPC[0]\Collider),6,0.05,0,60)
 									p.Particles = CreateParticle(EntityX(e\room\NPC[0]\Collider),EntityY(e\room\NPC[0]\obj)+0.05,EntityZ(e\room\NPC[0]\Collider),0,0.05,0,60)
 									p\speed = 0.002
 									RotateEntity(p\pvt, 0, EntityYaw(e\room\NPC[0]\Collider), 0)
@@ -2971,7 +2971,6 @@ Function UpdateEvents()
 						e\EventState2 = Max(e\EventState2-FPSfactor,0)
 					EndIf					
 				EndIf
-				
 				;[End Block]
 			Case "room2trick"
 				;[Block]
@@ -2994,7 +2993,6 @@ Function UpdateEvents()
 							
 							PositionEntity Collider, EntityX(pvt),EntityY(pvt)+0.05,EntityZ(pvt)
 							UpdateWorld()
-							;ResetEntity Collider
 							
 							TurnEntity Collider, 0,180,0
 							

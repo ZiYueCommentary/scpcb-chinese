@@ -89,7 +89,7 @@ Function UpdateMainMenu()
 				Case 4, 5
 					MenuStr = "控制 收容 保护"
 				Case 6, 7, 8
-					MenuStr = "你想要好结局？操你妈"
+					MenuStr = "你想要个好结局？滚你妈。"
 				Case 9, 10, 11
 					MenuStr = "有时我们不得不尖叫"
 				Case 12, 19
@@ -817,7 +817,7 @@ Function UpdateMainMenu()
 
 						Text(x + 280 * MenuScale, y + 20 * MenuScale + 2, "手动眨眼")
 						InputBox(x + 470 * MenuScale, y + 20 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_BLINK,210)),7)				
-						Text(x + 280 * MenuScale, y + 40 * MenuScale + 2, "疾跑")
+						Text(x + 280 * MenuScale, y + 40 * MenuScale + 2, "奔跑")
 						InputBox(x + 470 * MenuScale, y + 40 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_SPRINT,210)),8)
 						Text(x + 280 * MenuScale, y + 60 * MenuScale + 2, "物品栏")
 						InputBox(x + 470 * MenuScale, y + 60 * MenuScale,100*MenuScale,20*MenuScale,KeyName(Min(KEY_INV,210)),9)
