@@ -185,104 +185,71 @@ Turtle Sandwich/Catnipbuddy
 *本游戏基于SCP基金会背景
 
 
-SCP和SCP收容失效图标 基于 图标
-作者 "far2"
+SCP和SCP收容失效图标 基于“far2”创作的 图标
 
-SCP-008 基于 "SCP-008 - 丧尸病毒"
-作者 "Lee Byron"
+SCP-008 基于“Lee Byron”创作的 "SCP-008 - 丧尸病毒"
 
-SCP-012 基于 "SCP-012 - 未完乐章"
-作者未知
+SCP-012 基于未知作者创作的 "SCP-012 - 未完乐章"
 
-SCP-035 基于 "SCP-035 - 占据面具"
-作者 "Kain Pathos Crow"
+SCP-035 基于“Kain Pathos Crow”创作的 "SCP-035 - 占据面具"
 
-SCP-049 基于 "SCP-049 - 瘟疫医生"
-作者 "Gabriel Jade"
+SCP-049 基于“Gabriel Jade”创作的 "SCP-049 - 瘟疫医生"
 
-SCP-066 基于 "SCP-066 - 埃里克的玩具"
-作者 "Scantron"
+SCP-066 基于“Scantron”创作的 "SCP-066 - 埃里克的玩具"
 
-SCP-079 基于 "SCP-079 - 旧AI"
-作者未知
+SCP-079 基于未知作者创作的 "SCP-079 - 旧AI"
 
-SCP-096 基于 "SCP-096 - “羞涩”的人"
-作者 "Dr Dan"
+SCP-096 基于“Dr Dan”创作的 "SCP-096 - “羞涩”的人"
 
-SCP-106 基于 "SCP-106 - 恐怖老人"
-作者 "Dr Gears"
+SCP-106 基于“Dr Gears”创作的 "SCP-106 - 恐怖老人"
 
-SCP-148 基于 "SCP-148 - 心灵遮断合金"
-作者 "Lt Masipag"
+SCP-148 基于“Lt Masipag”创作的 "SCP-148 - 心灵遮断合金"
 
-SCP-173 基于 "SCP-173 - 雕塑"
-作者 "Moto42"
+SCP-173 基于“Moto42”创作的 "SCP-173 - 雕塑"
 
-SCP-205 基于 "SCP-205 - 幽影之灯"
-作者 "Sorts"
+SCP-205 基于“Sorts”创作的 "SCP-205 - 幽影之灯"
 
-SCP-294 基于 "SCP-294 - 咖啡机"
-作者 "far2"
+SCP-294 基于“far2”创作的 "SCP-294 - 咖啡机"
 
-SCP-372 基于 "SCP-372 - 视外幻兽"
-作者 "Sylocat"
+SCP-372 基于“Sylocat”创作的 "SCP-372 - 视外幻兽"
 
-SCP-420-J 基于 "SCP-420-J - 世界上最好的______" 
-作者 "Quikngruvn"
+SCP-420-J 基于“Quikngruvn”创作的 "SCP-420-J - 世界上最好的______"
 
-SCP-427 基于 "SCP-427 - 洛夫克拉夫特吊坠"
-作者 "Dr Ouros"
+SCP-427 基于“Dr Ouros”创作的 "SCP-427 - 洛夫克拉夫特吊坠"
 
-SCP-500 基于 "SCP-500 - 万能药"
-作者 "far2"
+SCP-500 基于“far2”创作的 "SCP-500 - 万能药"
 
-SCP-513-1 基于 "SCP-513 - 牛铃"
-作者 "beefwit"
+SCP-513-1 基于“beefwit”创作的 "SCP-513 - 牛铃"
 
-SCP-714 基于 "SCP-714 - 疲惫玉戒"
-作者 "Arcalane"
+SCP-714 基于“Arcalane”创作的 "SCP-714 - 疲惫玉戒"
 
-SCP-682 基于 "SCP-682 - 不灭孽蜥"
-作者 "Dr. Gears"
+SCP-682 基于“Dr. Gears”创作的 "SCP-682 - 不灭孽蜥"
 
-SCP-789-J 基于 "SCP-789-J - 屁股鬼魂！！"
-作者 "Salman Corbette"
+SCP-789-J 基于“Salman Corbette”创作的 "SCP-789-J - 屁股鬼魂！！"
 
-SCP-860 基于 "SCP-860 - 蓝钥匙"
-作者 "Enma Ai"
+SCP-860 基于“Enma Ai”创作的 "SCP-860 - 蓝钥匙"
 
-SCP-895 基于 "SCP-895 - 摄像干扰"
-作者 "Aelanna"
+SCP-895 基于“Aelanna”创作的 "SCP-895 - 摄像干扰"
 
-SCP-914 基于 "SCP-914 - 万能转换机"
-作者 "Dr. Gears"
+SCP-914 基于“Dr. Gears”创作的 "SCP-914 - 万能转换机"
 
-SCP-939 基于 "SCP-939 - 千喉之兽"
-作者 "Adam Smascher"
+SCP-939 基于“Adam Smascher”创作的 "SCP-939 - 千喉之兽"
 
-SCP-966 基于 "SCP-966 - 睡梦杀手"
-作者"Enma Ai"
+SCP-966 基于“Enma Ai”创作的 "SCP-966 - 睡梦杀手"
 
-SCP-970 基于 "SCP-970 - 轮回之间"
-作者 "Freudian"	
+SCP-970 基于“Freudian”创作的 "SCP-970 - 轮回之间"
 
-SCP-1025 基于 "SCP-1025 - 疾病大百科"
-作者 "Lasergoose"
+SCP-1025 基于“Lasergoose”创作的 "SCP-1025 - 疾病大百科"
 
-SCP-1048 基于 "SCP-1048 - 泰迪熊建造者"
-作者 "Researcher Dios"
+SCP-1048 基于“Researcher Dios”创作的 "SCP-1048 - 泰迪熊建造者"
 
-SCP-1123 基于 "SCP-1123 - 暴行头骨"
-作者 "sandrewswann"
+SCP-1123 基于“sandrewswann”创作的 "SCP-1123 - 暴行头骨"
 
-SCP-1162 基于 "SCP-1162 - 墙上一个洞"
-作者 "Dedaluminus"
+SCP-1162 基于“Dedaluminus”创作的 "SCP-1162 - 墙上一个洞"
 
-SCP-1499 基于 "SCP-1499 - 防毒面具"
-作者"Trasknari"
+SCP-1499 基于“Trasknari”创作的 "SCP-1499 - 防毒面具"
 
-异常鸭 基于 "异常鸭日志"
-作者 "Skara Brae"
+异常鸭 基于“Skara Brae”创作的 "异常鸭日志"
 
 /
 十分感谢近年来支持该项目的所有人
@@ -293,4 +260,10 @@ SCP-1499 基于 "SCP-1499 - 防毒面具"
 我肯定会遗漏掉一些应该提及的人。如果你有贡献，同时想在游戏里留下你的名字，
 请通过Undertow Games论坛或contact@undertowgames.com联系我们！
 
-- Joonas Rikkonen ("Regalis")
+—— Joonas Rikkonen ("Regalis")
+
+
+谁能想到，只是为了“想火一把”的冲动而成立的汉化计划，最后真的实现了呢。
+我要感谢所有支持我的人——因为你们的支持，这个项目才能走到现在，而不是胎死腹中。
+
+—— ZiYueCommentary("子悦解说")

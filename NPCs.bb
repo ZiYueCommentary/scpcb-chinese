@@ -138,7 +138,7 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			;[End Block]
 		Case NPCtypeGuard
 			;[Block]
-			n\NVName = "Human"
+			n\NVName = "人类"
 			n\Collider = CreatePivot()
 			EntityRadius n\Collider, 0.2
 			EntityType n\Collider, HIT_PLAYER
@@ -153,12 +153,10 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			;[End Block]
 		Case NPCtypeMTF
 			;[Block]
-			n\NVName = "Human"
+			n\NVName = "人类"
 			n\Collider = CreatePivot()
 			EntityRadius n\Collider, 0.2
-			;EntityRadius Collider, 0.15, 0.30
 			EntityType n\Collider, HIT_PLAYER
-			;EntityPickMode n\Collider, 1
 			n\obj = CopyEntity(MTFObj)
 			
 			n\Speed = (GetINIFloat("DATA\NPCs.ini", "MTF", "speed") / 100.0)
@@ -200,7 +198,7 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			;[End Block]
 		Case NPCtypeD
 			;[Block]
-			n\NVName = "Human"
+			n\NVName = "人类"
 			n\Collider = CreatePivot()
 			EntityRadius n\Collider, 0.32
 			EntityType n\Collider, HIT_PLAYER
@@ -277,7 +275,7 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			;[End Block]
 		Case NPCtypeZombie
 			;[Block]
-			n\NVName = "Human"
+			n\NVName = "人类"
 			n\Collider = CreatePivot()
 			EntityRadius n\Collider, 0.2
 			EntityType n\Collider, HIT_PLAYER
@@ -301,7 +299,7 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			;[End Block]
 		Case NPCtypeApache
 			;[Block]
-			n\NVName = "Human"
+			n\NVName = "直升机" ; 原版说是人类，但这玩意咋看都不是人类
 			n\GravityMult = 0.0
 			n\MaxGravity = 0.0
 			n\Collider = CreatePivot()
@@ -342,7 +340,7 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			;[End Block]
 		Case NPCtypeTentacle
 			;[Block]
-			n\NVName = "Unidentified"
+			n\NVName = "未知"
 			
 			n\Collider = CreatePivot()
 			
@@ -362,7 +360,7 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			;[End Block]
 		Case NPCtype860
 			;[Block]
-			n\NVName = "Unidentified"
+			n\NVName = "未知"
 			
 			n\Collider = CreatePivot()
 			EntityRadius n\Collider, 0.25
@@ -482,7 +480,7 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			;[End Block]
 		Case NPCtype1499
 			;[Block]
-			n\NVName = "Unidentified"
+			n\NVName = "未知"
 			n\Collider = CreatePivot()
 			EntityRadius n\Collider, 0.2
 			EntityType n\Collider, HIT_PLAYER
@@ -508,7 +506,7 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			;[End Block]
 		Case NPCtype008
 			;[Block]
-			n\NVName = "Human"
+			n\NVName = "人类"
 			n\Collider = CreatePivot()
 			EntityRadius n\Collider, 0.2
 			EntityType n\Collider, HIT_PLAYER
@@ -530,7 +528,7 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			;[End Block]
 		Case NPCtypeClerk
 			;[Block]
-			n\NVName = "Human"
+			n\NVName = "人类"
 			n\Collider = CreatePivot()
 			EntityRadius n\Collider, 0.32
 			EntityType n\Collider, HIT_PLAYER

@@ -411,8 +411,6 @@ Function UpdateMainMenu()
 				width = 580 * MenuScale
 				height = 296 * MenuScale
 				
-				;SetFont Font1	
-				
 				SetFont Font2
 				
 				If CurrLoadGamePage < Ceil(Float(SaveGameAmount)/6.0)-1 And SaveMSG = "" Then 
@@ -1055,7 +1053,7 @@ Function UpdateMainMenu()
 	SetFont Font1
 	Color 255,255,0
 	Text GraphicWidth-20,10,"汉化制作：子悦汉化组",2
-	Text GraphicWidth-20,(10+FontHeight())+FontHeight(),"对外交流群：1006841985",2
+	Text GraphicWidth-20,(10+FontHeight())+FontHeight()+1,"对外交流群：1006841985",2
 	Text GraphicWidth-20,(10+FontHeight()*2)+FontHeight()+FontHeight(),"scpcbgame.cn",2
 	
 	If Fullscreen Then DrawImage CursorIMG, ScaledMouseX(),ScaledMouseY()
@@ -1116,7 +1114,7 @@ Function UpdateLauncher()
 		
 		DrawImage(LauncherIMG, 0, 0)
 		
-		If TimeOut Then Color 255,255,0 : Text(0,5,"警告：检查更新失败（连接超时）")
+		If TimeOut Then Color 255,255,0 : Text(0,5,"警告： 检查更新失败（连接超时）")
 		Color 255, 255, 255
 		
 		Text(20, 240 - 65 + 3, "分辨率：")
@@ -1197,19 +1195,19 @@ Function UpdateLauncher()
 			EndIf
 		Else
 			Text(40+ 260 + 65, 262 - 55 + 140, "当前分辨率： "+GfxModeWidths(SelectedGFXMode) + "x" + GfxModeHeights(SelectedGFXMode) + ",32")
-			If GfxModeWidths(SelectedGFXMode)<G_viewport_width Then
-				Text(40+ 260 + 65, 262 - 55 + 167, "（分辨率应升至")
-				Text(40+ 260 + 65, 262 - 55 + 187, G_viewport_width + "x" + G_viewport_height + ",32)")
-			ElseIf GfxModeWidths(SelectedGFXMode)>G_viewport_width Then
-				Text(40+ 260 + 65, 262 - 55 + 167, "（分辨率应降至")
-				Text(40+ 260 + 65, 262 - 55 + 187, G_viewport_width + "x" + G_viewport_height + ",32)")
+			If GfxModeWidths(SelectedGFXMode) < DesktopWidth() Then
+				Text(40+ 260 + 65+10, 262 - 55 + 167 + 1, "（分辨率应升至")
+				Text(40+ 260 + 65+10, 262 - 55 + 187 + 1, DesktopWidth() + "x" + DesktopHeight() + ",32)")
+			ElseIf GfxModeWidths(SelectedGFXMode) > DesktopWidth() Then
+				Text(40+ 260 + 65+10, 262 - 55 + 167 + 1, "（分辨率应降至")
+				Text(40+ 260 + 65+10, 262 - 55 + 187 + 1, DesktopWidth() + "x" + DesktopHeight() + ",32)")
 			EndIf
 		EndIf
 		
-		UpdateCheckEnabled = DrawTick(LauncherWidth - 275, LauncherHeight - 50, UpdateCheckEnabled)
+		UpdateCheckEnabled = DrawTick(LauncherWidth - 275+17, LauncherHeight - 50, UpdateCheckEnabled)
 		Color 255,255,255
-		Text LauncherWidth-250,LauncherHeight-55,"打开启动器"
-		Text LauncherWidth-250,LauncherHeight-35,"时检查更新"
+		Text LauncherWidth-250+17,LauncherHeight-55,"打开启动器"
+		Text LauncherWidth-250+17,LauncherHeight-35,"时检查更新"
 		
 		If DrawButton(LauncherWidth - 30 - 90, LauncherHeight - 50 - 55, 100, 30, "启动", False, False, -1) Then
 			GraphicWidth = GfxModeWidths(SelectedGFXMode)
@@ -1217,6 +1215,14 @@ Function UpdateLauncher()
 			RealGraphicWidth = GraphicWidth
 			RealGraphicHeight = GraphicHeight
 			Exit
+		EndIf
+		
+		If Not(BorderlessWindowed And GfxModeWidths(SelectedGFXMode) <> DesktopWidth()) Then
+			If DrawButton(40+ 260 + 65 + 20, LauncherHeight - 50 - 55, 100, 30, "Bug反馈", False, False, -1) Then
+				ExecFile("http://bugs.scpcbgame.cn/")
+				Delay 100
+				End
+			EndIf
 		EndIf
 		
 		If DrawButton(LauncherWidth - 30 - 90, LauncherHeight - 50, 100, 30, "退出", False, False, -1) Then End
@@ -1539,10 +1545,8 @@ Function DrawLoading(percent%, shortloading=False)
 End Function
 
 Function InputBox$(x%, y%, width%, height%, Txt$, ID% = 0)
-	;TextBox(x,y,width,height,Txt$)
 	Color (255, 255, 255)
 	DrawTiledImageRect(MenuWhite, (x Mod 256), (y Mod 256), 512, 512, x, y, width, height)
-	;Rect(x, y, width, height)
 	Color (0, 0, 0)
 	
 	Local MouseOnBox% = False
@@ -1924,10 +1928,7 @@ Function DrawOptionsTooltip(x%,y%,width%,height%,option$,value#=0,ingame%=False)
 			R = 255
 		Case "vsync"
 			txt = "“垂直同步”意为在计算下一帧前，等待显示器完成当前刷新周期，防止出现画面撕裂等问题。"
-			txt2 = "这会强制将游戏的FPS限制在显示器刷新率之内,可能会导致画面延迟。"
-			R = 255
-			G = 255
-			B = 255
+			txt = txt + "这会强制将游戏的FPS限制在显示器刷新率之内,可能会导致画面延迟。"
 		Case "antialias"
 			txt = "“抗锯齿”意为在显示之前平滑渲染图像,以减少模型边缘周围的锯齿。"
 			txt2 = "该选项只适用于全屏模式中。"
@@ -2034,7 +2035,7 @@ Function DrawOptionsTooltip(x%,y%,width%,height%,option$,value#=0,ingame%=False)
 		Case "subtitle"
 			txt = "在游戏中显示人物说话的内容,字幕的位置与游戏原本的提示的位置不同。"
 		Case "traditional"
-			txt = "将游戏显示文本转换为繁体，使用中国台湾地域用语。启用后会自动读取繁体版贴图。"
+			txt = "将游戏显示文本转换为繁体，同时转换为台湾地区用语。启用后会自动读取繁体版贴图。"
 			R = 255
 			G = 255
 			txt2 = "该选项为实验功能，基于OpenCC制作。"

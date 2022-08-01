@@ -30,8 +30,8 @@ https://creativecommons.org/licenses/by-sa/3.0/deed.zh
 	SCP - 收容失效使用Blitz3D引擎，但该引擎已过于古老且过时
 	在你使用较新的操作系统运行游戏时，你可能会遇到一些问题
 
-	如果你启动游戏时遇到"Memory Access Violation"（内存访问冲突）的问题或者
-	"Unable to set graphics mode"（无法设置显示模式），请尝试以下方式：
+	如果你启动游戏时遇到"内存访问冲突"（Memory Access Violation）的问题或者
+	"无法设置显示模式"（Unable to set graphics mode），请尝试以下方式：
 
 	- 以管理员身份运行
 	- 检查你的显卡驱动更新

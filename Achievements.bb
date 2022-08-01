@@ -153,5 +153,4 @@ Function UpdateAchievementMsg()
 			Delete amsg
 		EndIf
 	Next
-	
 End Function

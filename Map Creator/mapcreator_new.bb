@@ -434,7 +434,6 @@ Repeat
 					Rect Float(width)/Float(MapWidth+1)*x,Float(height)/Float(MapHeight+1)*y,(Float(width)/Float(MapWidth+1)),(Float(height)/Float(MapHeight+1)),True
 					
 					Local PrevSelectedX=Grid_SelectedX, PrevSelectedY=Grid_SelectedY
-					;If x>0 And x<MapWidth And y>0 And y<MapHeight
 						If (MouseX()-GadgetX(map_2d))>(Float(width)/Float(MapWidth+1)*x+GadgetX(WinHandle)) And (MouseX()-GadgetX(map_2d))<((Float(width)/Float(MapWidth+1)*x)+(Float(width)/Float(MapWidth+1))+GadgetX(WinHandle))
 							Local offset% = 45
 							If (MouseY()-GadgetY(map_2d))>(Float(height)/Float(MapHeight+1)*y+GadgetY(WinHandle)+offset) And (MouseY()-GadgetY(map_2d))<((Float(height)/Float(MapHeight+1)*y)+(Float(height)/Float(MapHeight+1))+GadgetY(WinHandle)+offset)
@@ -978,7 +977,7 @@ Repeat
 		item2 = SelectedGadgetItem(combobox)
 		If item2>=0
 			event_name$ = GadgetItemText$(combobox, item2)
-			If event_name<>prevEvent ;And prevEvent<>""
+			If event_name<>prevEvent
 				If event_name$<>"" And event_name$<>"[无]"
 					MapEvent(Grid_SelectedX,Grid_SelectedY)=event_name
 					MapEventProb(Grid_SelectedX,Grid_SelectedY)=Float((SliderValue(event_prob)+1)/100.0)
@@ -1009,7 +1008,7 @@ Repeat
 			
 			result = Proceed("保存当前地图？",True) 
 			If result=1 Then
-				SetStatusText(winhandle, "Created new map and saving prev. map")
+				SetStatusText(winhandle, "保存上张地图后创建新地图")
 				If FileType(filename$) <>1
   			   		filename$ = RequestFile("Open map","cbmap",True,"")
 				EndIf
@@ -1022,14 +1021,14 @@ Repeat
 				EndIf
 				filename$ = ""
 			ElseIf result=0 Then 
-				SetStatusText(winhandle, "Created new map without saving prev. map")
+				SetStatusText(winhandle, "放弃上张地图后创建新地图")
 				EraseMap()
 				If ShowGrid=False
 					SaveMap("CONFIG_MAPINIT.SI",True)
 				EndIf
 				filename$ = ""
 			ElseIf result=-1 Then
-				SetStatusText(winhandle, "Creating new map has been cancelled")
+				SetStatusText(winhandle, "新地图创建已被取消")
 			EndIf
 		EndIf
 		If EID=1 Then
@@ -1046,7 +1045,7 @@ Repeat
 			EndIf
 			If filename<>""
 				If Right(filename,5)="cbmap" Then
-					value = Confirm("cbmap is an outdated file format. Some data can be lost if you save your map to this file format."+Chr(13)+"Are you sure you want to proceed?",0)
+					value = Confirm("cbmap是已过时的文件格式。如果你使用此格式保存地图，一些数据将会丢失。"+Chr(13)+"确定要继续吗？",0)
 					If value=1 Then
 						SaveMap(filename$,False,1)
 					EndIf
@@ -1062,8 +1061,8 @@ Repeat
 			filename$ = RequestFile("Save Map","cbmap2,cbmap",True,"")
 			If filename<>""
 				If Right(filename,5)="cbmap" Then
-					value = Confirm("cbmap is an outdated file format. Some data can be lost if you save your map to this file format."+Chr(13)+"Are you sure you want to proceed?",0)
-					If value=0 Then
+						value = Confirm("cbmap是已过时的文件格式。如果你使用此格式保存地图，一些数据将会丢失。"+Chr(13)+"确定要继续吗？",0)					
+						If value=0 Then
 						Goto back
 					EndIf
 					SaveMap(filename$,False,1)

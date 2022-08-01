@@ -378,6 +378,17 @@ Function UpdateEvents()
 									PositionEntity Collider, x, 0.302, z	
 									DropSpeed = 0
 								Else
+									; 在开始就将文档放入玩家物品栏
+									it = CreateItem("Class D Orientation Leaflet", "paper", 1, 1, 1)
+									it\Picked = True
+									it\Dropped = -1
+									it\itemtemplate\found=True
+									Inventory(0) = it
+									HideEntity(it\collider)
+									EntityType (it\collider, HIT_ITEM)
+									EntityParent(it\collider, 0)
+									ItemAmount = ItemAmount + 1
+								
 									HideEntity Light
 									
 									PositionEntity Collider, EntityX(Collider), 0.302, EntityZ(Collider)
@@ -394,6 +405,7 @@ Function UpdateEvents()
 								
 							ElseIf e\EventState3 < 40
 								If Inventory(0)<>Null Then
+									If(Inventory(0) <> Null) And (Inventory(1) <> Null) Then Inventory(1) = Null ; 如果拾起了桌上的文档，就将它和物品栏中的文档合并
 									Msg = "按 "+KeyName(KEY_INV)+" 打开物品栏"
 									MsgTimer=70*7
 									e\EventState3 = 40
@@ -415,8 +427,6 @@ Function UpdateEvents()
 								UpdateSoundOrigin(e\room\NPC[3]\SoundChn2,Camera,e\room\NPC[3]\Collider)
 								
 								If (Not ChannelPlaying(e\room\NPC[3]\SoundChn2))
-									;BlinkTimer = -10
-									
 									e\room\NPC[3]\Sound = LoadSound_Strict("SFX\Room\Intro\Guard\Ulgrin\ExitCell.ogg")
 									e\room\NPC[3]\SoundChn = PlaySound2(e\room\NPC[3]\Sound, Camera, e\room\NPC[3]\Collider)
 
@@ -877,7 +887,6 @@ Function UpdateEvents()
 								e\room\NPC[6] = CreateNPC(NPCtypeD, e\room\x-3712*RoomScale, -0.3, e\room\z-2208*RoomScale)
 								ChangeNPCTextureID(e\room\NPC[6],3)
 								e\room\NPC[7] = CreateNPC(NPCtypeD, e\room\x-3712*RoomScale, -0.3, e\room\z-2208*RoomScale)
-								;tex = LoadTexture_Strict("GFX\npcs\scientist.jpg")
 								e\room\NPC[7]\Sound = LoadSound_Strict("SFX\Room\Intro\Scientist\Conversation.ogg")
 								ChangeNPCTextureID(e\room\NPC[7],2)
 								pvt = CreatePivot()
@@ -918,7 +927,6 @@ Function UpdateEvents()
 							If e\room\NPC[6]\SoundChn<>0 Then 
 								If ChannelPlaying (e\room\NPC[6]\SoundChn) Then
 									e\room\NPC[6]\State = 6
-									;PointEntity e\room\NPC[6]\Collider, e\room\obj
 									If AnimTime(e\room\NPC[6]\obj)=>325 Then
 										Animate2(e\room\NPC[6]\obj, AnimTime(e\room\NPC[6]\obj),326,328, 0.02, False)
 									Else
@@ -4313,7 +4321,7 @@ Function UpdateEvents()
 						
 						Select e\EventState 
 							Case 2
-								i = Rand(MaxItemAmount)
+								i = Rand(0, MaxItemAmount - 1)
 								If Inventory(i)<>Null Then RemoveItem(Inventory(i))								
 							Case 5
 								Injuries = Injuries + 0.3

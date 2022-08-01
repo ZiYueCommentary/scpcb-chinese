@@ -1,8 +1,7 @@
-; 编码UTF-8，使用无OpenCC插件版Blitz3D TSS构建
-; 注意：无OpenCC插件版本！！！
-; OpenCC要求构建的程序目录必须有opencc.dll才能运行，而OpenCC插件在地图制作器里根本没用过
-; 所以要用无OpenCC插件版的Blitz3D TSS
-; ——子悦 2022年5月22日
+; 在以前，这个玩意需要无OpenCC插件的版本进行编译
+; 而现在，繁简转换将取决于游戏设置
+; 所以现在需要用有OpenCC插件的Blitz3D TSS进行编译
+; ——子悦 2022/7/9
 
 Const C_GWL_STYLE = -16
 Const C_WS_POPUP = $80000000
@@ -46,6 +45,8 @@ CameraClsColor Camera,CamColorR,CamColorG,CamColorB
 Global CamRange# = GetINIFloat("options.INI","3d scene","camera range")
 CameraRange Camera,0.05,CamRange
 PositionEntity Camera,0,1,0
+
+If GetINIInt("..\options.ini","options","traditional chinese") Then OpenCC("..\Traditional\OpenCC\s2twp.json")
 
 Global AmbientLightRoomTex% = CreateTexture(2,2,257)
 TextureBlend AmbientLightRoomTex,5
@@ -1018,8 +1019,6 @@ Type Materials
 End Type
 
 Function LoadMaterials(file$)
-	;If Not BumpEnabled Then Return
-	
 	Local TemporaryString$
 	Local mat.Materials = Null
 	Local StrTemp$ = ""

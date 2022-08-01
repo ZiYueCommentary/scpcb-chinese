@@ -955,18 +955,15 @@ Class Ds when loading a game)
 ----------------------------------------------------------------------------------
 
 v0.7.3
-- fixed the broken SCP-049-2 model
+- 修复了破碎的SCP-049-2模型
 
 ----------------------------------------------------------------------------------
 
 v0.7.2
-- the MTF now react to SCP-173 and attempt to recontain it - still working on 
-making them react to the other SCPs
-- every death screen now has a short piece of text in it - some of them are excerpts
-from reports describing where and in what condition was your body found, and some 
-are quotes from Foundation personnel who are cleaning up the mess left by the
-containment breach
-- a new room in the pocket dimension
+- MTF现在会对SCP-173做出反应，并试图收容它——我们仍在努力让MTF对其他SCP做出反应
+- 现在死亡界面会有一小段文字——其中一些摘自你尸体位置、何时发现的报告，还有一些是处理收容失
+  效烂摊子的基金会人员的话。
+- 口袋空间的一个新房间
 - some minor tweaks to the PD's background ambience and wall textures
 - little additions to the tesla gate rooms (a warning sign and a light that shows 
 when the gate is active)
@@ -993,28 +990,25 @@ v0.7.1
 ----------------------------------------------------------------------------------
 
 v0.7
-- FIVE new SCPs
-- improved map generation algorithm - now the map is divided into three "zones" 
-("light containment", "heavy containment" and an office/research zone). Due to
-this, the layout of the facility now makes much more sense: you won't be seeing 
-a toilet or an office next to the containment chamber of a Keter-level SCP anymore.
-- lots of new rooms
-- plenty of new scripted events, including:
-	- scenes where you'll witness the staff trying to escape the facility with
-	varied success
-	- an event where SCP-096 gets to do more than just sit on the floor
-- new items
-- ambient sounds that are played near specific objects/areas, such as the sound of
-dripping water near a pipe or a quiet humming sound near a ventilation shaft
-- some optimization to 096's AI, it shouldn't cause FPS drops as much as before
-- some small additions to the intro sequence
-- minor visual improvements to the smoke
-- SCP-173 model with heavily reduced polycount (from ~14,000 to ~2,200)
-- more security cameras placed around the facility
-- fixed the bug that caused the player to get stuck inside the doors
-- the viewable computer screens are now scaled up/down depending on the resolution
-- the time and date of a save file is now showed in the "Load Game"-menu
-- improved the layout of the in-game documents
+- 五 个 新SCP
+- 新的地图生成算法——现在地图分为三个“区域”
+	（“轻收容”、“重收容”和“办公/研究区”）因此，设施的布局更加合理：你再也不会在Keter级
+	SCP的收容室旁边看到卫生间或办公室了。
+- 一堆新房间
+- 一堆的新脚本事件，包括：
+	- 你会看到工作人员试图逃离设施，并取得了某种意义上的成功
+	- 现在SCP-096不仅会坐在地板上
+- 新物品
+- 在特定物体/区域附近播放指定环境声，例如管道附近的滴水声和通风井的嗡嗡声
+- 优化了096的AI，现在应该不会像之前一样导致FPS下降了
+- 向序章添加了一些东西
+- 轻微的烟雾视觉改善
+- 大幅减少了SCP-173模型的多边形数量（从约14000至约2200）
+- 在设施内放置了更多的摄像头
+- 修复了玩家会卡在门内的bug
+- 可查看显示器屏幕现在会根据分辨率进行缩放
+- 保存存档的时间和日期现在会在“加载游戏”菜单显示
+- 修改了游戏内文档的布局
 
 ----------------------------------------------------------------------------------
 
@@ -1024,8 +1018,8 @@ v0.6.6
 - 修复MTF的AI的一些bug
 - 办公室中新的物品模型
 - 由于MonocleBios的努力，106收容措施终于正常工作了。
-- the server rooms are a bit easier to get through now
-- changed the "Input"-label on SCP-914 to "Intake"
+- 服务机房现在更容易通过了
+- 将SCP-914的“Input”标签改为“Intake”
 
 ----------------------------------------------------------------------------------
 
@@ -1089,7 +1083,7 @@ v0.6
 - 受伤/失血系统，现在你有可能在中弹后活下来（尽管很难）。枪伤会导致流血，失血过多会导致死亡。
   受伤可以使用急救箱解决，但需要一些时间（你不可能在被打时就开始包扎），并且一般的急救箱也不
   可能完全包扎。受伤的程度取决于打中了你身体的哪个部位——头部中弹仍是秒杀。
-- 如果想要查看受伤系统，请在控制台输入“injure [0-5]”
+- 如果想要设置受伤系统，请在控制台输入“injure [0-5]”
 - 添加了防弹背心，可以减少枪击造成的伤害
 - 新的SCP-106模型
 - 一些新的事件

@@ -3527,21 +3527,16 @@ Function FillRoom(r.Rooms)
 					
 					EntityParent(r\Objects[n * 2 + i], r\obj)
 				Next
-				;RotateEntity(r\Objects[n * 2], 0, -90, 0)
 				RotateEntity(r\Objects[n*2+1], 81, -180, 0)
 				
-				;EntityPickMode(r\Objects[n * 2 + 1], 2)
 				EntityPickMode r\Objects[n * 2 + 1], 1, False
 				EntityRadius r\Objects[n * 2 + 1], 0.1
-				;makecollbox(r\Objects[n * 2 + 1])
 			Next
 			
 			RotateEntity(r\Objects[2+1], -81, -180, 0)
 			RotateEntity(r\Objects[4+1], -81, -180, 0)
 			
 			;096 spawnpoint
-;			r\Objects[6]=CreatePivot(r\obj)
-;			PositionEntity(r\Objects[6], r\x - 848*RoomScale, 0.5, r\z-576*RoomScale, True)
 			r\Objects[6]=CreatePivot(r\obj)
 			PositionEntity(r\Objects[6],r\x-320*RoomScale,0.5,r\z,True)
 			;guard spawnpoint
@@ -3651,7 +3646,6 @@ Function FillRoom(r.Rooms)
 			EntityParent(it\collider, r\obj)
 			
 			it = CreateItem("Incident Report SCP-1048-A", "paper",r\x + 736.0 * RoomScale, r\y + 224.0 * RoomScale, r\z -480.0 * RoomScale)
-			;clipboard\SecondInv[0] = it
 			HideEntity(it\collider)
 			
 			r\Objects[0]=CreatePivot(r\obj)
@@ -3668,7 +3662,6 @@ Function FillRoom(r.Rooms)
 			sc\angle = 180
 			sc\turn = 45
 			TurnEntity(sc\CameraObj, 20, 0, 0)
-			;sc\FollowPlayer = True
 			;[End Block]
 		Case "room2offices"
 			;[Block]
@@ -3966,12 +3959,8 @@ Function FillRoom(r.Rooms)
 			;[End Block]
 		Case "room205"
 			;[Block]
-			;d.Doors = CreateDoor(r\zone, r\x + 128.0 * RoomScale, 0, r\z + 640.0 *RoomScale, 90, r, True, False, 3)
-			;d\AutoClose = False : d\open = False
 			r\RoomDoors[1] = CreateDoor(r\zone, r\x + 128.0 * RoomScale, 0, r\z + 640.0 *RoomScale, 90, r, True, False, 3)
 			r\RoomDoors[1]\AutoClose = False : r\RoomDoors[1]\open = False
-			;PositionEntity(d\buttons[0], r\x + 320.0 * RoomScale, EntityY(d\buttons[0],True), EntityZ(d\buttons[0],True), True)
-			;PositionEntity(d\buttons[1], r\x + 224.0 * RoomScale, EntityY(d\buttons[1],True), EntityZ(d\buttons[1],True), True)
 			
 			r\RoomDoors[0] = CreateDoor(r\zone, r\x - 1392.0 * RoomScale, -128.0 * RoomScale, r\z - 384*RoomScale, 0, r, True, False, 3, "", True)
 			r\RoomDoors[0]\AutoClose = False : r\RoomDoors[0]\open = False
@@ -3991,7 +3980,6 @@ Function FillRoom(r.Rooms)
 			ScaleSprite sc\ScrObj, 896.0*0.5*RoomScale, 896.0*0.5*RoomScale
 			
 			EntityParent(sc\ScrObj, r\obj)
-			;EntityBlend(sc\ScrObj, 2)
 			
 			CameraZoom (sc\Cam, 1.5)
 			
@@ -4003,7 +3991,6 @@ Function FillRoom(r.Rooms)
 			RotateEntity r\Objects[0], 0,-90,0,True
 			
 			r\Objects[1] = sc\ScrObj
-			
 			;[End Block]
 		Case "endroom"
 			;[Block]
@@ -4069,9 +4056,6 @@ Function FillRoom(r.Rooms)
 			
 			r\Objects[1] = CreatePivot(r\obj)
 			PositionEntity(r\Objects[1], r\x + 96.0*RoomScale, -1532.0 * RoomScale, r\z + 2016.0 * RoomScale,True)
-			
-			;de.Decals = CreateDecal(0, r\x + 96.0*RoomScale, -1535.0 * RoomScale, r\z + 32.0 * RoomScale, 90, Rand(360), 0)
-			;EntityParent de\obj, r\obj
 			;[End Block]
 		Case "room2tesla","room2tesla_lcz","room2tesla_hcz"
 			;[Block]
@@ -4090,7 +4074,6 @@ Function FillRoom(r.Rooms)
 			r\Objects[3] = CreateSprite()
 			EntityTexture (r\Objects[3], TeslaTexture)
 			SpriteViewMode(r\Objects[3],2) 
-			;ScaleSprite (r\Objects[3],((512.0 * RoomScale)/2.0),((512.0 * RoomScale)/2.0))
 			EntityBlend (r\Objects[3], 3) 
 			EntityFX(r\Objects[3], 1 + 8 + 16)
 			
@@ -4133,15 +4116,13 @@ Function FillRoom(r.Rooms)
 		Case "room2doors"
 			;[Block]
 			d = CreateDoor(r\zone, r\x, 0, r\z + 528.0 * RoomScale, 0, r, True)
-			d\AutoClose = False ;: d\buttons[0] = False
+			d\AutoClose = False
 			PositionEntity (d\buttons[0], r\x - 832.0 * RoomScale, 0.7, r\z + 160.0 * RoomScale, True)
 			PositionEntity (d\buttons[1], r\x + 160.0 * RoomScale, 0.7, r\z + 536.0 * RoomScale, True)
-			;RotateEntity(d\buttons[1], 0, 90, 0, True)
 			
 			d2 = CreateDoor(r\zone, r\x, 0, r\z - 528.0 * RoomScale, 180, r, True)
 			d2\AutoClose = False : FreeEntity (d2\buttons[0]) : d2\buttons[0] = 0
 			PositionEntity (d2\buttons[1], r\x +160.0 * RoomScale, 0.7, r\z - 536.0 * RoomScale, True)
-			;RotateEntity(d2\buttons[1], 0, 90, 0, True)
 			
 			r\Objects[0] = CreatePivot()
 			PositionEntity(r\Objects[0], r\x - 832.0 * RoomScale, 0.5, r\z)
@@ -4153,10 +4134,6 @@ Function FillRoom(r.Rooms)
 			;[End Block]
 		Case "914"
 			;[Block]
-			;d = CreateDoor(r\zone, r\x, 0, r\z - 368.0 * RoomScale, 0, r, False, True, 2)
-			;d\dir = 1 : d\AutoClose = False : d\open = False
-			;PositionEntity (d\buttons[0], r\x - 496.0 * RoomScale, 0.7, r\z - 272.0 * RoomScale, True)
-			;TurnEntity(d\buttons[0], 0, 90, 0)
 			r\RoomDoors[2] = CreateDoor(r\zone,r\x,0,r\z-368.0*RoomScale,0,r,False,True,2)
 			r\RoomDoors[2]\dir=1 : r\RoomDoors[2]\AutoClose=False : r\RoomDoors[2]\open=False
 			PositionEntity (r\RoomDoors[2]\buttons[0], r\x - 496.0 * RoomScale, 0.7, r\z - 272.0 * RoomScale, True)
@@ -4245,9 +4222,6 @@ Function FillRoom(r.Rooms)
 					ScaleSprite(de\obj, de\Size, de\Size)
 				Next
 			Next
-			
-			;AddLight(r, r\x-224.0*RoomScale, r\y+640.0*RoomScale, r\z+128.0*RoomScale,2,2,200,200,200)
-			;AddLight(r, r\x-1056.0*RoomScale, r\y+608.0*RoomScale, r\z+416.0*RoomScale,2,2,200,200,200)
 			
 			r\RoomDoors[2] = CreateDoor(r\zone, r\x - 1008.0 * RoomScale, 0, r\z - 688.0 * RoomScale, 90, r, True, False, False, "", True)
 			r\RoomDoors[2]\AutoClose = False : r\RoomDoors[2]\open = False : r\RoomDoors[2]\locked = True
@@ -4392,35 +4366,6 @@ Function FillRoom(r.Rooms)
 			EntityPickMode r\Objects[6], 3
 			PositionEntity(r\Objects[6],r\x+784.0*RoomScale,-980.0*RoomScale,r\z+720.0*RoomScale,True)
 			
-			;If BumpEnabled Then 
-			;	
-			;	For i = 1 To CountSurfaces(r\Objects[6])
-			;		sf = GetSurface(r\Objects[6],i)
-			;		b = GetSurfaceBrush( sf )
-			;		t = GetBrushTexture(b,1)
-			;		texname$ =  StripPath(TextureName(t))
-			;		
-			;		mat.Materials=GetCache(texname)
-			;		If mat<>Null Then
-			;			If mat\Bump<>0 Then
-			;				t1 = GetBrushTexture(b,0)
-			;				
-			;				BrushTexture b, t1, 0, 0	
-			;				BrushTexture b, mat\Bump, 0, 1
-			;				BrushTexture b, t, 0, 2					
-			;				
-			;				PaintSurface sf,b
-			;				
-			;				If t1<>0 Then FreeTexture t1 : t1=0
-			;			EndIf
-			;		EndIf
-			;		
-			;		If t<>0 Then FreeTexture t : t=0
-			;		If b<>0 Then FreeBrush b : b=0
-			;	Next
-			;	
-			;EndIf
-			
 			EntityParent(r\Objects[6], r\obj)
 			
 			For n = 0 To 2 Step 2
@@ -4438,10 +4383,8 @@ Function FillRoom(r.Rooms)
 				RotateEntity(r\Objects[n], 0, 0, 0)
 				RotateEntity(r\Objects[n+1], 10, -180, 0)
 				
-				;EntityPickMode(r\Objects[n * 2 + 1], 2)
 				EntityPickMode r\Objects[n+1], 1, False
 				EntityRadius r\Objects[n+1], 0.1
-				;makecollbox(r\Objects[n * 2 + 1])
 			Next
 			
 			RotateEntity(r\Objects[1], 81,-180,0)
@@ -4464,12 +4407,10 @@ Function FillRoom(r.Rooms)
 			EntityParent sc\ScrObj, r\obj
 			sc\CoffinEffect=0
 			
-			;r\NPC[0] = CreateNPC(NPCtypeD, r\x + 1088.0 * RoomScale, 1096.0 * RoomScale, r\z + 1728.0 * RoomScale)
 			r\Objects[5] = CreatePivot()
 			TurnEntity r\Objects[5], 0,180,0
 			PositionEntity (r\Objects[5], r\x + 1088.0 * RoomScale, 1104.0 * RoomScale, r\z + 1888.0 * RoomScale) 
 			EntityParent r\Objects[5], r\obj
-			;HideEntity r\NPC[0]\obj
 			
 			r\Objects[9] = CreatePivot(r\obj)
 			PositionEntity (r\Objects[9], r\x - 272 * RoomScale, r\y - 672.0 * RoomScale, r\z + 2736.0 * RoomScale, True)
@@ -4580,7 +4521,6 @@ Function FillRoom(r.Rooms)
 			r\Objects[1] = CreatePivot() ;floor pivot: the player will walk to this point when it sees the painting pivot.
 			PositionEntity r\Objects[1],r\x + 835.0 * RoomScale,r\y + 10.0 * RoomScale,r\z + 300.0 * RoomScale, True
 			EntityParent r\Objects[1],r\obj
-			;Local sf,b,t,msh
 			msh% = GetChild(r\obj,2) ;the second child is the rendered mesh
 			r\NonFreeAble[0] = GetSurface(msh,1) ;a failsafe if the correct surface isn't found
 			For tempint = 1 To CountSurfaces(msh)
@@ -4625,7 +4565,6 @@ Function FillRoom(r.Rooms)
 			PositionEntity(d\buttons[0], EntityX(d\buttons[0],True), EntityY(d\buttons[0],True), EntityZ(d\buttons[0],True), True)
 			FreeEntity d\buttons[1] : d\buttons[1]=0
 			r\RoomDoors[0] = d
-			;PositionEntity(d\buttons[1], EntityX(d\buttons[1],True), EntityY(d\buttons[1],True), EntityZ(d\buttons[1],True), True)		
 			
 			r\Objects[3] = CreatePivot(r\obj)
 			PositionEntity(r\Objects[3], r\x + 832.0 * RoomScale, r\y + 166.0 * RoomScale, r\z + 784.0 * RoomScale, True)
@@ -4695,7 +4634,6 @@ Function FillRoom(r.Rooms)
 			
 			terrain = LoadMesh_Strict("GFX\map\pocketdimensionterrain.b3d")
 			ScaleEntity terrain,RoomScale,RoomScale,RoomScale,True
-			;RotateEntity terrain,0,e\room\angle,0,True
 			PositionEntity terrain, 0, 2944, 0, True
 			
 			
@@ -4716,41 +4654,11 @@ Function FillRoom(r.Rooms)
 					Case 4
 						entity = r\Objects[11]							
 				End Select 
-				
-				;If BumpEnabled Then 
-				;	
-				;	For i = 1 To CountSurfaces(entity)
-				;		sf = GetSurface(entity,i)
-				;		b = GetSurfaceBrush( sf )
-				;		t = GetBrushTexture(b,1)
-				;		texname$ =  StripPath(TextureName(t))
-				;		mat.Materials=GetCache(texname)
-				;		If mat<>Null Then
-				;			If mat\Bump<>0 Then
-				;				t1 = GetBrushTexture(b,0)
-				;				
-				;				BrushTexture b, t1, 0, 0	
-				;				BrushTexture b, mat\Bump, 0, 1
-				;				BrushTexture b, t, 0, 2					
-				;				
-				;				PaintSurface sf,b
-				;				
-				;				If t1<>0 Then FreeTexture t1 : t1=0
-				;			EndIf
-				;		EndIf
-				;		
-				;		If t<>0 Then FreeTexture t : t=0
-				;		If b<>0 Then FreeBrush b : b=0
-				;	Next
-				;	
-				;EndIf
-				
 			Next
 			
 			For i = 8 To 11
 				ScaleEntity (r\Objects[i],RoomScale,RoomScale,RoomScale)
 				EntityType r\Objects[i], HIT_MAP
-				;EntityPickMode r\Objects[i], 3
 				EntityPickMode r\Objects[i], 2
 				PositionEntity(r\Objects[i],r\x,r\y,r\z+32.0,True)
 			Next
@@ -4781,7 +4689,6 @@ Function FillRoom(r.Rooms)
 				angle# = (i-1) * (360.0/8.0)
 				
 				EntityType r\Objects[i-1], HIT_MAP
-				;EntityPickMode r\Objects[i-1], 3
 				EntityPickMode r\Objects[i-1], 2
 				
 				RotateEntity(r\Objects[i-1],0,angle-90,0)
@@ -4844,7 +4751,6 @@ Function FillRoom(r.Rooms)
 			sc\angle = 225
 			sc\turn = 45
 			TurnEntity(sc\CameraObj, 20, 0, 0)
-			;sc\FollowPlayer = True
 			;[End Block]
 		Case "room2_3","room3_3"
 			;[Block]
@@ -4925,7 +4831,6 @@ Function FillRoom(r.Rooms)
 			
 			If r\RoomTemplate\Name = "room2gw"
 				r\Objects[0] = CreatePivot()
-				;PositionEntity r\Objects[0],r\x-48.0*RoomScale,128.0*RoomScale,r\z+320.0*RoomScale
 				PositionEntity r\Objects[0],r\x+344.0*RoomScale,128.0*RoomScale,r\z
 				EntityParent r\Objects[0],r\obj
 				
@@ -5171,16 +5076,6 @@ Function FillRoom(r.Rooms)
 			PositionEntity r\Objects[17],r\x-48.0*RoomScale,r\y+540.0*RoomScale,r\z+656.0*RoomScale,True
 			EntityParent r\Objects[17],r\obj
 			
-			;Faked room409
-			;r\Objects[17] = LoadMesh_Strict("GFX\map\room2sl_2.b3d",r\obj)
-			;sc.SecurityCams = CreateSecurityCam(r\x-160.0*RoomScale,r\y-22689.1*RoomScale,r\z-288.0*RoomScale,Null)
-			;sc\angle = 225
-			;TurnEntity sc\CameraObj, 20, 0, 0
-			;EntityParent sc\obj,r\obj
-			;sc\SpecialCam = True
-			
-			;-49.0 689.0 912.0
-			;Objects [18],[19]
 			r\Objects[9 * 2] = CopyEntity(LeverBaseOBJ)
 			r\Objects[9 * 2 + 1] = CopyEntity(LeverOBJ)
 			
@@ -5201,7 +5096,6 @@ Function FillRoom(r.Rooms)
 			;Camera in the room itself
 			sc.SecurityCams = CreateSecurityCam(r\x-159.0*RoomScale, r\y+384.0*RoomScale, r\z-929.0*RoomScale, r, True)
 			sc\angle = 315
-			;sc\turn = 45
 			sc\room = r
 			TurnEntity(sc\CameraObj, 20, 0, 0)
 			EntityParent(sc\obj, r\obj)
@@ -5209,19 +5103,6 @@ Function FillRoom(r.Rooms)
 			PositionEntity(sc\ScrObj, r\x-231.489*RoomScale, r\y+760.0*RoomScale, r\z+255.744*RoomScale)
 			TurnEntity(sc\ScrObj, 0, 90, 0)
 			EntityParent(sc\ScrObj, r\obj)
-			
-;			r\Objects[20] = CopyEntity(LeverBaseOBJ)
-;			r\Objects[21] = CopyEntity(LeverOBJ)
-;			
-;			For  i% = 0 To 1
-;				ScaleEntity(r\Objects[20 + i], 0.04, 0.04, 0.04)
-;				PositionEntity r\Objects[20],r\x+82.0*RoomScale, r\y+689.0*RoomScale, r\z+912.0*RoomScale,True
-;				PositionEntity r\Objects[21],r\x+90.9775*RoomScale, r\y+604.347*RoomScale, r\z+890.584*RoomScale,True
-;				
-;				EntityParent(r\Objects[20 + i], r\obj)
-;			Next
-;			
-;			RotateEntity r\Objects[21],8.6,-150.0,-5.0
 			;[End Block]
 		Case "room2_4"
 			;[Block]
@@ -5297,7 +5178,6 @@ Function FillRoom(r.Rooms)
 			r\RoomDoors[0] = CreateDoor(r\zone, r\x - 264.0 * RoomScale, r\y - 0.0 * RoomScale, r\z + 640.0 * RoomScale, 90, r, False, False, 3)
 			
 			r\Objects[3] = CreatePivot(r\obj)
-			;PositionEntity r\Objects[3],r\x-926.891*RoomScale,r\y,r\z-318.399*RoomScale,True
 			PositionEntity r\Objects[3],r\x-820.0*RoomScale,r\y,r\z-318.399*RoomScale,True
 			;[End Block]
 		Case "room2cpit"
@@ -5383,10 +5263,10 @@ Function UpdateRooms()
 	
 	Local x#,z#,hide%=True
 	
-	;The reason why it is like this:
-	;	When the map gets spawned by a seed, it starts from LCZ to HCZ to EZ (bottom to top)
-	;	A map loaded by the map creator starts from EZ to HCZ to LCZ (top to bottom) and that's why this little code thing with the (SelectedMap="") needs to be there
-	;	- ENDSHN
+	;解释一下这么写的原因：
+	;	当地图由种子生成，它的生成顺序为轻收->重收->办公（从下到上）
+	;	当一个地图使用地图文件生成，它的生成顺序则为办公->重收->轻收（从上到下）。因此这里需要检测(SelectedMap="")
+	;	——开发者ENDSHN
 	If (EntityZ(Collider)/8.0)<I_Zone\Transition[1]-(SelectedMap="") Then
 		PlayerZone=2
 	ElseIf (EntityZ(Collider)/8.0)>=I_Zone\Transition[1]-(SelectedMap="") And (EntityZ(Collider)/8.0)<I_Zone\Transition[0]-(SelectedMap="") Then
@@ -5475,7 +5355,6 @@ Function UpdateRooms()
 					dist = EntityDistance(Collider,r\Lights[i])
 					If dist < HideDistance Then
 						TempLightVolume = TempLightVolume + r\LightIntensity[i]*r\LightIntensity[i]*((HideDistance-dist)/HideDistance)
-						;ShowEntity(r\Lights[i]) 						
 					EndIf
 				Else
 					Exit
@@ -5551,7 +5430,6 @@ Function AddLight%(room.Rooms, x#, y#, z#, ltype%, range#, r%, g%, b%)
 		For i = 0 To MaxRoomLights-1
 			If room\Lights[i]=0 Then
 				room\Lights[i] = CreateLight(ltype)
-				;room\LightDist[i] = range
 				LightRange(room\Lights[i],range)
 				LightColor(room\Lights[i],r,g,b)
 				PositionEntity(room\Lights[i],x,y,z,True)
@@ -5651,8 +5529,6 @@ Type WayPoints
 	Field door.Doors
 	Field room.Rooms
 	Field state%
-	;Field tempDist#
-	;Field tempSteps%
 	Field connected.WayPoints[5]
 	Field dist#[5]
 	
@@ -5662,7 +5538,6 @@ Type WayPoints
 End Type
 
 Function CreateWaypoint.WayPoints(x#,y#,z#,door.Doors, room.Rooms)
-	
 	w.waypoints = New WayPoints
 	
 	If 1 Then
@@ -5685,7 +5560,6 @@ Function CreateWaypoint.WayPoints(x#,y#,z#,door.Doors, room.Rooms)
 End Function
 
 Function InitWayPoints(loadingstart=45)
-	
 	Local d.Doors, w.WayPoints, w2.WayPoints, r.Rooms, ClosestRoom.Rooms
 	
 	Local x#, y#, z#
@@ -5728,9 +5602,6 @@ Function InitWayPoints(loadingstart=45)
 		EntityRadius w\obj, 0.2
 		amount=amount+1
 	Next
-	
-	
-	;pvt = CreatePivot()
 	
 	number = 0
 	iter = 0
@@ -5788,8 +5659,6 @@ Function InitWayPoints(loadingstart=45)
 		
 	Next
 	
-	;FreeEntity pvt	
-	
 	For d.Doors = Each Doors
 		If d\obj <> 0 Then ShowEntity d\obj
 		If d\obj2 <> 0 Then ShowEntity d\obj2	
@@ -5810,7 +5679,6 @@ Function InitWayPoints(loadingstart=45)
 	Next
 	
 	DebugLog "InitWaypoints() - "+(MilliSecs2()-temper)
-	
 End Function
 
 Function RemoveWaypoint(w.WayPoints)
@@ -5823,7 +5691,6 @@ Dim MapF(MapWidth+1, MapHeight+1), MapG(MapWidth+1, MapHeight+1), MapH(MapWidth+
 Dim MapState(MapWidth+1, MapHeight+1)
 Dim MapParent(MapWidth+1, MapHeight+1, 2)
 Function FindPath(n.NPCs, x#, y#, z#)
-	
 	DebugLog "findpath: "+n\NPCtype
 	
 	Local temp%, dist#, dist2#
@@ -5864,11 +5731,8 @@ Function FindPath(n.NPCs, x#, y#, z#)
 	dist = 350.0
 	For w.WayPoints = Each WayPoints
 		xtemp = EntityX(w\obj,True)-EntityX(temp,True)
-          ;If xtemp < 8.0 Then
 		ztemp = EntityZ(w\obj,True)-EntityZ(temp,True)
-             ;If ztemp < 8.0 Then
 		ytemp = EntityY(w\obj,True)-EntityY(temp,True)
-                ;If ytemp < 8.0 Then
 		dist2# = (xtemp*xtemp)+(ytemp*ytemp)+(ztemp*ztemp)
 		If dist2 < dist Then 
 			;prefer waypoints that are visible
@@ -5878,9 +5742,6 @@ Function FindPath(n.NPCs, x#, y#, z#)
 				StartPoint = w
 			EndIf
 		EndIf
-                ;EndIf
-             ;EndIf
-          ;EndIf
 	Next
 	DebugLog "DIST: "+dist
 	
@@ -5889,14 +5750,11 @@ Function FindPath(n.NPCs, x#, y#, z#)
 	If StartPoint = Null Then Return 2
 	StartPoint\state = 1      
 	
-       ;If EndPoint = Null Then
 	EndPoint = Null
 	dist# = 400.0
 	For w.WayPoints = Each WayPoints
 		xtemp = EntityX(pvt,True)-EntityX(w\obj,True)
-          ;If xtemp =< 8.0 Then
 		ztemp = EntityZ(pvt,True)-EntityZ(w\obj,True)
-             ;If ztemp =< 8 Then
 		ytemp = EntityY(pvt,True)-EntityY(w\obj,True)
 		dist2# = (xtemp*xtemp)+(ytemp*ytemp)+(ztemp*ztemp)
 		
@@ -5904,10 +5762,7 @@ Function FindPath(n.NPCs, x#, y#, z#)
 			dist = dist2
 			EndPoint = w
 		EndIf            
-             ;EndIf
-          ;EndIf
 	Next
-       ;EndIf
 	
 	FreeEntity pvt
 	
@@ -6014,10 +5869,9 @@ Function FindPath(n.NPCs, x#, y#, z#)
 		DebugLog "FUNCTION FindPath() - no route found"
 		Return 2 
 	EndIf
-	
 End Function
+
 Function CreateLine(x1#,y1#,z1#, x2#,y2#,z2#, mesh=0)
-	
 	If mesh = 0 Then 
 		mesh=CreateMesh()
 		EntityFX(mesh,16)
@@ -6094,7 +5948,6 @@ Function UpdateScreens()
 			EndIf
 		EndIf
 	Next
-	
 End Function
 
 Dim MapName$(MapWidth, MapHeight)
@@ -6164,7 +6017,6 @@ Function CreateSecurityCam.SecurityCams(x#, y#, z#, r.Rooms, screen% = False)
 		ScaleSprite(sc\ScrObj, MeshWidth(Monitor) * scale * 0.95 * 0.5, MeshHeight(Monitor) * scale * 0.95 * 0.5)
 		
 		sc\ScrOverlay = CreateSprite(sc\ScrObj)
-		;	scaleSprite(sc\scrOverlay , 0.5, 0.4)
 		ScaleSprite(sc\ScrOverlay, MeshWidth(Monitor) * scale * 0.95 * 0.5, MeshHeight(Monitor) * scale * 0.95 * 0.5)
 		MoveEntity(sc\ScrOverlay, 0, 0, -0.0005)
 		EntityTexture(sc\ScrOverlay, MonitorTexture)
@@ -6302,10 +6154,8 @@ Function UpdateSecurityCams()
 					EndIf
 					
 					If (sc\State >= sc\RenderInterval)
-						;sc\InSight = False
 						If BlinkTimer > - 5 And EntityInView(sc\ScrObj, Camera)Then
 							If EntityVisible(Camera,sc\ScrObj) Then
-								;sc\InSight = True
 								If CoffinCam = Null Or Rand(5)=5 Or sc\CoffinEffect <> 3 Then
 									HideEntity(Camera)
 									ShowEntity(sc\Cam)
@@ -6420,8 +6270,6 @@ Function UpdateSecurityCams()
 				EndIf ;if screen=true
 				
 				If (Not sc\InSight) Then sc\soundCHN = LoopSound2(CameraSFX, sc\soundCHN, Camera, sc\CameraObj, 4.0)
-			Else
-				;If SelectedMonitor=sc Then SelectedMonitor=Null
 			EndIf
 			
 			If sc<>Null Then
@@ -6437,8 +6285,6 @@ Function UpdateSecurityCams()
 	Next
 	
 	Cls
-	
-	
 End Function
 
 Function UpdateMonitorSaving()
@@ -6483,7 +6329,6 @@ Function UpdateMonitorSaving()
 			EndIf
 		EndIf
 	Next
-	
 End Function
 
 Function UpdateLever(obj, locked=False)
@@ -7978,7 +7823,7 @@ Function AmbientLightRooms(value%=0)
 End Function
 
 ;#########################################################################
-;CHUNKS FOR 1499
+;1499区块
 ;#########################################################################
 
 Dim CHUNKDATA(64,64)
@@ -8051,7 +7896,6 @@ Function CreateChunkParts(r.Rooms)
 	Next
 	
 	SeedRnd MilliSecs2()
-	
 End Function
 
 Type Chunk
@@ -8188,7 +8032,6 @@ Function UpdateChunks(r.Rooms,ChunkPartAmount%,spawnNPCs%=True)
 			EndIf
 		Next
 	EndIf
-	
 End Function
 
 Function HideChunks()
@@ -8204,14 +8047,11 @@ Function HideChunks()
 			Delete ch
 		EndIf
 	Next
-	
 End Function
 
 Function DeleteChunks()
-	
 	Delete Each Chunk
 	Delete Each ChunkPart
-	
 End Function
 
 Type Dummy1499
@@ -8240,9 +8080,7 @@ Function AssignElevatorObj.ElevatorObj(obj%,door.Doors,in_facility%)
 End Function
 
 Function DeleteElevatorObjects()
-	
 	Delete Each ElevatorObj
-	
 End Function
 
 Function ValidRoom2slCamRoom(r.Rooms)
@@ -8264,7 +8102,6 @@ Function ValidRoom2slCamRoom(r.Rooms)
 	If RN$ = "room2ccont" Then Return True
 	
 	Return False
-	
 End Function
 
 Function FindAndDeleteFakeMonitor(r.Rooms,x#,y#,z#,Amount%)
@@ -8284,7 +8121,6 @@ Function FindAndDeleteFakeMonitor(r.Rooms,x#,y#,z#,Amount%)
 			EndIf
 		EndIf
 	Next
-	
 End Function
 
 Function AddLightCones(room.Rooms)
@@ -8314,7 +8150,6 @@ Function AddLightCones(room.Rooms)
 			EndIf
 		EndIf
 	Next
-	
 End Function
 
 Function CalculateRoomTemplateExtents(r.RoomTemplates)

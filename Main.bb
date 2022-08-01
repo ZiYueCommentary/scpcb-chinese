@@ -3,7 +3,6 @@
 ;    游戏基于SCP基金会背景(http://scp-wiki-cn.wikidot.com/)
 
 ;	 汉化版基于SCP - Containment Breach TSS制作（https://github.com/ZiYueCommentary/scpcb-tss）
-;	 汉化版源码可于https://github.com/ZiYueCommentary/scpcb-chinese拉取
 
 ;	 游戏遵循知识共享许可协议BY-SA 3.0（即必须署名、可商用、可二创、可二创商用）
 ;	 https://creativecommons.org/licenses/by-sa/3.0/deed.zh
@@ -21,7 +20,6 @@ If Len(InitErrorStr)>0 Then
 EndIf
 
 Include "StrictLoads.bb"
-Include "fullscreen_window_fix.bb"
 Include "KeyName.bb"
 
 Global OptionFile$ = "options.ini"
@@ -34,8 +32,8 @@ Global Font1%, Font2%, Font3%, Font4%, Font5%
 Global ConsoleFont%
 
 Global VersionNumber$ = "1.3.11"
-Global SinicizationNumber$ = "2022.07-Release" ;汉化版本号
-Global CompatibleNumber$ = "1.3.11-2022.5" ;当存档与构建版本不兼容时再更改		——开发者 ENDSHN
+Global SinicizationNumber$ = "2022.08-Second Revise" ; 汉化版本号
+Global CompatibleNumber$ = "1.3.11-2022.5" ; 当存档与构建版本不兼容时再更改		——开发者 ENDSHN
 
 Global MenuWhite%, MenuBlack%
 Global ButtonSFX%
@@ -111,14 +109,12 @@ If LauncherEnabled Then
 	;New "fake fullscreen" - ENDSHN Psst, it's called borderless windowed mode --Love Mark,
 	If BorderlessWindowed
 		DebugLog "Using Borderless Windowed Mode"
-		Graphics3DExt G_viewport_width, G_viewport_height, 0, 2
+		Graphics3DExt(DesktopWidth(), DesktopHeight(), 0, 4)
 		
 		; -- Change the window style to 'WS_POPUP' and then set the window position to force the style to update.
-		api_SetWindowLong( G_app_handle, C_GWL_STYLE, C_WS_POPUP )
-		api_SetWindowPos( G_app_handle, C_HWND_TOP, G_viewport_x, G_viewport_y, G_viewport_width, G_viewport_height, C_SWP_SHOWWINDOW )
 		
-		RealGraphicWidth = G_viewport_width
-		RealGraphicHeight = G_viewport_height
+		RealGraphicWidth = DesktopWidth()
+		RealGraphicHeight = DesktopHeight()
 		
 		AspectRatioRatio = (Float(GraphicWidth)/Float(GraphicHeight))/(Float(RealGraphicWidth)/Float(RealGraphicHeight))
 		
@@ -153,14 +149,11 @@ Else
 	;New "fake fullscreen" - ENDSHN Psst, it's called borderless windowed mode --Love Mark,
 	If BorderlessWindowed
 		DebugLog "Using Faked Fullscreen"
-		Graphics3DExt G_viewport_width, G_viewport_height, 0, 2
+		Graphics3DExt(DesktopWidth(), DesktopHeight(), 0, 4)
 		
-		; -- Change the window style to 'WS_POPUP' and then set the window position to force the style to update.
-		api_SetWindowLong( G_app_handle, C_GWL_STYLE, C_WS_POPUP )
-		api_SetWindowPos( G_app_handle, C_HWND_TOP, G_viewport_x, G_viewport_y, G_viewport_width, G_viewport_height, C_SWP_SHOWWINDOW )
-		
-		RealGraphicWidth = G_viewport_width
-		RealGraphicHeight = G_viewport_height
+		; -- Change the window style to 'WS_POPUP' and then set the window position to force the style to update.		
+		RealGraphicWidth = DesktopWidth()
+		RealGraphicHeight = DesktopHeight()
 		
 		AspectRatioRatio = (Float(GraphicWidth)/Float(GraphicHeight))/(Float(RealGraphicWidth)/Float(RealGraphicHeight))
 		
@@ -202,7 +195,7 @@ Global GameSaved%
 
 Global CanSave% = True
 
-AppTitle "SCP - 收容失效 v"+VersionNumber+" 汉化版"
+AppTitle "SCP - 收容失效 v"+VersionNumber+" 汉化版本"
 
 PlayStartupVideos()
 
@@ -218,8 +211,8 @@ InitLoadingScreens("Loadingscreens\loadingscreens.ini")
 
 Font1% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(16 * (GraphicHeight / 1024.0)))
 Font2% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(55 * (GraphicHeight / 1024.0)))
-Font3% = LoadFont_Strict("GFX\font\Cubic.ttf", Int(19 * (GraphicHeight / 1024.0)))
-Font4% = LoadFont_Strict("GFX\font\Cubic.ttf", Int(57 * (GraphicHeight / 1024.0)))
+Font3% = LoadFont_Strict("GFX\font\Unifont.ttf", Int(19 * (GraphicHeight / 1024.0)))
+Font4% = LoadFont_Strict("GFX\font\Unifont.ttf", Int(57 * (GraphicHeight / 1024.0)))
 Font5% = LoadFont_Strict("GFX\font\Journal.ttf", Int(55 * (GraphicHeight / 1024.0)))
 
 Global CreditsFont%,CreditsFont2%,CreditsFont3%
@@ -419,7 +412,6 @@ Function UpdateConsole()
 		If inBar Then Color 70,70,70
 		Rect x+width-26*MenuScale,y,26*MenuScale,height,True
 		
-		
 		Color 120,120,120
 		inBox% = MouseOn(x+width-23*MenuScale,y+height-scrollbarHeight+(ConsoleScroll*scrollbarHeight/height),20*MenuScale,scrollbarHeight)
 		If inBox Then Color 200,200,200
@@ -552,7 +544,7 @@ Function UpdateConsole()
 		EndIf
 		ConsoleInput = Left(ConsoleInput, 100)
 		
-		If KeyHit(28) And ConsoleInput <> "" Then
+		If (KeyHit(28) Or KeyHit(156)) And ConsoleInput <> "" Then
 			ConsoleReissue = Null
 			ConsoleScroll = 0
 			CreateConsoleMsg(ConsoleInput,255,255,0,True)
@@ -748,7 +740,7 @@ Function UpdateConsole()
 						If ev\room = PlayerRoom Then
 							CreateConsoleMsg("房间事件: "+ev\EventName)		
 							CreateConsoleMsg("-    state: "+ev\EventState)
-							CreateConsoleMsg("-    state2: "+ev\EventState2)	
+							CreateConsoleMsg("-    state2: "+ev\EventState2)
 							CreateConsoleMsg("-    state3: "+ev\EventState3)
 							Exit
 						EndIf
@@ -769,17 +761,17 @@ Function UpdateConsole()
 					If c = 0 Then
 						CreateConsoleMsg("******************************")
 						CreateConsoleMsg("无实体被捡起")
-						CreateConsoleMsg("******************************")								
+						CreateConsoleMsg("******************************")
 					Else
 						CreateConsoleMsg("******************************")
 						CreateConsoleMsg("捡起的实体:")
 						sf = GetSurface(c,1)
-						b = GetSurfaceBrush( sf )
+						b = GetSurfaceBrush(sf)
 						t = GetBrushTexture(b,0)
 						texname$ =  StripPath(TextureName(t))
 						CreateConsoleMsg("材质名: "+texname)
 						CreateConsoleMsg("坐标: "+EntityX(c)+", "+EntityY(c)+", "+EntityZ(c))
-						CreateConsoleMsg("******************************")									
+						CreateConsoleMsg("******************************")
 					EndIf
 					;[End Block]
 				Case "hidedistance"
@@ -885,7 +877,7 @@ Function UpdateConsole()
 					If WireframeState Then
 						CreateConsoleMsg("渲染选框 启用")
 					Else
-						CreateConsoleMsg("渲染选框 禁用")	
+						CreateConsoleMsg("渲染选框 禁用")
 					EndIf
 					
 					WireFrame WireframeState
@@ -1555,11 +1547,11 @@ DrawLoading(10, True)
 
 Dim OpenDoorSFX%(3,3), CloseDoorSFX%(3,3)
 
-Global KeyCardSFX1 
-Global KeyCardSFX2 
-Global ButtonSFX2 
+Global KeyCardSFX1
+Global KeyCardSFX2
+Global ButtonSFX2
 Global ScannerSFX1
-Global ScannerSFX2 
+Global ScannerSFX2
 
 Global OpenDoorFastSFX
 Global CautionSFX% 
@@ -3193,7 +3185,7 @@ Repeat
 			If (Not temp%)
 				Color 0,0,0
 				Text((GraphicWidth / 2)+1, (GraphicHeight / 2) + 201, Msg, True, False, 0, Min(MsgTimer / 2, 255)/255.0)
-				Color 255,255,255;Min(MsgTimer / 2, 255), Min(MsgTimer / 2, 255), Min(MsgTimer / 2, 255)
+				Color 255,255,255
 				Text((GraphicWidth / 2), (GraphicHeight / 2) + 200, Msg, True, False, 0, Min(MsgTimer / 2, 255)/255.0)
 			Else
 				Color 0,0,0
@@ -3859,7 +3851,6 @@ Function DrawCredits()
         CurrSave = ""
         FlushKeys()
 	EndIf
-    
 End Function
 
 ;--------------------------------------- player controls -------------------------------------------
@@ -4053,7 +4044,7 @@ Function MovePlayer()
 				angle = 180
 				If KeyDown(KEY_LEFT) Then angle = 135 
 				If KeyDown(KEY_RIGHT) Then angle = -135 
-			ElseIf (KeyDown(KEY_UP) And Playable) Then; Or ForceMove>0
+			ElseIf (KeyDown(KEY_UP) And Playable) Then
 				temp = True
 				angle = 0
 				If KeyDown(KEY_LEFT) Then angle = 45 
@@ -4100,7 +4091,6 @@ Function MovePlayer()
 			EndIf
 			DropSpeed# = 0
 		Else
-			;DropSpeed# = Min(Max(DropSpeed - 0.006 * FPSfactor, -2.0), 0.0)
 			If PlayerFallingPickDistance#<>0.0
 				Local pick = LinePick(EntityX(Collider),EntityY(Collider),EntityZ(Collider),0,-PlayerFallingPickDistance,0)
 				If pick
@@ -4205,17 +4195,14 @@ Function MouseLook()
 		
 		HeadDropSpeed = 0
 		
-		;If 0 Then 
 		;fixing the black screen bug with some bubblegum code 
 		Local Zero# = 0.0
 		Local Nan1# = 0.0 / Zero
 		If Int(EntityX(Collider))=Int(Nan1) Then
-			
 			PositionEntity Collider, EntityX(Camera, True), EntityY(Camera, True) - 0.5, EntityZ(Camera, True), True
 			Msg = "EntityX(碰撞) = NaN， 正在重置位置    -    新位置： "+EntityX(Collider)
 			MsgTimer = 300				
 		EndIf
-		;EndIf
 		
 		Local up# = (Sin(Shake) / (20.0+CrouchState*20.0))*0.6;, side# = Cos(Shake / 2.0) / 35.0		
 		Local roll# = Max(Min(Sin(Shake/2)*2.5*Min(Injuries+0.25,3.0),8.0),-8.0)
@@ -4870,11 +4857,6 @@ Function DrawGUI()
 			EndIf
 		Next
 		
-		;If OtherAmount > 0 Then
-		;	OtherOpen\state = 1.0
-		;Else
-		;	OtherOpen\state = 0.0
-		;EndIf
 		InvOpen = False
 		SelectedDoor = Null
 		Local tempX% = 0
@@ -4910,10 +4892,9 @@ Function DrawGUI()
 			EndIf
 			DebugLog "otheropen: "+(OtherOpen<>Null)
 			If OtherOpen\SecondInv[n] <> Null And SelectedItem <> OtherOpen\SecondInv[n] Then
-			;drawimage(OtherOpen\SecondInv[n].InvIMG, x + width / 2 - 32, y + height / 2 - 32)
 				If isMouseOn Then
 					Color 255, 255, 255	
-					Text(x + width / 2, y + height + spacing - 15, OtherOpen\SecondInv[n]\itemtemplate\name, True)				
+					Text(x + width / 2, y + height + spacing - 15, OtherOpen\SecondInv[n]\itemtemplate\displayName, True)				
 					If SelectedItem = Null Then
 						If MouseHit1 Then
 							SelectedItem = OtherOpen\SecondInv[n]
@@ -5396,7 +5377,6 @@ Function DrawGUI()
 			MouseXSpeed() : MouseYSpeed() : MouseZSpeed() : mouse_x_speed_1#=0.0 : mouse_y_speed_1#=0.0
 		EndIf
 	Else ;invopen = False
-		
 		If SelectedItem <> Null Then
 			Select SelectedItem\itemtemplate\tempname
 				Case "nvgoggles"
@@ -6158,7 +6138,7 @@ Function DrawGUI()
 							EndIf	
 							
 							SetFont Font3
-							Text(x+60, y, "频道")						
+							Text(x+50, y, "频道")						
 							
 							If SelectedItem\itemtemplate\tempname = "veryfineradio" Then ;"KOODIKANAVA"
 								ResumeChannel(RadioCHN(0))
@@ -6372,7 +6352,7 @@ Function DrawGUI()
 					;[Block]
 					If Wearing1499 = 0 And WearingHazmat = 0 Then
 						If WearingGasMask Then
-							Msg = "You removed the gas mask."
+							Msg = "你戴下了防毒面具"
 						Else
 							If SelectedItem\itemtemplate\tempname = "supergasmask"
 								Msg = "你戴上了防毒面具，你感觉呼吸容易多了"
