@@ -182,14 +182,10 @@ Function CheckForUpdates%()
 								l$ = Left(s, Find(s, ","))
 								r$ = Right(s, Len(s)-Find(s, ",")-1)
 						
-								; null就是空，代表纯删文件或者纯加文件
-								If l != "null" Then 
-									DeleteFile(ConvertToANSI(l))
-									If r != "null" Then 
-										DownloadFile("https://files.ziyuesinicization.site/scpcb/"+r, ConvertToANSI(l))
-									EndIf
-								Else
-									DownloadFile("https://files.ziyuesinicization.site/scpcb/"+r, ConvertToANSI(r))
+								; null就是空，代表纯删文件
+								DeleteFile(ConvertToANSI(l))
+								If r != "null" Then 
+									DownloadFile("https://files.ziyuesinicization.site/scpcb/" + r, ConvertToANSI(l))
 								EndIf
 							EndIf
 						Wend

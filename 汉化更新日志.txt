@@ -1,3 +1,25 @@
+2022/9/1 Third Revise第三版
+兼容二期任意版本、任意发布版本和原版1.3.11的存档
+该版本支持第二版自动更新
+- 更新了部分贴图的汉化（leaflet.jpg、docRAND2.jpg、docRAND1.jpg、miscsigns2.jpg、scptext.jpg、rosewood.jpg、office.jpg、hooper.jpg、doctors.jpg）
+- 更新了部分繁体贴图的汉化（docNDP.jpg、docMSP.jpg）
+- 修复部分贴图遮罩问题（badge2.png、ticket.png）
+- 优化序章部分字幕
+- 优化了繁简转换
+- 现在地图制作器的作者和描述字数限制翻倍
+- 补充了SCP-1123的字幕
+- 修改了启动器Bug反馈按钮的链接
+- 添加了繁体中文地图贴图
+- 房间列表翻译完毕
+译名修改：
+    - “齿轮博士”改为“Gears博士”
+    - “哈普博士”改为“Harp博士”
+修复bug：
+    - 修复繁体中文地图贴图无法加载的bug
+    - 修复字幕错别字
+    - 修复报错对话框乱码的bug
+    - 修复部分字幕不显示的bug
+
 2022/8/1 Second Revise第二版
 兼容二期任意版本、正式发布版本和原版1.3.11的存档
 - 更新了部分贴图的汉化（scptext.jpg、docAC.jpg、miscsigns4.jpg、drL.jpg）

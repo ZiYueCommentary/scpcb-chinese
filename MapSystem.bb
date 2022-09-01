@@ -372,9 +372,9 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 				If tex[j]=0 Then ;texture is not in cache
 					Select True
 						Case temp1i<3
-							tex[j]=LoadTexture(file+temp1s,1)
+							tex[j]=LoadTexture1(file+temp1s,1)
 						Default
-							tex[j]=LoadTexture(file+temp1s,3)
+							tex[j]=LoadTexture1(file+temp1s,3)
 					End Select
 					
 					If tex[j]<>0 Then

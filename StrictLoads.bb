@@ -291,7 +291,7 @@ End Function
 
 Function LoadMesh_Strict(File$,parent=0)
 	If TraditionalChinese Then
-		If FileType("Traditional\"+file) = 1 Then Return LoadMesh("Traditional\"+file)
+		If FileType("Traditional\"+file) = 1 Then Return LoadMesh("Traditional\"+file, flags+(256*(EnableVRam=True)))
 	EndIf
 	If FileType(File$) <> 1 Then RuntimeError "3D Mesh未找到：" + File$
 	tmp = LoadMesh(File$, parent)
@@ -301,6 +301,9 @@ End Function
 
 Function LoadAnimMesh_Strict(File$,parent=0)
 	DebugLog File
+	If TraditionalChinese Then
+		If FileType("Traditional\"+file) = 1 Then Return LoadAnimMesh("Traditional\"+file, parent)
+	EndIf
 	If FileType(File$) <> 1 Then RuntimeError "3D Animated Mesh未找到：" + File$
 	tmp = LoadAnimMesh(File$, parent)
 	If tmp = 0 Then RuntimeError "3D Animated Mesh加载失败：" + File$ 
@@ -310,13 +313,21 @@ End Function
 ;don't use in LoadRMesh, as Reg does this manually there. If you wanna fuck around with the logic in that function, be my guest 
 Function LoadTexture_Strict(File$,flags=1)
 	If TraditionalChinese Then
-		If FileType("Traditional\"+file) = 1 Then Return LoadTexture("Traditional\"+file)
+		If FileType("Traditional\"+file) = 1 Then Return LoadTexture("Traditional\"+file, flags+(256*(EnableVRam=True)))
 	EndIf
 	If FileType(File$) <> 1 Then RuntimeError "贴图未找到：" + File$
 	tmp = LoadTexture(File$, flags+(256*(EnableVRam=True)))
 	If tmp = 0 Then RuntimeError "贴图加载失败：" + File$ 
 	Return tmp 
 End Function   
+
+Function LoadTexture1(File$,flags=1)
+	If TraditionalChinese Then
+		If FileType("Traditional\"+file) = 1 Then Return LoadTexture("Traditional\"+file, flags+(256*(EnableVRam=True)))
+	EndIf
+	tmp = LoadTexture(File$, flags+(256*(EnableVRam=True)))
+	Return tmp 
+End Function
 
 Function LoadBrush_Strict(file$,flags,u#=1.0,v#=1.0)
 	If FileType(file$)<>1 Then RuntimeError "Brush贴图未找到：" + file$
@@ -325,9 +336,9 @@ Function LoadBrush_Strict(file$,flags,u#=1.0,v#=1.0)
 	Return tmp 
 End Function 
 
-Function LoadFont_Strict(file$, height=13, bold=0, italic=0, underline=0)
+Function LoadFont_Strict(file$, height=13)
 	If TraditionalChinese Then
-		If FileType("Traditional\"+file) = 1 Then Return LoadFont("Traditional\"+file)
+		If FileType("Traditional\"+file) = 1 Then Return LoadFont("Traditional\"+file, height)
 	EndIf
 	If FileType(file$)<>1 Then RuntimeError "字体未找到：" + file$
 	tmp = LoadFont(file, height)  

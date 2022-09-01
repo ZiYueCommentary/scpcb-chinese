@@ -1,6 +1,6 @@
 Global XE_XF,XE_MAXtextures
 
-SetFont LoadFont_Strict("GFX\font\Containment Breach.ttf", 15)
+SetFont LoadFont("GFX\font\Containment Breach.ttf", 15)
 
 Type XE_texdata
 	Field idx,h,fn$
@@ -84,6 +84,7 @@ Function writemesh(mesh,e_filename$)
       CloseFile fileW
       CopyFile fileW,fileR
       DeleteFile fileW
+	  EndIf
 End Function
 
 Function RecursiveAddMaterial(h,forcematerial$,e_directory$="")
@@ -649,23 +650,10 @@ Next
 Local fname$ = Input("RMesh文件路径：")
 
 Graphics3D 1280,720,32,2
-SetFont LoadFont_Strict("GFX\font\Containment Breach.ttf", 15)
-;Global bump% = LoadTexture("scpcb/gfx/map/tilebump.jpg")
-;TextureBlend bump,6
-;TextureBumpEnvMat bump,0,0,1.009
-;TextureBumpEnvMat bump,0,1,-1.000
-;TextureBumpEnvMat bump,1,0,-1.000
-;TextureBumpEnvMat bump,1,1,1.009
-;TextureBumpEnvScale bump,1.0
-;TextureBumpEnvOffset bump,0.0
+SetFont LoadFont("GFX\font\Containment Breach.ttf", 15)
 
 Global mesh% = LoadRMesh(fname)
 
-;white% = LoadTexture("scpcb/gfx/map/wood.jpg")
-;TextureCoords white,1
-;EntityTexture mesh,bump,0,0
-;FreeTexture bump
-;EntityTexture mesh,white,0,2
 ScaleEntity mesh,0.1,0.1,0.1
 EntityPickMode mesh,2
 ShowEntity mesh

@@ -18,15 +18,13 @@
 
 ## 如何构建
 1. 安装[Blitz3D TSS](https://github.com/ZiYueCommentary/Blitz3D)
-
-    **请注意下载包含*OpenCC插件*的版本。OpenCC插件用于繁简转换。**
 2. 将目录中所有`.decls`文件放入`Blitz3D TSS\userlibs\`中
 3. 使用Blitz3D TSS打开`Main.bb`
 4. 编译并运行！
 
-### 二创开发者注意
+## 注意
 
-以下使用的字体为**付费商用**：
+以下字体需**付费商用**：
 
 |字体名称|作用贴图|
 |:--:|:--:|
@@ -37,7 +35,7 @@
 
 游戏中使用的主要字体为[**收容失效Containment Breach**](https://github.com/ZiYueCommentary/font-containment-breach)，专为汉化计划制作。
 
-字体*收容失效*由[思源宋体](https://source.typekit.com/source-han-serif/cn/)和[Courier New](https://docs.microsoft.com/en-us/typography/font-list/courier-new)合并制成，二者均为**开源字体**，支持***免费商用***。
+字体*收容失效*由[思源宋体](https://source.typekit.com/source-han-serif/cn/)和[Courier New](https://docs.microsoft.com/en-us/typography/font-list/courier-new)合并制成，二者均为**开源字体**，支持**免费商用**。
 
 <br>
 

@@ -294,13 +294,13 @@ Repeat
 	MouseDown2 = MouseDown(2)
 	MouseHit3 = MouseHit(3)
 	
-	SetGadgetText(map_author_text,(Left(TextFieldText(map_author_text),15)))
-	SetGadgetText(map_author_label,("地图作者（"+(Len(TextFieldText(map_author_text)))+"/15）："))
+	SetGadgetText(map_author_text,(Left(TextFieldText(map_author_text),30)))
+	SetGadgetText(map_author_label,("地图作者（"+(Len(TextFieldText(map_author_text)))+"/30）："))
 	
-	If Len(TextAreaText(descr_text))>200 Then
-		SetGadgetText(descr_text,(Left(TextAreaText(descr_text),200)))
+	If Len(TextAreaText(descr_text))>400 Then
+		SetGadgetText(descr_text,(Left(TextAreaText(descr_text),400)))
 	EndIf
-	SetGadgetText(descr_label,("描述（"+(Len(TextAreaText(descr_text)))+"/200）："))
+	SetGadgetText(descr_label,("描述（"+(Len(TextAreaText(descr_text)))+"/400）："))
 	
 	If FileType("CONFIG_TO2D.SI")=1
 		f = ReadFile("CONFIG_TO2D.SI")

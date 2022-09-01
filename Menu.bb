@@ -943,10 +943,6 @@ Function UpdateMainMenu()
 
 						Text(x + 20 * MenuScale, y + 2, "繁简转换：")
 						TraditionalChinese% = DrawTick(x + 310 * MenuScale, y, TraditionalChinese%)
-						If TraditionalChinese_Prev% <> TraditionalChinese
-							If TraditionalChinese Then OpenCC "Traditional\OpenCC\s2twp.json" Else OpenCC ""
-							TraditionalChinese_Prev% = TraditionalChinese
-						EndIf
 						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
 							DrawOptionsTooltip(tx,ty,tw,th,"traditional")
 						EndIf
@@ -1071,7 +1067,7 @@ Function UpdateLauncher()
 	RealGraphicWidth = GraphicWidth
 	RealGraphicHeight = GraphicHeight
 	
-	Font1 = LoadFont_Strict("GFX\font\Containment Breach.ttf", 16, 0,0,0)
+	Font1 = LoadFont_Strict("GFX\font\Containment Breach.ttf", 16)
 	SetFont Font1
 	MenuWhite = LoadImage_Strict("GFX\menu\menuwhite.jpg")
 	MenuBlack = LoadImage_Strict("GFX\menu\menublack.jpg")	
@@ -1219,7 +1215,7 @@ Function UpdateLauncher()
 		
 		If Not(BorderlessWindowed And GfxModeWidths(SelectedGFXMode) <> DesktopWidth()) Then
 			If DrawButton(40+ 260 + 65 + 20, LauncherHeight - 50 - 55, 100, 30, "Bug反馈", False, False, -1) Then
-				ExecFile("http://bugs.scpcbgame.cn/")
+				ExecFile("https://forum.ziyuesinicization.site/?p=105")
 				Delay 100
 				End
 			EndIf

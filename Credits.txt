@@ -47,7 +47,7 @@ ZiYueCommentary("子悦解说")
 *字幕系统
 
 ZiYueCommentary("子悦解说") - 翻译
-终极版开发团队 - 技术贡献
+Nikita Sidorov ("Jabka") - 技术贡献
 
 
 *鸣谢
@@ -57,7 +57,8 @@ TheZihanGu("Fr0zen_F1sh")
 Asriel("AsrieI_Dreemurr")
 快乐男孩
 插头而已
-终极版开发团队
+扬鞭大笑
+Nikita Sidorov ("Jabka")
 
 
 

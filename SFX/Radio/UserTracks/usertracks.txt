@@ -1,3 +1,3 @@
-Place .ogg/.wav files in this folder to play them through the radio. Go into the options menu and click the "Check user tracks" button to have the game re-check this directory for new files.
+将.ogg/.wav文件放到此处以在对讲机播放。前往设置-音频菜单点击“扫描自定频道”按钮来重新扫描文件夹。
 
-When you find a radio, go to channel 1 to listen to your tracks.
+当你找到对讲机后，切换到频道1听音乐。

@@ -1,7 +1,6 @@
-; 在以前，这个玩意需要无OpenCC插件的版本进行编译
-; 而现在，繁简转换将取决于游戏设置
-; 所以现在需要用有OpenCC插件的Blitz3D TSS进行编译
-; ——子悦 2022/7/9
+; 现在没有什么带OpenCC插件的Blitz3D TSS编译的√8事了
+; OpenCC插件被分出来做成了用户库
+; ——子悦 2022/8/6
 
 Const C_GWL_STYLE = -16
 Const C_WS_POPUP = $80000000
@@ -46,7 +45,8 @@ Global CamRange# = GetINIFloat("options.INI","3d scene","camera range")
 CameraRange Camera,0.05,CamRange
 PositionEntity Camera,0,1,0
 
-If GetINIInt("..\options.ini","options","traditional chinese") Then OpenCC("..\Traditional\OpenCC\s2twp.json")
+Global TraditionalChinese% = GetINIInt("..\options.ini","options","traditional chinese")
+Global OpenCC% = CreateOpenCC("..\Traditional\OpenCC\s2twp.json")
 
 Global AmbientLightRoomTex% = CreateTexture(2,2,257)
 TextureBlend AmbientLightRoomTex,5
@@ -1970,4 +1970,20 @@ Function load_terrain(hmap,yscale#=0.7,t1%,t2%,mask%)
 	EntityPickMode mesh,2
 	
 	Return mesh
+End Function
+
+Function Text(x, y, txt$, xPos = 0, yPos = 0)
+	If TraditionalChinese Then
+		Blitz_Text(x, y, OpenCConvert(OpenCC, txt), xPos, yPos)
+	Else
+		Blitz_Text(x, y, txt, xPos, yPos)
+	EndIf
+End Function
+
+Function LoadTexture(File$,flags=1)
+	If TraditionalChinese Then
+		If FileType("Traditional\"+file) = 1 Then Return Blitz_LoadTexture("Traditional\"+file, flags+(256*(EnableVRam=True)))
+	EndIf
+	tmp = Blitz_LoadTexture(File$, flags+(256*(EnableVRam=True)))
+	Return tmp 
 End Function

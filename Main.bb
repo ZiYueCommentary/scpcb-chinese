@@ -32,8 +32,10 @@ Global Font1%, Font2%, Font3%, Font4%, Font5%
 Global ConsoleFont%
 
 Global VersionNumber$ = "1.3.11"
-Global SinicizationNumber$ = "2022.08-Second Revise" ; 汉化版本号
+Global SinicizationNumber$ = "2022.09-Third Revise" ; 汉化版本号
 Global CompatibleNumber$ = "1.3.11-2022.5" ; 当存档与构建版本不兼容时再更改		——开发者 ENDSHN
+
+Global OpenCC% = CreateOpenCC("Traditional\OpenCC\s2twp.json")
 
 Global MenuWhite%, MenuBlack%
 Global ButtonSFX%
@@ -96,9 +98,6 @@ Global SFXVolume# = GetINIFloat(OptionFile, "audio", "sound volume")
 Global Bit16Mode = GetINIInt(OptionFile, "options", "16bit")
 
 Global TraditionalChinese% = GetINIInt(OptionFile, "options", "traditional chinese")
-Global TraditionalChinese_Prev% = TraditionalChinese
-
-If TraditionalChinese Then OpenCC "Traditional\OpenCC\s2twp.json"
 
 Include "Subtitles.bb"
 
@@ -700,14 +699,14 @@ Function UpdateConsole()
 							CreateConsoleMsg("打印玩家、视角和房间信息")
 							CreateConsoleMsg("******************************")
 						Case "weed","scp-420-j","420"
-							CreateConsoleMsg("HELP - 420")
+							CreateConsoleMsg("帮助 - 420")
 							CreateConsoleMsg("******************************")
 							CreateConsoleMsg("生成亿堆牛█的SCP-420-J!")
 							CreateConsoleMsg("******************************")
 						Case "playmusic"
-							CreateConsoleMsg("HELP - playmusic")
+							CreateConsoleMsg("帮助 - playmusic")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("将播放在"+Chr(34)+"SFX\Music\Custom\"+Chr(34)+"文件夹内的.ogg/.wav格式文件")
+							CreateConsoleMsg("将播放在“SFX\Music\Custom\”文件夹内的.ogg/.wav格式文件")
 							CreateConsoleMsg("******************************")
 						Default
 							CreateConsoleMsg("该命令没有可用的帮助",255,150,0)
@@ -3184,14 +3183,14 @@ Repeat
 			
 			If (Not temp%)
 				Color 0,0,0
-				Text((GraphicWidth / 2)+1, (GraphicHeight / 2) + 201, Msg, True, False, 0, Min(MsgTimer / 2, 255)/255.0)
+				Text((GraphicWidth / 2)+1, (GraphicHeight / 2) + 201, Msg, True, False, Min(MsgTimer / 2, 255)/255.0)
 				Color 255,255,255
-				Text((GraphicWidth / 2), (GraphicHeight / 2) + 200, Msg, True, False, 0, Min(MsgTimer / 2, 255)/255.0)
+				Text((GraphicWidth / 2), (GraphicHeight / 2) + 200, Msg, True, False, Min(MsgTimer / 2, 255)/255.0)
 			Else
 				Color 0,0,0
-				Text((GraphicWidth / 2)+1, (GraphicHeight * 0.94) + 1, Msg, True, False, 0, Min(MsgTimer / 2, 255)/255.0)
-				Color 255,255,255;Min(MsgTimer / 2, 255), Min(MsgTimer / 2, 255), Min(MsgTimer / 2, 255)
-				Text((GraphicWidth / 2), (GraphicHeight * 0.94), Msg, True, False, 0, Min(MsgTimer / 2, 255)/255.0)
+				Text((GraphicWidth / 2)+1, (GraphicHeight * 0.94) + 1, Msg, True, False, Min(MsgTimer / 2, 255)/255.0)
+				Color 255,255,255
+				Text((GraphicWidth / 2), (GraphicHeight * 0.94), Msg, True, False, Min(MsgTimer / 2, 255)/255.0)
 			EndIf
 			MsgTimer=MsgTimer-FPSfactor2 
 		End If
@@ -3737,9 +3736,9 @@ Function InitCredits()
 	Local file% = OpenFile("Credits.txt")
 	Local l$
 	
-	CreditsFont% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(21 * (GraphicHeight / 1024.0)), 0,0,0)
-	CreditsFont2% = LoadFont_Strict("GFX\font\Containment Breach Bold.ttf", Int(35 * (GraphicHeight / 1024.0)), 0,0,0)
-	CreditsFont3% = LoadFont_Strict("GFX\font\Containment Breach Bold.ttf", Int(37 * (GraphicHeight / 1024.0)), 0,0,0)
+	CreditsFont% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(21 * (GraphicHeight / 1024.0)))
+	CreditsFont2% = LoadFont_Strict("GFX\font\Containment Breach Bold.ttf", Int(35 * (GraphicHeight / 1024.0)))
+	CreditsFont3% = LoadFont_Strict("GFX\font\Containment Breach Bold.ttf", Int(37 * (GraphicHeight / 1024.0)))
 	
 	If CreditsScreen = 0
 		CreditsScreen = LoadImage_Strict("GFX\creditsscreen.jpg")
@@ -7303,10 +7302,6 @@ Function DrawMenu()
 					
 					Text(x, y + 3, "繁简转换：")
 					TraditionalChinese% = DrawTick(x + 270 * MenuScale, y, TraditionalChinese%)
-					If TraditionalChinese_Prev% <> TraditionalChinese
-						If TraditionalChinese Then OpenCC "Traditional\OpenCC\s2twp.json" Else OpenCC ""
-						TraditionalChinese_Prev% = TraditionalChinese
-					EndIf
 					If MouseOn(x+270*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
 						DrawOptionsTooltip(tx,ty,tw,th,"traditional")
 					EndIf
@@ -11225,7 +11220,7 @@ Function ScaledMouseY%()
 End Function
 
 Function CatchErrors(location$)
-	InitErrorMsgs(10)
+	InitErrorMsgs(9)
 	SetErrorMsg(0, "SCP - 收容失效 v" + VersionNumber + " 汉化版 出现错误！")
 	SetErrorMsg(1, "汉化版版本号："+SinicizationNumber)
 	SetErrorMsg(2, "地图种子：" + RandomSeed)
@@ -11235,7 +11230,6 @@ Function CatchErrors(location$)
 	SetErrorMsg(6, "全局内存状态：" + ((TotalPhys() / 1024) - (AvailPhys() / 1024)) + " MB/" + (TotalPhys() / 1024) + " MB")
 	SetErrorMsg(7, "出错位置：" + Location + Chr(10))
 	SetErrorMsg(8, "请带着游戏截图联系我们！") 
-	SetErrorMsg(9, "Bug反馈： bugs.scpcbgame.cn") 
 End Function
 
 Function Create3DIcon(width%,height%,modelpath$,modelX#=0,modelY#=0,modelZ#=0,modelPitch#=0,modelYaw#=0,modelRoll#=0,modelscaleX#=1,modelscaleY#=1,modelscaleZ#=1,withfog%=False)
@@ -11499,10 +11493,14 @@ Function RotateEntity90DegreeAngles(entity%)
 	EndIf
 End Function
 
-Function Text(x%, y%, txt$, xPos% = 0, yPos% = 0, encoding% = 0, a# = 1.0)
+Function Text(x%, y%, txt$, xPos% = 0, yPos% = 0, a# = 1.0)
 	Local oldr% = ColorRed() : Local oldg% = ColorGreen() : Local oldb% = ColorBlue()
 	Color oldr*a,oldg*a,oldb*a
-	Blitz_Text x,y+1,txt,xPos,yPos,encoding
+	If TraditionalChinese Then 
+		Blitz_Text x,y+1,OpenCConvert(OpenCC, txt),xPos,yPos
+	Else
+		Blitz_Text x,y+1,txt,xPos,yPos
+	EndIf
 	Color oldr,oldg,oldb
 	Return
 End Function
