@@ -1,6 +1,18 @@
+2022/10/1 Fourth Revise第四版
+兼容二期任意版本、任意发布版本和原版1.3.11的存档
+- 更新了部分贴图的汉化（doctors.jpg、launcher.jpg、updater.jpg、back.jpg、scptext.jpg）
+- 汉化了部分贴图（body1.jpg、classd1.jpg、classd2.jpg、classd3.jpg、janitor.jpg、gonzales.jpg、corpse.jpg）
+- 将部分伪后缀贴图改为正常后缀
+- 更新了RMesh模型浏览器
+bug修复：
+    - 修复了报错乱码问题
+    - 修复自订中文地图名无法显示的bug
+    - 修复了dll缺失时游戏直接崩溃的bug
+    - 修复序章部分字幕无法显示的bug
+    - 修复了万圣节173贴图无法加载的bug
+
 2022/9/1 Third Revise第三版
 兼容二期任意版本、任意发布版本和原版1.3.11的存档
-该版本支持第二版自动更新
 - 更新了部分贴图的汉化（leaflet.jpg、docRAND2.jpg、docRAND1.jpg、miscsigns2.jpg、scptext.jpg、rosewood.jpg、office.jpg、hooper.jpg、doctors.jpg）
 - 更新了部分繁体贴图的汉化（docNDP.jpg、docMSP.jpg）
 - 修复部分贴图遮罩问题（badge2.png、ticket.png）

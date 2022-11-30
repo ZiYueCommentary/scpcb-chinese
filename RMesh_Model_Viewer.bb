@@ -73,8 +73,8 @@ Function writemesh(mesh,e_filename$)
 			CloseFile wfile
        EndIf
        ;anti NAN patch for X exporter
-       fileR=OpenFile (filenameout)
-       fileW=OpenFile (tempfilename)
+       fileR=OpenFile(filenameout)
+       fileW=OpenFile(tempfilename)
        If fileR While Not Eof(fileR)
            l$=ReadLine(fileR)             
            l$=Replace (l$,"NaN","0.0")
@@ -477,14 +477,14 @@ Function LoadRMesh(file$)
 			Exit
 		EndIf
 	Next
-	If f=0 Then RuntimeError "Error reading file "+Chr(34)+file+Chr(34)
+	If f=0 Then RuntimeError "文件读取失败："+file
 	Local isRMesh$ = ReadString(f)
 	If isRMesh$="RoomMesh"
 		;Continue
 	ElseIf isRMesh$="RoomMesh.HasTriggerBox"
 		hasTriggerBox% = True
 	Else
-		RuntimeError Chr(34)+file+Chr(34)+" is Not RMESH ("+isRMesh+")"
+		RuntimeError file+"不是RMesh（"+isRMesh+"）"
 	EndIf
 	
 	file=StripFilename(file)

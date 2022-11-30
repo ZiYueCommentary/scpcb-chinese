@@ -17,7 +17,7 @@
 游戏遵循知识共享许可协议BY-SA 3.0（即必须署名、可商用、可二创、可二创商用）
 https://creativecommons.org/licenses/by-sa/3.0/deed.zh
 
-原版游戏源代码可从Github下载: https://github.com/Regalis11/scpcb
+原版游戏源代码可从Github下载：https://github.com/Regalis11/scpcb
 汉化计划源码可从Github下载：https://github.com/ZiYueCommentary/scpcb-chinese
 
 汉化版本由 子悦汉化组 制作（https://ziyuesinicization.site/）
@@ -42,12 +42,12 @@ https://creativecommons.org/licenses/by-sa/3.0/deed.zh
 **** 默认键位 ***********************************
 
 	WASD			-	移动
-	空格			-	手动眨眼
+	空格				-	手动眨眼
 	左Shift			-	奔跑
-	左Control			-	蹲下
-	Tab			-	物品栏
-	F5			-	保存
-	F3			-	[数据删除]
+	左Control		-	蹲下
+	Tab				-	物品栏
+	F5				-	保存
+	F3				-	[数据删除]
 
 	按左键来捡起物品或使用拉杆、按钮
 
