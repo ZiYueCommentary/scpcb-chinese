@@ -94,7 +94,7 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			;On Halloween set jack-o-latern texture.
 			If (Left(CurrentDate(), 7) = "31 Oct ") Then
 				HalloweenTex = True
-				Local texFestive = LoadTexture_Strict("GFX\npcs\173h.pt", 1)
+				Local texFestive = LoadTexture_Strict("GFX\npcs\173h.jpg", 1)
 				EntityTexture n\obj, texFestive, 0, 0
 				FreeTexture texFestive
 			EndIf
@@ -777,9 +777,9 @@ Function UpdateNPCs()
 														DeathMSG = DeathMSG + "据安全主管富兰克林称，在SCP-173收容失效期间，该对象在电力系统瘫痪初期就被SCP-173所杀。"
 													Case "room2doors"
 														DeathMSG = "“如果我没记错的话，这些房间的主要用途就是阻止SCP-173收容失效后进一步的移动。"
-														DeathMSG = DeathMSG + "所以，是哪个大傻逼把一个他妈人一样大的通风管弄在那！？”"
+														DeathMSG = DeathMSG + "所以，是哪个天才把一个他妈人一样大的通风管放在那！？”"
 													Default 
-														DeathMSG = "对象D-9341。死亡原因:致命性颈椎骨折,可能受到了SCP-173的攻击。"
+														DeathMSG = "对象D-9341。死亡原因:致命性颈椎骨折，可能受到了SCP-173的攻击。"
 												End Select
 												
 												If (Not GodMode) Then n\Idle = True
@@ -1636,12 +1636,12 @@ Function UpdateNPCs()
 											
 											If (Not GodMode) Then
 												If PlayerRoom\RoomTemplate\Name$ = "room049"
-													DeathMSG = "在SCP-049收容室外的隧道发现了三个SCP-049-2活动实例，被九尾狐击毙。"
+													DeathMSG = "在SCP-049收容室外的隧道发现了三个SCP-049-2活动实例，已被九尾狐击毙。"
 													For e.events = Each Events
 														If e\EventName = "room049" Then e\EventState=-1 : Exit
 													Next
 												Else
-													DeathMSG = "在[已编辑]发现了一个SCP-049-2活动实例，被九尾狐击毙。"
+													DeathMSG = "在[已编辑]发现了一个SCP-049-2活动实例，已被九尾狐击毙。"
 													Kill()
 												EndIf
 												PlaySound_Strict HorrorSFX(13)
@@ -3834,7 +3834,7 @@ Function UpdateNPCs()
 								Case 3
 									Msg="你感觉有什么东西在你身边，但你什么也看不到"
 								Case 4
-									Msg="“是我的意识在耍我还是这里有其他人？”"
+									Msg="“是我的意识在耍我还是这里有其他人在？”"
 								Case 5
 									Msg="你觉得有些东西在跟着你"
 								Case 6
@@ -6718,7 +6718,7 @@ Function Console_SpawnNPC(c_input$, c_state$ = "")
 			CreateConsoleMsg("SCP-860-2 无法通过控制台生成，抱歉！", 255, 0, 0)
 			
 		Case "939", "scp939", "scp-939"
-			CreateConsoleMsg("SCP-939 无法通过控制台生成，抱歉！", 255, 0, 0)
+			CreateConsoleMsg("SCP-939实例 无法通过控制台生成，抱歉！", 255, 0, 0)
 
 		Case "966", "scp966", "scp-966"
 			n.NPCs = CreateNPC(NPCtype966, EntityX(Collider), EntityY(Collider) + 0.2, EntityZ(Collider))

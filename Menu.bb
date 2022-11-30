@@ -286,10 +286,10 @@ Function UpdateMainMenu()
 					Rect(x+150*MenuScale+2, y+55*MenuScale+2, 200*MenuScale-4, 30*MenuScale-4)
 					
 					Color (255, 0,0)
-					If Len(SelectedMap)>15 Then
-						Text(x+150*MenuScale + 100*MenuScale, y+55*MenuScale + 15*MenuScale, Left(SelectedMap,14)+"...", True, True)
+					If Len(ConvertToUTF8(SelectedMap))>15 Then
+						Text(x+150*MenuScale + 100*MenuScale, y+55*MenuScale + 15*MenuScale, Left(ConvertToUTF8(SelectedMap),14)+"...", True, True)
 					Else
-						Text(x+150*MenuScale + 100*MenuScale, y+55*MenuScale + 15*MenuScale, SelectedMap, True, True)
+						Text(x+150*MenuScale + 100*MenuScale, y+55*MenuScale + 15*MenuScale, ConvertToUTF8(SelectedMap), True, True)
 					EndIf
 					
 					If DrawButton(x+370*MenuScale, y+55*MenuScale, 120*MenuScale, 30*MenuScale, "取消选择", False) Then
@@ -608,7 +608,7 @@ Function UpdateMainMenu()
 
 						ScreenGamma = (SlideBar(x + 310*MenuScale, y+6*MenuScale, 150*MenuScale, ScreenGamma*50.0)/50.0)
 						Color 255,255,255
-						Text(x + 20 * MenuScale, y + 7, "屏幕伽马值")
+						Text(x + 20 * MenuScale, y + 7, "屏幕伽马值：")
 						If MouseOn(x+310*MenuScale,y+6*MenuScale,150*MenuScale+14,20) And OnSliderID=0
 							DrawOptionsTooltip(tx,ty,tw,th,"gamma",ScreenGamma)
 						EndIf
@@ -932,7 +932,7 @@ Function UpdateMainMenu()
 						Color 255,255,255
 						y = y + 70*MenuScale
 
-						Text(x + 20 * MenuScale, y + 2, "显示字幕：")
+						Text(x + 20 * MenuScale, y + 2, "启用字幕：")
 						EnableSubtitles% = DrawTick(x + 310 * MenuScale, y + MenuScale, EnableSubtitles%)
 						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
 							DrawOptionsTooltip(tx,ty,tw,th,"subtitle")
@@ -1019,7 +1019,7 @@ Function UpdateMainMenu()
 						If i <= SavedMapsAmount Then
 							DrawFrame(x,y,540* MenuScale, 70* MenuScale)
 							
-							Text(x + 20 * MenuScale, y + 10 * MenuScale, SavedMaps(i - 1))
+							Text(x + 20 * MenuScale, y + 10 * MenuScale, ConvertToUTF8(SavedMaps(i - 1)))
 							Text(x + 20 * MenuScale, y + (10+27) * MenuScale, SavedMapsAuthor(i - 1))
 							
 							If DrawButton(x + 400 * MenuScale, y + 20 * MenuScale, 100 * MenuScale, 30 * MenuScale, "加载", False) Then
@@ -1050,7 +1050,7 @@ Function UpdateMainMenu()
 	Color 255,255,0
 	Text GraphicWidth-20,10,"汉化制作：子悦汉化组",2
 	Text GraphicWidth-20,(10+FontHeight())+FontHeight()+1,"对外交流群：1006841985",2
-	Text GraphicWidth-20,(10+FontHeight()*2)+FontHeight()+FontHeight(),"scpcbgame.cn",2
+	Text GraphicWidth-20,(10+FontHeight()*2)+FontHeight()+FontHeight(),"https://scpcbgame.cn/",2
 	
 	If Fullscreen Then DrawImage CursorIMG, ScaledMouseX(),ScaledMouseY()
 	
@@ -1100,7 +1100,7 @@ Function UpdateLauncher()
 	If CheckForUpdates() = -1 Then TimeOut = True
 	
 	
-	AppTitle "SCP - 收容失效汉化版 启动器"
+	AppTitle "SCP - 收容失效 启动器"
 	
 	Repeat
 		Color 0,0,0
@@ -1179,7 +1179,7 @@ Function UpdateLauncher()
 		    Color 255, 255, 255
 		EndIf
 
-		Text(40 + 430 + 15, 262 - 55 + 65 + 8 + 3, "16位")
+		Text(40 + 430 + 15, 262 - 55 + 65 + 8 + 3, "16位色")
 		Color 255, 255, 255
 		Text(40 + 430 + 15, 262 - 55 + 95 + 8 + 2, "使用启动器")
 		
@@ -1210,12 +1210,13 @@ Function UpdateLauncher()
 			GraphicHeight = GfxModeHeights(SelectedGFXMode)
 			RealGraphicWidth = GraphicWidth
 			RealGraphicHeight = GraphicHeight
+			SetGfxDriver SelectedGFXDriver
 			Exit
 		EndIf
 		
 		If Not(BorderlessWindowed And GfxModeWidths(SelectedGFXMode) <> DesktopWidth()) Then
 			If DrawButton(40+ 260 + 65 + 20, LauncherHeight - 50 - 55, 100, 30, "Bug反馈", False, False, -1) Then
-				ExecFile("https://forum.ziyuesinicization.site/?p=105")
+				ExecFile("")
 				Delay 100
 				End
 			EndIf
@@ -1433,7 +1434,7 @@ Function DrawLoading(percent%, shortloading=False)
 						Case 5
 							SelectedLoadingScreen\txt[0] = "你需要相信它。"
 						Case 6 
-							SelectedLoadingScreen\txt[0] = "当你叫我的朋友时看着他的眼睛,这不是绅士的方式吗？"
+							SelectedLoadingScreen\txt[0] = "当你叫我的朋友时看着他的眼睛，这不是绅士的方式吗？"
 						Case 7
 							SelectedLoadingScreen\txt[0] = "???____??_???__????n?"
 						Case 8, 9
@@ -1443,7 +1444,7 @@ Function DrawLoading(percent%, shortloading=False)
 						Case 11
 							SelectedLoadingScreen\txt[0] = "让她成为午夜剧组的一员"
 						Case 12
-							SelectedLoadingScreen\txt[0] = "我断定来这里是个错误, 我们必须回去。"
+							SelectedLoadingScreen\txt[0] = "我断定来这里是个错误，我们必须回去。"
 						Case 13
 							SelectedLoadingScreen\txt[0] = "他的合金包含了我生命的精华。"
 					End Select
@@ -1924,7 +1925,7 @@ Function DrawOptionsTooltip(x%,y%,width%,height%,option$,value#=0,ingame%=False)
 			R = 255
 		Case "vsync"
 			txt = "“垂直同步”意为在计算下一帧前，等待显示器完成当前刷新周期，防止出现画面撕裂等问题。"
-			txt = txt + "这会强制将游戏的FPS限制在显示器刷新率之内,可能会导致画面延迟。"
+			txt = txt + "这会强制将游戏的FPS限制在显示器刷新率之内，可能会导致画面延迟。"
 		Case "antialias"
 			txt = "“抗锯齿”意为在显示之前平滑渲染图像,以减少模型边缘周围的锯齿。"
 			txt2 = "该选项只适用于全屏模式中。"
@@ -1968,7 +1969,7 @@ Function DrawOptionsTooltip(x%,y%,width%,height%,option$,value#=0,ingame%=False)
 			B = 255
 			txt2 = "当前值： "+Int(value*100)+"% （默认50%）"
 		Case "soundvol"
-			txt = "调整音效音量,将控制杆完全划向左侧禁用所有声音。"
+			txt = "调整音效音量，将控制杆完全划向左侧禁用所有声音。"
 			R = 255
 			G = 255
 			B = 255
@@ -1999,7 +2000,7 @@ Function DrawOptionsTooltip(x%,y%,width%,height%,option$,value#=0,ingame%=False)
 			B = 255
 			txt2 = "当前值： "+Int((0.5+value)*100)+"% （默认50%）"
 		Case "mouseinvert"
-			txt = "反转鼠标Y轴,无需更多解释。"
+			txt = "反转鼠标Y轴，无需更多解释。"
 		Case "mousesmoothing"
 			txt = "调整鼠标指针移动的平滑度。"
 			R = 255
@@ -2014,7 +2015,7 @@ Function DrawOptionsTooltip(x%,y%,width%,height%,option$,value#=0,ingame%=False)
 		Case "hud"
 			txt = "显示眨眼条和耐力条。"
 		Case "consoleenable"
-			txt = "允许打开控制台,启用后按" + KeyName(KEY_CONSOLE) + "显示控制台。"
+			txt = "允许打开控制台，启用后按 " + KeyName(KEY_CONSOLE) + " 显示控制台。"
 		Case "consoleerror"
 			txt = "在出现错误时弹出控制台并显示错误。"
 		Case "achpopup"
@@ -2026,10 +2027,10 @@ Function DrawOptionsTooltip(x%,y%,width%,height%,option$,value#=0,ingame%=False)
 			If value > 0 And value < 60
 				R = 255
 				G = 255
-				txt2 = "通常推荐60FPS及更高。如果你注意到设置后出现过度卡顿,请尝试降低数值使帧速率更加一致。"
+				txt2 = "通常推荐60FPS及更高。如果你注意到设置后出现过度卡顿，请尝试降低数值使帧速率更加一致。"
 			EndIf
 		Case "subtitle"
-			txt = "在游戏中显示人物说话的内容,字幕的位置与游戏原本的提示的位置不同。"
+			txt = "在游戏中显示人物说话的内容，字幕的位置与游戏原本的提示的位置不同。"
 		Case "traditional"
 			txt = "将游戏显示文本转换为繁体，同时转换为台湾地区用语。启用后会自动读取繁体版贴图。"
 			R = 255
@@ -2075,7 +2076,7 @@ Function DrawMapCreatorTooltip(x%,y%,width%,height%,mapname$)
 	
 	Local txt$[5]
 	If Right(mapname,6)="cbmap2" Then
-		txt[0] = Left(mapname$,Len(mapname$)-7)
+		txt[0] = Left(ConvertToUTF8(mapname$),Len(ConvertToUTF8(mapname$))-7)
 		Local f% = OpenFile("Map Creator\Maps\"+mapname$)
 		
 		Local author$ = ConvertToUTF8(ReadLine(f))

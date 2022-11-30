@@ -380,6 +380,6 @@ Function UpdateMusic()
 	EndIf
 End Function
 
-Function Text(x%, y%, txt$, center% = 0, middle% = 0, encoding% = 0)
-	Blitz_Text(x, y+1, txt, center, middle, encoding)
+Function Text(x%, y%, txt$, center% = 0, middle% = 0)
+	Blitz_Text(x, y+1, txt, center, middle)
 End Function

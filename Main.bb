@@ -32,10 +32,10 @@ Global Font1%, Font2%, Font3%, Font4%, Font5%
 Global ConsoleFont%
 
 Global VersionNumber$ = "1.3.11"
-Global SinicizationNumber$ = "2022.09-Third Revise" ; 汉化版本号
+Global SinicizationNumber$ = "2022.12-Fourth Revise" ; 汉化版本号
 Global CompatibleNumber$ = "1.3.11-2022.5" ; 当存档与构建版本不兼容时再更改		——开发者 ENDSHN
 
-Global OpenCC% = CreateOpenCC("Traditional\OpenCC\s2twp.json")
+Global OpenCC% = CreateOpenCC("Traditional\OpenCC\s2twp.json") ; 繁简转换工具
 
 Global MenuWhite%, MenuBlack%
 Global ButtonSFX%
@@ -194,7 +194,7 @@ Global GameSaved%
 
 Global CanSave% = True
 
-AppTitle "SCP - 收容失效 v"+VersionNumber+" 汉化版本"
+AppTitle "SCP - 收容失效 v" + VersionNumber + " 汉化版本"
 
 PlayStartupVideos()
 
@@ -214,7 +214,7 @@ Font3% = LoadFont_Strict("GFX\font\Unifont.ttf", Int(19 * (GraphicHeight / 1024.
 Font4% = LoadFont_Strict("GFX\font\Unifont.ttf", Int(57 * (GraphicHeight / 1024.0)))
 Font5% = LoadFont_Strict("GFX\font\Journal.ttf", Int(55 * (GraphicHeight / 1024.0)))
 
-Global CreditsFont%,CreditsFont2%,CreditsFont3%
+Global CreditsFont%, CreditsFont2%, CreditsFont3%
 
 ConsoleFont% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(17 * (GraphicHeight / 1024.0)))
 
@@ -584,8 +584,8 @@ Function UpdateConsole()
 							CreateConsoleMsg("- 173state")
 							CreateConsoleMsg("- 106state")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("使用 “help 2”或“help 3” 以查看更多命令")
-							CreateConsoleMsg("使用 “help [命令名]” 以获得关于命令的详细信息")
+							CreateConsoleMsg("使用“help 2”或“help 3”以查看更多命令")
+							CreateConsoleMsg("使用“help [命令名]”以获得关于命令的详细信息")
 							CreateConsoleMsg("******************************")
 						Case "2"
 							CreateConsoleMsg("命令列表 - 2/3页")
@@ -609,7 +609,7 @@ Function UpdateConsole()
 							CreateConsoleMsg("- gamma [值]")
 							CreateConsoleMsg("- infinitestamina")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("使用 “help [命令名]” 以获得关于命令的详细信息")
+							CreateConsoleMsg("使用“help [命令名]”以获得关于命令的详细信息")
 							CreateConsoleMsg("******************************")
 						Case "3"
 							CreateConsoleMsg("- playmusic [文件名 + .wav/.ogg]")
@@ -618,55 +618,53 @@ Function UpdateConsole()
 						Case "asd"
 							CreateConsoleMsg("帮助 - asd")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("启用无敌模式,无碰撞,渲染线框")
-							CreateConsoleMsg("并且设置可视距离为20,渲染距离为30")
+							CreateConsoleMsg("启用无敌模式,无碰撞,渲染线框，")
+							CreateConsoleMsg("并且设置可视距离为20,渲染距离为30。")
 							CreateConsoleMsg("******************************")
 						Case "camerafog"
 							CreateConsoleMsg("帮助 - camerafog")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("设置雾的绘制距离,迷雾在“可视距离”开始渲染,")
-							CreateConsoleMsg("直到“渲染距离”处变得完全不透明")
-							CreateConsoleMsg("示例: camerafog 20 40")
+							CreateConsoleMsg("设置雾的绘制距离，迷雾在“可视距离”开始渲染，")
+							CreateConsoleMsg("直到“渲染距离”处变得完全不透明。")
+							CreateConsoleMsg("示例：camerafog 20 40")
 							CreateConsoleMsg("******************************")
 						Case "gamma"
 							CreateConsoleMsg("帮助 - gamma")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("设置游戏伽马值")
-							CreateConsoleMsg("建议将伽马值设为0.0到2.0之内的值")
-							CreateConsoleMsg("默认为1.0")
+							CreateConsoleMsg("设置游戏伽马值。")
+							CreateConsoleMsg("建议将伽马值设为0.0到2.0之内的值。")
+							CreateConsoleMsg("默认为1.0。")
 							CreateConsoleMsg("******************************")
 						Case "noclip","fly"
 							CreateConsoleMsg("帮助 - noclip")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("切换无碰撞,除非指定是否启用(on/off)")
-							CreateConsoleMsg("允许视角无视任何碰撞移动")
+							CreateConsoleMsg("切换无碰撞，除非指定是否启用（on/off）。")
+							CreateConsoleMsg("允许视角无视任何碰撞移动。")
 							CreateConsoleMsg("******************************")
 						Case "godmode","god"
 							CreateConsoleMsg("帮助 - godmode")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("切换无敌模式,除非指定是否启用(on/off)")
-							CreateConsoleMsg("防止玩家在正常情况下死亡")
+							CreateConsoleMsg("切换无敌模式，除非指定是否启用（on/off）。")
+							CreateConsoleMsg("防止玩家在正常情况下死亡。")
 							CreateConsoleMsg("******************************")
 						Case "wireframe"
 							CreateConsoleMsg("帮助 - wireframe")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("切换渲染线框,除非指定是否启用(on/off)")
-							CreateConsoleMsg("只渲染几何体的边框，使其他部分不可见")
+							CreateConsoleMsg("切换渲染线框,除非指定是否启用（on/off）。")
+							CreateConsoleMsg("只渲染几何体的边框，使其他部分不可见。")
 							CreateConsoleMsg("******************************")
 						Case "spawnitem"
 							CreateConsoleMsg("帮助 - spawnitem")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("在玩家的位置生成物品")
-							CreateConsoleMsg("可生成能在物品栏里出现的物品")
-							CreateConsoleMsg("在二期技术测试之后，游戏支持输入法")
-							CreateConsoleMsg("因此在汉化版中，你可以使用物品中文名、物品英文名或物品ID生成物品")
-							CreateConsoleMsg("示例: spawnitem 万能钥匙卡 / spawnitem key card omni / spawnitem key6")
+							CreateConsoleMsg("在玩家的位置生成物品（可生成能在物品栏里出现的物品）。")
+							CreateConsoleMsg("在汉化版中，你可以使用物品中文名、物品英文名或物品ID生成物品。")
+							CreateConsoleMsg("示例：spawnitem 万能钥匙卡 / spawnitem key card omni / spawnitem key6")
 							CreateConsoleMsg("******************************")
 						Case "spawn"
 							CreateConsoleMsg("帮助 - spawn")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("在玩家的位置生成NPC")
-							CreateConsoleMsg("可用参数:")
+							CreateConsoleMsg("在玩家的位置生成NPC。")
+							CreateConsoleMsg("可用参数：")
 							CreateConsoleMsg("008zombie / 049 / 049-2 / 066 / 096 / 106 / 173")
 							CreateConsoleMsg("/ 178-1 / 372 / 513-1 / 966 / 1499-1 / class-d")
 							CreateConsoleMsg("/ guard / mtf / apache / tentacle")
@@ -674,29 +672,29 @@ Function UpdateConsole()
 						Case "revive","undead","resurrect"
 							CreateConsoleMsg("帮助 - revive")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("在死亡动画触发后重置玩家的死亡计时器")
-							CreateConsoleMsg("不影响受伤、失血和008感染")
+							CreateConsoleMsg("在死亡动画触发后重置玩家的死亡计时器。")
+							CreateConsoleMsg("不影响受伤、失血和008感染。")
 							CreateConsoleMsg("******************************")
 						Case "teleport"
 							CreateConsoleMsg("帮助 - teleport")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("将玩家传送到指定房间")
-							CreateConsoleMsg("可用的房间ID可在room.ini中找到")
+							CreateConsoleMsg("将玩家传送到指定房间。")
+							CreateConsoleMsg("可用的房间ID可在room.ini中找到。")
 							CreateConsoleMsg("******************************")
 						Case "stopsound", "stfu"
 							CreateConsoleMsg("帮助 - stopsound")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("停止播放所有声音")
+							CreateConsoleMsg("停止播放所有声音。")
 							CreateConsoleMsg("******************************")
 						Case "camerapick"
 							CreateConsoleMsg("帮助 - camerapick")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("打印镜头指向的模型的贴图名称和坐标")
+							CreateConsoleMsg("打印镜头指向的模型的贴图名称和坐标。")
 							CreateConsoleMsg("******************************")
 						Case "status"
 							CreateConsoleMsg("帮助 - status")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("打印玩家、视角和房间信息")
+							CreateConsoleMsg("打印玩家、视角和房间信息。")
 							CreateConsoleMsg("******************************")
 						Case "weed","scp-420-j","420"
 							CreateConsoleMsg("帮助 - 420")
@@ -706,7 +704,7 @@ Function UpdateConsole()
 						Case "playmusic"
 							CreateConsoleMsg("帮助 - playmusic")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("将播放在“SFX\Music\Custom\”文件夹内的.ogg/.wav格式文件")
+							CreateConsoleMsg("播放“SFX\Music\Custom\”文件夹内的.ogg/.wav格式文件。")
 							CreateConsoleMsg("******************************")
 						Default
 							CreateConsoleMsg("该命令没有可用的帮助",255,150,0)
@@ -1349,7 +1347,7 @@ Function UpdateConsole()
 								If Lower(StrTemp3)<>"keep"
 									e\EventState3 = Float(StrTemp3)
 								EndIf
-								CreateConsoleMsg("将玩家当前房间事件状态更改为: "+e\EventState+"|"+e\EventState2+"|"+e\EventState3)
+								CreateConsoleMsg("将玩家当前房间事件状态更改为："+e\EventState+"|"+e\EventState2+"|"+e\EventState3)
 								pl_room_found = True
 								Exit
 							EndIf
@@ -2191,7 +2189,7 @@ Function UseDoor(d.Doors, showmsg%=True, playsfx%=True)
 		If SelectedItem = Null Then
 			If showmsg = True Then
 				If (Instr(Msg,"钥匙卡")=0 And Instr(Msg,"你需要")=0) Or (MsgTimer<70*3) Then
-					Msg = "你需要一个钥匙卡来操控这扇门"
+					Msg = "你需要一张钥匙卡来操作这扇门"
 					MsgTimer = 70 * 7
 				EndIf
 			EndIf
@@ -2217,7 +2215,7 @@ Function UseDoor(d.Doors, showmsg%=True, playsfx%=True)
 			If temp =-1 Then 
 				If showmsg = True Then
 					If (Instr(Msg,"钥匙卡")=0 And Instr(Msg,"你需要")=0) Or (MsgTimer<70*3) Then
-					Msg = "你需要一个钥匙卡来操控这扇门"
+					Msg = "你需要一张钥匙卡来操作这扇门"
 					MsgTimer = 70 * 7
 				EndIf
 				EndIf
@@ -2259,13 +2257,13 @@ Function UseDoor(d.Doors, showmsg%=True, playsfx%=True)
 		If temp <> 0 Then
 			PlaySound_Strict ScannerSFX1
 			If (Instr(Msg,"你将手掌")=0) Or (MsgTimer < 70*3) Then
-				Msg = "你将手掌放在了扫描仪上。扫描仪显示: “DNA验证通过, 允许访问”"
+				Msg = "你将手掌放在了扫描仪上。扫描仪显示：“DNA验证通过，允许访问。”"
 			EndIf
 			MsgTimer = 70 * 10
 		Else
 			If showmsg = True Then 
 				PlaySound_Strict ScannerSFX2
-				Msg = "你将手掌放在了扫描仪上。扫描仪显示: “未知DNA序列, 拒绝访问”"
+				Msg = "你将手掌放在了扫描仪上。扫描仪显示：“未知DNA序列，拒绝访问。”"
 				MsgTimer = 70 * 10
 			EndIf
 			Return			
@@ -3122,7 +3120,7 @@ Repeat
 				MsgTimer = 70 * 4
 			EndIf
 		Else If SelectedDifficulty\saveType = SAVEONSCREENS And (SelectedScreen<>Null Or SelectedMonitor<>Null)
-			If (Msg<>"游戏已保存" And Msg<>"你无法在此处保存游戏"And Msg<>"你不能在此时保存游戏") Or MsgTimer<=0 Then
+			If ((Msg <> "游戏已保存") And ((Msg <> "你无法在此处保存游戏") And (Msg <> "你不能在此时保存游戏"))) Or (MsgTimer <= 0) Then
 				Msg = "按 "+KeyName(KEY_SAVE)+" 保存"
 				MsgTimer = 70*4
 			EndIf
@@ -3252,11 +3250,7 @@ Repeat
 	
 	CatchErrors("Main loop / uncaught")
 	
-	If Vsync = 0 Then
-		Flip 0
-	Else 
-		Flip 1
-	EndIf
+	Flip Vsync
 Forever
 
 ;----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3466,7 +3460,7 @@ Function QuickLoadEvents()
 				ScaleSprite ForestNPC,0.75*(140.0/410.0),0.75
 				SpriteViewMode ForestNPC,4
 				EntityFX ForestNPC,1+8
-				ForestNPCTex = LoadAnimTexture("GFX\npcs\AgentIJ.AIJ",1+2,140,410,0,4)
+				ForestNPCTex = LoadAnimTexture("GFX\npcs\AgentIJ.png",1+2,140,410,0,4)
 				ForestNPCData[0] = 0
 				EntityTexture ForestNPC,ForestNPCTex,ForestNPCData[0]
 				ForestNPCData[1]=0
@@ -5866,7 +5860,7 @@ Function DrawGUI()
 								Msg = "你给自己注射了注射器，你感到一股巨量肾上腺素冲击着你"
 							Case 2
 								SuperMan = True
-								Msg = "你给自己注射了注射器，你感觉正在分泌着巨量的肾上腺"
+								Msg = "你给自己注射了注射器，你感觉正在分泌着巨量的肾上腺素"
 							Case 3
 								VomitTimer = 30
 								Msg = "你给自己注射了注射器，你感到胃痛"
@@ -6865,7 +6859,7 @@ Function DrawMenu()
 	CatchErrors("Uncaught (DrawMenu)")
 	
 	Local x%, y%, width%, height%
-	If api_GetFocus() = 0 Then ;Game is out of focus -> pause the game
+	If InFocus() = 0 Then ;Game is out of focus -> pause the game
 		If (Not Using294) Then
 			MenuOpen = True
 			PauseSounds()
@@ -7024,7 +7018,7 @@ Function DrawMenu()
 					
 					ScreenGamma = (SlideBar(x + 270*MenuScale, y+6*MenuScale, 100*MenuScale, ScreenGamma*50.0)/50.0)
 					Color 255,255,255
-					Text(x, y + 7, "屏幕伽马值")
+					Text(x, y + 7, "屏幕伽马值：")
 					If MouseOn(x+270*MenuScale,y+6*MenuScale,100*MenuScale+14,20) And OnSliderID=0
 						DrawOptionsTooltip(tx,ty,tw,th,"gamma",ScreenGamma)
 					EndIf
@@ -10980,7 +10974,7 @@ Function RenderWorld2()
 			Color 255,0,0
 			SetFont Font3
 			
-			Text GraphicWidth/2,20*MenuScale,"警告： 电量低",True,False
+			Text GraphicWidth/2,20*MenuScale,"警告：电量低",True,False
 			Color 255,255,255
 		EndIf
 	EndIf
@@ -11220,16 +11214,17 @@ Function ScaledMouseY%()
 End Function
 
 Function CatchErrors(location$)
-	InitErrorMsgs(9)
-	SetErrorMsg(0, "SCP - 收容失效 v" + VersionNumber + " 汉化版 出现错误！")
-	SetErrorMsg(1, "汉化版版本号："+SinicizationNumber)
+	InitErrorMsgs(10, True) ; 声明报错内有宏存在
+	SetErrorMsg(0, "SCP - 收容失效 v" + VersionNumber + " 汉化版本 出现错误！")
+	SetErrorMsg(1, "汉化版版本号：" + SinicizationNumber)
 	SetErrorMsg(2, "地图种子：" + RandomSeed)
 	SetErrorMsg(3, "日期和时间：" + CurrentDate() + "，" + CurrentTime())
 	SetErrorMsg(4, "系统：" + SystemProperty("os") + " " + (32 + (GetEnv("ProgramFiles(X86)") <> 0) * 32) + " bit (Build: " + SystemProperty("osbuild") + ")" + Chr(10))
 	SetErrorMsg(5, "显示内存：" + ((TotalVidMem() / 1024) - (AvailVidMem() / 1024)) + " MB/" + (TotalVidMem() / 1024) + " MB")
 	SetErrorMsg(6, "全局内存状态：" + ((TotalPhys() / 1024) - (AvailPhys() / 1024)) + " MB/" + (TotalPhys() / 1024) + " MB")
-	SetErrorMsg(7, "出错位置：" + Location + Chr(10))
-	SetErrorMsg(8, "请带着游戏截图联系我们！") 
+	SetErrorMsg(7, "出错位置：" + location)
+	SetErrorMsg(8, "抛出异常：_CaughtError_" + Chr(10)) ; _CaughtError_是一个宏，在显示时会被替换为引擎最后抛出的异常
+	SetErrorMsg(9, "请带着游戏截图联系我们！")
 End Function
 
 Function Create3DIcon(width%,height%,modelpath$,modelX#=0,modelY#=0,modelZ#=0,modelPitch#=0,modelYaw#=0,modelRoll#=0,modelscaleX#=1,modelscaleY#=1,modelscaleZ#=1,withfog%=False)
@@ -11495,12 +11490,12 @@ End Function
 
 Function Text(x%, y%, txt$, xPos% = 0, yPos% = 0, a# = 1.0)
 	Local oldr% = ColorRed() : Local oldg% = ColorGreen() : Local oldb% = ColorBlue()
-	Color oldr*a,oldg*a,oldb*a
+	Color oldr*a, oldg*a, oldb*a
 	If TraditionalChinese Then 
-		Blitz_Text x,y+1,OpenCConvert(OpenCC, txt),xPos,yPos
+		Blitz_Text x, y+1, OpenCConvert(OpenCC, txt), xPos, yPos ; 中文比英文高一点，所以高度要低一点
 	Else
-		Blitz_Text x,y+1,txt,xPos,yPos
+		Blitz_Text x, y+1, txt, xPos, yPos
 	EndIf
-	Color oldr,oldg,oldb
+	Color oldr, oldg, oldb
 	Return
 End Function
