@@ -4,6 +4,7 @@
 - 汉化了部分贴图（body1.jpg、classd1.jpg、classd2.jpg、classd3.jpg、janitor.jpg、gonzales.jpg、corpse.jpg）
 - 将部分伪后缀贴图改为正常后缀
 - 更新了RMesh模型浏览器
+- 优化了更新检查系统
 bug修复：
     - 修复了报错乱码问题
     - 修复自订中文地图名无法显示的bug
