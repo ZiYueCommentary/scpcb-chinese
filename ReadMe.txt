@@ -10,7 +10,7 @@
 							
 
 
-游戏基于 SCP 基金会 背景 (http://scp-wiki-cn.wikidot.com/)
+游戏基于 SCP基金会 背景 (http://scp-wiki-cn.wikidot.com/)
 打开"Credits.txt"文件查看详细制作人员名单
 
 
@@ -30,8 +30,8 @@ https://creativecommons.org/licenses/by-sa/3.0/deed.zh
 	SCP - 收容失效使用 Blitz3D 引擎，但该引擎已过于古老且过时
 	在你使用较新的操作系统运行游戏时，你可能会遇到一些问题
 
-	如果你启动游戏时遇到"内存访问冲突"（Memory Access Violation）的问题或者
-	"无法设置显示模式"（Unable to set graphics mode），请尝试以下方式：
+	如果你启动游戏时遇到“内存访问冲突”（Memory Access Violation）的问题或者
+	“无法设置显示模式”（Unable to set graphics mode），请尝试以下方式：
 
 	- 以管理员身份运行
 	- 检查你的显卡驱动更新
@@ -42,8 +42,8 @@ https://creativecommons.org/licenses/by-sa/3.0/deed.zh
 **** 默认键位 ***********************************
 
 	WASD			-	移动
-	空格			-	手动眨眼
-	左 Shift		-	奔跑
+	空格				-	手动眨眼
+	左 Shift			-	奔跑
 	左 Control		-	蹲下
 	Tab				-	物品栏
 	F5				-	保存

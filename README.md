@@ -8,7 +8,7 @@
 
 汉化版本由 [子悦汉化组](https://ziyuesinicization.site/) 制作
 
-## 需要软件：
+## 需要软件
 
 - [Blitz3D TSS (ZiYueCommentary)](https://github.com/ZiYueCommentary/Blitz3D)
 

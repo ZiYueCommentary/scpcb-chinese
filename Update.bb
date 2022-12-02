@@ -178,9 +178,9 @@ Function CheckForUpdates%()
 						list% = ReadFile("list.txt")
 						While Not Eof(list)
 							s$ = ReadLine(list)
-							If Find(s, ",") != -1 Then 
-								l$ = Left(s, Find(s, ","))
-								r$ = Right(s, Len(s)-Find(s, ",")-1)
+							If InStr(s, ",") != 0 Then 
+								l$ = Left(s, InStr(s, ",") - 1)
+								r$ = Right(s, Len(s)-InStr(s, ",")-2)
 						
 								; null就是空，代表纯删文件
 								DeleteFile(ConvertToANSI(l))
