@@ -1,5 +1,5 @@
 ; 收容失效终极版 重生版源码
-; https://github.com/Jabka666/scpcb-ue-my/blob/new_blend/Source%20Code/Subtitles_Core.bb
+; https://github.com/Jabka666/scpcb-ue-my/blob/no_opt/Source%20Code/Subtitles_Core.bb
 Global EnableSubtitles% = GetINIInt(OptionFile, "options", "enable subtitles")
 ;[Block]
 Const ANNOUNCEMENT% = 0
