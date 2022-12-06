@@ -93,10 +93,10 @@ v1.3.10
     - Revamped the design for the 2d grid a bit.
     - You can now select a room in the 3D view which will automaticly select that room in the 2D grid.
     - New map format called ".cbmap2" which includes
-	- The ability to scale each zone (by adjusting the checkpoint lines for them).
-	- The ability to write the author's name and description of the map.
-	- The ability to make custom forest and maintenance tunnel layouts.
-	- The room amount that gets displayed when hovering over the "Load" button for selecting the map.
+    - The ability to scale each zone (by adjusting the checkpoint lines for them).
+    - The ability to write the author's name and description of the map.
+    - The ability to make custom forest and maintenance tunnel layouts.
+    - The room amount that gets displayed when hovering over the "Load" button for selecting the map.
     - Fixed a bug that caused the event chance to be 0% when you select an event of a room while "Set the event for the rooms by default" is disabled.
     - Fixed a little visual glitch in which the selected room stats showed an empty event and the event chance when you moved the slider.
     - Swapped the "Open map" and "Save map" texts when opening/saving a map (they were incorrectly named).
@@ -387,11 +387,11 @@ Bug Fixes:
 
 v1.3.2
 - Compiled the game using Juanjpro's "MavLess Blitz3D".
-	-The game now updates an error log rather than immediately crashing when an error occurs.
+    -The game now updates an error log rather than immediately crashing when an error occurs.
 - Redesigned console by Juanjpro.
-	- Added color coding.
-	- Added the ability to scroll through previously displayed console messages.
-	- Pressing up or down now cycles previous commands into the input field, without having to retype the command.
+    - Added color coding.
+    - Added the ability to scroll through previously displayed console messages.
+    - Pressing up or down now cycles previous commands into the input field, without having to retype the command.
 - Added several new rooms.
 - Added a [REDACTED] event to the Tesla gates.
 
@@ -404,10 +404,10 @@ v1.3.2
 - Adjusted the spelling and grammar for a majority of in-game text.
 - Extended the parameters of the "help" console command.
 - Updated SCP-173's model so that it no longer uses 2 texture layers. In layman's terms, its texture is no longer applied twice and therefore it no longer appears "darker".
-	- Credits to Juanjpro for the updated model.
+    - Credits to Juanjpro for the updated model.
 - Added unique locked door and DNA scanner sound effects.
 - Damage indicator messages now only display once at least two seconds have passed since the previous one displayed. This prevents the messages from constantly updating when being shot at.
-	- Same thing for 939's alert sound effects, only with a delay of three seconds.
+    - Same thing for 939's alert sound effects, only with a delay of three seconds.
 - The hazmat suit now automatically equips when the player picks it up.
 - Renamed fake fullscreen to borderless windowed mode.
 - The blink meter's timer is now randomized, making blinking appear more realistic.
@@ -453,12 +453,12 @@ Bug Fixes:
 
 v1.3.1
 Juanjpro saves the day again:
-	- removed FastExtension and FastText libraries - this should improve stability 
-	(at the cost of removing bump mapping)
-	- ditching the libraries allowed switching to a newer version of Blitz3D, which
-	has some bugfixes for newer versions of windows
-	- brightness can be changed in fake fullscreen mode and windowed mode
-	- NPC ID assignment bugfix
+    - removed FastExtension and FastText libraries - this should improve stability 
+    (at the cost of removing bump mapping)
+    - ditching the libraries allowed switching to a newer version of Blitz3D, which
+    has some bugfixes for newer versions of windows
+    - brightness can be changed in fake fullscreen mode and windowed mode
+    - NPC ID assignment bugfix
 
 - hopefully fixed room2sl's event (with saving)
 - new textures and icons for documents and notes
@@ -482,12 +482,12 @@ This update was mostly created by Third Subdivision Team
 
 - some additions from the Nine Tailed Fox mod 
 (http://undertowgames.com/forum/viewtopic.php?f=11&t=4358):
-	- SCP-1162, SCP-1499
-	- new rooms
-	- more graphics options
-	- borderless windowed mode
-	- nicer looking lights
-	- new key card textures by Anon4743
+    - SCP-1162, SCP-1499
+    - new rooms
+    - more graphics options
+    - borderless windowed mode
+    - nicer looking lights
+    - new key card textures by Anon4743
 - expanded SCP-[REDACTED] area
 - some new sounds
 - some clues about D-9341s past
@@ -498,9 +498,9 @@ This update was mostly created by Third Subdivision Team
 - more SCP-096 spawns
 - 096 model with lower polycount
 - MTF improvements
-	- AI bugfixes and optimization
-	- more reactions to SCPs
-	- cameras are now a threat if the MTF Units have spawned
+    - AI bugfixes and optimization
+    - more reactions to SCPs
+    - cameras are now a threat if the MTF Units have spawned
 - removed SCP-1074
 - more SCP-049 spawns
 - improved SCP-049 AI
@@ -633,17 +633,17 @@ the night vision goggles or equipping a gas mask or SCP-178 while wearing the NV
 v1.1
 - Some additions from the Box of Horrors mod 
 (http://undertowgames.com/forum/viewtopic.php?f=11&t=3404):
-	- SCP-178, SCP-1074, SCP-1123
-	- New rooms
-	- Night Vision Goggles
-	- Clipboard for storing documents
-	- Achievement menu
+    - SCP-178, SCP-1074, SCP-1123
+    - New rooms
+    - Night Vision Goggles
+    - Clipboard for storing documents
+    - Achievement menu
 - New difficulty system:
-	- Safe: basically the same as the old Euclid-mode
-	- Euclid: you can only save at computer- and security monitors
-	- Keter: permadeath and more aggressive SCPs (higher spawnrates and some
-	of them chase the player more actively instead of wandering around randomly)
-	- Custom: self explanatory
+    - Safe: basically the same as the old Euclid-mode
+    - Euclid: you can only save at computer- and security monitors
+    - Keter: permadeath and more aggressive SCPs (higher spawnrates and some
+    of them chase the player more actively instead of wandering around randomly)
+    - Custom: self explanatory
 - A new room in the pocket dimension (replaces the room with the floating clouds of smoke)
 - Some changes to the maintenance tunnel
 - The SCPs that can "teleport" from waypoint to another (such as 173) can no longer
@@ -656,8 +656,8 @@ spaghetti that is supposed to be their AI)
 - Minor bugfixes in the MTF AI
 - Room-specific ambient sounds are re-enabled
 - More optimization to the room models: 
-	- the "shared prop model" system added in 1.0.6 is now implemented in all rooms
-	- now only room models that are used in the generated map are loaded
+    - the "shared prop model" system added in 1.0.6 is now implemented in all rooms
+    - now only room models that are used in the generated map are loaded
 - Fixed a bug in SCP-970 which made it possible to duplicate items
 - Removed the "drawportal" from the door leading to SCP-860 to get rid of the 
 crashes caused by it on some computers
@@ -689,22 +689,22 @@ the janitor in the endroom.
 v1.0.5
 - lots of improved sound effects by Class401
 - bugfixes/changes by risingstar64:
-	- the wall details in the forest are now hidden when the player isn't in 
-	the forest, meaning that the door and the door frame no longer block the
-	view of the drawportal when the door is open
-	- DNA scanner no longer crashes if no item is selected
-	- testroom shouldn't crash anymore after SCP-079 turns on the gas
-	- inputting "DEATH" to SCP-294 no longer crashes the game
-	- DeathTimer and BlurTimer are included in save files, fixes incorrect
-	interaction between 294 liquids and reloading
-	- locked the one unlocked door in the intro scene (the door that leads 
-	from the the concrete tunnel to the large hall)
-	- added a vsync option to the options ini file
+    - the wall details in the forest are now hidden when the player isn't in 
+    the forest, meaning that the door and the door frame no longer block the
+    view of the drawportal when the door is open
+    - DNA scanner no longer crashes if no item is selected
+    - testroom shouldn't crash anymore after SCP-079 turns on the gas
+    - inputting "DEATH" to SCP-294 no longer crashes the game
+    - DeathTimer and BlurTimer are included in save files, fixes incorrect
+    interaction between 294 liquids and reloading
+    - locked the one unlocked door in the intro scene (the door that leads 
+    from the the concrete tunnel to the large hall)
+    - added a vsync option to the options ini file
 - bugfixes by juanjpro:
-	- elevator to SCP-939 no longer crashes when bump mapping is enabled
-	- guards and MTFs no longer disappear when not in the players direct line of sight
-	- custom maps should now work again without crashing during the intro sequence
-	- checkpoint rooms should no longer be spawned in incorrect location
+    - elevator to SCP-939 no longer crashes when bump mapping is enabled
+    - guards and MTFs no longer disappear when not in the players direct line of sight
+    - custom maps should now work again without crashing during the intro sequence
+    - checkpoint rooms should no longer be spawned in incorrect location
 
 ----------------------------------------------------------------------------------
 
@@ -713,18 +713,18 @@ v1.0.4
 a new item that can be obtained by doing so
 - a small easter-eggish SCP addition
 - bugfixes by risingstar64:
-	- quicksaving is disabled in keter mode
-	- wireframe can now be properly toggled between on and off when entered
-	in the console, and will reset its value when the game is reloaded
-	- SCP-294 no longer crashes the game when attempting to enter nothing
-	- SCP-970 no longer teleports the player to the incorrect location when 
-	the player closes the door behind him before moving forwards in the room
-	- framelimiting can now be disabled by setting framelimit to 0
+    - quicksaving is disabled in keter mode
+    - wireframe can now be properly toggled between on and off when entered
+    in the console, and will reset its value when the game is reloaded
+    - SCP-294 no longer crashes the game when attempting to enter nothing
+    - SCP-970 no longer teleports the player to the incorrect location when 
+    the player closes the door behind him before moving forwards in the room
+    - framelimiting can now be disabled by setting framelimit to 0
 
 ----------------------------------------------------------------------------------
 
 v1.0.3
-- fixed the "guardconvo.ogg not found"-error in the intro
+- 修复了序章中“guardconvo.ogg未找到”的错误
 
 ----------------------------------------------------------------------------------
 
@@ -754,10 +754,10 @@ important rooms (such as the electrical center) missing
 
 v1.0.1
 - changes by juanjpro:
-	- optimized room rendering (including the forest and the maintenance tunnels)
-	- included a dll that should help with performance issues on Windows 8
-	- fixed the bug where the cell doors disappear in the intro
-	- fixed maintenance tunnel elevators
+    - optimized room rendering (including the forest and the maintenance tunnels)
+    - included a dll that should help with performance issues on Windows 8
+    - fixed the bug where the cell doors disappear in the intro
+    - fixed maintenance tunnel elevators
 - the door to the forest shouldn't cause Memory Access Violations anymore
 - fixed duplicate SCP-066 bug
 - fixed the bugs in SCP-970's "looping effect"
@@ -769,10 +769,10 @@ v1.0.1
 ----------------------------------------------------------------------------------
 
 v1.0
-- SCP-066, SCP-860, SCP-970 and SCP-939
-- some new rooms
+- SCP-066、SCP-860、SCP-970和SCP-939
+- 一些新房间
 
-- new MTF and guard models
+- 新的MTF和保安的模型
 - major changes to the AI of the MTF (including a lot of bugfixes and optimization)
 
 - some additions to the intro and the moments after the breach
@@ -843,13 +843,13 @@ hazmat suit/ballistic vest" when dropping the item even if it wasn't equipped
 crouching of course)
 
 - changes bu juanjpro:
-	- Added the custom RoomMesh format for faster loading times and more efficient memory usage
-	- Some fixes to the "room106" event: containing SCP-106 should be easier
-	- No more falling-through-floor, attempt #3
-	- Fixed door that leads to the void in "room2servers" (SCP-096's server room)
-	- Placed "testroom" keypad door correctly
-	- MTFs at Gate A will get the player if they contained SCP-106
-	- Optimized event sounds
+    - Added the custom RoomMesh format for faster loading times and more efficient memory usage
+    - Some fixes to the "room106" event: containing SCP-106 should be easier
+    - No more falling-through-floor, attempt #3
+    - Fixed door that leads to the void in "room2servers" (SCP-096's server room)
+    - Placed "testroom" keypad door correctly
+    - MTFs at Gate A will get the player if they contained SCP-106
+    - Optimized event sounds
 
 ----------------------------------------------------------------------------------
 
@@ -867,14 +867,14 @@ the hallucinations
 ----------------------------------------------------------------------------------
 
 v0.9
-- SCP-035 and SCP-148
-- improved SCP-173 AI (it shouldn't randomly fall from the ceiling anymore)
+- SCP-035和SCP-148
+- 改进的SCP-173的AI（现在应该不会再随机从天花板上掉下来了）
 - some additions to the intro:
-	- random announcements
-	- a new npc
-	- the mute guard doesn't get stuck inside doors anymore
-- lots of new sound effects, including zone-specific ambient sounds
-- texture-specific footstep sounds
+    - 随机广播
+    - 一个新NPC
+    - 哑巴警卫不会再卡在门里了
+- 一堆新音效，包括各区域自己的环境音
+- 纹理特定的脚步声
 - a couple of bugfixes in the "plane area" in the pocket dimension
 - new background music in the pocket dimension
 - lots of bugfixes in the MTF AI
@@ -886,71 +886,68 @@ in the facility, unless you [DATA REDACTED]
 - Gate A is now slightly harder to reach
 - moved the cafeteria from the heavy containment zone to the entrance zone
 - dropped items don't clip through each other anymore
-- more bugfixes by juanjpro:
-	- Fixed crashes related to the following events:
-  		- room2servers
-   		- room106
-   		- room2closets
-   		- room2elevator
-	- Game won't freeze when loading reaches 45% with debug on
-	- Stabilized the launcher (MAVs should be less frequent when using the launcher)
-	- Levers will not reset when you load a game 
-	- Hopefully, no more falling through the floor this time
+- 更多由juanjpro制作的bug修复：
+    - 修复了与以下事件有关的崩溃bug：
+            - room2servers
+            - room106
+            - room2closets
+            - room2elevator
+    - 游戏不会在调试模式时加载到45%就冻结了
+    - 稳定的启动器（现在使用启动器导致MAV的概率应该变低了）
+    - 加载游戏不会导致拉杆复位了
+    - 但愿这次不会再有从地板上掉下去的bug了
 
 ----------------------------------------------------------------------------------
 
 v0.8.2
-- a new room and some new textures in the pocket dimension
-- fixed a bug that replaced corner rooms with a lockroom when loading a game
-- fixed the broken hitboxes in the checkpoint rooms and SCP-513's room
-- fixed some bugs in the SCP-294 code, now all the commands work properly
-- new SCP-294 liquids
-- fixed the lamps that displayed a "keycard needed" -message when clicked
-- optimized SCP-173 model
-- some bugfixes by juanjpro:
-	- doors won't disappear anymore
-	- optimized doors, buttons, cameras and cups dispensed by SCP-294
-	- optimized a few NPCs, memory usage and loading time should be slightly lower
-	- fixed an SCP-294-related memory leak
-	- fixed the SCP-500-01 bug that gave you infinite stamina
-	- no more falling throught the floor on quick loading (not 100% working)
+- 一个新房间，在口袋空间添加了一些纹理
+- 修复了加载游戏导致气锁室替换转角房间的bug
+- 修复了检查点房间和SCP-513房间的碰撞箱问题
+- 修复了SCP-294代码中的一些bug，现在所有命令都可以正常工作
+- 新的SCP-294饮品
+- 修复了点击灯时显示“需要钥匙卡”的bug
+- 优化了SCP-173模型
+- juanjpro的一些bug修复：
+    - 门不再会消失了
+    - 优化了门、按钮、镜头和SCP-294的杯子
+    - 优化了一些NPC，现在内存使用和加载时间应该略微减少
+    - 修复了跟SCP-294有关的内存泄漏
+    - 修复SCP-500-01会让你能无限奔跑的bug
+    - 快速加载不会再让你掉到地板下面了（不是100%管用）
 - 66?6;22= :=22C:AD
 
 ----------------------------------------------------------------------------------
 
 v0.8.1
-- fixed the game-crashing quickload bug
-- added some SCP-294 liquids
+- 修复了游戏崩溃时快速加载的bug
+- 加了新的SCP-294饮品
 
 ----------------------------------------------------------------------------------
 
 v0.8
-- two new SCPs
-- some new rooms, including "checkpoint rooms" that separate the zones and a cafeteria
-- new viewable computer screens and documents that reveal more of the events before
-and after the breach (written by Dr. Gears)
-- balanced the key card system (a level two key card and SCP-914 won't give you
-access to a highest level key card anymore)
-- some new sound effects (including a breathing sound for D-9431)
-- bugfixes
+- 两个新SCP
+- 一些新房间，包括“检查点”房间来分割区域和一个自助餐厅
+- 新的可互动显示器和文档，它们叙述了更多的收容失效前的事件（由Gears博士撰写）
+- 平衡了钥匙卡系统（二级钥匙卡和SCP-914不会再给你最高等级的钥匙卡了）
+- 一些新音效（包括D-9341的呼吸声）
+- bug修复
 
-- Map Creator changes:
-	- shows a short description of each room
-	- doesn't let you place large rooms so that they overlap with each other
+- 地图制作器更改：
+    - 显示每个房间的简短描述
+    - 不允许防止大房间，因为它们会互相重叠
 
 ----------------------------------------------------------------------------------
 
 v0.7.4
-- "Map Creator" which can be used to design your own map layouts
+- “地图制作器”可以设计你自己的地图布局
 
-- the navigator is now much easier to use: it shows which way you are looking and
-the map moves "seamlessly", not just when you enter a new room
-- fixed the NPC texture loading bug (= the scientists no longer transform into 
-Class Ds when loading a game)
-- fixed a bug in SCP-173's AI which sometimes caused it to teleport next to the player
-- 682's roar can't be heard in the pocket dimension anymore
-- improved SCP-096 model with better animation
-- a little addition to SCP-079's room
+- 导航仪使用更加简单了：现在它会显示你在看哪条路，而且导航仪地图的移动更加“丝滑”，而不是
+  在你进入新房间时移动画面
+- 修复了NPC纹理加载错误的bug（也就是科学家在加载游戏时不会再变成D级）
+- 修复了SCP-173的AI的一个bug，这个bug有时会让173传送到玩家旁边
+- 682的咆哮声在口袋空间再也听不到了
+- 更好的SCP-096模型和更好的动画
+- SCP-079的房间添加了一点东西
 
 ----------------------------------------------------------------------------------
 
@@ -964,40 +961,38 @@ v0.7.2
 - 现在死亡界面会有一小段文字——其中一些摘自你尸体位置、何时发现的报告，还有一些是处理收容失
   效烂摊子的基金会人员的话。
 - 口袋空间的一个新房间
-- some minor tweaks to the PD's background ambience and wall textures
-- little additions to the tesla gate rooms (a warning sign and a light that shows 
-when the gate is active)
-- gave SCP-106 a glossier appearance
-- removed the unnecessary map.zip-file I'd forgotten in the GFX-folder
-- removed the "wobble effect" from 096's panic animation
-- updated the lever texture
-- a minor layout change to the room after the intro sequence
-- added some new sound effects
-- fixed the disappearing elevator button bug
-- the method for checking whether the player is looking at SCP-096's face is now	
-more accurate; looking at its feet shouldn't trigger it anymore
-- fixed the bug that occasionally caused some rooms to overlap with each other
-- fixed the buttons in 008's chamber
+- 对口袋空间的背景、氛围和墙面贴图做了一些小调整
+- 对特斯拉电门室做了小修改（加了一个警告标志和一个灯，灯会在门激活时亮起）
+- SCP-106的外表更加光泽
+- 移除了GFX里多余的map.zip文件我忘删了
+- 移除了SCP-096悲伤动画的“摇摆”效果
+- 更新了拉杆贴图
+- 对序章后的房间做了小修改
+- 添加了一些音效
+- 修复了消失的电梯按钮bug
+- 检查玩家是否在看SCP-096脸的方法现在更加精准了，现在看着它的脚应该不会激怒它了
+- 修复了偶尔导致房间重叠的错误
+- 修复了008收容室的按钮
 
 ----------------------------------------------------------------------------------
 
 v0.7.1
-- fixed the door buttons in the nuclear warhead room
-- fixed the lighting in the "room2Cz3" and "room4z3" -rooms
-- removed the duplicate "room2scps"-room
-- a new hallway room to the first zone
+- 修复了核弹室门的按钮
+- 修复了"room2Cz3"和"room4z3"房间的光照
+- 移除了重复的"room2scps"房间
+- 向第一个区域添加了一个新走廊
 
 ----------------------------------------------------------------------------------
 
 v0.7
 - 五 个 新SCP
 - 新的地图生成算法——现在地图分为三个“区域”
-	（“轻收容”、“重收容”和“办公/研究区”）因此，设施的布局更加合理：你再也不会在Keter级
-	SCP的收容室旁边看到卫生间或办公室了。
+    （“轻收容”、“重收容”和“办公/研究区”）因此，设施的布局更加合理：你再也不会在Keter级
+    SCP的收容室旁边看到卫生间或办公室了。
 - 一堆新房间
 - 一堆的新脚本事件，包括：
-	- 你会看到工作人员试图逃离设施，并取得了某种意义上的成功
-	- 现在SCP-096不仅会坐在地板上
+    - 你会看到工作人员试图逃离设施，并取得了某种意义上的成功
+    - 现在SCP-096不仅会坐在地板上
 - 新物品
 - 在特定物体/区域附近播放指定环境声，例如管道附近的滴水声和通风井的嗡嗡声
 - 优化了096的AI，现在应该不会像之前一样导致FPS下降了
@@ -1152,8 +1147,8 @@ v0.5
 - 机动特遣队的任务是重新收容SCP和消灭潜在危险（他们仍需要一些调整，AI随时可能出现问题）
 - 一些新的房间（包括Omega核弹发射井）
 - 改进的地图生成算法：
-	- 不再生成无法通过的地图
-	- 不再有黑色的“假墙”
+    - 不再生成无法通过的地图
+    - 不再有黑色的“假墙”
 - SCP-106使用了一种基于A*的寻路算法，所以现在它不再漂浮着向玩家奔去
 - SCP-106召回协议现在拥有诱饵对象声音
 - 一些你可以点击来阅读的电脑屏幕
@@ -1211,8 +1206,8 @@ v0.2.1
 
 v0.2
 - 游戏引擎从BlitzMax改为Blitz3D并进行了引擎拓展，使以下内容成为可能：
-	- 凹凸贴图和镜面反射贴图
-	- 更好的照明系统，使可移动对象可以正确照明
+    - 凹凸贴图和镜面反射贴图
+    - 更好的照明系统，使可移动对象可以正确照明
 - 添加了SCP-106的口袋空间
 - 新的SCP-173模型
 - 修复了使SCP-173有时在墙上“闪烁”的错误
@@ -1241,9 +1236,9 @@ v0.1.1
 - 173现在不能透过墙杀你了
 - 部分房间更亮了一些
 - 修复了死后开始新游戏时出现的错误
-	- 部分物品有时会留在物品栏里
-	- 防毒面具会在上一次游戏结束后留在头上
-	- 烟雾引起的快速眨眼在新游戏里持续一段时间
+    - 部分物品有时会留在物品栏里
+    - 防毒面具会在上一次游戏结束后留在头上
+    - 烟雾引起的快速眨眼在新游戏里持续一段时间
 - 新的主菜单音乐
 - 保存系统可以使用了，但可能还是会存在一些问题
 - 现在无法用Y键传送到SCP-914
