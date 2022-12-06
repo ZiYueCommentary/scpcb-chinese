@@ -600,8 +600,11 @@ Function UpdateEvents()
 									e\EventStr = Right(e\EventStr, Len(e\EventStr)-Len(strtemp)-1)
 									If e\EventStr = "" Then 
 										FreeSound_Strict e\room\NPC[3]\Sound
-										e\room\NPC[3]\Sound = LoadSound_Strict("SFX\Room\Intro\Guard\Conversation"+Rand(1,5)+".ogg")
+										temp = Rand(1,5)
+										e\room\NPC[3]\Sound = LoadSound_Strict("SFX\Room\Intro\Guard\Conversation"+temp+"a.ogg")
 										e\room\NPC[3]\SoundChn = PlaySound2(e\room\NPC[3]\Sound, Camera, e\room\NPC[3]\Collider)
+										e\room\NPC[4]\Sound = LoadSound_Strict("SFX\Room\Intro\Guard\Conversation"+temp+"b.ogg")
+										e\room\NPC[4]\SoundChn = PlaySound2(e\room\NPC[4]\Sound, Camera, e\room\NPC[4]\Collider)
 										e\EventStr = "done"
 									EndIf
 								EndIf
@@ -4563,7 +4566,7 @@ Function UpdateEvents()
 								Msg = "♪听我说谢谢你，因为有你，温暖了四季♪" ;整活！！
 								MsgTimer = 70*5
 							Case 1500.0
-								DeathMSG = "鸡掰，所以我为什么要给这种东西做翻译。"
+								DeathMSG = "鸡掰，我为什么要给这种东西做翻译。"
 								Kill()
 						End Select
 						If e\EventState >= 2500.0 Then
@@ -4861,7 +4864,7 @@ Function UpdateEvents()
 										EntityTexture (e\room\Objects[4], tex,0,1)
 										FreeTexture tex
 										
-										Msg="你撕开了左手腕，开始用鲜血撰写"
+										Msg="你撕开了左手腕，开始用鲜血作曲"
 										MsgTimer = 7*70
 										Injuries=Max(Injuries,1.5)
 										PlaySound_Strict LoadTempSound("SFX\SCP\012\Speech"+Rand(3,4)+".ogg")
@@ -7256,7 +7259,7 @@ Function UpdateEvents()
 									Case 3
 										Msg = "耳朵在你的身体里生长"
 									Case 4
-										Msg = "“喘不...过气...”"
+										Msg = "“喘不...上气...”"
 								End Select
 								
 								MsgTimer = 70.0 * 5.0
