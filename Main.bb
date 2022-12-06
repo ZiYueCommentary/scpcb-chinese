@@ -699,7 +699,7 @@ Function UpdateConsole()
 						Case "weed","scp-420-j","420"
 							CreateConsoleMsg("帮助 - 420")
 							CreateConsoleMsg("******************************")
-							CreateConsoleMsg("生成亿堆牛█的SCP-420-J!")
+							CreateConsoleMsg("生成亿堆牛█的SCP-420-J！")
 							CreateConsoleMsg("******************************")
 						Case "playmusic"
 							CreateConsoleMsg("帮助 - playmusic")
@@ -1118,7 +1118,7 @@ Function UpdateConsole()
 					args$ = Lower(Right(ConsoleInput, Len(ConsoleInput) - Instr(ConsoleInput, " ")))
 					CameraFogNear = Float(Left(args, Len(args) - Instr(args, " ")))
 					CameraFogFar = Float(Right(args, Len(args) - Instr(args, " ")))
-					CreateConsoleMsg("可视距离已设为: " + CameraFogNear + ",渲染距离已设为: " + CameraFogFar)
+					CreateConsoleMsg("可视距离已设为：" + CameraFogNear + "，渲染距离已设为：" + CameraFogFar)
 					;[End Block]
 				Case "gamma"
 					;[Block]
@@ -4649,10 +4649,10 @@ Function DrawGUI()
 				Text x + 350, 50, "当前房间位置： ("+PlayerRoom\x+", "+PlayerRoom\y+", "+PlayerRoom\z+")"
 			EndIf
 			Text x + 350, 90, ((TotalPhys() / 1024) - (AvailPhys() / 1024)) + " MB/" + (TotalPhys() / 1024) + " MB"
-			Text x + 350, 110, "渲染的三角形： "+CurrTrisAmount
-			Text x + 350, 130, "激活的贴图： "+ActiveTextures()
-			Text x + 350, 150, "SCP-427状态 （秒）： "+Int(I_427\Timer/70.0)
-			Text x + 350, 170, "SCP-008感染： "+Infect
+			Text x + 350, 110, "渲染的三角形："+CurrTrisAmount
+			Text x + 350, 130, "激活的贴图："+ActiveTextures()
+			Text x + 350, 150, "SCP-427状态 （秒）："+Int(I_427\Timer/70.0)
+			Text x + 350, 170, "SCP-008感染："+Infect
 			For i = 0 To 5
 				Text x + 350, 190+(20*i), "SCP-1025状态 "+i+"： "+SCP1025state[i]
 			Next
@@ -6345,7 +6345,7 @@ Function DrawGUI()
 					;[Block]
 					If Wearing1499 = 0 And WearingHazmat = 0 Then
 						If WearingGasMask Then
-							Msg = "你戴下了防毒面具"
+							Msg = "你摘下了防毒面具"
 						Else
 							If SelectedItem\itemtemplate\tempname = "supergasmask"
 								Msg = "你戴上了防毒面具，你感觉呼吸容易多了"
@@ -6710,7 +6710,7 @@ Function DrawGUI()
 							Case "Disciplinary Hearing DH-S-4137-17092"
 								BlurTimer = 1000
 								
-								Msg = "“为什么这文档这么熟悉？”"
+								Msg = "“为什么这东西看起来这么熟悉？”"
 								MsgTimer = 70*10
 								PlaySound_Strict LoadTempSound("SFX\SCP\1162\NostalgiaCancer"+Rand(6,10)+".ogg")
 								SelectedItem\state = 1

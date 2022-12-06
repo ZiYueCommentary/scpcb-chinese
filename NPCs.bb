@@ -6674,7 +6674,7 @@ Function Console_SpawnNPC(c_input$, c_state$ = "")
 		Case "008", "008zombie"
 			n.NPCs = CreateNPC(NPCtype008, EntityX(Collider), EntityY(Collider) + 0.2, EntityZ(Collider))
 			n\State = 1
-			consoleMSG = "SCP-008感染实例 已生成"
+			consoleMSG = "SCP-008-1 已生成"
 			
 		Case "049", "scp049", "scp-049"
 			n.NPCs = CreateNPC(NPCtype049, EntityX(Collider), EntityY(Collider) + 0.2, EntityZ(Collider))
@@ -6745,7 +6745,7 @@ Function Console_SpawnNPC(c_input$, c_state$ = "")
 			
 		Case "apache", "helicopter"
 			n.NPCs = CreateNPC(NPCtypeApache, EntityX(Collider), EntityY(Collider) + 0.2, EntityZ(Collider))
-			consoleMSG = "阿帕奇 已生成"
+			consoleMSG = "阿帕奇直升机 已生成"
 			
 		Case "tentacle"
 			n.NPCs = CreateNPC(NPCtypeTentacle, EntityX(Collider), EntityY(Collider), EntityZ(Collider))
