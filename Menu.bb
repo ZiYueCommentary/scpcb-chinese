@@ -1214,14 +1214,6 @@ Function UpdateLauncher()
 			Exit
 		EndIf
 		
-		If Not(BorderlessWindowed And GfxModeWidths(SelectedGFXMode) <> DesktopWidth()) Then
-			If DrawButton(40+ 260 + 65 + 20, LauncherHeight - 50 - 55, 100, 30, "Bug反馈", False, False, -1) Then
-				ExecFile("")
-				Delay 100
-				End
-			EndIf
-		EndIf
-		
 		If DrawButton(LauncherWidth - 30 - 90, LauncherHeight - 50, 100, 30, "退出", False, False, -1) Then End
 		Flip
 	Forever

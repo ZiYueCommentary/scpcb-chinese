@@ -854,38 +854,36 @@ crouching of course)
 ----------------------------------------------------------------------------------
 
 v0.9.1
-- minor graphical improvements to the menus
-- refining the gas mask in SCP-914 works again
-- the hazmat suit now protects from decontamination gas
-- fixed the bugged checkpoint rooms that lead out of the map
+- 菜单界面图形的小改进
+- 在SCP-914转换防毒面具又管用了
+- 现在防护服可以阻止净化气体影响玩家
+- 修复了通往地图外的检查点房间
 - SCP-079 now broadcasts the actual feed from SCP-895's chamber, not just
 the hallucinations
 - SCP-500 loading screen and a more canon SCP-500-01 model
-- MTF loading screen
-- SCP-035's room doesn't crash the map creator anymore
+- MTF加载界面
+- SCP-035的房间不再会导致地图制作器崩溃了
 
 ----------------------------------------------------------------------------------
 
 v0.9
 - SCP-035和SCP-148
 - 改进的SCP-173的AI（现在应该不会再随机从天花板上掉下来了）
-- some additions to the intro:
+- 对于序章的一些补充：
     - 随机广播
     - 一个新NPC
     - 哑巴警卫不会再卡在门里了
 - 一堆新音效，包括各区域自己的环境音
 - 纹理特定的脚步声
-- a couple of bugfixes in the "plane area" in the pocket dimension
-- new background music in the pocket dimension
-- lots of bugfixes in the MTF AI
-- significantly faster pathfinding algorithm - the MTF don't cause fps drops
-as much as before
-- SCP-079 can now broadcast the camera feed from SCP-895's chamber on any monitor
-in the facility, unless you [DATA REDACTED]
-- now there's an actual purpose to enter SCP-008's containment chamber
-- Gate A is now slightly harder to reach
-- moved the cafeteria from the heavy containment zone to the entrance zone
-- dropped items don't clip through each other anymore
+- 一些口袋空间“飞机区”的bug修复
+- 新的口袋空间的背景音乐
+- 一堆关于MTF的AI的bug修复
+- 更快的寻路算法——MTF不会再像之前一样导致FPS下降
+- SCP-079现在可以在任意显示器上显示SCP-895收容室的实时监控，除非你[数据删除]
+- 现在前往SCP-008收容室拥有实际意义
+- 略微增加了抵达大门A的难度
+- 将自助餐厅从重收容区移到办公区
+- 掉落的物品不会再互相卡住了
 - 更多由juanjpro制作的bug修复：
     - 修复了与以下事件有关的崩溃bug：
             - room2servers
