@@ -1010,7 +1010,7 @@ Repeat
 			If result=1 Then
 				SetStatusText(winhandle, "保存上张地图后创建新地图")
 				If FileType(filename$) <>1
-  			   		filename$ = RequestFile("Open map","cbmap",True,"")
+  			   		filename$ = RequestFile("打开地图","cbmap",True,"")
 				EndIf
 				If filename<>""
 					SaveMap(filename$)
@@ -1058,7 +1058,7 @@ Repeat
 		EndIf	
 		If EID=3 Then
 			.back
-			filename$ = RequestFile("Save Map","cbmap2,cbmap",True,"")
+			filename$ = RequestFile("保存地图","cbmap2,cbmap",True,"")
 			If filename<>""
 				If Right(filename,5)="cbmap" Then
 						value = Confirm("cbmap是已过时的文件格式。如果你使用此格式保存地图，一些数据将会丢失。"+Chr(13)+"确定要继续吗？",0)					
