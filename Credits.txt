@@ -3,8 +3,8 @@
 
 
 子悦汉化组 汉化
-	
-	
+
+
 *发起
 
 ZiYueCommentary("子悦解说")
@@ -34,7 +34,7 @@ ZiYueCommentary("子悦解说")
 ZiYueCommentary("子悦解说")
 Four_P("four")
 南柯
-快乐快乐，更多快乐
+一只孤独的屑d级
 ________________________
 
 
@@ -54,7 +54,6 @@ Nikita Sidorov ("Jabka") - 技术贡献
 
 HJ itfkqqug("HJ浩鈞")
 TheZihanGu("Fr0zen_F1sh")
-Asriel("AsrieI_Dreemurr")
 快乐男孩
 插头而已
 扬鞭大笑
