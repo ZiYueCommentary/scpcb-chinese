@@ -15,27 +15,16 @@ ZiYueCommentary("子悦解说")
 飘流瓶儿
 
 
-*加载界面
+*翻译工作
 
 虚茼
 amigo
 德意志战车
-
-
-*物品
-
 ________________________
-德意志战车
-ZiYueCommentary("子悦解说")
-
-
-*成就
-
 ZiYueCommentary("子悦解说")
 Four_P("four")
 南柯
 一只孤独的屑d级
-________________________
 
 
 *测试及宣传
@@ -46,8 +35,8 @@ ZiYueCommentary("子悦解说")
 
 *字幕系统
 
-ZiYueCommentary("子悦解说") - 翻译
-Nikita Sidorov ("Jabka") - 技术贡献
+ZiYueCommentary("子悦解说")
+Nikita Sidorov ("Jabka")
 
 
 *鸣谢
