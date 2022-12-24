@@ -812,44 +812,37 @@ nearby rooms (i.e. the sound won't abruptly stop when stepping to the next room)
 ----------------------------------------------------------------------------------
 
 v0.9.3
-- fixed a bug that crashed the game when equipping a gas mask, hazmat suit or
-ballistic vest
-- fixed a bug that crashed the game when teleporting to a room that doesn't exist
-- removed the buggy 2D button overlay on keypads
-- the sound that is played when using a keycard or a keypad doesn't interrupt
-other sounds anymore
-- removed the keypad in "room2servers" that sometimes clipped through other rooms
+- 修复了穿上防毒面具/防护服/防弹背心导致游戏崩溃的bug
+- 修复了传送到不存在的房间导致崩溃的bug
+- 修复了密码盘上一堆bug的2D按钮覆盖
+- 使用钥匙卡或者密码盘的声音不再会中断其他声音了
+- 删除了"room2servers"中的密码盘，该密码盘有时会夹在其他房间里面
 
 ----------------------------------------------------------------------------------
 
 v0.9.2
-- once again, an attempt to fix the SCP-173 spawn bugs
-- anti-aliased text and new fonts in the GUI
-- new radio transceiver and navigator models
-- the camera now zooms to the keypad you're using, instead of the floating image
-of a keypad
-- high-res button/keypad texture
-- heavily nerfed the "STOP HIDING -feature"
-- some new ambient sounds
-- "The Dread" is now properly looped
-- reverted SCP-106 back to its pre-0.7.2 look
-- fixed the bug where SCP-173 tries to open a keypad door and the sound of the door
-opening is played repeatedly
-- moved the containment room of SCP-1025 and SCP-714 to the light containment zone
-and changed the layout of the room a bit
-- fixed a bug that displayed a bug that displayed the "you take off the gas mask/
-hazmat suit/ballistic vest" when dropping the item even if it wasn't equipped
-- you won't stay in a crouch after loading a game anymore (unless you saved while
-crouching of course)
+- 再一次尝试修复SCP-173的刷新bug
+- 抗锯齿文本和全新字体
+- 新的对讲机和导航仪模型
+- 现在镜头会在输入密码时缩放到密码盘上，而不是在镜头上贴密码盘的图像
+- 高分辨率版的按钮和钥匙盘贴图
+- 严重削弱了“别再躲了”功能
+- 一些新的环境音
+- "The Dread"现在正常循环播放了
+- 将SCP-106的外观变回0.7.2开发时的样子
+- 修复了SCP-173试图开密码门并反复播放开门声的bug
+- 将SCP-1025和SCP-714的收容室移到了轻收容，同时稍微修改了房间布局
+- 修复了即使没有穿上防毒面具/防护服/防弹背心，在丢掉时也会显示脱下的bug
+- 你不会在加载游戏后一直蹲着了（当然蹲着保存除外）
 
-- changes bu juanjpro:
-    - Added the custom RoomMesh format for faster loading times and more efficient memory usage
-    - Some fixes to the "room106" event: containing SCP-106 should be easier
-    - No more falling-through-floor, attempt #3
-    - Fixed door that leads to the void in "room2servers" (SCP-096's server room)
-    - Placed "testroom" keypad door correctly
-    - MTFs at Gate A will get the player if they contained SCP-106
-    - Optimized event sounds
+- juanjpro制作的更改：
+    - 添加了自制的RoomMesh格式，以加快加载时间并提高内存使用效率
+    - 对"room106"事件的修复：收容SCP-106应该更容易了
+    - 不再会有从地板掉落的bug了，第 #3 次尝试
+    - 修复了"room2servers"（SCP-096服务器室）里通向虚空的门
+    - 将"testroom"的密码盘放在了正确的地方
+    - 如果SCP-106被收容，A门的MTF将会抓住玩家
+    - 优化了事件音效
 
 ----------------------------------------------------------------------------------
 
@@ -858,9 +851,8 @@ v0.9.1
 - 在SCP-914转换防毒面具又管用了
 - 现在防护服可以阻止净化气体影响玩家
 - 修复了通往地图外的检查点房间
-- SCP-079 now broadcasts the actual feed from SCP-895's chamber, not just
-the hallucinations
-- SCP-500 loading screen and a more canon SCP-500-01 model
+- 现在SCP-079会广播SCP-895收容室的实际信息，而不只是广播幻觉
+- SCP-500加载界面和更加标准的SCP-500-01模型
 - MTF加载界面
 - SCP-035的房间不再会导致地图制作器崩溃了
 
