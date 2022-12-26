@@ -667,59 +667,48 @@ crashes caused by it on some computers
 ----------------------------------------------------------------------------------
 
 v1.0.6
-- Gamma slider in the options (unfortunately only works in fullscreen mode)
-- The props in the rooms (lamps, chairs, etc) aren't included in the actual room model 
-anymore, but instead share the same model. This reduces memory consumption and the 
-file size of the room models. The changes aren't implemented in all of the rooms yet,
-so the effect isn't very significant yet
+- 设置中的伽马滑块（不幸的是只在全屏模式有用）
+- 各房间中的物品（例如灯和椅子）现在共享同一模型，不再包含在房间的模型中。
+  这减少了房间模型的内存占用和文件大小，这些更改并没有在所有房间中实施，因此效果不是很明显
 
-- Improved versions of the old door sounds
-- The correct sounds are now played when opening/closing the large containment doors
-- Random sound clips (distant gunfire, screams etc) are played for a short period
-of time after the intro
+- 改进的旧门音效
+- 现在打开/关闭防爆门会播放正确的声音
+- 序章之后的短暂播放随机的音效（远处的枪声和尖叫声等）
 
-- A small new room in the pocket dimension
-- A little new 106-related event and some improvements to the event where 106 catches 
-the janitor in the endroom.
-- The game card system is much more balanced now.
-- The player walks slightly slower during the intro to match the speed of the guards
+- 新的口袋空间小房间
+- 一个与106有关的新事件，以及对死路中106抓走清洁工的事件的优化
+- 钥匙卡系统现在更加平衡了
+- 玩家在序章中的走路速度现在会慢一点，以配合保安的走路速度
 
 ----------------------------------------------------------------------------------
 
 v1.0.5
-- lots of improved sound effects by Class401
-- bugfixes/changes by risingstar64:
-    - the wall details in the forest are now hidden when the player isn't in 
-    the forest, meaning that the door and the door frame no longer block the
-    view of the drawportal when the door is open
-    - DNA scanner no longer crashes if no item is selected
-    - testroom shouldn't crash anymore after SCP-079 turns on the gas
-    - inputting "DEATH" to SCP-294 no longer crashes the game
-    - DeathTimer and BlurTimer are included in save files, fixes incorrect
-    interaction between 294 liquids and reloading
-    - locked the one unlocked door in the intro scene (the door that leads 
-    from the the concrete tunnel to the large hall)
-    - added a vsync option to the options ini file
-- bugfixes by juanjpro:
-    - elevator to SCP-939 no longer crashes when bump mapping is enabled
-    - guards and MTFs no longer disappear when not in the players direct line of sight
-    - custom maps should now work again without crashing during the intro sequence
-    - checkpoint rooms should no longer be spawned in incorrect location
+- Class401制作的一堆音效改进
+- risingstar64制作的bug修复和更改：
+    - 当玩家不在森林中时，森林的墙细节将被隐藏，这意味着打开门时，门和门框不再阻挡入口的视线
+    - 没有物品时与DNA扫描仪互动不再会导致游戏崩溃
+    - testroom应该不会在SCP-079打开毒气后导致游戏崩溃了
+    - 在SCP-294输入"DEATH"不再导致游戏崩溃了
+    - DeathTimer和BlurTimer现在保存在存档中，因此修复了294与液体之间的错误交互和重载
+    - 在序章中锁上了一个未上锁的门（从混凝土隧道通往大厅的门）
+    - 往设置ini添加了垂直同步设置
+- juanjpro制作的bug修复：
+    - 前往SCP-939的电梯不再在凹凸贴图启用时导致游戏崩溃
+    - 保安和MTF不会在玩家视野之外时消失了
+    - 自定地图应该能正常工作了，不再导致序章时崩溃
+    - 检查点房间应该不再在错误的位置生成了
 
 ----------------------------------------------------------------------------------
 
 v1.0.4
-- the severed hand no longer crashes the game when placed in SCP-914, and there's
-a new item that can be obtained by doing so
-- a small easter-eggish SCP addition
-- bugfixes by risingstar64:
-    - quicksaving is disabled in keter mode
-    - wireframe can now be properly toggled between on and off when entered
-    in the console, and will reset its value when the game is reloaded
-    - SCP-294 no longer crashes the game when attempting to enter nothing
-    - SCP-970 no longer teleports the player to the incorrect location when 
-    the player closes the door behind him before moving forwards in the room
-    - framelimiting can now be disabled by setting framelimit to 0
+- 断手被放在SCP-914里转换不再会导致游戏崩溃，并且可以得到一个新的物品
+- 添加了一个小的彩蛋SCP
+- risingstar64制作的bug修复：
+    - 禁用keter模式下的快速保存
+    - 渲染线框现在可以在控制台里正常切换，并在游戏重新加载时重置其值
+    - 在SCP-294输入任何内容不再会导致游戏崩溃
+    - 当玩家前进时关闭身后的门时，SCP-970不再会将玩家传送到错误的位置
+    - 现在帧数限制可以设置成0来禁用
 
 ----------------------------------------------------------------------------------
 
@@ -729,42 +718,37 @@ v1.0.3
 ----------------------------------------------------------------------------------
 
 v1.0.2
-- fixed the bug that prevented SCP-049 from killing you if you were caught by it
-after turning one of the levers in the containment room
-- fixed the non-functional monitor in SCP-106's chamber
-- fixed a bug that sometimes caused the doors to the exits to stay locked
-- the door leading to SCP-860 can't be walked through anymore
-- bump mapping works again
-- fixed a bug that caused the apaches at Gate B to hit the player even if
-they're not aiming at him
-- split up the conversation of the guards in the intro so that the voice clips 
-originate from the guard who's talking (instead of all of the originating from
-the first guard)
-- the map generation algorithm is less likely to generate maps with any 
-important rooms (such as the electrical center) missing
-- the second sound clip in the "suicide guard" event is now played correctly
-- improved walking animations for the guards
-- tweaked SCP-106's pathfinding a little
-- a tiny addition to SCP-970
+- 修复了在SCP-049收容室拉拉杆之后，SCP-049无法杀死你的bug
+- 修复了SCP-106收容室中有问题的显示器
+- 修复了有时导致出口大门保持锁定的bug
+- 通往SCP-860的门再也不能走了
+- 凹凸贴图又能用了
+- 修复了B门的阿帕奇即使没有瞄准玩家也能打中玩家的bug
+- 将序章中保安的对话分割开，使片段播放源为正在讲话的警卫（而不是都源自第一个警卫）
+- 地图生成算法现在不太可能不生成重要的房间了（例如电气中心）
+- “自杀保安”事件的第二段声音可能正常播放了
+- 改进了保安的走路动画
+- 略微调整了SCP-106的寻路系统
+- 对SCP-970的小补充
 
-- the map creator now shows all the placeable rooms
-- fixed the game-crashing example map included with the map creator
+- 地图制作器现在会显示所有可放置的房间
+- 修复了地图制作器中会让游戏崩溃的示例地图
 
 ----------------------------------------------------------------------------------
 
 v1.0.1
-- changes by juanjpro:
-    - optimized room rendering (including the forest and the maintenance tunnels)
-    - included a dll that should help with performance issues on Windows 8
-    - fixed the bug where the cell doors disappear in the intro
-    - fixed maintenance tunnel elevators
-- the door to the forest shouldn't cause Memory Access Violations anymore
-- fixed duplicate SCP-066 bug
-- fixed the bugs in SCP-970's "looping effect"
-- fixed the broken radios and navigators
-- severed hands now spawn properly
-- the DNA Scanners can't be opened using any item anymore
-- fixed then clipping doors that appeared in some of the corner rooms
+- juanjpro制作的更改：
+    - 优化了房间渲染（包括森林和维修通道）
+    - 添加了一个dll，应该有助于解决Windows 8上的性能问题
+    - 修复了序章中牢房门消失的bug
+    - 修复了维修通道的电梯
+- 通往森林的门应该不会导致内存访问冲突了
+- 修复了重复的SCP-066的bug
+- 修复了SCP-970“循环效应”中的bug
+- 修复了对讲机和导航仪
+- 断手现在可以正常生成了
+- DNA扫描仪不能再用物品解锁了
+- 修复了在某些转角房间莫名出现的门
 
 ----------------------------------------------------------------------------------
 
@@ -773,41 +757,40 @@ v1.0
 - 一些新房间
 
 - 新的MTF和保安的模型
-- major changes to the AI of the MTF (including a lot of bugfixes and optimization)
+- 对九尾狐AI的大改（包括一堆的bug修复和优化）
 
-- some additions to the intro and the moments after the breach
-- the guard in the intro no longer gets stuck in doorways
+- 对序章和收容失效后的瞬间的一些补充
+- 序章的保安不会再卡在门口了
 
-- more accurate method for checking whether the player is looking at SCP-096's face
-- fixed some bugs in 096's animations
+- 更加精准的检测玩家是否在看SCP-096的脸的函数
+- 修复了一些096动画的bug
 
-- improved SCP-049's mask and new SCP-049-2 models
-- SCP-049's room can't be just past through without encountering 049 anymore
-- SCP-049 can us the [REDACTED]
+- 改进的SCP-049面罩和新的SCP-049-2模型
+- SCP-049收容室不能再在没遇到049的情况下离开了
+- SCP-049现在可以[已编辑]
 
-- reaching Gate A is now slightly harder
+- 现在到达A门变得略微难了一点
 
-- some doors are equipped with a DNA Scanner
+- 一些门现在用DNA门禁了
 
-- new music tracks for the heavy containment zone and entrance zone
-- lots of new/improved sound effects
-- some new ambient sounds
-- a brief music clip is played when going through the checkpoints
-- new footstep sounds when walking on metal surfaces
-- the ambient sounds coming from vents and other sound sources can be heard from
-nearby rooms (i.e. the sound won't abruptly stop when stepping to the next room)
+- 新的重收容区和办公区的音乐
+- 一堆新的/改进的音效
+- 一些新的环境音
+- 穿过检查点时播放简短的音乐
+- 走在金属表面上的新脚步声
+- 来自通风口或其他声源的环境音可以在附近的房间听到（即当进入其他房间时，声音不会突然停止）
 
-- optimized rendering, NPC AI and events (higher framerate and less twitching)
-- optimized lightmaps (PNGs instead of BMPs)
-- fixed a ton of asset loading bugs (thanks to MonocleBios's wrapper functions)
-- no more memory access violations when opening a computer screen
-- fixed the gatea.rmesh loading bug
-- fixed the double equip sound when equipping a gas mask, a vest or a hazmat suit
-- less copyright-infringing SCP-895 images
+- 优化渲染、NPC的AI和事件（更高的FPS和更少的FPS抖动）
+- 优化了光照贴图（用PNG替代BMP）
+- 修复了大量资产加载时错误（得益于MonocleBios的包装函数）
+- 打开可互动显示器不再导致内存访问冲突了
+- 修复了gatea.rmesh的加载bug
+- 修复了装备防毒面具/防弹背心/防护服时播放两次音效的bug
+- 删除了侵犯版权的SCP-895图像
 
-- randomized maintenance tunnels (by juanjpro)
+- juanjpro制作的随机维修通道
 
-- it's now slightly easier to escape the pocket dimension
+- 现在逃离口袋空间更加容易了
 
 ----------------------------------------------------------------------------------
 
@@ -878,10 +861,10 @@ v0.9
 - 掉落的物品不会再互相卡住了
 - 更多由juanjpro制作的bug修复：
     - 修复了与以下事件有关的崩溃bug：
-            - room2servers
-            - room106
-            - room2closets
-            - room2elevator
+        - room2servers
+        - room106
+        - room2closets
+        - room2elevator
     - 游戏不会在调试模式时加载到45%就冻结了
     - 稳定的启动器（现在使用启动器导致MAV的概率应该变低了）
     - 加载游戏不会导致拉杆复位了

@@ -17,14 +17,14 @@ ZiYueCommentary("子悦解说")
 
 *翻译工作
 
-虚茼
 amigo
 德意志战车
-________________________
-ZiYueCommentary("子悦解说")
 Four_P("four")
 南柯
+虚茼
 一只孤独的屑d级
+ZiYueCommentary("子悦解说")
+________________________
 
 
 *测试及宣传
