@@ -1,6 +1,6 @@
 2023/1/1 Fourth Revise第四版
 兼容二期任意版本、任意发布版本和原版1.3.11的存档
-- 更新了部分贴图的汉化（doctors.jpg、launcher.jpg、updater.jpg、back.jpg、scptext.jpg、docIR106.jpg）
+- 更新了部分贴图的汉化（doctors.jpg、launcher.jpg、updater.jpg、back.jpg、scptext.jpg、docIR106.jpg、docNDP.jpg）
 - 汉化了部分贴图（body1.jpg、classd1.jpg、classd2.jpg、classd3.jpg、janitor.jpg、gonzales.jpg、corpse.jpg）
 - 优化了部分字体
 - 将部分伪后缀贴图改为正常后缀
@@ -11,6 +11,7 @@
 - 删除了启动器的Bug反馈按钮
 - 补充了地图制作器的汉化
 - 稍微修改了制作人员名单
+- 修改了部分加载界面的内容
 修复bug：
     - 修复了报错乱码问题
     - 修复自订中文地图名无法显示的bug
