@@ -565,104 +565,94 @@ v1.2
 ----------------------------------------------------------------------------------
 
 v1.1.5
-Bugfixes by juanjpro:
-- Fixed SCP-860-1 and maintenance tunnels not saving
-- Changed elevator messages so players will know they don't have to spam the button
-- Sprinting exhaustion noises don't play if the sprint key is not pressed
-- Fixed 106 killing you instantly in the PD
-- SCP-106's room won't disappear while you're in it anymore
-- Fixed a bug with GetMeshExtents (comparison between X and Y instead of Y and Y)
-- 173 can't fly anymore
-- Room collisions are double-sided now, so NPCs can't go through the invisible sides of walls
-- Fixed 1074's texture not changing when you wear 714
-- Fixed the player being permanently stuck after the 1074 event
-- Fixed room2nuke elevator teleporting you to the void
-- Fixed scientist using the classd texture after the intro sequence
-- Made Izumi Junko's notes smaller
-- Fixed the camera spinning out of control when you unpause the game
-- Fixed the camera spinning when looking at a monitor
-- INI files are loaded only once and kept in memory
-- 079 sounds no longer play during the intro sequence
-- The game can load up to ten tempsounds instead of just one
-- Fixed crashes related to security cameras
+juanjpro制作的bug修复：
+- 修复SCP-860-1和维修通道地图不被保存的bug
+- 更新了电梯的信息以提示玩家不需要把电梯按钮按烂
+- 如果未按下奔跑键，则不播放体力耗尽噪音
+- 修复了106在口袋空间立即杀死你的bug
+- SCP-106的房间不会在你进去的时候消失
+- 修复了GetMeshExtents的bug（比较X和Y而不是Y和Y）
+- 173不能再飞了
+- 房间碰撞现在是双向的，现在NPC不能再穿过墙壁的无碰撞面
+- 修复了佩戴714时1074的图片不变的bug
+- 修复了玩家在1074事件之后被永久卡住的bug
+- 修复room2nuke的电梯会传送你至虚空的bug
+- 修复了科学家在序章后使用D级人员贴图的bug
+- 缩小了Izumi Junko的日志
+- 修复了取消暂停时相机失控的bug
+- 修复了看显示器时镜头旋转的bug
+- INI文件现在只加载一次，并会保存在内存中
+- 079的声音不会再在序章中播放
+- 游戏现在可以加载十个临时声音，而不是只有一个
+- 修复了与监控摄像头有关的崩溃问题
 
 ----------------------------------------------------------------------------------
 
 v1.1.4
-- play doesn't get stuck in the hole in the new pocket dimension room
-- old death messages don't appear in the menu anymore
-- SCP-178's effect doesn't remain after death
-- exiting the forest now works properly, you won't end up at the same side of the
-door that you entered the forest from
+- 玩家不会再被卡在口袋空间的新房间的洞里
+- 旧的死亡消息不会再出现在菜单中
+- SCP-178的效果不会再在死亡后存在
+- 现在可以正常离开森林了，你现在无法通过进入的门离开
 
 ----------------------------------------------------------------------------------
 
 v1.1.3
-- vision doesn't turn black when equipping 178 or a gas mask 
+- 戴上178或防毒面具不再导致视线变黑
 
 ----------------------------------------------------------------------------------
 
 v1.1.2
-- removed a wall blocking the way to SCP-035's chamber
-- fixed some bugs in 035's animation
-- fixed a bug that caused doorways leading into nothing to be generated in the 
-Entrance zone
-- the longer view distance when wearing night vision goggles no longer stays
-after dropping the goggles or equipping SCP-178 or a gas mask while wearing the NVG
-- fixed a bug in 1074's room that prevented the event from ending properly
-- failing to load a sound effect adds an error message in the debug console 
-instead of crashing the game immediately
+- 拆除了通往SCP-035收容室的墙
+- 修复了一些035动画的bug
+- 修复了办公区检查点通往虚空的bug
+- 戴着夜视仪时丢掉夜视仪或装备SCP-178将不再让戴着夜视仪时的较长视野停留
+- 修复了SCP-1074房间导致事件无法正常结束的bug
+- 无法加载声音现在只会在调试控制台显示错误信息，而不是直接让游戏崩溃
 
 ----------------------------------------------------------------------------------
 
 v1.1.1
-- fixed a bug in security cameras which caused a ton of MAVs
-- failing to load a sound now only displays an error message in the console 
-instead of crashing the game
-- the guard at the balcony in the intro now shoots you if you don't go into the
-containment chamber
-- removed a wall blocking the way to SCP-035's containment chamber and fixed
-some bugs in 035's animation
-- fixed a bug that caused the longer view distance to stay after dropping
-the night vision goggles or equipping a gas mask or SCP-178 while wearing the NVG
-- fixed a bug in the SCP-1074 room that prevented the event from ending properly
-- fixed some texture bugs in SCP-106's containment chamber and room2sroom
+- 修复了监控摄像头中导致大量MAV的bug
+- 无法加载声音现在只会在控制台显示错误信息，而不是直接让游戏崩溃
+- 现在序章的保安Balcony会在你不进入收容室时朝你开枪
+- 拆除了通往SCP-035收容室的墙，修复了035动画的一些错误
+- 修复了戴着夜视仪时丢掉夜视仪或装备防毒面具/SCP-178导致视距变大的bug
+- 修复了SCP-1074房间导致事件无法正常结束的bug
+- 修复了SCP-106收容室和room2sroom中的一些纹理错误
 
 ----------------------------------------------------------------------------------
 
 v1.1
-- Some additions from the Box of Horrors mod 
-(http://undertowgames.com/forum/viewtopic.php?f=11&t=3404):
-    - SCP-178, SCP-1074, SCP-1123
-    - New rooms
-    - Night Vision Goggles
-    - Clipboard for storing documents
-    - Achievement menu
-- New difficulty system:
-    - Safe: basically the same as the old Euclid-mode
-    - Euclid: you can only save at computer- and security monitors
-    - Keter: permadeath and more aggressive SCPs (higher spawnrates and some
-    of them chase the player more actively instead of wandering around randomly)
-    - Custom: self explanatory
-- A new room in the pocket dimension (replaces the room with the floating clouds of smoke)
-- Some changes to the maintenance tunnel
-- The SCPs that can "teleport" from waypoint to another (such as 173) can no longer
-teleport to waypoints next to the player, so 173 shouldn't pop up from nowhere anymore
+- 一些来自Box of Horrors模组的新东西
+(http://undertowgames.com/forum/viewtopic.php?f=11&t=3404)：
+    - SCP-178、SCP-1074和SCP-1123
+    - 新房间
+    - 夜视仪
+    - 用于储存文件的文件夹
+    - 成就菜单
+- 新的难度系统：
+    - Safe：基本上就是以前的Euclid模式
+    - Euclid：你只能在可移动显示器处保存
+    - Keter：永久死亡及更危险的SCP（更高的刷新概率，其中一些SCP会更加积极地追赶玩家，而不
+      是游荡）
+    - 自定义：无须更多解释
+- 一个口袋空间的新房间（用漂浮的烟雾代替房间）
+- 一些维修通道的修改
+- 能“传送”到其他路径点的SCP（例如173）现在不会再传送到玩家附近的路径点了，因此173应该不会
+  突然出现在玩家面前
 
-- Stairs are easier to climb up now
-- Some optimization to the way NPCs are animated; FPS doesn't drop as drastically when
-the MTF spawn anymore (although it still does drop quite a bit due to the jumble of 
-spaghetti that is supposed to be their AI)
-- Minor bugfixes in the MTF AI
-- Room-specific ambient sounds are re-enabled
-- More optimization to the room models: 
-    - the "shared prop model" system added in 1.0.6 is now implemented in all rooms
-    - now only room models that are used in the generated map are loaded
-- Fixed a bug in SCP-970 which made it possible to duplicate items
-- Removed the "drawportal" from the door leading to SCP-860 to get rid of the 
-crashes caused by it on some computers
-- SCP-939's attack animation doesn't "glitch" anymore when running away from it
-- Gamma slider works the way it should now (not just increasing brightness)
+- 楼梯现在更好爬了
+- 对NPC的动画进行了优化；FPS不会在MTF再次刷新时大幅下降了（即使因为面条代码的混乱导致
+  FPS仍然下降很多）
+- 对MTF的AI的小bug修复
+- 房间特定环境音效现在重新启用
+- 新的房间模型优化：
+    - 1.0.6添加的“共享物品模型”系统现在应用到所有房间了
+    - 现在游戏只加载生成的地图中使用到的房间模型
+- 修复了SCP-970能复制物品的bug
+- 移除了通往SCP-860的门的“drawportal”，以避免其在某些电脑上的崩溃
+- SCP-939的攻击动画不再在玩家逃跑时出现“bug”
+- 伽马滑块现在应该能正常工作了（而不仅仅是增加亮度）
 
 ----------------------------------------------------------------------------------
 
