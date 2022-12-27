@@ -526,41 +526,40 @@ This update was mostly created by Third Subdivision Team
 ----------------------------------------------------------------------------------
 
 v1.2.4
-- fixed guard getting stuck in the doorway in the intro
+- 修复序章保安被卡在走廊的bug
 
 ----------------------------------------------------------------------------------
 
 v1.2.3
-- improved MTF AI by juanjpro
-- fixed a game-crashing bug when entering 079's or 895's chamber
-- 895's camera feed isn't shown in the SCP-205 "shadow scene"
+- juanjpro制作的MTF的AI优化
+- 修复了进入079收容室和895收容室导致游戏崩溃的bug
+- 895的监控录像不会再在SCP-205的投影上显示了
 
 ----------------------------------------------------------------------------------
 
 v1.2.2
-- removed the wall blocking the way to room1archive
-- fixed a texture error in room2_3
-- fixed 205's room (turns out there was an error in the code in addition to the
-config file)
+- 移除了阻挡前往room1archive的路的墙壁
+- 修复了room2_3的贴图错误
+- 修复了205房间（除了配置文件外代码中也有错误）
 
 ----------------------------------------------------------------------------------
 
 v1.2.1
-- fixed a misplaced door in 1123's chamber
-- fixed 205's room (it was configured as a two-way room instead of a one-way room)
+- 修复了1123收容室的门的错位
+- 修复了205房间（设置为双向房间而不是单向房间）
 
 ----------------------------------------------------------------------------------
 
 v1.2
-- SCP-205, SCP-966, SCP-1048-A
-- replaced SCP-096 in the maintenance tunnel with something else
-- new SCP-1048 events
-- couple of new rooms
-- some new MTF sounds
+- SCP-205、SCP-966、SCP-1048-A
+- 用其他东西替代了维修通道中的SCP-096
+- 新的SCP-1048事件
+- 一些新房间
+- 一些新MTF音效
 
-- MTF AI bugfixes
-- GetMeshExtents bugfix
-- fixed a bug that prevented SCP-513 from being picked up
+- MTF的AI的bug修复
+- GetMeshExtents的bug修复
+- 修复SCP-513无法被捡起的bug
 
 ----------------------------------------------------------------------------------
 
