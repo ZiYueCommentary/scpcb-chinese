@@ -1450,6 +1450,7 @@ Function UpdateConsole()
 End Function
 
 ConsoleR = 0 : ConsoleG = 255 : ConsoleB = 255
+CreateConsoleMsg("")
 CreateConsoleMsg("控制台命令: ")
 CreateConsoleMsg("  - teleport [房间ID]")
 CreateConsoleMsg("  - godmode [on/off]")
