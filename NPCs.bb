@@ -6779,7 +6779,7 @@ Function ManipulateNPCBones()
 			If bonename$<>""
 				pvt% = CreatePivot()
 				bone% = FindChild(n\obj,bonename$)
-				If bone% = 0 Then RuntimeError "ERROR: NPC bone "+Chr(34)+bonename$+Chr(34)+" does not exist."
+				If bone% = 0 Then RuntimeError "错误：NPC骨骼“"+bonename$+"”未找到"
 				PositionEntity pvt%,EntityX(bone%,True),EntityY(bone%,True),EntityZ(bone%,True)
 				Select n\ManipulationType
 					Case 0 ;<--- looking at player
