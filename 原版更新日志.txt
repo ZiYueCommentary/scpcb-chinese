@@ -154,24 +154,24 @@ Bug fixes:
 
 v1.3.9
 
-- Revamped Map Creator.
-- Added credits after the endings.
-- Added new step sounds for SCP-939 and SCP-966.
-- The scientist possessed by SCP-035 can now be encountered after he's released from SCP-035's containment chamber.
-- MTF Units now inform command that they want to scan the cameras.
-- New radio voice lines for the Mobile Task Force units.
-- The player can now run slightly longer than before (10%).
-- Stamina will increase faster if the player is not walking and slower if the player walks.
-- Made SCP-106 slightly harder to escape when chasing the player.
-- Moved the buttons for the doors in SCP-012's chamber, and in the Entrance Zone's server room.
-- Revamped dead Class D texture.
-- Some objects in certain areas will not render anymore if the player is outside of view distance.
-- Removed the ability to use "<" and ">" characters in the save name as this caused a crash when trying to save the game.
-- Minor improvements in the Server Room (room2servers) event.
-- Improvements in SCP-1123 event:
-    - Optimized Nazi officer model.
-    - The officer now has a reload animation.
-- Optimized SCP-513-1's and SCP-096's models.
+- 重做了地图制作器
+- 在结局之后添加了制作人员名单
+- 为SCP-939和SCP-966添加了新的脚步声
+- SCP-035寄生的科学家现在可以在将其从收容室释放后遇到
+- MTF现在会通知扫描摄像头命令
+- 新的机动特遣队的对讲机对话
+- 玩家的奔跑时间比以前稍微长了一点（10%）
+- 玩家不动时体力会更快恢复，走路时将更慢恢复
+- 玩家将更难从SCP-106的追捕中逃脱
+- 移动了SCP-012收容室和办公区的服务器室的按钮
+- 重新制作了死亡的D级人员的纹理
+- 如果玩家在视距之外，某些区域的某些对象将不再渲染
+- 移除了在存档名内使用“<”和“>”字符的能力，因为这些字符会在保存游戏时导致游戏崩溃
+- 对服务器室（room2servers）事件进行了略微优化
+- 对SCP-1123事件的改进：
+    - 优化了纳粹军官的模型
+    - 纳粹军官现在拥有换弹动画
+- 优化了SCP-513-1和SCP-096的建模
 
 Bug fixes:
 - The SCP-106 victim doesn't float on top of the ceiling anymore.
@@ -200,328 +200,326 @@ Bug fixes:
 
 v1.3.8
 
-- The barrel in SCP-008's containment chamber now displays an arrow to indicate that the canister needs to be pulled down.
-- The player now gets infected by SCP-008 if they get close to SCP-008's canister while bleeding and not wearing the hazmat suit.
-- Swapped the SCP-914 outcomes for the Night Vision Goggles on "Fine" and "Very Fine".
-- MTF Units now kill the SCP-008 zombie if they encounter it.
-- Revamped the guard animations (by Apocryphos).
-- Added custom resolution selection for the map creator.
-- You can't use some items anymore when you wear certain items (for example, you can't drink anything if you wear a gas mask).
-- The startup video will now be played using a library called BlitzMovie rather than DirectMovie.
-- You can now save at the Gate-B entrance.
-- Removed unused animation from SCP-966's model.
-- Optimized SCP-966's animation key frames.
-- Tweaked SCP-914 key card refinery system again.
-   - Upgrading a level 1 card in SCP-914 has a 100/80/75% chance of giving a level 2 card (instead of 100/66.7/33.3%);
-   - Upgrading a level 2 card in SCP-914 has a 100/75/66.7% chance of giving a level 3 card (instead of 83.3/33.3/20%);
-   - Upgrading a level 3 card in SCP-914 has a 10/6.7/5% chance of giving a level 4 card (instead of 5/2.5/1.7%);
-   - Upgrading a level 4 card in SCP-914 has a 100/75/66.7% chance of giving a level 5 card (instead of 66.7/33.3/25%);
-   - Upgrading a level 5 card in SCP-914 to an Omni key card depends on the amount of achievements the player has.
-- Added a Third Subvision Studio startup video.
+- 向SCP-008收容室的罐子添加了箭头，以提示玩家需要将盖子盖上
+- 如果玩家在流血且未穿防护服时靠近SCP-008的罐子，玩家将会感染SCP-008
+- 调换了夜视仪在SCP-914进行“精加工”和“超精加工”的结果
+- MTF将在遇到SCP-008-1时击毙它
+- 修改了保安的动画（由Apocryphos制作）
+- 向地图制作器添加了分辨率选择器
+- 当戴着某些物品时，玩家将无法使用某些物品（例如，玩家戴着防毒面具时不能喝任何东西）
+- 现在启动视频将使用BlitzMovie库播放，而不是DirectMovie
+- 玩家现在可以在B门入口保存了
+- 移除了SCP-966的未使用动画
+- 优化了SCP-966动画的关键帧
+- 再次调整了SCP-914的钥匙卡转换系统
+   - 现在升级一级钥匙卡有100/80/75%的概率获得二级钥匙卡（而不是100/66.7/33.3%）
+   - 现在升级二级钥匙卡有100/75/66.7%的概率获得三级钥匙卡（而不是83.3/33.3/20%）
+   - 现在升级三级钥匙卡有10/6.7/5%的概率获得四级钥匙卡（而不是5/2.5/1.7%）
+   - 现在升级四级钥匙卡有100/75/66.7%的概率获得五级钥匙卡（而不是66.7/33.3/25%）
+   - 现在升级五级钥匙卡到万能钥匙卡的概率取决于玩家解锁的成就数
+- 添加了Third Subvision Studio启动视频
 
-Bug fixes:
-- Fixed a crash that occured while quick-loading a save file.
-- The SCP-008 cutscene no longer triggers if the player turns into a SCP-049-2 instance.
-- The SCP-008 infected cutscene no longer triggers if the player is in SCP-860-1 or the pocket dimension.
-- Fixed a bug that prevented the player from picking up more items after the inventory had previously been full.
-- Fixed a bug that caused SCP-173 to break the glass in SCP-008's chamber when it is not inside the room.
-- Fixed the severed hand remaining selected after using it on a DNA scanner.
-- Fixed the CCTV monitor in SCP-106's containment chamber not rendering at all.
-- Fixed a bug that caused multiple decals to spawn during the suicide guard event in the restrooms.
-- Fixed the slider for the map creator, so that all rooms will be displayed.
-- The player can't save when dead.
-- Closing the loading screen by left clicking doesn't open/close nearby doors anymore.
-- SCP-173's collision radius has been decreased.
-- Fixed a crash that occured when opening the inventory.
-- The fog doesn't turn white anymore if the player enters the pocket dimension by leaving SCP-1499.
-- Fixed items, npcs and the player falling through the floor if the room is not rendered.
-- Fixed item dropspeed increasing each time an item has been picked up.
-- Another attempt to fix room overlapping issues.
-- Fixed Ulgrin's path during the breach event.
-- Fixed the levers in the electrical center: Now they can't be flipped into the control panel anymore.
+Bug修复：
+- 修复了快速加载存档导致崩溃的bug
+- SCP-008过场动画将不再在玩家变成SCP-049-2实例后触发
+- SCP-008过场动画将不再玩家在SCP-860-1或口袋空间时触发
+- 修复了当玩家物品栏未满时阻止捡起物品的bug
+- 修复了SCP-173不在SCP-008收容室时仍能打碎玻璃的bug
+- 修复了在DNA扫描仪上使用断手后，断手依旧被选中的bug
+- 修复了SCP-106收容室内的显示器不被渲染的bug
+- 修复了卫生间“自杀保安”事件导致多个贴花生成的bug
+- 修复了地图制作器的滑块以便显示所有房间
+- 玩家无法在死亡时保存了
+- 左键单击关闭加载界面不再会导致附近的门被打开/关闭
+- 减小了SCP-173的碰撞半径
+- 修复了打开物品栏导致崩溃的bug
+- 迷雾不再在玩家离开SCP-1499维度，进入口袋空间之后变白
+- 修复了房间未渲染时，物品、NPC和玩家从地板上掉落的bug
+- 修复了捡起物品导致物品掉落速度增加的bug
+- 再一次尝试修复房间重叠的问题
+- 修复了收容失效事件中的Ulgrin路径问题
+- 修复了电气中心的拉杆：现在它们不能再被翻到面板里了
 
 ----------------------------------------------------------------------------------
 
 v1.3.7
 
-- New animations for the SCP-008-1 infected human.
-- Changed the room where the player appears when leaving the pocket dimension.
-- Revamped SCP-066's texture.
-- Added [REDACTED] event to SCP-860-1.
-- Restricted the ability to use ":", "/", "\" and "." characters in a save file name to prevent file system issues.
-- Added an Undertow Games startup video.
-- Changed the range of the framelimiter to 20-120 FPS.
-- Revamped the SCP-914 key card refinery system.
-- SCP-079's speech and the sounds for SCP-096 now get streamed using the FMOD library.
-- Decreased Fog value from 8 to 6.
-- Increased SCP-106's speed from 1.0 to 1.2.
+- 新的SCP-008-1动画
+- 更换了玩家离开口袋空间时的房间
+- 修改了SCP-066的纹理
+- 向SCP-860-1添加了[已编辑]事件
+- 禁止在存档名中使用“:”、“/”、“\”和“.”字符，以防止文件系统出现问题
+- 添加了Undertow Games启动视频
+- 将帧数限制的范围改为20-120FPS
+- 改进了SCP-914的钥匙卡转换系统
+- SCP-079的音频和SCP-096的声音现在使用FMOD库进行流播放
+- 将迷雾值从8降为6
+- 将SCP-106的移动速度从1.0增为1.2
 
-Bug Fixes:
-- Fixed a bug that caused the camera fog value to remain increased after reloading a save file with the night vision goggles equipped.
-- Fixed transparency effect of the brushes on SCP-939's model.
-- Fixed SCP-714 not halting the effects of SCP-895 and SCP-1025.
-- Fixed SCP-1025 achievement's not being able to be unlocked.
-- Adjusted SCP-895's hidden "sanity meter" so that it will now deplete when not looking at the monitor feed.
-- Attempted to fix a bug that caused SCP-106 to teleport at the same location as the player at Gate A.
-- Fixed the explosion effect for SCP-294 drinks.
-- Fixed items falling through the floor in SCP-1499's dimension after exiting and re-entering the area.
-- Fixed SCP-939 instances getting frozen after leaving SCP-1499's dimension.
-- Fixed SCP-173 appearing on the walkway in the starting room after reloading a save.
-- Fixed the guard and scientist in starting room to appear once you save and load during the breach event.
-- Fixed the blur effect when exiting the pocket dimension.
-- Fixed NPCs and items not getting teleported when travelling with the elevator.
-- Fixed the glass in room2testroom2 not appearing after the game was reloaded to a point before it was broken.
-- Fixed SCP-035 disappearing from the face of the possessed scientist after reloading a save.
-- Fixed SCP-205's event breaking after reloading a save.
-- Fixed SCP-895's event throwing errors after the player dies to it.
-- Fixed issues relating to teleporting entities and items inside elevators (including the player).
-- Removed "bb_fmod.dll" which caused "user lib not found" runtime errors.
-- Fixed SCP-860-1's alert theme not triggering when the player is not looking in the direction of the forest monster.
-- Fixed game sounds still playing after quitting an in-game session.
-- Optimized surveillance room monitors.
-- Fixed the MenuBreath sound not playing when returning the menu after the ending screen.
-- Fixed a hitbox error in the Gate A area.
-- Fixed the head rotation of the MTF units when looking away from SCP-096.
-- Fixed a bug that allowed the player to travel to the SCP-1499 dimension while under the effect of SCP-008.
-- The SCP-008 cutscene won't be played if the player is in the SCP-1499 dimension.
-- Fixed the non-canon number of SCP-966 instances.
+Bug修复：
+- 修复了戴着夜视仪保存游戏导致迷雾值保持较大值不变的bug
+- 修复了SCP-939模型笔刷的透明度效果
+- 修复了SCP-714无法抵消SCP-895和SCP-1025影响的bug
+- 修复了SCP-1025成就无法解锁的bug
+- 调整了SCP-895隐藏的“理智条”，使其在玩家不看显示器时也能降低
+- 尝试修复了导致SCP-106传送到A门玩家位置处的bug
+- 修复了SCP-294饮品的爆炸效果
+- 修复了重新进入SCP-1499维度导致物品从地面掉落的bug
+- 修复了离开SCP-1499维度后导致SCP-939实例被冻结的bug
+- 修复了重新加载存档后，导致SCP-173在在开始办公室走廊出现的bug
+- 修复了在收容失效事件期间保存并加载存档，导致保安和科学家不会消失的bug
+- 修复了离开口袋空间时的模糊效果
+- 修复了在电梯内的NPC和物品无法被传送的bug
+- 修复了room2testroom2的玻璃在重新加载到破碎前的存档后，玻璃没有出现的bug
+- 修复了SCP-035在重新加载存档后从被附身的科学家脸上消失的bug
+- 修复了SCP-205事件在重新加载存档后被中断的bug
+- 修复了玩家死亡导致SCP-895事件抛出错误的bug
+- 修复了电梯传送物品及实体（包括玩家）的相关问题
+- 移除了导致运行错误“用户库未找到”的“bb_fmod.dll”
+- 修复了SCP-860-1的警告主题音在玩家不看向SCP-860-1不被触发的bug
+- 修复了退出游戏存档后仍旧播放游戏内声音的bug
+- 优化了监控室显示器
+- 修复了结束界面后返回菜单时不播放MenuBreath声音的bug
+- 修复了A门地区的碰撞箱错误
+- 修复了MTF在躲避SCP-096时错误的头部旋转
+- 修复了在SCP-008的影响下，玩家可以移动到SCP-1499维度的bug
+- 玩家处于SCP-1499维度时将不会播放SCP-008过场动画
+- 修复了数量不标准的SCP-966实例
 
 ----------------------------------------------------------------------------------
 
 v1.3.6
-Saves from version 1.3.4 and 1.3.5 are compatible with this version.
+1.3.4版和1.3.5版的存档与此版本兼容
 
-- Removed CPU statistics from the debug HUD (should fix "user lib not found" errors).
-- Attempt to fix room3storage "Object does not exist" errors.
-- Some room texture and lightmap optimization.
-- SCP-500 and SCP-1499 documents.
+- 从调试界面移除了CPU详情（应该能解决“用户库未找到”的问题）
+- 尝试修复了room3storage的“对象不存在”错误
+- 一些房间纹理和光照贴图优化
+- SCP-500文档及SCP-1499文档
 
 ----------------------------------------------------------------------------------
 
 v1.3.5
-Saves from version 1.3.4 are compatible with this version.
+1.3.4版的存档与此版本兼容
 
-- Tweaked the SCP-914 refinery system for keycards.
-- Updated the auto-updater overlay.
-- Replaced the OpenAL wrapper with FMOD library streaming.
-- Increased SCP-173's default speed slightly.
-- Added CPU details to the debug HUD.
+- 调整了SCP-914的钥匙卡转换系统
+- 更新了自动更新器的覆盖
+- 用FMOD流库替换了OpenAL包装
+- 稍微增长了SCP-173的默认速度
+- 向调试界面添加了CPU详情
 
-Bug Fixes:
-- Fixed lighting bugs with the props in the medibay and the syringe model.
-- Fixed an animation bug with the clerk NPC in room2tesla.
-- Fixed a bug that caused the event of SCP-008's chamber to break if SCP-173 is contained.
-- Fixed a bug where multiple SCP-513-1 instances could be spawned.
-- Fixed the sound playing of SCP-513 and the nostalgia items.
-- Fixed a bug that caused the secondary lighting to be turned off after exiting SCP-860-1.
-- Fixed some collision detection issues in SCP-1499's dimension.
+Bug修复：
+- 修复了医疗室内物品和针筒模型的照明问题
+- 修复room2tesla中职员NPC的动画问题
+- 修复了即使SCP-173被收容，SCP-008收容室内玻璃仍旧碎裂的bug
+- 修复了可能生成多个SCP-513-1实例的bug
+- 修复了SCP-513和怀旧物品的音频播放问题
+- 修复了离开SCP-860-1导致次要照明关闭的bug
+- 修复了SCP-1499维度中的一些碰撞检测问题
 
 ----------------------------------------------------------------------------------
 
 v1.3.4
-- Added an OpenAL wrapper created by Mirage Labs.
-- Added bump mapping and texture LOD selection.
-- Added syringes.
-- Added new SCP-294 drinks.
-- Added a vomit parameter to SCP-294.
-- New battery textures.
-- Leaving the name field blank when creating a new game now sets the game name to "untitled".
-- Any changes to the player's options from the pause menu are now saved when the "esc" key is pressed to unpause the game.
-- Class-D/Scientist textures are now pre-loaded into memory as a slight optimization.
-- Changed the theme that plays inside SCP-1499's dimension.
-- Added a theme to SCP-914's containment chamber.
-- Added "Devil Particle System" by bytecode77 for improved particle effects.
-- Added lines for the MTF Units when they encounter SCP-049.
-- Added new signs to the intro sequence.
-- Added room2C (a corner variant of the room3 room in LCZ).
+- 添加了由Mirage Labs制作的OpenAL包装
+- 添加了凹凸贴图和纹理细节层次设置
+- 添加了针筒
+- 添加了新的SCP-294饮料
+- 向SCP-294添加了呕吐参数
+- 新的电池纹理
+- 现在游戏将把未设置名称的新游戏命名为“未命名”
+- 按下“esc”键取消暂停时，游戏将保存所有在设置中的更改
+- D级人员和科学家的贴图现在预加载到内存中
+- 修改了SCP-1499维度的主题音
+- 向SCP-914收容室添加了主题音
+- 添加了bytecode77制作的“Devil Particle System”以改善粒子效果
+- 添加了MTF遇到SCP-049时的语音
+- 向序章添加了新标志
+- 添加了room2C（一个轻收容room3转角变种）
 
-Bug Fixes:
-- Fixed collision issues with the structures in SCP-1499's dimension.
-- Fixed some errors with the chunk mechanics within SCP-1499's dimension (chunks can now be spawned to infinity).
-- Tweaked SCP-860-2's spawning logic and fixed a bug that made it unable to attack the player while they are moving.
-- Fixed visual bugs relating to the disabling of secondary lights.
-- Fixed a bug that caused SCP-1048 drawings acquired via SCP-1162 to not work.
-- Fixed the framelimit value resetting itself to large values after quitting the game.
-- Fixed the eyedrops texture using the strange bottle texture.
-- Fixed the gas mask in room2closets having a reduced size.
-- Fixed the maintenance tunnels not generating based on the selected seed.
-- Repositioned a button in room2shaft that was being placed inside a wall.
-- Fixed the floating buttons in room2closets.
-- Fixed bugs relating to the "spawn" and "tele" console commands.
-- Fixed a clipping bug with the floor in SCP-1123's room.
+Bug修复：
+- 修复了SCP-1499维度中建筑的碰撞问题
+- 修复了SCP-1499维度的区块机制的一些bug（现在区块可以无限生成）
+- 调整了SCP-860-2的生成逻辑，修复了SCP-860-2移动时无法攻击玩家的bug
+- 修复了与禁用次要照明相关的视觉bug
+- 修复了无法从SCP-1162拿到SCP-1048绘画的bug
+- 修复了退出游戏后帧数限制变为最大值的bug
+- 修复了眼药水使用奇怪的瓶子的贴图的bug
+- 修复了room2closets中小防毒面具的bug
+- 修复了维修通道不基于地图种子生成的bug
+- 修复了room2shaft中放在墙里的按钮问题
+- 修复了room2closets的悬浮按钮问题
+- 修复了与“spawn”和“tele”命令有关的bug
+- 修复了SCP-1123房间的碰撞bug
 
 ----------------------------------------------------------------------------------
 
 v1.3.3
-- Moved audio settings to their own location in options.ini.
-- Two new rooms.
-- Little something for Halloween.
-- Autoupdater
-- Added the ability for the night vision goggles to somewhat supress 895's effects.
-- The propaganda leaflet now disappears from the player's inventory when the SCP-1123 event finishes.
-- The player now dies when using SCP-1123 outside of its chamber (via SCP-714).
-- Added tooltips to the options menu.
-- Added resolution quality and particle amount settings.
-- Updated item grab icon. (by Irontaco)
+- 将音频设置移动到独立的options.ini位置
+- 两个新房间
+- 一些有关万圣节的东西
+- 自动更新器
+- 添加了夜视仪略微抑制895影响的能力
+- 传单将在SCP-1123事件结束后从玩家的物品栏中消失
+- 玩家在收容室外触摸SCP-1123将导致死亡（通过SCP-714捡起）
+- 向设置菜单添加了工具提示条
+- 添加了纹理质量和粒子数量设置
+- 更新了捡起物品的图标（由Irontaco制作）
 
-Bug Fixes:
-- Fixed the Tesla gate activating when the player is above the room.
-- Fixed a bug that caused AAText to not render properly at small resolutions.
-- Finally fixed 860-1's ambience not playing inside the forest.
-- Fixed a bug that caused secondary lighting to affect Gate A and B.
-- Fixed a bug that prevented swapping between night vision goggle variants.
-- Fixed the night vision goggles not working when secondary lighting is off.
-- Fixed the "reset096" console command so it will work for not just lockroom096.
-- Fixed SCP-079's broadcasts triggering during SCP-1123's event.
-- Fixed SCP-682's roar playing in 1499, 860-1, and 1123's events.
-- Fixed SCP-106's spawn in 895's chamber
-- Fixed bugs relating to the "Ulgrin shooting the player" event in the post-breach intro.
-- Fixed SCP-895's monitor freezing when the coffin camera was disabled.
-- Fixed SCP-294's injuries, bloodloss, explosion, and blink/stamina effect parameters.
-- Fixed SCP-294's dispensing sounds.
-- Fixed an oversight that allowed the player to leave 1123's chamber before the event completed.
-- Fixed SCP-1123's pickup sound (when SCP-714 is equipped).
-- Fixed the very fine night vision goggles staying equipped when they are dropped.
+Bug修复：
+- 修复了玩家在房间上方时激活特斯拉门的bug
+- 修复了AAText无法在小分辨率正常渲染的bug
+- 860-1环境音无法播放的bug终于修复了
+- 修复了次要照明影响到A门和B门的bug
+- 修复了夜视仪无法在变种间转换的bug
+- 修复了次要照明关闭时夜视仪无法工作的bug
+- 修复了“reset069”命令，使其不止在lockroom096有用
+- 修复了SCP-1123事件中播放SCP-079广播的bug
+- 修复了SCP-682的咆哮声在1499、860-1和1123事件中播放的bug
+- 修复了SCP-106在895收容室生成的bug
+- 修复了序章收容失效后与“Ulgrin射击玩家”事件有关的bug
+- 修复了禁用棺材摄像头后导致SCP-895显示器冻结的bug
+- 修复了SCP-294的伤害、失血、爆炸、眨眼和体力的效果参数问题
+- 修复了SCP-294的制作音
+- 修复了玩家能在1123事件结束前离开收容室的bug
+- 修复了装备SCP-714时捡起SCP-1123的声音
+- 修复了超精夜视仪在丢掉时保持装备的bug
 
 ----------------------------------------------------------------------------------
 
 v1.3.2
-- Compiled the game using Juanjpro's "MavLess Blitz3D".
-    -The game now updates an error log rather than immediately crashing when an error occurs.
-- Redesigned console by Juanjpro.
-    - Added color coding.
-    - Added the ability to scroll through previously displayed console messages.
-    - Pressing up or down now cycles previous commands into the input field, without having to retype the command.
-- Added several new rooms.
-- Added a [REDACTED] event to the Tesla gates.
+- 使用Juanjpro的“Mavless版Blitz3D”编译游戏
+    - 现在游戏会在出现问题时将问题写入错误日志，而不是立刻让游戏崩溃
+- 由Juanjpro设计的新控制台
+    - 添加了代码高亮
+    - 添加了翻滚浏览旧控制台信息的功能
+    - 现在按向上或向下键可以跳转到之前输入过的内容，而不是重新输入命令
+- 添加了一些新房间
+- 向特斯拉门添加了[已编辑]事件
 
-- Added a new variant of the night vision goggles.
-- Adjusted the aspect ratio of badge textures (by Cridone).
-- Updated battery model (by Cridone).
-- Improvements to SCP-914's key card refining system.
+- 添加了一个新的夜视仪变种
+- 调整了身份证材质的纵横比（由Cridone制作）
+- 更新的电池模型（由Cridone制作）
+- 改进了SCP-914的钥匙卡转换系统
 
-- Optimized the rendering of adjacent rooms.
-- Adjusted the spelling and grammar for a majority of in-game text.
-- Extended the parameters of the "help" console command.
-- Updated SCP-173's model so that it no longer uses 2 texture layers. In layman's terms, its texture is no longer applied twice and therefore it no longer appears "darker".
-    - Credits to Juanjpro for the updated model.
-- Added unique locked door and DNA scanner sound effects.
-- Damage indicator messages now only display once at least two seconds have passed since the previous one displayed. This prevents the messages from constantly updating when being shot at.
-    - Same thing for 939's alert sound effects, only with a delay of three seconds.
-- The hazmat suit now automatically equips when the player picks it up.
-- Renamed fake fullscreen to borderless windowed mode.
-- The blink meter's timer is now randomized, making blinking appear more realistic.
-- Updated HUD elements (by Brokami).
-- The endroom event no longer occurs if SCP-106 is already contained.
-- SCP-079 no longer opens the door to Dr. L.’s office if the remote door control system is turned off.
-- Adjusted particle emitters so that they now update even when the player is not in the same room. This fixes some visual bugs such as the gas on catwalks only activating once the player steps inside the room.
-- Disabled camera fog at Gate A and B.
-- Re-positioned the Gate B guard so it will now properly shoot the player when they are within range.
-- Added an option to disable console functionality while in-game.
-- The player can now save at the entrance to Gate A.
-- The keys for quick saving and toggling the console can now be rebound in the controls menu.
-- Added the ability to quick load from the pause menu.
-- Renamed some buttons on the quit menu to better explain their functions.
-- Refactored the SFX folder whilst removing duplicate/unused sounds. 
+- 优化了相邻房间的渲染
+- 调整了游戏中的大部分文本的拼写和语法
+- 拓展了控制台“help”命令的参数
+- 更新了SCP-173的模型，使其不再使用两个纹理层。通俗来讲，它的纹理不在被应用两次，因此它不会显得比较“黑”。
+    - Juanjpro制作的模型值得称赞
+- 添加了独立的DNA扫描仪音效和锁上的门的音效
+- 受伤信息现在只会两秒刷新一次，这可以防止被射杀时信息不断刷新
+    - 939的警戒音也是如此，但只延迟三秒
+- 现在防护服将在玩家捡起时自动穿上
+- 将假全屏重命名为无边窗口模式
+- 让眨眼的计时器随机化，现在眨眼看起来更加自然了
+- 更新了HUD元素（由Brokami制作）
+- 如果收容了SCP-106，则死路的事件将不再发生
+- 如果远程控制系统被关闭，SCP-079将无法打开L博士的办公室的门
+- 调整了粒子生成器，以便玩家不在房间时继续更新。这个更改修复了一些视觉缺陷，例如当玩家进入房间时才生成净化气体。
+- 在A门和B门禁用了迷雾
+- 更改了B门保安的位置，因此保安将在玩家在射程内时射击
+- 添加了禁用控制台的设置
+- 玩家现在可以在A门入口保存
+- 快速保存和控制台的键位现在可以在控制菜单修改
+- 添加了在暂停菜单快速加载存档的功能
+- 重命名了退出菜单上的按钮，以便更好地解释其功能
+- 重构了SFX文件夹，同时删除了重复/未使用的声音
 
-Bug Fixes:
-- Fixed a crash involving the disabling of anti-aliased text while in-game.
-- Fixed a runtime error caused by saving and reloading inside SCP-205's chamber. 
-- Added extra hitboxes to room049, room3storage and room3z2, preventing the player from falling through the floor in certain spots of these rooms.
-- Adjusted SCP-096's collision detection.
-- SCP-096 will no longer become triggered when looking at its face while the player's eyes are closed.
-- Fixed the severed hand in room3storage falling through the map.
-- Fixed SCP-106 being invisible during the room2pipes event.
-- Fixed SCP-106 instantly respawning after going through a Tesla gate.
-- Fixed the 939 instances not being able to kill the player.
-- Fixed the "halloween" console command.
-- Fixed Security Chief Franklin using the default scientist texture during the office event if the intro sequence was enabled.
-- Fixed a bug that caused SCP-096 to spawn too frequently.
-- Fixed a bug that caused the guard's model to tilt incorrectly when aiming at the player.
-- Fixed an arbitraty runtime error that occurred when dropping an item.
-- Adjusted the item overlapping detection code, which caused some items to be pushed into walls and fall through the map.
-- Fixed a bug that caused the Tesla gate’s event to constantly loop if the player exits the area fast enough.
-- Adjusted the maintenance tunnel code so that its ambient light no longer leaks into other rooms.
-- Fixed lag spikes involving monitors and a bug that caused the HUD to draw over screens.
-- Fixed 079's broadcasts playing during Gate A, Gate B and when the game is paused.
-- Fixed some issues relating to Windows 10. This includes a fatal bug that caused no items to spawn in the map.
-- Fixed the achievement descriptions leaking outside of their tooltips.
-- Fixed a framerate dip when viewing the coin from SCP-1162.
-- Fixed several issues with both Gate A endings.
+Bug修复：
+- 修复了禁用抗锯齿文本导致崩溃的bug
+- 修复了在SCP-205收容室保存或加载存档导致游戏崩溃的bug
+- 向room049、room3storage和room3z2添加了额外的碰撞箱，防止玩家从地板的某些地方掉到虚空
+- 调整了SCP-096的碰撞检测
+- SCP-096不再会在玩家闭眼看它的脸时被激怒
+- 修复了room3storage的断手从地板掉下去的bug
+- 修复了room2pipes事件中SCP-106隐形的bug
+- 修复了SCP-106走过特斯拉大门后立刻重新生成的bug
+- 修复了939实例无法杀死玩家的bug
+- 修复了“halloween”控制台命令
+- 修复了启用序章后，办公室事件中的安保主管富兰克林使用普通科学家的贴图的bug
+- 修复了SCP-096生成过于频繁的bug
+- 修复了保安瞄准玩家时的倾斜度有误的bug
+- 修复了丢掉物品导致随机发生运行时错误的bug
+- 调整了物品重叠检测代码，修复了一些物品被推到墙里并从地图掉落的问题
+- 修复了玩家快速离开特斯拉门区域导致事件无限循环的bug
+- 调整了维修通道的代码，使其环境光不再影响其他房间
+- 修复了显示器的延迟和显示器屏幕上显示HUD的bug
+- 修复SCP-079在A门、B门和暂停时播放广播的bug
+- 修复了与Windows 10有关的bug，包括导致地图中没有物品生成的致命错误
+- 修复了成就描述超出工具提示条的bug
+- 修复了在SCP-1162查看硬币导致帧数下降的bug
+- 修复了两个A门结局的一些问题
 
 ----------------------------------------------------------------------------------
 
 v1.3.1
-Juanjpro saves the day again:
-    - removed FastExtension and FastText libraries - this should improve stability 
-    (at the cost of removing bump mapping)
-    - ditching the libraries allowed switching to a newer version of Blitz3D, which
-    has some bugfixes for newer versions of windows
-    - brightness can be changed in fake fullscreen mode and windowed mode
-    - NPC ID assignment bugfix
+Juanjpro再次拯救了世界：
+    - 移除了FastExtension库和FastText库，应该有助于提高稳定性（代价是删除了凹凸贴图）
+    - 放弃插件库能让游戏更新到新版本的Blitz3D，新的引擎版本对于新的Windows系统有一些bug
+      修复
+    - 亮度现在可以在假全屏模式和窗口模式下更改
+    - 修复了NPC的ID分配错误
 
-- hopefully fixed room2sl's event (with saving)
-- new textures and icons for documents and notes
-- fixed checkpoint monitors
-- fixed collision bugs in room2sl and room3offices
-- SCP-1499-1 AI improvements
-- SCP-106 and SCP-372 will no longer spawn in the SCP-1499 dimension
-- changes to the way SCP-049 spawns in room049
-- Emily Ross' badge and some items from SCP-1162 can now be put in the clipboard
-- more things are now affected by the ''Other Difficulty Factors'' setting (including
-the speeds of some additional NPCs)
-- fixed MAVs in the 1048a event
-- sound volume setting is saved
-- loading/freeing documents is now handled better
-- other minor fixes and improvements
+- 但愿修复了room2sl的事件（包括保存）
+- 新的文档和笔记的贴图和图标
+- 修复了检查点显示器
+- 修复了room2sl和room3offices中的碰撞问题
+- SCP-1499-1的AI优化
+- SCP-106和SCP-372将不再在SCP-1499维度生成
+- 修改了SCP-049在room049的生成方式
+- 艾米莉罗斯的身份证和SCP-1162的一些东西现在可以放进文件夹了
+- 现在“其他难度预设”能影响更多的东西（例如一些其他NPC的速度）
+- 修复了1048a事件导致MAV的bug
+- 现在声音大小设置被保存了
+- 现在加载/释放文档处理的更好了
+- 其他小修复和改进
 
 ----------------------------------------------------------------------------------
 
 v1.3
-This update was mostly created by Third Subdivision Team
+该更新主要由Third Subdivision Team制作
 
-- some additions from the Nine Tailed Fox mod 
-(http://undertowgames.com/forum/viewtopic.php?f=11&t=4358):
-    - SCP-1162, SCP-1499
-    - new rooms
-    - more graphics options
-    - borderless windowed mode
-    - nicer looking lights
-    - new key card textures by Anon4743
-- expanded SCP-[REDACTED] area
-- some new sounds
-- some clues about D-9341s past
-- Map Creator improvements
-- options can be accessed from the pause menu
-- optimization to sound loading by juanjpro
-- getting Key Card Omni is slightly harder now (depending on the difficulty)
-- more SCP-096 spawns
-- 096 model with lower polycount
-- MTF improvements
-    - AI bugfixes and optimization
-    - more reactions to SCPs
-    - cameras are now a threat if the MTF Units have spawned
-- removed SCP-1074
-- more SCP-049 spawns
-- improved SCP-049 AI
-- door buttons can't be accidentally clicked by closing the pause menu anymore
-- fixed Class D step sounds 
-- fixed random Class Ds and scientists occasionally appearing in places they shouldn't
-- fixed checkpoints occasionally leading into "nothingness"
-- fixed saves not being deleted even if permadeath is on
-- fixed a bug with SCP-372 chamber collision
-- fixed UI messages overlapping with documents that are being read
-- fixed "buttghost" event sound
-- the radio transceivers can be used for playing your own sound clips
-- more characters in the intro
-- SCP-1123 can't be grabbed through the glass
-- fixed a bug with duplicate "Incident Report SCP-1048-A" in clipboard
-- bugfixes to MTFs at Gate A and Gate B
-- the second sound clip in the "suicide guard" event is now played correctly
-- "SCP-106's escape sound" is no longer played at Gate A if SCP-106 has been contained
-- fixed a bug that caused SCP-860-2 not to spawn
-- SCP-106 will no longer spawn in the forest
-- miscellaneous minor fixes
+- 一些来自九尾狐模组的内容
+(http://undertowgames.com/forum/viewtopic.php?f=11&t=4358)：
+    - SCP-1162和SCP-1499
+    - 新房间
+    - 更多画面设置
+    - 无边窗口模式
+    - 更好看的光亮
+    - 由Anon4743制作的新钥匙卡贴图
+- 扩展了SCP-[已编辑]区
+- 一些新声音
+- 一些关于D-9341过去的线索
+- 地图制作器的改进
+- 现在可以从暂停菜单进入设置菜单了
+- juanjpro制作的声音加载优化
+- 获得万能钥匙卡现在更难了（取决于难度）
+- 更频繁的SCP-096刷新
+- 更少面数的096模型
+- MTF改进
+    - AI优化和bug修复
+    - 更多对SCP的反应
+    - 摄像头将在MTF刷新后变成威胁
+- 移除了SCP-1074
+- 更频繁的SCP-049生成
+- 改进了SCP-049的AI
+- 按钮不会在关闭暂停菜单时被按下
+- 修复了D级人员的脚步声
+- 修复了D级人员和科学家偶尔出现在不应该出现的地方的bug
+- 修复了检查点有时通向虚空的bug
+- 修复了即使启用永久死亡也不会删除存档的bug
+- 修复了SCP-372收容室的碰撞bug
+- 修复了阅读的文档和UI信息重叠的bug
+- 修复了“屁股鬼魂”的事件音
+- 对讲机现在可以播放自定义音乐
+- 序章中的更多角色
+- SCP-1123不能再透过玻璃抓起了
+- 修复了文件夹里多个“事故报告SCP-1028-A”导致的bug
+- 修复了MTF在A门和B门的bug
+- “自杀警卫”事件的第二段声音现在可以正常播放了
+- 如果SCP-106被收容，A门将不再播放SCP-106逃跑的声音
+- 修复导致SCP-860-2无法刷新的bug
+- SCP-106不再在森林刷新
+- 其他小修复
 
 ----------------------------------------------------------------------------------
 
