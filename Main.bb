@@ -1450,26 +1450,25 @@ Function UpdateConsole()
 End Function
 
 ConsoleR = 0 : ConsoleG = 255 : ConsoleB = 255
-CreateConsoleMsg("")
-CreateConsoleMsg("控制台命令: ")
-CreateConsoleMsg("  - teleport [房间ID]")
+CreateConsoleMsg("Console commands: ")
+CreateConsoleMsg("  - teleport [room name]")
 CreateConsoleMsg("  - godmode [on/off]")
 CreateConsoleMsg("  - noclip [on/off]")
-CreateConsoleMsg("  - noclipspeed [x] （默认为2.0）")
+CreateConsoleMsg("  - noclipspeed [x] (default = 2.0)")
 CreateConsoleMsg("  - wireframe [on/off]")
 CreateConsoleMsg("  - debughud [on/off]")
-CreateConsoleMsg("  - camerafog [可视距离] [渲染距离]")
+CreateConsoleMsg("  - camerafog [near] [far]")
 CreateConsoleMsg(" ")
 CreateConsoleMsg("  - status")
 CreateConsoleMsg("  - heal")
 CreateConsoleMsg(" ")
-CreateConsoleMsg("  - spawnitem [物品ID]")
+CreateConsoleMsg("  - spawnitem [item name]")
 CreateConsoleMsg(" ")
-CreateConsoleMsg("  - 173speed [x] (默认为35)")
+CreateConsoleMsg("  - 173speed [x] (default = 35)")
 CreateConsoleMsg("  - disable173/enable173")
 CreateConsoleMsg("  - disable106/enable106")
 CreateConsoleMsg("  - 173state/106state/096state")
-CreateConsoleMsg("  - spawn [NPC类型]")
+CreateConsoleMsg("  - spawn [npc type]")
 
 ;---------------------------------------------------------------------------------------------------
 
