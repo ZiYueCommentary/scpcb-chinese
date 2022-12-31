@@ -1,155 +1,156 @@
 v1.3.11
-Save files from version 1.3.10 are compatible with this version.
+1.3.10版的存档与此版本兼容
 
-- Added a mouse smoothing option.
-- New voice lines for SCP-049 (as well as some remade lines).
-- Decreased SCP-049's speed from 1.6 to 1.5.
-- Decreased the spawn rate of SCP-049 (now it depends on the difficulty).
-- Decreased SCP-966's speed from 2.0 to 1.0.
-- Fixed a bug where SCP-966 would spin around in circles. They are now following the player properly.
-- Fixed a bug where SCP-966 could use keycard doors when the player has a keycard in his hand.
-- You can't get infinite stamina with an upgraded gasmask or hazmat suit anymore when you wear SCP-714.
-- Fixed a bug where item equip timers could be interrupted.
-- Added some missing waypoints and buttons to some rooms.
-- Fixed wrong adjacent doors appearing when loading the game.
-- Fixed an issue where the adjacent room assignment didn't work properly.
-- Changed the default position of the player when he spawns in SCP-1499's dimension (he faces the entrance of the church now).
-- Fixed the forest disappearing when you save in it, leave the forest and quickload the game.
-- Changed the 50 cent coins to quarters (this means that you need to insert 2 coins into SCP-294).
-- Added 2 coins to the cafeteria.
-- Made it possible to use a coin from SCP-1162 for SCP-294.
-- The player cannot pick up the drawing from SCP-1048 anymore if he has a full inventory.
-- Fixed a bug where the SCP-1048 drawing could fall through the floor, as well as the SCP-173 document from Ulgrin.
-- You cannot use, drop or pick up any items while wearing a hazmat suit.
-- The hazmat suit now protects against SCP-049 (but he can eventually break it).
-- The heavy gas mask and heavy hazmat suit now protect against the effects of SCP-895 and SCP-966.
-- Fixed mouselook jerk on lag spike.
-- The hazmat suit and vest will now be dropped when attempting to wear them but you get caught by SCP-106.
-- You cannot put SCP-714 into the wallet anymore.
-- Fixed a visual glitch in which the gorepic on SCP-895's monitor would still be displayed when taking on SCP-714, the heavy gasmask or the heavy hazmat suit.
-- Refinery system for keycards from v1.3.8 now should work correctly.
-- Updated the Map Creator Manual.
-- Added an option for the Converter and LightMapPNG tool to only convert a specific room by entering its path.
+- 添加了鼠标平滑度设置
+- 新的SCP-049声音（包括一些重制的声音）
+- 将SCP-049的速度从1.6降低至1.5
+- 降低了SCP-049的生成率（现在生成率取决于难度）
+- 将SCP-966的速度从2.0降低至1.5
+- 修复了SCP-966一直转圈的bug，现在它们能够正常跟随玩家了
+- 修复了玩家选中钥匙卡时，SCP-966可以打开钥匙卡门的bug
+- 戴着SCP-714时同时戴上防护服或防毒面具不再能获得无限体力了
+- 修复了物品装备计时器可能会中断的bug
+- 在一些房间里添加了缺失的路径点和按钮
+- 修复了加载游戏时错误放置的相邻门
+- 修复了相邻房间分配不正常的问题
+- 修改了玩家在SCP-1499维度的默认传送点（现在玩家将面向教堂入口）
+- 修复了在森林保存游戏，离开后加载游戏时森林消失的bug
+- 将50美分硬币改为了25美分（这代表你需要在SCP-294投入两枚硬币）
+- 在自助餐厅添加了两个硬币
+- 现在SCP-1162的硬币可以投入SCP-294了
+- 现在玩家将不能再在物品栏满时从SCP-1048拿走绘画了
+- 修复了SCP-1048绘画和Ulgrin的SCP-173文档可能从地板上掉落的错误
+- 你不能在穿着防护服时使用、丢弃或捡起任何物品了
+- 防护服现在可以保护玩家不受SCP-049伤害（尽管他可以打破防护服）
+- 重型防毒面具和重型防护服现在可以让玩家免受SCP-895和SCP-066的影响
+- 修复了视角抖动问题
+- 正在穿戴防护服和防弹背心时被SCP-106抓住会使物品掉落
+- 你不能将SCP-714放进钱包了
+- 修复了戴上SCP-714、重型防毒面具或重型防护服时，SCP-895显示器上的血影仍旧显示的视觉问题
+- 来自v1.3.8的钥匙卡转换系统应该能正常工作了
+- 更新了地图制作器帮助手册
+- 向转换工具和LightMapPNG工具添加了指定路径转换特定房间的选项
 
 ----------------------------------------------------------------------------------
 
 v1.3.10
 
-- Added SCP-427.
-- New rooms (room4info, room2cpit, room2pipes2, room3_3), including improved old rooms (room2nuke, room2testroom2, room049, room2sroom).
-- New events in the facility.
-- New events in SCP-1499's dimension.
-- New ambient sounds.
-- New items and documents.
-- Added an alarm sound for each gateway room.
-- Added 50 cent coins in the game. Those are required to use SCP-294. You can get coins by putting a mastercard into SCP-914 on the "coarse" setting.
-- Added a wallet which you can use to store the 50 cent coins. You can find one in the storage room, where the scientist and janitor are killed by SCP-173. 
-- Added battery power to the night vision goggles that can be found in the facility.
-- Added a death message when the player gets killed by the SCP-035 tentacle in the office room.
-- Added the missing containment door inside of SCP-372's chamber.
-- Added a little message that tells the player to "kneel" in the pocket dimension's throne room.
-- Added dead bodies in the nuke room (room2nuke) and elevator shaft room (room2shaft).
-- The player can't escape through Gate A and B if SCP-096 had been triggered.
-- SCP-1499 instances are now able to "talk" with each other.
-- Improved SCP-049's chamber area, making it more complex.
-- Improved SCP-049's AI. He is much more active in the game now.
-- Improved some documents.
-- Improved the SCP-1499 texture.
-- Improved SCP-079's Gate B announcement. 
-- Improved layouts for the Load Game and Load Map tabs in the main menu.
-- Improved the badge textures.
-- Improved the elevators.
-- Improved SCP-914 sounds.
-- Slightly improved SCP-682 battle sound at Gate B.
-- Cut the amount of bloodloss in the pocket dimension's trench by 75%.
-- Changed the mechanics on how the wearing of the hazmat suit, the ballistic vest and SCP-1499 works.
-- Decreased SCP-096's speed from 10 to 9.
-- SCP-106 now goes straight towards the player if he is not able to find a correct path.
-- SCP-106 cannot disappear anymore if the player is too close to him.
-- Changed 106's chamber access door to be a level 4 keycard door (instead of a level 3 door).
-- Changed the player's spawn point when he leaves the Pocket Dimension and gets teleported to SCP-106's chamber.
-- SCP-500 won't heal any injuries and bloodloss anymore, but instead can cure SCP-966's effect.
-- Door sounds and ambient sounds are now updating depending on their position.
-- The SCP-035 tentacles now play their idle sound.
-- The message "You pushed the button but nothing happened." appears when you try to use a locked door that is opened.
-- Changed the texture of the checkpoint lockdown screens slightly.
-- Changed the label colors for Safe SCPs to green and for Keter SCPs to red.
-- Optimized the room light rendering.
-- Removed lightmaps from the SCP-1499 dimension buildings, so now the game loads less textures when loading the dimension.
-- Optimized the medibay textures.
-- The player will die instead of getting teleported to the SCP-008 death cutscene while infected with SCP-008 and when being at one of the exits.
-- The MTF units now shoot the player if they are too close to the player in the service tunnels at Gate A.
-- Player now vomits before dying by SCP-895's effect when viewing the monitor.
-- The red night vision goggles get affected by SCP-895's effect as well.
-- The security clearance level now gets displayed when you use a keycard that has a too low level.
-- Added a little scene in which Agent Ulgrin gives you SCP-173 document.
-- Added a death message when you die by SCP-1048-A.
-- Added a tesla caution sign at the floor.
-- Reworked the Example and Larry's Revenge maps (by Onemario1234).
-- Removed SCP-178.
+- 添加了SCP-427
+- 新房间（room4info、room2cpit、room2pipes2、room3_3），包括旧房间改进（room2nuke、room2testroom2、room049、room2sroom）
+- 设施内的新事件
+- 新的SCP-1499事件
+- 新的环境音
+- 新的物品和文档
+- 向每个防爆门死路房间添加了报警音
+- 添加了50美分硬币，可用于SCP-294。玩家可以将一张万事达信用卡放入SCP-914进行“粗加工”来获得硬币。
+- 添加了可以存放50美分硬币的钱包。玩家可以在储藏室找到，即一名科学家和清洁工被SCP-173杀死的地方。
+- 向设施中的夜视仪添加了电量
+- 添加了玩家在办公室被SCP-035触手杀死的死亡信息
+- 添加了SCP-372收容室内缺失的防爆门
+- 添加了一条在口袋空间王座室让玩家“跪下”的小消息
+- 在核弹室（room2nuke）和电梯井室（room2shaft）添加了尸体
+- 现在玩家将无法在激怒SCP-096后从A门或B门逃脱
+- SCP-1499实例现在可以互相“交谈”
+- 改进了SCP-049收容区，现在收容区更加复杂了
+- 改进了SCP-049的AI，现在他更加活跃了
+- 改进了一些文档
+- 改进了SCP-1499材质
+- 改进了SCP-079的B门广播
+- 改进了主菜单“加载游戏”和“加载地图”界面的布局
+- 改进了身份证贴图
+- 改进了电梯
+- 改进了SCP-914声音
+- 稍微改进了SCP-682的B门战斗音
+- 将口袋空间战壕的失血量降低了75%
+- 改变了穿上防护服、防弹背心、SCP-1499的机制
+- 将SCP-096的速度从10降为9
+- SCP-106现在将在找不到正确路径时直接走向玩家
+- SCP-106不会再在玩家过近时消失了
+- 将106收容室门的最低访问权限改为四级（而不是三级）
+- 修改了玩家从口袋空间传送到SCP-106收容室的传送点
+- SCP-500不能再治愈伤害和失血了，但SCP-966的伤害依旧可以治愈
+- 门的音效和环境音现在会根据它们的位置进行更新
+- SCP-035触手现在会播放闲置音
+- 现在尝试与打开的上锁门互动会显示消息“你按下了按钮但无事发生”
+- 更改了检查点已锁定屏幕的纹理
+- 将Safe级SCP的标签颜色改为绿色，Keter级则为红色
+- 优化了房间光照渲染
+- 移除了SCP-1499维度中的光照贴图，现在加载SCP-1499维度时将加载更少的纹理
+- 优化了医疗室贴图
+- 玩家在感染SCP-008并处于设施出口时，玩家将直接死亡，而不是播放SCP-008过场动画
+- MTF在A门服务通道时如果离玩家太紧，MTF将会射击玩家
+- 现在玩家将在受到SCP-895影响而死亡前呕吐
+- 现在红色夜视仪也会受到SCP-895的影响
+- 现在当玩家使用级别不足的钥匙卡时，游戏将会显示所需的许可等级
+- 添加了特工Ulgrin给玩家SCP-173文档的小情节
+- 添加了死于SCP-1048-A的死亡信息
+- 在特斯拉门处添加了警告标识
+- 修复了示例地图和Larry's Revenge地图无法加载的bug（由Onemario1234制作）
+- 移除了SCP-178
 
-- Updated the Map Creator (version 2.1)
-    - Added an option to enable/disable adjacent door spawning in the 3d viewer.
-    - Revamped the design for the 2d grid a bit.
-    - You can now select a room in the 3D view which will automaticly select that room in the 2D grid.
-    - New map format called ".cbmap2" which includes
-    - The ability to scale each zone (by adjusting the checkpoint lines for them).
-    - The ability to write the author's name and description of the map.
-    - The ability to make custom forest and maintenance tunnel layouts.
-    - The room amount that gets displayed when hovering over the "Load" button for selecting the map.
-    - Fixed a bug that caused the event chance to be 0% when you select an event of a room while "Set the event for the rooms by default" is disabled.
-    - Fixed a little visual glitch in which the selected room stats showed an empty event and the event chance when you moved the slider.
-    - Swapped the "Open map" and "Save map" texts when opening/saving a map (they were incorrectly named).
+- 更新了地图制作器（2.1版）
+    - 添加了启用/禁用3D查看器中相邻房间放置门的设置
+    - 稍微修改了2D网格的设计
+    - 现在你可以在3D查看器里选择一个房间，2D网格会自动选择指定房间
+    - 新的“.cbmap2”地图文件格式
+    - 现在你可以缩放各个区域了（调整检查点线的位置）
+    - 现在你可以写作者名和地图描述了
+    - 现在你可以自定义森林和维修通道的布局了
+    - 现在将鼠标悬停在选中地图的“加载”按钮上会显示房间数量
+    - 修复禁用“默认设置房间事件”导致事件概率变为0%的bug
+    - 修复了移动滑块时，选定房间的数据会显示空事件和事件概率的视觉问题
+    - 交换了打开/保存地图时的“打开地图”和“保存地图”文本（它们的名字不正确）
 
-Bug fixes:
-    - Fixed the tesla gate electric sprite freezing after death.
-    - Fixed an exploit that caused the blinking sprite to be rendered invisible after alt-tabbing the game.
-    - The inventory cannot be opened while the SCP-008 zombie cutscene plays.
-    - Removed the "room2doors" event from events.ini as the actual event used in the game is called "room2doors173"
-    - The keycard slot level for the archive rooms will now be saved instead of being generated newly each time.
-    - The "Battery low" text won't overlap with the "Scanning" text while wearing the blue night vision goggles anymore.
-    - The event where SCP-173 appears when entering the tunnel room won't pause anymore if you enter it and then leave the room afterwards.
-    - SCP-173 won't appear in the tunnel room when being contained.
-    - Gate A won't go any higher anymore if you quick-loaded the game.
-    - Fixed the player's rotation when the elevator arrives at Gate A.
-    - The ending screen won't appear anymore when you go to Gate A or B, load the game and die afterwards.
-    - SCP-106 won't disappear from Gate A anymore if you use SCP-1499.
-    - The SCP-1499 dimension won't lag anymore if you saved in it and load the save file from the main menu.
-    - The player cannot fly in the SCP-1499 dimension anymore.
-    - Fixed SCP-1499's dimension buildings spawning inside the facility.
-    - The progress bar of the first aid kit won't stay at it's current value if the item has been deselected.
-    - The inventory and the main menu cannot be opened anymore while using SCP-294.
-    - The camera won't turn rapidly anymore when leaving SCP-294.
-    - The maximum amount of achievements displayed at the ending screen is now correct.
-    - The correct damage sounds will now be played when the player gets attacked by the SCP-035 tentacles.
-    - The Debug HUD won't be enabled anymore if you start a new game after you have quit a game where it has been activated before.
-    - SCP-096 cannot spawn anymore if the room2servers event hasn't been triggered.
-    - Fixed the buttghost event having a chance not to spawn.
-    - Fixed SCP-008's container door not being saved.
-    - Fixed a bug when after reloading the save file SCP-173 was able to kill you when he was behind a door.
-    - Fixed MTF units getting stuck when they wanted to kill SCP-008 instances or SCP-049-2 instances but another MTF killed it.
-    - Fixed SCP-049-2 zombies damage range.
-    - Fixed the tunnel106 event.
-    - Fixed a bug that caused the camera screens not be able to be used for saving on euclid difficulty.
-    - The femur breaker can't be pressed anymore if the sound transmission is off.
-    - The navigator now works properly with custom maps.
-    - The intercom transmission from SCP-106's chamber won't play anymore if the player is in the SCP-1499 dimension, Pocket Dimension or the forest.
-    - Fixed the monitor in SCP-106's chamber being off after reloading the save file.
-    - Fixed the MTF gasmask sound.
-    - Fixed SCP-1048's room3pit event causing a Blitz3D error after loading a save file.
-    - Fixed the messages for the intro in your cell (all 3 of them are now displayed properly).
-    - SCP-714's wearing variable will now be saved by the game.
-    - Fixed a lot of memory leaks occuring at Gate A and B whenever you quickloaded the game after entering those.
-    - A lot of fixes related to SCP-106 not appearing in Pocket Dimension.
-    - The remote door control, secondary light and sound transmission won't stay the same when you quit a game to the menu and started a new one.
-    - Fixed a bug that caused the player to die when getting captured by SCP-106 in room3storage.
-    - Fixed the timer after which SCP-106 should appear when player leaves the Pocket Dimension.
-    - Added door collisions for a few doors when they are closing, which prevents the player from being able to go through them while the player shouldn't do it.
-    - Attempt to fix a bug where the player has the ability to fall through the map after reloading a save file.
-    - Attempt to fix SCP-096's ability to get stuck while running towards the player.
-    - Attempt to fix the clerk not dying at the tesla gate.
-    - Attempt to fix door objects appearing in the center of the rooms.
-    - The game was patched with the 4GB patch, which should prevent the game from lagging and crashing in most cases.
+Bug修复：
+    - 修复了死亡后特斯拉电门的电光被冻结的bug
+    - 修复了Alt+Tab切换窗口后导致眨眼遮罩消失的bug
+    - SCO-008过场动画时将无法打开物品栏
+    - 从events.ini中移除了“room2doors”事件，因为游戏实际使用的事件名为“room2doors173”
+    - 存档室的钥匙卡等级要求现在会保存在存档内，而不是每次都生成新的等级
+    - 佩戴蓝色夜视仪时，“电量低”文本将不再和“扫描中”重叠
+    - 进入隧道房间并离开将不会导致SCP-173出现的事件被暂停
+    - SCP-173将不会在被收容后出现在随到房间中
+    - A门将不会在快速加载游戏后变得更高
+    - 修复了电梯抵达A门时玩家的旋转问题
+    - 玩家抵达A门或B门后加载游戏并死亡将不再出现结束界面
+    - 使用SCP-1499将不再导致A门的SCP-106消失
+    - 在SCP-1499维度内保存并从主菜单加载将不再导致卡顿
+    - 玩家将不再能在SCP-1499维度内飞行
+    - 修复SCP-1499维度内的建筑在设施内生成的bug
+    - 急救箱的进度条将不会在取消后保留在当前值
+    - 使用SCP-294时将无法再打开物品栏和主菜单
+    - 退出SCP-294将不再导致镜头快速转动
+    - 现在结束界面将显示正确的最大成就数
+    - 游戏将在玩家受到SCP-035攻击时播放正确的受伤音效
+    - 启用调试界面时开启新游戏将取消启用调试界面
+    - SCP-096将不会在room2servers事件激活前被生成
+    - 修复了屁股鬼魂事件有几率不生成的bug
+    - 修复了SCP-008盖子不被保存的bug
+    - 修复了加载游戏导致SCP-173可以从门后杀死你的bug
+    - 修复了当两个MTF想杀死同一SCP-008实例或SCP-049-2实例导致MTF卡住的bug
+    - 修复了SCP-049-2的伤害范围
+    - 修复了tunnel106事件
+    - 修复了Euclid难度下，无法在摄像头屏幕处保存的bug
+    - 声音传输关闭时将无法按下大腿截断按钮
+    - 自定地图中的导航仪现在可以正常工作了
+    - 当玩家在SCP-1499维度、口袋空间或森林时，SCP-106收容室的广播将不再播放
+    - 修复了SCP-106收容室的显示器在加载游戏后被关闭的bug
+    - 修复了MTF的面罩音
+    - 修复了加载存档后，SCP-1048的room3pit事件导致Blitz3D错误的bug
+    - 修复了序章在牢房时的信息（现在三条信息都能正常显示了）
+    - 现在游戏会保存是否戴着SCP-714的变量
+    - 修复了在A门和B门加载游戏导致大量内存泄漏的bug
+    - 修复了一堆有关SCP-106不在口袋空间出现的bug
+    - 远程门禁控制、次要照明和声音传输将不会在开始新游戏后与上一游戏相同
+    - 修复了在room3storage被SCP-106抓到导致直接死亡的bug
+    - 修复了玩家离开口袋空间时，SCP-106应该出现的计时器
+    - 添加了部分门关闭时的碰撞，以防止玩家直接穿过门
+    - 尝试修复了加载游戏后玩家从地图摔落的bug
+    - 尝试修复SCP-096在奔向玩家时被卡住的bug
+    - 尝试修复职员不被特斯拉电门杀死的bug
+    - 尝试修复出现在房间中央的门的bug
+    - 现在游戏使用4GB patch，这应该有助于防止大部分情况下的卡顿和崩溃
+
 ----------------------------------------------------------------------------------
 
 v1.3.9
@@ -173,28 +174,28 @@ v1.3.9
     - 纳粹军官现在拥有换弹动画
 - 优化了SCP-513-1和SCP-096的建模
 
-Bug fixes:
-- The SCP-106 victim doesn't float on top of the ceiling anymore.
-- Fixed the broken gravity system for SCP-860-1.
-- The texture of the S-Nav navigator's model isn't flipped anymore.
-- Fixed the refuse event of SCP-079 not playing.
-- Reduced the loading times of the SCP-1025 pages.
-- Fixed certain disconnected waypoints in SCP-106's containment chamber.
-- Fixed a bug that caused SCP-096's speed to depend on the framerate.
-- Fixed the gravity system for all NPCs.
-- Fixed MTF unit's shooting timer being too high, causing the MTF units not to shoot at the player for a long period of time.
-- Fixed a lighting glitch that occured after the maintenance tunnels have been generated.
-- SCP-049 will not reset after loading a save file and re-entering the surveillance room.
-- The fog should now properly reset to it's normal value after equipping the night vision goggles and loading a save file.
-- Fixed SCP-970 item duplication glitch.
-- Fixed player's path when he is affected by SCP-012.
-- Fixed SCP-294 crashing the game if uses a single whitespace as the input.
-- Fixed SCP-294's drinks not being transparent if their alpha value is set to 0.
-- Fixed the doors in SCP-1123's event not being rotated correctly after reloading the save file.
-- Fixed guard's position in room2restroom.
-- Fixed a map generation bug that occasionally caused rooms to be rotated to an invalid angle.
-- Fixed a bug that caused the RNG to break when using specific map seeds.
-- Fixed SCP-096's scream still playing when the player teleports to the SCP-1499 dimension.
+Bug修复：
+- SCP-106受害者不会再悬浮在天花板上了
+- 修复了SCP-860-1破碎的重力系统
+- S-Nav导航仪模型的材质不再翻转
+- 修复了无法播放的SCP-079拒绝事件音
+- 减少了加载SCP-1025页的时间
+- 修复了SCP-106收容室中断开的路径点
+- 修复了SCP-096速度取决于FPS的bug
+- 修复了所有NPC的重力系统
+- 修复了MTF的射击计时器过高，导致MTF长时间不向玩家射击的bug
+- 修复了生成维修通道后发生的照明故障
+- 修复加载存档后重新进入监控室，SCP-049不会被重置的bug
+- 戴着夜视仪加载存档后的迷雾应该被重置为正常值了
+- 修复了SCP-970的重复物品bug
+- 修复了玩家受SCP-012影响时的路径
+- 修复在SCP-294输入单个空格生成液体导致崩溃的bug
+- 修复了SCP-294饮品在alpha值设为0时仍不透明的bug
+- 修复了加载存档后，SCP-1123事件中的门未正常旋转的bug
+- 修复了room2restroom的保安位置
+- 修复了生成的房间旋转到无效角度的bug
+- 修复了使用特定种子时导致RNG中断的bug
+- 修复了玩家传送到SCP-1499维度时，SCP-096的尖叫声仍被播放的bug
 
 ----------------------------------------------------------------------------------
 
@@ -675,7 +676,7 @@ v1.0.5
     - 当玩家不在森林中时，森林的墙细节将被隐藏，这意味着打开门时，门和门框不再阻挡入口的视线
     - 没有物品时与DNA扫描仪互动不再会导致游戏崩溃
     - testroom应该不会在SCP-079打开毒气后导致游戏崩溃了
-    - 在SCP-294输入"DEATH"不再导致游戏崩溃了
+    - 在SCP-294输入“DEATH”不再导致游戏崩溃了
     - DeathTimer和BlurTimer现在保存在存档中，因此修复了294与液体之间的错误交互和重载
     - 在序章中锁上了一个未上锁的门（从混凝土隧道通往大厅的门）
     - 往设置ini添加了垂直同步设置
@@ -786,7 +787,7 @@ v0.9.3
 - 修复了传送到不存在的房间导致崩溃的bug
 - 修复了密码盘上一堆bug的2D按钮覆盖
 - 使用钥匙卡或者密码盘的声音不再会中断其他声音了
-- 删除了"room2servers"中的密码盘，该密码盘有时会夹在其他房间里面
+- 删除了“room2servers”中的密码盘，该密码盘有时会夹在其他房间里面
 
 ----------------------------------------------------------------------------------
 
@@ -798,7 +799,7 @@ v0.9.2
 - 高分辨率版的按钮和钥匙盘贴图
 - 严重削弱了“别再躲了”功能
 - 一些新的环境音
-- "The Dread"现在正常循环播放了
+- “The Dread”现在正常循环播放了
 - 将SCP-106的外观变回0.7.2开发时的样子
 - 修复了SCP-173试图开密码门并反复播放开门声的bug
 - 将SCP-1025和SCP-714的收容室移到了轻收容，同时稍微修改了房间布局
@@ -807,10 +808,10 @@ v0.9.2
 
 - juanjpro制作的更改：
     - 添加了自制的RoomMesh格式，以加快加载时间并提高内存使用效率
-    - 对"room106"事件的修复：收容SCP-106应该更容易了
+    - 对“room106”事件的修复：收容SCP-106应该更容易了
     - 不再会有从地板掉落的bug了，第 #3 次尝试
-    - 修复了"room2servers"（SCP-096服务器室）里通向虚空的门
-    - 将"testroom"的密码盘放在了正确的地方
+    - 修复了“room2servers”（SCP-096服务器室）里通向虚空的门
+    - 将“testroom”的密码盘放在了正确的地方
     - 如果SCP-106被收容，A门的MTF将会抓住玩家
     - 优化了事件音效
 
@@ -938,8 +939,8 @@ v0.7.2
 
 v0.7.1
 - 修复了核弹室门的按钮
-- 修复了"room2Cz3"和"room4z3"房间的光照
-- 移除了重复的"room2scps"房间
+- 修复了“room2Cz3”和“room4z3”房间的光照
+- 移除了重复的“room2scps”房间
 - 向第一个区域添加了一个新走廊
 
 ----------------------------------------------------------------------------------
