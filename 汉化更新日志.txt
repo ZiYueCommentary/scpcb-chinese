@@ -1,3 +1,5 @@
+- 部分字幕修改
+
 2023/1/1 Fourth Revise第四版
 兼容二期任意版本、任意发布版本和原版1.3.11的存档
 - 更新了部分贴图的汉化（doctors.jpg、launcher.jpg、updater.jpg、back.jpg、scptext.jpg、docIR106.jpg、docNDP.jpg、1025_2.jpg）
