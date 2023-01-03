@@ -1095,10 +1095,34 @@ Function UpdateLauncher()
 		End If
 	Next
 	
+	If GetINIInt(OptionFile, "options", "first launch") Then ; 第一次启动
+		If GetUserLanguage() <> "zh-CN" Then
+			PutINIValue(OptionFile, "options", "first launch", 0)
+			Color 255, 255, 255
+			Repeat
+				MouseHit1 = MouseHit(1)
+				Text 320, 200, "遊戲檢測到您的系統語言不為簡體中文", 1, 0
+				Text 320, 220, "是否需要開啟繁簡轉換？", 1, 0
+				If DrawButton(200, 250, 100, 30, "是", False, False, False)
+					Delay 100
+					TraditionalChinese = True
+					Exit
+				EndIf
+				If DrawButton(LauncherWidth - 300, 250, 100, 30, "否", False, False, False)
+					Delay 100
+					TraditionalChinese = False
+					Exit
+				EndIf
+				Delay 8
+				Flip
+				Cls
+			Forever
+		EndIf
+	EndIf
+	
 	BlinkMeterIMG% = LoadImage_Strict("GFX\blinkmeter.jpg")
 	Local TimeOut = False
 	If CheckForUpdates() = -1 Then TimeOut = True
-	
 	
 	AppTitle "SCP - 收容失效 启动器"
 	
