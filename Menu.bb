@@ -1121,8 +1121,7 @@ Function UpdateLauncher()
 	EndIf
 	
 	BlinkMeterIMG% = LoadImage_Strict("GFX\blinkmeter.jpg")
-	Local TimeOut = False
-	If CheckForUpdates() = -1 Then TimeOut = True
+	Local UpdaterStatus% = 0
 	
 	AppTitle "SCP - 收容失效 启动器"
 	
@@ -1134,7 +1133,13 @@ Function UpdateLauncher()
 		
 		DrawImage(LauncherIMG, 0, 0)
 		
-		If TimeOut Then Color 255,255,0 : Text(0,5,"警告： 检查更新失败（连接超时）")
+		Color 255,255,0
+		Select UpdaterStatus
+			Case 1
+				Text(0,5,"检查更新完毕，无新更新")
+			Case -1
+				Text(0,5,"警告： 检查更新失败（连接超时）")
+		End Select
 		Color 255, 255, 255
 		
 		Text(20, 240 - 65 + 3, "分辨率：")
@@ -1224,10 +1229,9 @@ Function UpdateLauncher()
 			EndIf
 		EndIf
 		
-		UpdateCheckEnabled = DrawTick(LauncherWidth - 275+17, LauncherHeight - 50, UpdateCheckEnabled)
-		Color 255,255,255
-		Text LauncherWidth-250+17,LauncherHeight-55,"打开启动器"
-		Text LauncherWidth-250+17,LauncherHeight-35,"时检查更新"
+		If DrawButton(LauncherWidth - 275 + 17, LauncherHeight - 50, 100, 30, "检查更新", False, False, -1) Then
+			UpdaterStatus = CheckForUpdates()
+		EndIf
 		
 		If DrawButton(LauncherWidth - 30 - 90, LauncherHeight - 50 - 55, 100, 30, "启动", False, False, -1) Then
 			GraphicWidth = GfxModeWidths(SelectedGFXMode)
@@ -1265,11 +1269,6 @@ Function UpdateLauncher()
 		PutINIValue(OptionFile, "options", "16bit", "false")
 	EndIf
 	PutINIValue(OptionFile, "options", "gfx driver", SelectedGFXDriver)
-	If UpdateCheckEnabled Then
-		PutINIValue(OptionFile, "options", "check for updates", "true")
-	Else
-		PutINIValue(OptionFile, "options", "check for updates", "false")
-	EndIf
 	
 End Function
 

@@ -13,8 +13,7 @@
 ; 原版： 下载更新日志->检查第一行文本->如果与版本号不同->弹更新检查界面
 ; 汉化版： 获取域名TXT回答->如果与汉化版本号不同->下载更新日志->弹更新检查界面
 ; 所以汉化版的更新检查很省性能，把这事当个热知识就行
-Global UpdateCheckEnabled% = GetINIInt(OptionFile, "options", "check for updates")
-Global UpdaterBG
+Global UpdaterBG%
 
 Type ChangeLogLines
 	Field txt$
@@ -25,8 +24,6 @@ Global LinesAmount% = 0
 
 Function CheckForUpdates%()
 	AppTitle "SCP - 收容失效汉化版 更新检查器"
-	
-	If !UpdateCheckEnabled Then Return 0
 	
 	SetBuffer BackBuffer()
 	Cls
@@ -237,6 +234,7 @@ Function CheckForUpdates%()
 		Forever
 	Else 
 		DebugLog "No newer version!"
+		Return 1
 	EndIf
 	Delete Each ChangeLogLines
 	If UpdaterIMG != 0 Then FreeImage UpdaterIMG
