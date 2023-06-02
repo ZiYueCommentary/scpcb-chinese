@@ -1,0 +1,25 @@
+name: 📝 意见建议
+description: 如何提交能让别人理解的建议
+labels: ["建议"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 先决条件
+        - **这个建议有没有意义？** 如果你的建议是“*用 C++ 重制收容失效*”或者“*把所有崩溃问题永久解决*”等，你的建议将会很快关闭且可能被删掉。
+
+        无意义的建议将会以“无效”关闭，无法实现的建议将以“放弃”关闭。
+  - type: textarea
+    id: description
+    attributes:
+      label: 描述
+      description: 描述一下你的建议，越细越好。
+    validations:
+        required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图
+      description: 一般来说不需要，但如果你能把你的想法表现出来，欢迎把图片放在这里。
+    validations:
+        required: false
