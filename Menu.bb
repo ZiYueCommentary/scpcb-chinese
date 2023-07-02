@@ -1123,7 +1123,7 @@ Function UpdateLauncher()
 	BlinkMeterIMG% = LoadImage_Strict("GFX\blinkmeter.jpg")
 	Local UpdaterStatus% = 0
 	
-	AppTitle "SCP - 收容失效 启动器"
+	AppTitle "SCP - 收容失效 汉化计划 启动器"
 	
 	Repeat
 		Color 0,0,0

@@ -20,11 +20,11 @@ https://creativecommons.org/licenses/by-sa/3.0/deed.zh
 原版游戏源代码可从 Github 下载：https://github.com/Regalis11/scpcb
 汉化计划源码可从 Github 下载：https://github.com/ZiYueCommentary/scpcb-chinese
 
-汉化版本由 子悦汉化组 制作（https://ziyuesinicization.site/）
+汉化计划由 子悦汉化组 制作（https://ziyuesinicization.site/）
 
 **** 启动游戏 ***********************************
 
-	运行文件夹中的 SCP - Containment Breach.exe
+	运行文件夹中的 SCP - 收容失效 汉化计划.exe
 	选择适合你屏幕的分辨率并点击“启动”按钮
 
 	SCP - 收容失效使用 Blitz3D 引擎，但该引擎已过于古老且过时

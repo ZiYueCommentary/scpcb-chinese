@@ -194,7 +194,7 @@ Global GameSaved%
 
 Global CanSave% = True
 
-AppTitle "SCP - 收容失效 v" + VersionNumber + " 汉化版本"
+AppTitle "SCP - 收容失效 汉化计划 v" + VersionNumber
 
 PlayStartupVideos()
 
