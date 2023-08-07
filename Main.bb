@@ -2631,7 +2631,7 @@ Collisions HIT_178, HIT_MAP, 2, 2
 Collisions HIT_178, HIT_178, 1, 3
 Collisions HIT_DEAD, HIT_MAP, 2, 2
 
-Function MilliSecs2()
+Function MilliSecs()
 	Local retVal% = MilliSecs()
 	If retVal < 0 Then retVal = retVal + 2147483648
 	Return retVal
@@ -2725,7 +2725,7 @@ Global I_Zone.MapZones = New MapZones
 Repeat
 	Cls
 	
-	CurTime = MilliSecs2()
+	CurTime = MilliSecs()
 	ElapsedTime = (CurTime - PrevTime) / 1000.0
 	PrevTime = CurTime
 	PrevFPSFactor = FPSfactor
@@ -2736,17 +2736,17 @@ Repeat
 	
 	If Framelimit > 0 Then
 	    ;Framelimit
-		Local WaitingTime% = (1000.0 / Framelimit) - (MilliSecs2() - LoopDelay)
+		Local WaitingTime% = (1000.0 / Framelimit) - (MilliSecs() - LoopDelay)
 		Delay WaitingTime%
 		
-		LoopDelay = MilliSecs2()
+		LoopDelay = MilliSecs()
 	EndIf
 	
 	;Counting the fps
-	If CheckFPS < MilliSecs2() Then
+	If CheckFPS < MilliSecs() Then
 		FPS = ElapsedLoops
 		ElapsedLoops = 0
-		CheckFPS = MilliSecs2()+1000
+		CheckFPS = MilliSecs()+1000
 	EndIf
 	ElapsedLoops = ElapsedLoops + 1
 	
@@ -2754,8 +2754,8 @@ Repeat
 		DoubleClick = False
 		MouseHit1 = MouseHit(1)
 		If MouseHit1 Then
-			If MilliSecs2() - LastMouseHit1 < 800 Then DoubleClick = True
-			LastMouseHit1 = MilliSecs2()
+			If MilliSecs() - LastMouseHit1 < 800 Then DoubleClick = True
+			LastMouseHit1 = MilliSecs()
 		EndIf
 		
 		Local prevmousedown1 = MouseDown1
@@ -4108,7 +4108,7 @@ Function MovePlayer()
 	
 	If Injuries > 1.0 Then
 		temp2 = Bloodloss
-		BlurTimer = Max(Max(Sin(MilliSecs2()/100.0)*Bloodloss*30.0,Bloodloss*2*(2.0-CrouchState)),BlurTimer)
+		BlurTimer = Max(Max(Sin(MilliSecs()/100.0)*Bloodloss*30.0,Bloodloss*2*(2.0-CrouchState)),BlurTimer)
 		If (Not I_427\Using And I_427\Timer < 70*360) Then
 			Bloodloss = Min(Bloodloss + (Min(Injuries,3.5)/300.0)*FPSfactor,100)
 		EndIf
@@ -4136,7 +4136,7 @@ Function MovePlayer()
 			FreeEntity pvt
 		EndIf
 		
-		CurrCameraZoom = Max(CurrCameraZoom, (Sin(Float(MilliSecs2())/20.0)+1.0)*Bloodloss*0.2)
+		CurrCameraZoom = Max(CurrCameraZoom, (Sin(Float(MilliSecs())/20.0)+1.0)*Bloodloss*0.2)
 		
 		If Bloodloss > 60 Then Crouch = True
 		If Bloodloss => 100 Then 
@@ -4239,7 +4239,7 @@ Function MouseLook()
 		
 		If PlayerRoom\RoomTemplate\Name = "pocketdimension" Then
 			If EntityY(Collider)<2000*RoomScale Or EntityY(Collider)>2608*RoomScale Then
-				RotateEntity Camera, WrapAngle(EntityPitch(Camera)),WrapAngle(EntityYaw(Camera)), roll+WrapAngle(Sin(MilliSecs2()/150.0)*30.0) ; Pitch the user;s camera up And down.
+				RotateEntity Camera, WrapAngle(EntityPitch(Camera)),WrapAngle(EntityYaw(Camera)), roll+WrapAngle(Sin(MilliSecs()/150.0)*30.0) ; Pitch the user;s camera up And down.
 			EndIf
 		EndIf
 		
@@ -6183,7 +6183,7 @@ Function DrawGUI()
 							
 							SetFont Font3
 							If strtemp <> "" Then
-								strtemp = Right(Left(strtemp, (Int(MilliSecs2()/300) Mod Len(strtemp))),10)
+								strtemp = Right(Left(strtemp, (Int(MilliSecs()/300) Mod Len(strtemp))),10)
 								Text(x+5, y+33, strtemp)
 							EndIf
 							
@@ -6411,7 +6411,7 @@ Function DrawGUI()
 					EndIf
 					
 					If (Not NavWorks) Then
-						If (MilliSecs2() Mod 1000) > 300 Then
+						If (MilliSecs() Mod 1000) > 300 Then
 							Color(200, 0, 0)
 							Text(x, y + height / 2 - 80, "错误 06", True)
 							Text(x, y + height / 2 - 60, "未知位置", True)						
@@ -6485,7 +6485,7 @@ Function DrawGUI()
 							Else
 								Color (30,30,30)
 							EndIf
-							If (MilliSecs2() Mod 1000) > 300 Then
+							If (MilliSecs() Mod 1000) > 300 Then
 								If SelectedItem\itemtemplate\name <> "S-NAV 310 Navigator" And SelectedItem\itemtemplate\name <> "S-NAV Navigator Ultimate" Then
 									Text(x - width/2 + 10, y - height/2 + 10, "地图数据库离线")
 								EndIf
@@ -6501,7 +6501,7 @@ Function DrawGUI()
 							EndIf
 							
 							Local SCPs_found% = 0
-							If SelectedItem\itemtemplate\name = "S-NAV Navigator Ultimate" And (MilliSecs2() Mod 600) < 400 Then
+							If SelectedItem\itemtemplate\name = "S-NAV Navigator Ultimate" And (MilliSecs() Mod 600) < 400 Then
 								If Curr173<>Null Then
 									Local dist# = EntityDistance(Camera, Curr173\obj)
 									dist = Ceil(dist / 8.0) * 8.0
@@ -10044,7 +10044,7 @@ Function UpdateInfect()
 			HeartBeatRate = Max(HeartBeatRate, 100)
 			HeartBeatVolume = Max(HeartBeatVolume, Infect/120.0)
 			
-			EntityAlpha InfectOverlay, Min(((Infect*0.2)^2)/1000.0,0.5) * (Sin(MilliSecs2()/8.0)+2.0)
+			EntityAlpha InfectOverlay, Min(((Infect*0.2)^2)/1000.0,0.5) * (Sin(MilliSecs()/8.0)+2.0)
 			
 			For i = 0 To 6
 				If Infect>i*15+10 And temp =< i*15+10 Then
@@ -10096,7 +10096,7 @@ Function UpdateInfect()
 			
 			If teleportForInfect
 				If Infect < 94.7 Then
-					EntityAlpha InfectOverlay, 0.5 * (Sin(MilliSecs2()/8.0)+2.0)
+					EntityAlpha InfectOverlay, 0.5 * (Sin(MilliSecs()/8.0)+2.0)
 					BlurTimer = 900
 					
 					If Infect > 94.5 Then BlinkTimer = Max(Min(-50*(Infect-94.5),BlinkTimer),-10)
@@ -10111,7 +10111,7 @@ Function UpdateInfect()
 					Animate2(PlayerRoom\NPC[0]\obj, AnimTime(PlayerRoom\NPC[0]\obj), 357, 381, 0.3)
 				ElseIf Infect < 98.5
 					
-					EntityAlpha InfectOverlay, 0.5 * (Sin(MilliSecs2()/5.0)+2.0)
+					EntityAlpha InfectOverlay, 0.5 * (Sin(MilliSecs()/5.0)+2.0)
 					BlurTimer = 950
 					
 					ForceMove = 0.0
@@ -10155,9 +10155,9 @@ Function UpdateInfect()
 					EndIf
 					
 					PositionEntity Head, EntityX(PlayerRoom\NPC[0]\Collider,True), EntityY(PlayerRoom\NPC[0]\Collider,True)+0.65,EntityZ(PlayerRoom\NPC[0]\Collider,True),True
-					RotateEntity Head, (1.0+Sin(MilliSecs2()/5.0))*15, PlayerRoom\angle-180, 0, True
+					RotateEntity Head, (1.0+Sin(MilliSecs()/5.0))*15, PlayerRoom\angle-180, 0, True
 					MoveEntity Head, 0,0,-0.4
-					TurnEntity Head, 80+(Sin(MilliSecs2()/5.0))*30,(Sin(MilliSecs2()/5.0))*40,0
+					TurnEntity Head, 80+(Sin(MilliSecs()/5.0))*30,(Sin(MilliSecs()/5.0))*40,0
 				EndIf
 			Else
 				Kill()
@@ -10974,7 +10974,7 @@ Function RenderWorld2()
 	CameraProjMode ark_blur_cam,0
 	
 	If BlinkTimer < - 16 Or BlinkTimer > - 6
-		If (WearingNightVision=1 Or WearingNightVision=2) And (hasBattery=1) And ((MilliSecs2() Mod 800) < 400) Then
+		If (WearingNightVision=1 Or WearingNightVision=2) And (hasBattery=1) And ((MilliSecs() Mod 800) < 400) Then
 			Color 255,0,0
 			SetFont Font3
 			
