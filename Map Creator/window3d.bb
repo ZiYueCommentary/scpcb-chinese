@@ -1696,12 +1696,6 @@ Function TextBox(x,y,width,height,Txt$)
 	Text (x+width/2)*ResFactor,(y+height/2)*ResFactor, Txt, True, True
 End Function
 
-Function MilliSecs()
-	Local retVal% = MilliSecs()
-	If retVal < 0 Then retVal = retVal + 2147483648
-	Return retVal
-End Function
-
 Function WrapAngle#(angle#)
 	While angle < 0
 		angle = angle + 360
