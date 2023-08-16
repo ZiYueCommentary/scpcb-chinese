@@ -17,15 +17,21 @@ ZiYueCommentary ("子悦解说")
 
 *翻译工作
 
+________________________
 amigo
 德意志战车
 Four_P ("four")
 南柯
 虚茼
 一只孤独的屑d级
-ZiYueCommentary ("子悦解说")
-________________________
 与或非
+ZiYueCommentary ("子悦解说")
+
+
+*翻译润色
+
+ICD ("InkICD")
+ZiYueCommentary ("子悦解说")
 
 
 *测试及宣传
@@ -36,8 +42,8 @@ ZiYueCommentary ("子悦解说")
 
 *字幕系统
 
-ZiYueCommentary ("子悦解说")
 Nikita Sidorov ("Jabka")
+ZiYueCommentary ("子悦解说")
 
 
 *鸣谢

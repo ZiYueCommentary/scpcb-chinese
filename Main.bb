@@ -3729,7 +3729,7 @@ Function InitCredits()
 	
 	; 因为整个游戏只有制作人员名单用到了粗体字体，所以粗体就砍到几十个字了
 	CreditsFont% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(21 * (GraphicHeight / 1024.0)))
-	CreditsFont2% = LoadFont_Strict("GFX\font\Containment Breach Bold.ttf", Int(35 * (GraphicHeight / 1024.0)))
+	CreditsFont2% = LoadFont_Strict("GFX\font\Containment Breach Bold.ttf", Int(30 * (GraphicHeight / 1024.0)))
 	CreditsFont3% = LoadFont_Strict("GFX\font\Containment Breach Bold.ttf", Int(37 * (GraphicHeight / 1024.0)))
 	
 	If CreditsScreen = 0
