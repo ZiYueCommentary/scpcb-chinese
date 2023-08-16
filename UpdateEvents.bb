@@ -404,7 +404,7 @@ Function UpdateEvents()
 								RotateEntity Collider, 0, EntityYaw(Camera), 0
 								
 							ElseIf e\EventState3 < 40
-								If Inventory(0)<>Null Then
+								If Inventory(1)<>Null Then
 									If(Inventory(0) <> Null) And (Inventory(1) <> Null) Then Inventory(1) = Null ; 如果拾起了桌上的文档，就将它和物品栏中的文档合并
 									Msg = "按 "+KeyName(KEY_INV)+" 打开物品栏"
 									MsgTimer=70*7
