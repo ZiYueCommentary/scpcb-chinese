@@ -1441,7 +1441,7 @@ Function DrawLoading(percent%, shortloading=False)
 						Case 1
 							SelectedLoadingScreen\txt[0] = "一个超精的对讲机可能会有用"
 						Case 2
-							SelectedLoadingScreen\txt[0] = "这地个方将燃会烧"
+							SelectedLoadingScreen\txt[0] = "這  个  方 地   將  燃   會  烧"
 						Case 3
 							SelectedLoadingScreen\txt[0] = "你无法控制它"
 						Case 4
@@ -1449,7 +1449,7 @@ Function DrawLoading(percent%, shortloading=False)
 						Case 5
 							SelectedLoadingScreen\txt[0] = "你需要相信它。"
 						Case 6 
-							SelectedLoadingScreen\txt[0] = "当你叫我的朋友时看着他的眼睛，这不是绅士的方式吗？"
+							SelectedLoadingScreen\txt[0] = "当你叫我的朋友时看着他的眼睛，这不是十分绅士的举止吗?"
 						Case 7
 							SelectedLoadingScreen\txt[0] = "???____??_???__????n?"
 						Case 8, 9

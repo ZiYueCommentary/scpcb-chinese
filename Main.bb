@@ -2283,7 +2283,7 @@ Function UseDoor(d.Doors, showmsg%=True, playsfx%=True)
                             Msg = "门看起来被锁上了"
                         EndIf    
                     Else
-                        Msg = "电梯看起来坏了"
+                        Msg = "电梯似乎坏了"
                     EndIf
 					MsgTimer = 70 * 5
 				Else
@@ -2300,7 +2300,7 @@ Function UseDoor(d.Doors, showmsg%=True, playsfx%=True)
 									Msg = "不要再按按钮了"
 									MsgTimer = 70 * 7
 								Case 2
-									Msg = "一直按按钮不会让电梯来的更快"
+									Msg = "一直按按钮不会让电梯来得更快"
 									MsgTimer = 70 * 7
 								Case 3
 									Msg = "如果你再按按钮我就让游戏内存访问冲突"
@@ -5649,7 +5649,7 @@ Function DrawGUI()
 											Case 5
 												Bloodloss = 0
 												Injuries = 0
-												Msg = "你用绷带包扎伤口，出血完全停止了。你感觉很好"
+												Msg = "你用绷带包扎伤口，血完全止住了。你感觉良好"
 											Case 6
 												Msg = "你用绷带包扎伤口，血从绷带里大量流出"
 												Injuries = 3.5
@@ -5728,7 +5728,7 @@ Function DrawGUI()
 								SelectedItem\itemtemplate\img=LoadImage_Strict(SelectedItem\itemtemplate\imgpath)	
 								
 								If (SelectedItem\state = 0) Then
-									Msg = "“嘿，我记得这个电影！”"
+									Msg = "“嘿，我记得这部电影！”"
 									MsgTimer = 70*10
 									PlaySound_Strict LoadTempSound("SFX\SCP\1162\NostalgiaCancer"+Rand(1,5)+".ogg")
 									SelectedItem\state = 1

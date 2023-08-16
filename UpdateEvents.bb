@@ -4855,7 +4855,7 @@ Function UpdateEvents()
 									If e\EventState3>70 And e\EventState3-FPSfactor=<70 Then
 										PlaySound_Strict LoadTempSound("SFX\SCP\012\Speech1.ogg")
 									ElseIf e\EventState3>13*70 And e\EventState3-FPSfactor=<13*70
-										Msg="你把指甲伸进手腕，血流了出来"
+										Msg="你用指甲划破手腕，血流了出来"
 										MsgTimer = 7*70
 										Injuries=Injuries+0.5
 										PlaySound_Strict LoadTempSound("SFX\SCP\012\Speech2.ogg")
@@ -4869,7 +4869,7 @@ Function UpdateEvents()
 										Injuries=Max(Injuries,1.5)
 										PlaySound_Strict LoadTempSound("SFX\SCP\012\Speech"+Rand(3,4)+".ogg")
 									ElseIf e\EventState3>49*70 And e\EventState3-FPSfactor=<49*70
-										Msg="你将手指往伤口深处推"
+										Msg="你用手指把伤口挖得更深了"
 										MsgTimer = 8*70
 										Injuries=Injuries+0.3
 										PlaySound_Strict LoadTempSound("SFX\SCP\012\Speech5.ogg")
@@ -6047,8 +6047,8 @@ Function UpdateEvents()
 								EndIf
 							Case 67
 								If (Rand(150)=1) Then
-									DeathMSG = "在[已编辑]期间发现周期异常后，SCP-205的周期似乎已恢复正常。对象D-9341的尸体在房间内找到。"
-									DeathMSG = DeathMSG + "尸体有明显的钝器创伤的痕迹，这是在灯熄灭时进入房间的典型情况。"
+									DeathMSG = "在[已编辑]时观察到异常后，SCP-205的循环似乎已恢复正常。在收容室内找到了对象D-9341的尸体。"
+									DeathMSG = DeathMSG + "对象有受钝性击打的特征，这是在灯熄灭后进入收容室的典型伤口。"
 									
 									Injuries=Injuries+Rnd(0.4,0.8)
 									PlaySound_Strict DamageSFX(Rand(2,3))
@@ -7106,8 +7106,8 @@ Function UpdateEvents()
 										KillTimer = Min(-1, KillTimer)
 										BlinkTimer = -10
 										If e\SoundCHN <> 0 Then StopChannel e\SoundCHN
-										DeathMSG = "“在SCP-914输出隔间中找到了一具严重残缺的尸体，经DNA检测确认为D级人员D-9341。"
-										DeathMSG = DeathMSG + "很显然，对象在SCP-914进行了‘粗加工’。但我们仍不知道他是如何进入输入隔间的，是谁转动钥匙什么的。”"
+										DeathMSG = "“在SCP-914的输出隔间内发现了一具严重残缺的尸体。DNA验证确认为对象D-9341。"
+										DeathMSG = DeathMSG + "对象显然在SCP-914进行了“粗加工”，但我们仍不清楚他在进入输入隔间后是谁或什么东西转动了发条。”"
 									Case "coarse"
 										BlinkTimer = -10
 										If e\EventState - FPSfactor2 < 70 * 3 Then PlaySound_Strict Use914SFX
@@ -7141,7 +7141,7 @@ Function UpdateEvents()
 								Select setting
 									Case "coarse"
 										Injuries = 4.0
-										Msg = "你注意到身体有无数的小切口，它们一直在流血"
+										Msg = "你注意到你身上有无数的细小伤口，它们使你大量出血"
 										MsgTimer = 70*8
 									Case "1:1"
 										InvertMouse = (Not InvertMouse)
@@ -7572,7 +7572,7 @@ Function UpdateEvents()
 							Else
 								PlaySound_Strict LoadTempSound("SFX\SCP\1162\BodyHorrorExchange"+Rand(1,4)+".ogg")
 								LightFlash = 5.0
-								Msg = "你注意到口袋里有东西在动，同时胸部剧痛"
+								Msg = "你注意到你的口袋里有东西在动，同时你感到胸口剧痛"
 								MsgTimer = 70*5
 							EndIf
 							e\EventState2 = 0.0
@@ -8300,7 +8300,7 @@ Function UpdateEvents()
 				If PlayerRoom=e\room Then
 					UpdateButton(e\room\Objects[2])
 					If ClosestButton = e\room\Objects[2] And MouseHit1 Then
-						Msg = "电梯看起来坏了"
+						Msg = "电梯似乎坏了"
 						PlaySound2(ButtonSFX2, Camera, e\room\Objects[2])
 						MsgTimer = 5*70
 						MouseHit1=0
@@ -8313,7 +8313,7 @@ Function UpdateEvents()
 					For i = 0 To 1
 						UpdateButton(e\room\Objects[i])
 						If ClosestButton = e\room\Objects[i] And MouseHit1 Then
-							Msg = "电梯看起来坏了"
+							Msg = "电梯似乎坏了"
 							PlaySound2(ButtonSFX2, Camera, e\room\Objects[i])
 							MsgTimer = 5*70
 							MouseHit1=0
