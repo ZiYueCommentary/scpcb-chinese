@@ -7,7 +7,7 @@
 
 *发起
 
-ZiYueCommentary("子悦解说")
+ZiYueCommentary ("子悦解说")
 
 
 *一期技术支持
@@ -19,32 +19,32 @@ ZiYueCommentary("子悦解说")
 
 amigo
 德意志战车
-Four_P("four")
+Four_P ("four")
 南柯
 虚茼
 一只孤独的屑d级
-ZiYueCommentary("子悦解说")
+ZiYueCommentary ("子悦解说")
 ________________________
+与或非
 
 
 *测试及宣传
 
-Mr.("掌柜KETER")
-ZiYueCommentary("子悦解说")
+Mr. ("掌柜KETER")
+ZiYueCommentary ("子悦解说")
 
 
 *字幕系统
 
-ZiYueCommentary("子悦解说")
+ZiYueCommentary ("子悦解说")
 Nikita Sidorov ("Jabka")
 
 
 *鸣谢
 
-HJ itfkqqug("HJ浩鈞")
-TheZihanGu("Fr0zen_F1sh")
+HJ itfkqqug ("HJ浩鈞")
+TheZihanGu ("Fr0zen_F1sh")
 快乐男孩
-插头而已
 扬鞭大笑
 Nikita Sidorov ("Jabka")
 
