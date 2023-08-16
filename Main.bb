@@ -11213,7 +11213,7 @@ End Function
 
 Function CatchErrors(location$)
 	InitErrorMsgs(10, True) ; 声明报错内有宏存在
-	SetErrorMsg(0, "SCP - 收容失效 v" + VersionNumber + " 汉化版本 出现错误！")
+	SetErrorMsg(0, "SCP - 收容失效 汉化计划 v" + VersionNumber + " 出现错误！")
 	SetErrorMsg(1, "汉化版版本号：" + SinicizationNumber)
 	SetErrorMsg(2, "地图种子：" + RandomSeed)
 	SetErrorMsg(3, "日期和时间：" + CurrentDate() + "，" + CurrentTime())

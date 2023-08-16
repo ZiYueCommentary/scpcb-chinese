@@ -1,5 +1,5 @@
 
-`汉化版本
+`汉化计划
 
 
 子悦汉化组 汉化
@@ -49,10 +49,10 @@ ZiYueCommentary ("子悦解说")
 *鸣谢
 
 HJ itfkqqug ("HJ浩鈞")
-TheZihanGu ("Fr0zen_F1sh")
 快乐男孩
-扬鞭大笑
 Nikita Sidorov ("Jabka")
+TheZihanGu ("Fr0zen_F1sh")
+扬鞭大笑
 
 
 
