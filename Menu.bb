@@ -1101,7 +1101,7 @@ Function UpdateLauncher()
 			Color 255, 255, 255
 			Repeat
 				MouseHit1 = MouseHit(1)
-				Text 320, 200, "遊戲檢測到您的系統語言不為簡體中文", 1, 0
+				Text 320, 200, "遊戲檢測到您的系統語言不是簡體中文", 1, 0
 				Text 320, 220, "是否需要開啟繁簡轉換？", 1, 0
 				If DrawButton(200, 250, 100, 30, "是", False, False, False)
 					Delay 100
@@ -1136,9 +1136,9 @@ Function UpdateLauncher()
 		Color 255,255,0
 		Select UpdaterStatus
 			Case 1
-				Text(0,5,"检查更新完毕，无新更新")
+				Text(0,5,"检查更新完毕，无新更新。")
 			Case -1
-				Text(0,5,"警告： 检查更新失败（连接超时）")
+				Text(0,5,"警告： 检查更新失败（连接超时）。")
 		End Select
 		Color 255, 255, 255
 		
