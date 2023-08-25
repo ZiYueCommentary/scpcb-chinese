@@ -6,7 +6,7 @@
 - 部分翻译润色
 - 修改了加载界面的翻译
 - 补充了缺失的字幕
-- 更新了部分贴图的汉化（012.jpg、docGonzales.jpg、drL.jpg）
+- 更新了部分贴图的汉化（012.jpg、docGonzales.jpg、drL.jpg、labelmedicalbay.jpg）
 - 修复bug：
     - 修复了字符串的内存泄漏问题
     - 修复了序章中物品栏有两个D级人员传单的bug
