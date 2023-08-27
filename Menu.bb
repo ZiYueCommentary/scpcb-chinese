@@ -1095,7 +1095,7 @@ Function UpdateLauncher()
 		End If
 	Next
 	
-	If GetINIInt(OptionFile, "options", "first launch") Then ; 第一次启动
+	If GetINIInt(OptionFile, "options", "first launch", 1) Then ; 第一次启动
 		PutINIValue(OptionFile, "options", "first launch", 0)
 		If GetUserLanguage() <> "zh-CN" Then
 			Color 255, 255, 255
