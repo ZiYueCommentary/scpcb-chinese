@@ -775,7 +775,7 @@ Const branch_max_life% = 4
 Const branch_die_chance% = 18
 Const max_deviation_distance% = 3
 Const return_chance% = 27
-Const center = 5 ;(gridsize-1) / 2
+Const center = 5
 
 Include "Drawportals.bb"
 
@@ -789,7 +789,7 @@ Type Forest
 	
 	Field Door%[2]
 	Field DetailEntities%[2]
-	
+
 	Field ID%
 End Type
 
@@ -953,7 +953,6 @@ Function GenForestGrid(fr.Forest)
 				Else
 					temp_y=temp_y+1
 				EndIf
-				
 				;before creating a branch make sure there are no 1's above or below
 				n=((gridsize - 1 - temp_y + 1)*gridsize)+new_x
 				If n < gridsize-1 Then 
@@ -963,13 +962,12 @@ Function GenForestGrid(fr.Forest)
 				If n>0 Then 
 					If fr\grid[n]=1 Then Exit
 				EndIf
-				
 				fr\grid[((gridsize-1-temp_y)*gridsize)+new_x]=branch_type ;make 4s so you don't confuse your branch for a path; will be changed later
 				If temp_y>=gridsize-2 Then Exit
 			Wend
 		EndIf
 	Wend
-	
+
 	;change branches from 4s to 1s (they were 4s so that they didn't accidently create a 2x2 path unintentionally)
 	For i=0 To gridsize-1
 		For j=0 To gridsize-1
@@ -1116,18 +1114,7 @@ Function PlaceForest(fr.Forest,x#,y#,z#,r.Rooms)
 						DebugLog "tile_type: "+tile_type
 				End Select
 				
-				If tile_type > 0 Then 
-					
-					Local itemPlaced[4]
-					;2, 5, 8
-					Local it.Items = Null
-					If (ty Mod 3)=2 And itemPlaced[Floor(ty/3)]=False Then
-						itemPlaced[Floor(ty/3)]=True
-						it.Items = CreateItem("Log #"+Int(Floor(ty/3)+1), "paper", 0,0.5,0)
-						EntityType(it\collider, HIT_ITEM)
-						EntityParent(it\collider, tile_entity)
-					EndIf
-					
+				If tile_type > 0 Then					
 					;place trees and other details
 					;only placed on spots where the value of the heightmap is above 100
 					SetBuffer ImageBuffer(hmap[tile_type])
@@ -1178,12 +1165,29 @@ Function PlaceForest(fr.Forest,x#,y#,z#,r.Rooms)
 						Next
 					Next
 					SetBuffer BackBuffer()
+
+					ScaleEntity tile_entity,tempf1,tempf1,tempf1
+
+					Local itemPlaced[4]
+					;2, 5, 8
+					Local it.Items = Null
+					If (ty Mod 3)=2 And itemPlaced[Floor(ty/3)]=False Then
+						itemPlaced[Floor(ty/3)]=True
+						If tile_type=ROOM1 Then
+							it.Items = CreateItem("Log #"+Int(Floor(ty/3)+1), "paper", 0.4,0.2,0)
+						ElseIf tile_type=ROOM2C
+							it.Items = CreateItem("Log #"+Int(Floor(ty/3)+1), "paper", 1.7,0.2,-0.4)
+						Else
+							it.Items = CreateItem("Log #"+Int(Floor(ty/3)+1), "paper", 0,0.2,0)
+						EndIf
+						EntityType(it\collider, HIT_ITEM)
+						EntityParent(it\collider, tile_entity)
+					EndIf
 					
 					TurnEntity tile_entity, 0, angle, 0
 					
 					PositionEntity tile_entity,x+(tx*tile_size),y,z+(ty*tile_size),True
 					
-					ScaleEntity tile_entity,tempf1,tempf1,tempf1
 					EntityType tile_entity,HIT_MAP
 					EntityFX tile_entity,1
 					EntityParent tile_entity,fr\Forest_Pivot
@@ -1227,7 +1231,8 @@ Function PlaceForest(fr.Forest,x#,y#,z#,r.Rooms)
 				RotateEntity fr\DetailEntities[i],0,180*i,0
 				
 				EntityParent fr\DetailEntities[i],fr\Forest_Pivot
-			EndIf		
+				Exit
+			EndIf
 		Next		
 	Next
 	
@@ -1320,18 +1325,7 @@ Function PlaceForest_MapCreator(fr.Forest,x#,y#,z#,r.Rooms)
 				
 				DebugLog "Tile: "+tile_type+"| Angle: "+angle
 				
-				If tile_type > 0 Then 
-					
-					Local itemPlaced[4]
-					;2, 5, 8
-					Local it.Items = Null
-					If (ty Mod 3)=2 And itemPlaced[Floor(ty/3)]=False Then
-						itemPlaced[Floor(ty/3)]=True
-						it.Items = CreateItem("Log #"+Int(Floor(ty/3)+1), "paper", 0,0.5,0)
-						EntityType(it\collider, HIT_ITEM)
-						EntityParent(it\collider, tile_entity)
-					EndIf
-					
+				If tile_type > 0 Then
 					;place trees and other details
 					;only placed on spots where the value of the heightmap is above 100
 					SetBuffer ImageBuffer(hmap[tile_type])
@@ -1385,6 +1379,24 @@ Function PlaceForest_MapCreator(fr.Forest,x#,y#,z#,r.Rooms)
 						Next
 					Next
 					SetBuffer BackBuffer()
+
+					ScaleEntity tile_entity,tempf1,tempf1,tempf1
+
+					Local itemPlaced[4]
+					;2, 5, 8
+					Local it.Items = Null
+					If (ty Mod 3)=2 And itemPlaced[Floor(ty/3)]=False Then
+						itemPlaced[Floor(ty/3)]=True
+						If tile_type=ROOM1 Then
+							it.Items = CreateItem("Log #"+Int(Floor(ty/3)+1), "paper", 0.4,0.2,0)
+						ElseIf tile_type=ROOM2C
+							it.Items = CreateItem("Log #"+Int(Floor(ty/3)+1), "paper", 1.7,0.2,-0.4)
+						Else
+							it.Items = CreateItem("Log #"+Int(Floor(ty/3)+1), "paper", 0,0.2,0)
+						EndIf
+						EntityType(it\collider, HIT_ITEM)
+						EntityParent(it\collider, tile_entity)
+					EndIf
 					
 					TurnEntity tile_entity, 0, angle, 0
 					
@@ -1392,7 +1404,6 @@ Function PlaceForest_MapCreator(fr.Forest,x#,y#,z#,r.Rooms)
 					
 					DebugLog "tile_entity: "+(x+(tx*tile_size))+"|"+(y)+"|"+(z+(ty*tile_size))
 					
-					ScaleEntity tile_entity,tempf1,tempf1,tempf1
 					EntityType tile_entity,HIT_MAP
 					EntityFX tile_entity,1
 					EntityParent tile_entity,fr\Forest_Pivot
@@ -1759,7 +1770,7 @@ End Function
 
 Function PlaceGrid_MapCreator(r.Rooms)
 	Local x,y,i
-	Local Meshes[6]
+	Local Meshes[7]
 	Local dr.Doors,it.Items
 	
 	For i=0 To 6
@@ -1783,15 +1794,11 @@ Function PlaceGrid_MapCreator(r.Rooms)
 				PositionEntity tile_entity,r\x+x*2.0,8.0,r\z+y*2.0,True
 				
 				Select r\grid\grid[x+(y*gridsz)]
-					Case ROOM1
-						AddLight%(Null, r\x+x*2.0, 8.0+(368.0*RoomScale), r\z+y*2.0, 2, 500.0 * RoomScale, 255, 255, 255)
-					Case ROOM2,ROOM2C
-						AddLight%(Null, r\x+x*2.0, 8.0+(368.0*RoomScale), r\z+y*2.0, 2, 500.0 * RoomScale, 255, 255, 255)
-					Case ROOM2C
-						AddLight%(Null, r\x+x*2.0, 8.0+(412.0*RoomScale), r\z+y*2.0, 2, 500.0 * RoomScale, 255, 255, 255)
-					Case ROOM3,ROOM4
-						AddLight%(Null,r\x+x*2.0, 8.0+(412.0*RoomScale), r\z+y*2.0, 2, 500.0 * RoomScale, 255, 255, 255)
-					Case ROOM4+1
+					Case ROOM1, ROOM2
+						AddLight%(Null, r\x+x*2.0, 8.0+(372.0*RoomScale), r\z+y*2.0, 2, 500.0 * RoomScale, 255, 255, 255)
+					Case ROOM2C, ROOM3, ROOM4
+						AddLight%(Null,r\x+x*2.0, 8.0+(416.0*RoomScale), r\z+y*2.0, 2, 500.0 * RoomScale, 255, 255, 255)
+					Case ROOM4 + 1
 						dr=CreateDoor(r\zone,r\x+(x*2.0)+(Cos(EntityYaw(tile_entity,True))*240.0*RoomScale),8.0,r\z+(y*2.0)+(Sin(EntityYaw(tile_entity,True))*240.0*RoomScale),EntityYaw(tile_entity,True)+90.0,Null,False,3,False,"")
 						PositionEntity dr\buttons[0],EntityX(dr\buttons[0],True)+(Cos(EntityYaw(tile_entity,True))*0.05),EntityY(dr\buttons[0],True)+0.0,EntityZ(dr\buttons[0],True)+(Sin(EntityYaw(tile_entity,True))*0.05),True
 						
@@ -1811,7 +1818,7 @@ Function PlaceGrid_MapCreator(r.Rooms)
 							PositionEntity r\Objects[1],r\x+x*2.0,8.0,r\z+y*2.0,True
 							DebugLog "Created door 2 successfully!"
 						EndIf
-					Case ROOM4+2
+					Case ROOM4 + 2
 						AddLight%(Null, r\x+x*2.0-(Sin(EntityYaw(tile_entity,True))*504.0*RoomScale)+(Cos(EntityYaw(tile_entity,True))*16.0*RoomScale), 8.0+(396.0*RoomScale), r\z+y*2.0+(Cos(EntityYaw(tile_entity,True))*504.0*RoomScale)+(Sin(EntityYaw(tile_entity,True))*16.0*RoomScale), 2, 500.0 * RoomScale, 255, 200, 200)
 						it = CreateItem("SCP-500-01","scp500",r\x+x*2.0+(Cos(EntityYaw(tile_entity,True))*(-208.0)*RoomScale)-(Sin(EntityYaw(tile_entity,True))*1226.0*RoomScale),8.0+(80.0*RoomScale),r\z+y*2.0+(Sin(EntityYaw(tile_entity,True))*(-208.0)*RoomScale)+(Cos(EntityYaw(tile_entity,True))*1226.0*RoomScale))
 						EntityType (it\collider, HIT_ITEM)
@@ -2474,7 +2481,7 @@ Function FillRoom(r.Rooms)
 			EntityFX r\Objects[3],1
 			
 			If MapTemp(Floor(r\x / 8.0),Floor(r\z /8.0)-1)=0 Then
-				CreateDoor(r\zone, r\x, 0, r\z  - 4.0, 0, r, 0, False, 0, "GEAR")
+				CreateDoor(r\zone, r\x, 0, r\z  - 4.0, 0, r, 0, 2, 0, "GEAR")
 			EndIf
 			;[End Block]
 		Case "checkpoint2"
@@ -3642,10 +3649,15 @@ Function FillRoom(r.Rooms)
 			it = CreateItem("Level 1 Key Card", "key1", r\x + 736.0 * RoomScale, r\y + 240.0 * RoomScale, r\z + 752.0 * RoomScale)
 			EntityParent(it\collider, r\obj)
 			
-			Local clipboard.Items = CreateItem("Clipboard","clipboard",r\x + 736.0 * RoomScale, r\y + 224.0 * RoomScale, r\z -480.0 * RoomScale)
-			EntityParent(it\collider, r\obj)
-			
-			it = CreateItem("Incident Report SCP-1048-A", "paper",r\x + 736.0 * RoomScale, r\y + 224.0 * RoomScale, r\z -480.0 * RoomScale)
+			Local clipboard.Items = CreateItem("Clipboard","clipboard",r\x + 736.0 * RoomScale, r\y + 224.0 * RoomScale, r\z - 720.0 * RoomScale)
+			EntityParent(clipboard\collider, r\obj)
+
+			it = CreateItem("Incident Report SCP-1048-A", "paper",r\x + 736.0 * RoomScale, r\y + 224.0 * RoomScale, r\z - 720.0 * RoomScale)
+			it\Picked = True
+			it\Dropped = -1
+			clipboard\SecondInv[0] = it
+			SetAnimTime clipboard\model, 0.0
+			clipboard\invimg = clipboard\itemtemplate\invimg
 			HideEntity(it\collider)
 			
 			r\Objects[0]=CreatePivot(r\obj)
@@ -4764,7 +4776,7 @@ Function FillRoom(r.Rooms)
 			r\Objects[1] = CreateButton(r\x - 96.0*RoomScale, r\y + 160.0 * RoomScale, r\z + 64.0 * RoomScale, 0,0,0)
 			EntityParent (r\Objects[1],r\obj)
 			
-			sc.SecurityCams = CreateSecurityCam(r\x+384.0*RoomScale, r\y+(448-64)*RoomScale, r\z-960.0*RoomScale, r, True)
+			sc.SecurityCams = CreateSecurityCam(r\x+384.0*RoomScale, r\y+(448-64)*RoomScale, r\z-960.0*RoomScale, r)
 			sc\angle = 45
 			sc\turn = 45
 			sc\room = r
@@ -7708,6 +7720,8 @@ Function UpdateRoomLights(cam%)
 						;This will make the lightsprites not glitch through the wall when they are rendered by the cameras
 						EntityOrder r\LightSprites2[i],0
 					EndIf
+				Else
+					Exit
 				EndIf
 			Next
 		EndIf
@@ -8148,6 +8162,8 @@ Function AddLightCones(room.Rooms)
 				PositionEntity room\LightConeSpark[i],EntityX(room\LightSpritesPivot[i],True),EntityY(room\LightSpritesPivot[i],True)+0.05,EntityZ(room\LightSpritesPivot[i],True),True
 				EntityParent room\LightConeSpark[i],room\LightSpritesPivot[i]
 			EndIf
+		Else
+			Exit
 		EndIf
 	Next
 End Function

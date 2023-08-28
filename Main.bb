@@ -38,7 +38,7 @@ Global CompatibleNumber$ = "1.3.11-2022.5" ; 当存档与构建版本不兼容�
 Global OpenCC% = CreateOpenCC("Traditional\OpenCC\s2twp.json") ; 繁简转换工具
 
 Global MenuWhite%, MenuBlack%
-Global ButtonSFX%
+Global ButtonSFX% = LoadSound_Strict("SFX\Interact\Button.ogg")
 
 Global EnableSFXRelease% = GetINIInt(OptionFile, "audio", "sfx release")
 Global EnableSFXRelease_Prev% = EnableSFXRelease%
@@ -52,7 +52,6 @@ Dim ArrowIMG(4)
 Global LauncherWidth%= Min(GetINIInt(OptionFile, "launcher", "launcher width"), 1024)
 Global LauncherHeight% = Min(GetINIInt(OptionFile, "launcher", "launcher height"), 768)
 Global LauncherEnabled% = GetINIInt(OptionFile, "launcher", "launcher enabled")
-Global LauncherIMG%
 
 Global GraphicWidth% = GetINIInt(OptionFile, "options", "width")
 Global GraphicHeight% = GetINIInt(OptionFile, "options", "height")
@@ -3141,12 +3140,6 @@ Repeat
 		
 		DrawGUI()
 		
-		If EndingTimer < 0 Then
-			If SelectedEnding <> "" Then DrawEnding()
-		Else
-			DrawMenu()			
-		EndIf
-		
 		UpdateSubtitles() ;字幕系统
 		UpdateConsole()
 		
@@ -3159,6 +3152,7 @@ Repeat
 								Msg = "双击文档来阅读"
 								MsgTimer=70*7
 								e\EventState3 = 50
+								Exit
 							EndIf
 						EndIf
 					EndIf
@@ -3192,6 +3186,12 @@ Repeat
 		
 		Color 255, 255, 255
 		If ShowFPS Then SetFont ConsoleFont : Text 20, 20, "FPS: " + FPS : SetFont Font1
+		
+		If EndingTimer < 0 Then
+			If SelectedEnding <> "" Then DrawEnding()
+		Else
+			DrawMenu()			
+		EndIf
 		
 		RenderSubtitles()
 		DrawQuickLoading()
@@ -3412,7 +3412,7 @@ Function QuickLoadEvents()
 			;[End Block]
 		Case "room205"
 			;[Block]
-			If e\EventState=0 Or e\room\Objects[0]=0 Then
+			If e\EventState=0 Or e\EventStr <> "loaddone" Then
 				If e\EventStr = "load0"
 					e\room\Objects[3] = LoadAnimMesh_Strict("GFX\npcs\205_demon1.b3d")
 					QuickLoadPercent = 10
@@ -3521,8 +3521,6 @@ Function QuickLoadEvents()
 						Local ch.Chunk
 						For i = -2 To 0 Step 2
 							ch = CreateChunk(-1,x#*(i*2.5),EntityY(e\room\obj),z#,True)
-						Next
-						For i = -2 To 0 Step 2
 							ch = CreateChunk(-1,x#*(i*2.5),EntityY(e\room\obj),z#-40,True)
 						Next
 						e\EventState = 2.0
@@ -3915,7 +3913,7 @@ Function MovePlayer()
 	
 	For i = 0 To MaxItemAmount-1
 		If Inventory(i)<>Null Then
-			If Inventory(i)\itemtemplate\tempname = "finevest" Then Stamina = Min(Stamina, 60)
+			If Inventory(i)\itemtemplate\tempname = "finevest" Then Stamina = Min(Stamina, 60) : Exit
 		EndIf
 	Next
 	
@@ -3964,33 +3962,27 @@ Function MovePlayer()
 				If CurrStepSFX=0 Then
 					temp = GetStepSound(Collider)
 					
-					If Sprint = 1.0 Then
+					If Sprint = 2.5 Then
 						PlayerSoundVolume = Max(4.0,PlayerSoundVolume)
 						tempchn% = PlaySound_Strict(StepSFX(temp, 0, Rand(0, 7)))
-						ChannelVolume tempchn, (1.0-(Crouch*0.6))*SFXVolume#
 					Else
 						PlayerSoundVolume = Max(2.5-(Crouch*0.6),PlayerSoundVolume)
 						tempchn% = PlaySound_Strict(StepSFX(temp, 1, Rand(0, 7)))
-						ChannelVolume tempchn, (1.0-(Crouch*0.6))*SFXVolume#
 					End If
 				ElseIf CurrStepSFX=1
 					tempchn% = PlaySound_Strict(Step2SFX(Rand(0, 2)))
-					ChannelVolume tempchn, (1.0-(Crouch*0.4))*SFXVolume#
 				ElseIf CurrStepSFX=2
 					tempchn% = PlaySound_Strict(Step2SFX(Rand(3,5)))
-					ChannelVolume tempchn, (1.0-(Crouch*0.4))*SFXVolume#
 				ElseIf CurrStepSFX=3
-					If Sprint = 1.0 Then
+					If Sprint = 2.5 Then
 						PlayerSoundVolume = Max(4.0,PlayerSoundVolume)
 						tempchn% = PlaySound_Strict(StepSFX(0, 0, Rand(0, 7)))
-						ChannelVolume tempchn, (1.0-(Crouch*0.6))*SFXVolume#
 					Else
 						PlayerSoundVolume = Max(2.5-(Crouch*0.6),PlayerSoundVolume)
 						tempchn% = PlaySound_Strict(StepSFX(0, 1, Rand(0, 7)))
-						ChannelVolume tempchn, (1.0-(Crouch*0.6))*SFXVolume#
 					End If
 				EndIf
-				
+				If tempchn <> 0 Then ChannelVolume tempchn, (1.0-(Crouch*0.6))*SFXVolume#
 			EndIf	
 		EndIf
 	Else ;noclip on
@@ -4368,10 +4360,16 @@ Function MouseLook()
 						SCP1025state[i]=SCP1025state[i]+FPSfactor*0.0005
 					EndIf
 					If SCP1025state[i]>20.0 Then
-						If SCP1025state[i]-FPSfactor<=20.0 Then Msg="你胃痛得难以忍受"
+						If SCP1025state[i]-FPSfactor<=20.0 Then 
+							Msg="你胃痛得难以忍受"
+							MsgTimer = 70*4
+						EndIf
 						Stamina = Stamina - FPSfactor * 0.3
 					ElseIf SCP1025state[i]>10.0
-						If SCP1025state[i]-FPSfactor<=10.0 Then Msg="你开始胃痛"
+						If SCP1025state[i]-FPSfactor<=10.0 Then 
+							Msg="你开始胃痛"
+							MsgTimer = 70*4
+						EndIf
 					EndIf
 				Case 4 ;asthma
 					If Stamina < 35 Then
@@ -4857,7 +4855,7 @@ Function DrawGUI()
 		spacing% = 35
 		
 		x = GraphicWidth / 2 - (width * MaxItemAmount /2 + spacing * (MaxItemAmount / 2 - 1)) / 2
-		y = GraphicHeight / 2 - (height * OtherSize /5 + spacing * (OtherSize / 5 - 1)) / 2;height
+		y = GraphicHeight / 2 - (height * OtherSize /5 + height * (OtherSize / 5 - 1)) / 2;height
 		
 		ItemAmount = 0
 		For  n% = 0 To OtherSize - 1
@@ -4884,6 +4882,9 @@ Function DrawGUI()
 			DebugLog "otheropen: "+(OtherOpen<>Null)
 			If OtherOpen\SecondInv[n] <> Null And SelectedItem <> OtherOpen\SecondInv[n] Then
 				If isMouseOn Then
+					SetFont Font1
+					Color 0,0,0
+					Text(x + width / 2 + 1, y + height + spacing - 15 + 1, OtherOpen\SecondInv[n]\itemtemplate\name, True)
 					Color 255, 255, 255	
 					Text(x + width / 2, y + height + spacing - 15, OtherOpen\SecondInv[n]\itemtemplate\displayName, True)				
 					If SelectedItem = Null Then
@@ -4909,7 +4910,7 @@ Function DrawGUI()
 			Else
 				If isMouseOn And MouseHit1 Then
 					For z% = 0 To OtherSize - 1
-						If OtherOpen\SecondInv[z] = SelectedItem Then OtherOpen\SecondInv[z] = Null
+						If OtherOpen\SecondInv[z] = SelectedItem Then OtherOpen\SecondInv[z] = Null : Exit
 					Next
 					OtherOpen\SecondInv[n] = SelectedItem
 				EndIf
@@ -4947,7 +4948,7 @@ Function DrawGUI()
 					
 					SelectedItem\Picked = False
 					For z% = 0 To OtherSize - 1
-						If OtherOpen\SecondInv[z] = SelectedItem Then OtherOpen\SecondInv[z] = Null
+						If OtherOpen\SecondInv[z] = SelectedItem Then OtherOpen\SecondInv[z] = Null : Exit
 					Next
 					
 					isEmpty=True
@@ -4991,7 +4992,7 @@ Function DrawGUI()
 					
 					If PrevOtherOpen\SecondInv[MouseSlot] = Null Then
 						For z% = 0 To OtherSize - 1
-							If PrevOtherOpen\SecondInv[z] = SelectedItem Then PrevOtherOpen\SecondInv[z] = Null
+							If PrevOtherOpen\SecondInv[z] = SelectedItem Then PrevOtherOpen\SecondInv[z] = Null : Exit
 						Next
 						PrevOtherOpen\SecondInv[MouseSlot] = SelectedItem
 						SelectedItem = Null
@@ -5039,7 +5040,7 @@ Function DrawGUI()
 		spacing% = 35
 		
 		x = GraphicWidth / 2 - (width * MaxItemAmount /2 + spacing * (MaxItemAmount / 2 - 1)) / 2
-		y = GraphicHeight / 2 - height
+		y = GraphicHeight / 2 - (height * MaxItemAmount /5 + height * (MaxItemAmount / 5 - 1)) / 2
 		
 		ItemAmount = 0
 		For  n% = 0 To MaxItemAmount - 1
@@ -5135,7 +5136,7 @@ Function DrawGUI()
 			Else
 				If isMouseOn And MouseHit1 Then
 					For z% = 0 To MaxItemAmount - 1
-						If Inventory(z) = SelectedItem Then Inventory(z) = Null
+						If Inventory(z) = SelectedItem Then Inventory(z) = Null : Exit
 					Next
 					Inventory(n) = SelectedItem
 				End If
@@ -5181,7 +5182,7 @@ Function DrawGUI()
 				Else
 					If Inventory(MouseSlot) = Null Then
 						For z% = 0 To MaxItemAmount - 1
-							If Inventory(z) = SelectedItem Then Inventory(z) = Null
+							If Inventory(z) = SelectedItem Then Inventory(z) = Null : Exit
 						Next
 						Inventory(MouseSlot) = SelectedItem
 						SelectedItem = Null
@@ -5207,6 +5208,7 @@ Function DrawGUI()
 														If Inventory(ri) = SelectedItem Then
 															Inventory(ri) = Null
 															PlaySound_Strict(PickSFX(SelectedItem\itemtemplate\sound))
+															Exit
 														EndIf
 													Next
 													added = SelectedItem
@@ -5249,6 +5251,7 @@ Function DrawGUI()
 														If Inventory(ri) = SelectedItem Then
 															Inventory(ri) = Null
 															PlaySound_Strict(PickSFX(SelectedItem\itemtemplate\sound))
+															Exit
 														EndIf
 													Next
 													added = SelectedItem
@@ -5767,11 +5770,11 @@ Function DrawGUI()
 						ElseIf Left(SelectedItem\name, Min(8,Len(SelectedItem\name))) = "a cup of" 
 							SelectedItem\name = Right(SelectedItem\name, Len(SelectedItem\name)-9)
 						EndIf
-						
+
 						;the state of refined items is more than 1.0 (fine setting increases it by 1, very fine doubles it)
 						x2 = (SelectedItem\state+1.0)
 						
-						Local iniStr$ = "DATA\SCP-294.ini"
+						Local iniStr$ = "Data\SCP-294.ini"
 						
 						Local loc% = GetINISectionLocation(iniStr, SelectedItem\name)
 						
@@ -5799,7 +5802,7 @@ Function DrawGUI()
 						
 						BlinkEffect = Float(GetINIString2(iniStr, loc, "blink effect", 1.0))*x2
 						BlinkEffectTimer = Float(GetINIString2(iniStr, loc, "blink effect timer", 1.0))*x2
-						
+
 						StaminaEffect = Float(GetINIString2(iniStr, loc, "stamina effect", 1.0))*x2
 						StaminaEffectTimer = Float(GetINIString2(iniStr, loc, "stamina effect timer", 1.0))*x2
 						
@@ -6766,15 +6769,12 @@ Function DrawGUI()
 				Default
 					;[Block]
 					;check if the item is an inventory-type object
-					If SelectedItem\invSlots>0 Then
-						DoubleClick = 0
-						MouseHit1 = 0
-						MouseDown1 = 0
-						LastMouseHit1 = 0
-						OtherOpen = SelectedItem
-						SelectedItem = Null
-					EndIf
-					
+					DoubleClick = 0
+					MouseHit1 = 0
+					MouseDown1 = 0
+					LastMouseHit1 = 0
+					If SelectedItem\invSlots>0 Then OtherOpen = SelectedItem
+					SelectedItem = Null					
 					;[End Block]
 			End Select
 			
@@ -6790,6 +6790,7 @@ Function DrawGUI()
 										If a_it\itemtemplate\img <> SelectedItem\itemtemplate\img
 											FreeImage(a_it\itemtemplate\img)
 											a_it\itemtemplate\img = 0
+											Exit
 										EndIf
 									EndIf
 								EndIf
@@ -7269,14 +7270,14 @@ Function DrawMenu()
 						Framelimit% = 19+(CurrFrameLimit*100.0)
 						Color 255,255,0
 						Text(x + 5 * MenuScale, y + 40 * MenuScale, Framelimit%+" FPS")
+						If MouseOn(x+150*MenuScale,y+30*MenuScale,100*MenuScale+14,20)
+							DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
+						EndIf
 					Else
 						CurrFrameLimit# = 0.0
 						Framelimit = 0
 					EndIf
 					If MouseOn(x+270*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
-					EndIf
-					If MouseOn(x+150*MenuScale,y+30*MenuScale,100*MenuScale+14,20)
 						DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
 					EndIf
 					
@@ -8068,7 +8069,11 @@ Function InitNewGame()
 	
 	For r.Rooms = Each Rooms
 		For i = 0 To MaxRoomLights
-			If r\Lights[i]<>0 Then EntityParent(r\Lights[i],0)
+			If r\Lights[i]<>0 Then 
+				EntityParent(r\Lights[i],0)
+			Else
+				Exit
+			EndIf
 		Next
 		
 		If (Not r\RoomTemplate\DisableDecals) Then
@@ -8121,6 +8126,11 @@ Function InitNewGame()
 	Local tw.TempWayPoints
 	For tw.TempWayPoints = Each TempWayPoints
 		Delete tw
+	Next
+
+	Local ts.TempScreens
+	For ts.TempScreens = Each TempScreens
+		Delete ts
 	Next
 	
 	TurnEntity(Collider, 0, Rand(160, 200), 0)
@@ -8215,6 +8225,16 @@ Function InitLoadGame()
 	For rt.RoomTemplates = Each RoomTemplates
 		If rt\obj <> 0 Then FreeEntity(rt\obj) : rt\obj = 0
 	Next
+
+	Local tw.TempWayPoints
+	For tw.TempWayPoints = Each TempWayPoints
+		Delete tw
+	Next
+
+	Local ts.TempScreens
+	For ts.TempScreens = Each TempScreens
+		Delete ts
+	Next
 	
 	DropSpeed = 0.0
 	
@@ -8224,12 +8244,8 @@ Function InitLoadGame()
 			If e\EventState = 2
 				;[Block]
 				DrawLoading(91)
-				e\room\Objects[0] = CreatePlane()
-				Local planetex% = LoadTexture_Strict("GFX\map\dimension1499\grit3.jpg")
-				EntityTexture e\room\Objects[0],planetex%
-				FreeTexture planetex%
-				PositionEntity e\room\Objects[0],0,EntityY(e\room\obj),0
-				EntityType e\room\Objects[0],HIT_MAP
+				e\room\Objects[0] = LoadMesh_Strict("GFX\map\dimension1499\1499plane.b3d")
+				HideEntity(e\room\Objects[0])
 				DrawLoading(92)
 				NTF_1499Sky = sky_CreateSky("GFX\map\sky\1499sky")
 				DrawLoading(93)
@@ -8244,7 +8260,8 @@ Function InitLoadGame()
 				z# = EntityZ(e\room\obj)
 				Local ch.Chunk
 				For i = -2 To 2 Step 2
-					ch = CreateChunk(-1,x#*(i*2.5),EntityY(e\room\obj),z#)
+					ch = CreateChunk(-1,x#*(i*2.5),EntityY(e\room\obj),z#,True)
+					ch = CreateChunk(-1,x#*(i*2.5),EntityY(e\room\obj),z#-40,True)
 				Next
 				DrawLoading(98)
 				UpdateChunks(e\room,15,False)
@@ -8954,7 +8971,7 @@ End Function
 ;--------------------------------------- random -------------------------------------------------------
 
 Function f2s$(n#, count%)
-	Return Left(n, Len(Int(n))+count+1)
+	Return Left(n, Len(Int(Str(n)))+count+1)
 End Function
 
 Function AnimateNPC(n.NPCs, start#, quit#, speed#, loop=True)
@@ -9578,25 +9595,17 @@ Function Use914(item.Items, setting$, x#, y#, z#)
 							d.Decals = CreateDecal(0, x, 8 * RoomScale + 0.010, z, 90, Rand(360), 0)
 							d\Size = 0.2 : EntityAlpha(d\obj, 0.8) : ScaleSprite(d\obj, d\Size, d\Size)
 						Case "1:1"
-							it2 = CreateItem("cup", "cup", x,y,z)
+							it2 = CreateItem("cup", "cup", x,y,z, 255-item\r,255-item\g,255-item\b,item\a)
 							it2\name = item\name
-							it2\r = 255-item\r
-							it2\g = 255-item\g
-							it2\b = 255-item\b
+							it2\state = item\state
 						Case "fine"
-							it2 = CreateItem("cup", "cup", x,y,z)
+							it2 = CreateItem("cup", "cup", x,y,z, Min(item\r*Rnd(0.9,1.1),255),Min(item\g*Rnd(0.9,1.1),255),Min(item\b*Rnd(0.9,1.1),255),item\a)
 							it2\name = item\name
-							it2\state = 1.0
-							it2\r = Min(item\r*Rnd(0.9,1.1),255)
-							it2\g = Min(item\g*Rnd(0.9,1.1),255)
-							it2\b = Min(item\b*Rnd(0.9,1.1),255)
+							it2\state = item\state+1.0
 						Case "very fine"
-							it2 = CreateItem("cup", "cup", x,y,z)
+							it2 = CreateItem("cup", "cup", x,y,z, Min(item\r*Rnd(0.5,1.5),255),Min(item\g*Rnd(0.5,1.5),255),Min(item\b*Rnd(0.5,1.5),255),item\a)
 							it2\name = item\name
-							it2\state = Max(it2\state*2.0,2.0)	
-							it2\r = Min(item\r*Rnd(0.5,1.5),255)
-							it2\g = Min(item\g*Rnd(0.5,1.5),255)
-							it2\b = Min(item\b*Rnd(0.5,1.5),255)
+							it2\state = item\state*2
 							If Rand(5)=1 Then
 								ExplosionTimer = 135
 							EndIf
@@ -10449,6 +10458,7 @@ Function UpdateINIFile$(filename$)
 	For k.INIFile = Each INIFile
 		If k\name = Lower(filename) Then
 			file = k
+			Exit
 		EndIf
 	Next
 	
@@ -10476,6 +10486,7 @@ Function GetINIString$(file$, section$, parameter$, defaultvalue$="")
 	For k.INIFile = Each INIFile
 		If k\name = Lower(file) Then
 			lfile = k
+			Exit
 		EndIf
 	Next
 	
@@ -11300,8 +11311,8 @@ Function UpdateStreamSounds()
 					EndIf
 					If e\SoundCHN2<>0 And e\SoundCHN2_isStream Then
 						StopStream_Strict(e\SoundCHN2)
-						e\SoundCHN = 0
-						e\SoundCHN_isStream = 0
+						e\SoundCHN2 = 0
+						e\SoundCHN2_isStream = 0
 					EndIf
 				Next
 			EndIf
@@ -11395,6 +11406,8 @@ Function CanUseItem(canUseWithHazmat%, canUseWithGasMask%, canUseWithEyewear%)
 		Return False
 	Else If (canUseWithEyewear = False And (WearingNightVision))
 		Msg = "你不能在戴着夜视仪时使用物品"
+		MsgTimer = 70*5
+		Return False
 	EndIf
 	
 	Return True

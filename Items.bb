@@ -177,9 +177,9 @@ Function InitItemTemplates()
 	it = CreateItemTemplate("一页日记", "Journal Page", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\docGonzales.jpg", 0.0025) : it\sound = 0
 	
 	
-	it = CreateItemTemplate("日志#1", "Log #1", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f4.jpg", 0.004, "GFX\items\f4.jpg") : it\sound = 0
-	it = CreateItemTemplate("日志#2", "Log #2", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f5.jpg", 0.004, "GFX\items\f4.jpg") : it\sound = 0
-	it = CreateItemTemplate("日志#3", "Log #3", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f6.jpg", 0.004, "GFX\items\f4.jpg") : it\sound = 0
+	it = CreateItemTemplate("日志#1", "Log #1", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f4.jpg", 0.0017, "GFX\items\f4.jpg") : it\sound = 0
+	it = CreateItemTemplate("日志#2", "Log #2", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f5.jpg", 0.0017, "GFX\items\f4.jpg") : it\sound = 0
+	it = CreateItemTemplate("日志#3", "Log #3", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f6.jpg", 0.0017, "GFX\items\f4.jpg") : it\sound = 0
 	
 	it = CreateItemTemplate("奇怪的笔记", "Strange Note", "paper", "GFX\items\paper.x", "GFX\items\INVnote.jpg", "GFX\items\docStrange.jpg", 0.0025, "GFX\items\notetexture.jpg") : it\sound = 0
 	
@@ -382,6 +382,7 @@ Function CreateItem.Items(name$, tempname$, x#, y#, z#, r%=0,g%=0,b%=0,a#=1.0,in
 				i\displayName = it\displayName
 				ShowEntity i\collider
 				ShowEntity i\model
+				Exit
 			EndIf
 		EndIf
 	Next 
@@ -397,6 +398,8 @@ Function CreateItem.Items(name$, tempname$, x#, y#, z#, r%=0,g%=0,b%=0,a#=1.0,in
 	i\DropSpeed = 0.0
 	
 	If tempname = "cup" Then
+		i\state = 1.0
+
 		i\r=r
 		i\g=g
 		i\b=b
@@ -759,7 +762,7 @@ Function DropItem(item.Items,playdropsound%=True)
 	
 	item\Picked = False
 	For z% = 0 To MaxItemAmount - 1
-		If Inventory(z) = item Then Inventory(z) = Null
+		If Inventory(z) = item Then Inventory(z) = Null : Exit
 	Next
 	Select item\itemtemplate\tempname
 		Case "gasmask", "supergasmask", "gasmask3"
