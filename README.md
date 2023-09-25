@@ -21,9 +21,9 @@
 
     您可下载 Blitz3D TSS 的简体中文版本，这会让引擎的报错弹窗显示简体中文。
 
-2. 将目录中所有`.decls`文件放入`Blitz3D TSS\userlibs\`中。
+2. 将目录中所有 `.decls` 文件放入 `Blitz3D TSS\userlibs\` 中。
 
-3. 使用 Blitz3D TSS 打开`Main.bb`。
+3. 使用 Blitz3D TSS 打开 `Main.bb`。
 
 4. 编译并运行！
 
@@ -60,13 +60,13 @@
 
 请不要使用 IDEal 来进行开发，因为汉化计划项目的编码是 UTF-8，而 IDEal 的编码为 ANSI。
 
-对于调试部分，您可以使用带[Blitz3D拓展](https://marketplace.visualstudio.com/items?itemName=dones.blitz3d)的[Visual Studio Code](https://code.visualstudio.com/)代替。
+您可以使用带 [Blitz3D拓展](https://marketplace.visualstudio.com/items?itemName=dones.blitz3d) 的 [Visual Studio Code](https://code.visualstudio.com/) 代替。
 
 ### 无大地址概念
 
 **无大地址概念 Not Address Large Aware**是 Blitz3D TSS 的一个编译选项，允许程序最多使用 4GB 内存，而不是 2GB。
 
-该选项对于 64 位系统有些许帮助，但其在汉化计划会引发一些无法预测的问题。建议使用 4GB patch 来替代此选项。
+该选项对于 64 位系统有些许帮助，但其会引发一些无法预测的问题。建议使用 4GB patch 来替代此选项。
 
 ### 排错模式
 
