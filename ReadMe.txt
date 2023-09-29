@@ -6,8 +6,8 @@
 
 ***********************************************************************************
 
-				 www.scpcbgame.cn
-							
+				www.scpcbgame.cn
+				
 
 
 游戏基于 SCP基金会 背景 (https://scp-wiki-cn.wikidot.com/)
@@ -44,7 +44,7 @@ https://creativecommons.org/licenses/by-sa/3.0/deed.zh
 	WASD			-	移动
 	空格				-	手动眨眼
 	左 Shift			-	奔跑
-	左 Control	-	蹲下
+	左 Control		-	蹲下
 	Tab				-	物品栏
 	F5				-	保存
 	F3				-	[数据删除]
