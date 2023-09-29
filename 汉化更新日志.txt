@@ -1,6 +1,6 @@
 2023/10/1 Fifth Revise第五版
 兼容二期任意版本、任意发布版本和原版1.3.11的存档
-- 更新了部分贴图的汉化（012.jpg、docGonzales.jpg、drL.jpg、labelmedicalbay.jpg、860.jpg、205.jpg）
+- 更新了部分贴图的汉化（012.jpg、docGonzales.jpg、drL.jpg、labelmedicalbay.jpg、860.jpg、205.jpg、conf.jpg、hooper.jpg、rosewood.jpg）
 - 修改了加载界面的翻译
 - 将启动时自动更新检查改为手动更新检查
 - 现在游戏会提示非简体中文用户启用繁简转换
