@@ -17,15 +17,15 @@ ZiYueCommentary ("子悦解说")
 
 *翻译工作
 
+Four_P ("four")
+ZiYueCommentary ("子悦解说")
 ________________________
 amigo
 德意志战车
-Four_P ("four")
 南柯
 虚茼
 一只孤独的屑d级
 与或非
-ZiYueCommentary ("子悦解说")
 
 
 *翻译润色
@@ -48,14 +48,20 @@ ZiYueCommentary ("子悦解说")
 
 *鸣谢
 
-爱发电用户_3df2b
-二月
 HJ itfkqqug ("HJ浩鈞")
-快乐男孩
 Nikita Sidorov ("Jabka")
 TheZihanGu ("Fr0zen_F1sh")
+liweigvdio12
+爱发电用户_3df2b
+爱发电用户_aygr
+爱发电用户_bea23
+爱发电用户_uHex
+爱发电用户_vsd6
+二月
+快乐男孩
 扬鞭大笑
 一脸罗西 ("基理安罗伊斯")
+羽归
 
 
 
@@ -183,7 +189,7 @@ Turtle Sandwich/Catnipbuddy
 *本游戏基于SCP基金会背景
 
 
-SCP和SCP收容失效图标 基于“far2”创作的 图标
+SCP和收容失效图标 基于“far2”创作的 图标
 
 SCP-008 基于“Lee Byron”创作的 "SCP-008 - 丧尸病毒"
 
