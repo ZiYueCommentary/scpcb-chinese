@@ -2097,7 +2097,7 @@ Function DrawMapCreatorTooltip(x%,y%,width%,height%,mapname$)
 	Local txt$[5]
 	If Right(mapname,6)="cbmap2" Then
 		txt[0] = Left(ConvertToUTF8(mapname$),Len(ConvertToUTF8(mapname$))-7)
-		Local f% = OpenFile("Map Creator\Maps\"+mapname$)
+		Local f% = OpenFile(ConvertToANSI("地图制作器\Maps\")+mapname$)
 		
 		Local author$ = ConvertToUTF8(ReadLine(f))
 		Local descr$ = ConvertToUTF8(ReadLine(f))

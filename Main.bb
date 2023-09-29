@@ -8033,7 +8033,7 @@ Function InitNewGame()
 	If SelectedMap = "" Then
 		CreateMap()
 	Else
-		LoadMap("Map Creator\Maps\"+SelectedMap)
+		LoadMap(ConvertToANSI("地图制作器\Maps\")+SelectedMap)
 	EndIf
 	InitWayPoints()
 	

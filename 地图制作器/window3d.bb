@@ -112,7 +112,7 @@ LoadRoomTemplateMeshes()
 
 FreeTextureCache
 
-ChangeDir "Map Creator"
+ChangeDir ConvertToANSI("地图制作器")
 
 Global ShowFPS% = GetINIInt("options.ini", "3d scene", "show fps")
 Global CheckFPS%, ElapsedLoops%, FPS%

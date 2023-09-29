@@ -2060,15 +2060,15 @@ Function LoadSavedMaps()
 	Next
 	SavedMapsAmount = 0
 	
-	Dir=ReadDir("Map Creator\Maps")
+	Dir=ReadDir(ConvertToANSI("地图制作器\Maps"))
 	Repeat
 		file$=NextFile$(Dir)
 		
 		DebugLog file
 		
 		If file$="" Then Exit
-		DebugLog (CurrentDir()+"Map Creator\Maps\"+file$)
-		If FileType(CurrentDir()+"Map Creator\Maps\"+file$) = 1 Then 
+		DebugLog (CurrentDir()+ConvertToANSI("地图制作器\Maps\")+file$)
+		If FileType(CurrentDir()+ConvertToANSI("地图制作器\Maps\")+file$) = 1 Then 
 			If file <> "." And file <> ".." Then
 				If Right(file,6)="cbmap2" Or Right(file,5)="cbmap" Then
 					SavedMapsAmount = SavedMapsAmount + 1
@@ -2082,20 +2082,20 @@ Function LoadSavedMaps()
 	Dim SavedMapsAuthor$(SavedMapsAmount+1)
 	
 	i = 0
-	Dir=ReadDir("Map Creator\Maps") 
+	Dir=ReadDir(ConvertToANSI("地图制作器\Maps")) 
 	Repeat
 		file$=NextFile$(Dir)
 		
 		DebugLog file
 		
 		If file$="" Then Exit
-		DebugLog (CurrentDir()+"Map Creator\Maps\"+file$)
-		If FileType(CurrentDir()+"Map Creator\Maps\"+file$) = 1 Then 
+		DebugLog (CurrentDir()+ConvertToANSI("地图制作器\Maps\")+file$)
+		If FileType(CurrentDir()+ConvertToANSI("地图制作器\Maps\")+file$) = 1 Then 
 			If file <> "." And file <> ".." Then
 				If Right(file,6)="cbmap2" Or Right(file,5)="cbmap" Then
 					SavedMaps(i) = file
 					If Right(file,6)="cbmap2" Then
-						Local f = ReadFile("Map Creator\Maps\"+file)
+						Local f = ReadFile(ConvertToANSI("地图制作器\Maps\")+file)
 						SavedMapsAuthor$(i) = ConvertToUTF8(ReadLine(f))
 						CloseFile f
 					Else
