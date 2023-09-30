@@ -2,6 +2,12 @@
 ; OpenCC插件被分出来做成了用户库
 ; ——子悦 2022/8/6
 
+Include "IniControler.bb"
+IniWriteBuffer("options.ini")
+IniWriteBuffer("..\options.ini")
+IniWriteBuffer("..\Data\rooms.ini")
+IniWriteBuffer("..\Data\materials.ini")
+
 Const C_GWL_STYLE = -16
 Const C_WS_POPUP = $80000000
 Const C_HWND_TOP = 0
@@ -34,18 +40,18 @@ api_SetWindowPos( G_app_handle, C_HWND_TOP, 0, 0, ResWidth, ResHeight, C_SWP_SHO
 AppTitle "MapCreator 3d view"
 
 Global Camera = CreateCamera()
-Global CamColorR% = GetINIInt("options.INI","3d scene","bg color R")
-Global CamColorG% = GetINIInt("options.INI","3d scene","bg color G")
-Global CamColorB% = GetINIInt("options.INI","3d scene","bg color B")
-Global CursorColorR% = GetINIInt("options.INI","3d scene","cursor color R")
-Global CursorColorG% = GetINIInt("options.INI","3d scene","cursor color G")
-Global CursorColorB% = GetINIInt("options.INI","3d scene","cursor color B")
+Global CamColorR% = IniGetInt("options.ini","3d scene","bg color R")
+Global CamColorG% = IniGetInt("options.ini","3d scene","bg color G")
+Global CamColorB% = IniGetInt("options.ini","3d scene","bg color B")
+Global CursorColorR% = IniGetInt("options.ini","3d scene","cursor color R")
+Global CursorColorG% = IniGetInt("options.ini","3d scene","cursor color G")
+Global CursorColorB% = IniGetInt("options.ini","3d scene","cursor color B")
 CameraClsColor Camera,CamColorR,CamColorG,CamColorB
-Global CamRange# = GetINIFloat("options.INI","3d scene","camera range")
+Global CamRange# = IniGetFloat("options.ini","3d scene","camera range")
 CameraRange Camera,0.05,CamRange
 PositionEntity Camera,0,1,0
 
-Global TraditionalChinese% = GetINIInt("..\options.ini","options","traditional chinese")
+Global TraditionalChinese% = IniGetInt("..\options.ini","options","traditional chinese")
 Global OpenCC% = CreateOpenCC("..\Traditional\OpenCC\s2twp.json")
 
 Global AmbientLightRoomTex% = CreateTexture(2,2,257)
@@ -75,13 +81,12 @@ Global Font1 = LoadFont("..\GFX\fonts\Containment Breach.ttf", 16)
 
 Global RoomTempID%
 
-Global FileLocation$ = "..\Data\rooms.ini"
-LoadRoomTemplates(FileLocation)
+LoadRoomTemplates("..\Data\rooms.ini")
 LoadMaterials("..\Data\materials.ini")
 
 Global RoomScale# = 8.0 / 2048.0
 Const ZONEAMOUNT = 3
-Global MapWidth% = GetINIInt("..\options.ini", "options", "map size"), MapHeight% = GetINIInt("..\options.ini", "options", "map size")
+Global MapWidth% = IniGetInt("..\options.ini", "options", "map size"), MapHeight% = IniGetInt("..\options.ini", "options", "map size")
 Dim MapTemp%(MapWidth+1, MapHeight+1)
 Dim MapFound%(MapWidth, MapHeight)
 
@@ -114,10 +119,10 @@ FreeTextureCache
 
 ChangeDir ConvertToANSI("地图制作器")
 
-Global ShowFPS% = GetINIInt("options.ini", "3d scene", "show fps")
+Global ShowFPS% = IniGetInt("options.ini", "3d scene", "show fps")
 Global CheckFPS%, ElapsedLoops%, FPS%
-Global VSync% = GetINIInt("options.ini", "3d scene", "vsync")
-Global AdjDoorPlace% = GetINIInt("options.ini", "3d scene", "adjdoors_place")
+Global VSync% = IniGetInt("options.ini", "3d scene", "vsync")
+Global AdjDoorPlace% = IniGetInt("options.ini", "3d scene", "adjdoors_place")
 
 Global MXS#=0.0,MYS#=0.0
 MoveMouse GraphicsWidth()/2,GraphicsHeight()/2
@@ -606,12 +611,12 @@ Function LoadRoomTemplates(file$)
 		TemporaryString = Trim(ReadLine(f))
 		If Left(TemporaryString,1) = "[" Then
 			TemporaryString = Mid(TemporaryString, 2, Len(TemporaryString) - 2)
-			StrTemp = GetINIString(file, TemporaryString, "mesh path")
+			StrTemp = IniGetString(file, TemporaryString, "mesh path")
 			
 			rt = CreateRoomTemplate(StrTemp)
 			rt\Name = Lower(TemporaryString)
 			
-			StrTemp = Lower(GetINIString(file, TemporaryString, "shape"))
+			StrTemp = Lower(IniGetString(file, TemporaryString, "shape"))
 			
 			Select StrTemp
 				Case "room1", "1"
@@ -628,12 +633,12 @@ Function LoadRoomTemplates(file$)
 			End Select
 			
 			For i = 0 To 4
-				rt\zone[i]= GetINIInt(file, TemporaryString, "zone"+(i+1))
+				rt\zone[i]= IniGetInt(file, TemporaryString, "zone"+(i+1))
 			Next
 			
-			rt\Commonness = Max(Min(GetINIInt(file, TemporaryString, "commonness"), 100), 0)
-			rt\Large = GetINIInt(file, TemporaryString, "large")
-			rt\DisableDecals = GetINIInt(file, TemporaryString, "disabledecals")
+			rt\Commonness = Max(Min(IniGetInt(file, TemporaryString, "commonness"), 100), 0)
+			rt\Large = IniGetInt(file, TemporaryString, "large")
+			rt\DisableDecals = IniGetInt(file, TemporaryString, "disabledecals")
 		EndIf
 	Wend
 	CloseFile f
@@ -1034,7 +1039,7 @@ Function LoadMaterials(file$)
 			
 			mat\name = Lower(TemporaryString)
 
-			mat\StepSound = (GetINIInt(file, TemporaryString, "stepsound")+1)
+			mat\StepSound = (IniGetInt(file, TemporaryString, "stepsound")+1)
 		EndIf
 	Wend
 	
@@ -1068,7 +1073,7 @@ Function AddTextureToCache(texture%)
 		tc.Materials=New Materials
 		tc\name=StripPath(TextureName(texture))
 		If BumpEnabled Then
-			Local temp$=GetINIString("Data\materials.ini",tc\name,"bump")
+			Local temp$=IniGetString("Data\materials.ini",tc\name,"bump")
 			If temp<>"" Then
 				tc\Bump=LoadTexture(temp)
 				TextureBlend tc\Bump,6
@@ -1466,146 +1471,6 @@ Function KeyValue$(entity,key$,defaultvalue$="")
 		If Not p Then Return defaultvalue$
 		properties=Right(properties,Len(properties)-p)
 	Forever 
-End Function
-
-Function GetINIString$(file$, section$, parameter$)
-	Local TemporaryString$ = ""
-	Local f = ReadFile(file)
-	
-	While Not Eof(f)
-		If ReadLine(f) = "["+section+"]" Then
-			Repeat 
-				TemporaryString = ReadLine(f)
-				If Trim( Left(TemporaryString, Max(Instr(TemporaryString,"=")-1,0)) ) = parameter Then
-					CloseFile f
-					Return Trim( Right(TemporaryString,Len(TemporaryString)-Instr(TemporaryString,"=")) )
-				EndIf
-			Until Left(TemporaryString,1) = "[" Or Eof(f)
-			CloseFile f
-			Return ""
-		EndIf
-	Wend
-	
-	CloseFile f
-End Function
-
-Function GetINIInt%(file$, section$, parameter$)
-	Local strtemp$ = Lower(GetINIString(file$, section$, parameter$))
-	
-	Select strtemp
-		Case "true"
-			Return 1
-		Case "false"
-			Return 0
-		Default
-			Return Int(strtemp)
-	End Select
-	Return 
-End Function
-
-Function GetINIFloat#(file$, section$, parameter$)
-	Return GetINIString(file$, section$, parameter$)
-End Function
-
-Function PutINIValue%(INI_sAppName$, INI_sSection$, INI_sKey$, INI_sValue$)
-; Returns: True (Success) or False (Failed)
-	
-	INI_sSection = "[" + Trim$(INI_sSection) + "]"
-	INI_sUpperSection$ = Upper$(INI_sSection)
-	INI_sKey = Trim$(INI_sKey)
-	INI_sValue = Trim$(INI_sValue)
-	INI_sFilename$ = CurrentDir$() + "\"  + INI_sAppName
-	
-; Retrieve the INI data (if it exists)
-	
-	INI_sContents$= INI_FileToString(INI_sFilename)
-	
-; (Re)Create the INI file updating/adding the SECTION, KEY and VALUE
-	
-	INI_bWrittenKey% = False
-	INI_bSectionFound% = False
-	INI_sCurrentSection$ = ""
-	
-	INI_lFileHandle = WriteFile(INI_sFilename)
-	If INI_lFileHandle = 0 Then Return False ; Create file failed!
-	
-	INI_lOldPos% = 1
-	INI_lPos% = Instr(INI_sContents, Chr$(0))
-	
-	While (INI_lPos <> 0)
-		
-		INI_sTemp$ =Trim$(Mid$(INI_sContents, INI_lOldPos, (INI_lPos - INI_lOldPos)))
-		
-		If (INI_sTemp <> "") Then
-			
-			If Left$(INI_sTemp, 1) = "[" And Right$(INI_sTemp, 1) = "]" Then
-				
-				; Process SECTION
-				
-				If (INI_sCurrentSection = INI_sUpperSection) And (INI_bWrittenKey = False) Then
-					INI_bWrittenKey = INI_CreateKey(INI_lFileHandle, INI_sKey, INI_sValue)
-				End If
-				INI_sCurrentSection = Upper$(INI_CreateSection(INI_lFileHandle, INI_sTemp))
-				If (INI_sCurrentSection = INI_sUpperSection) Then INI_bSectionFound = True
-				
-			Else
-				
-				; KEY=VALUE
-				
-				lEqualsPos% = Instr(INI_sTemp, "=")
-				If (lEqualsPos <> 0) Then
-					If (INI_sCurrentSection = INI_sUpperSection) And (Upper$(Trim$(Left$(INI_sTemp, (lEqualsPos - 1)))) = Upper$(INI_sKey)) Then
-						If (INI_sValue <> "") Then INI_CreateKey INI_lFileHandle, INI_sKey, INI_sValue
-						INI_bWrittenKey = True
-					Else
-						WriteLine INI_lFileHandle, INI_sTemp
-					End If
-				End If
-				
-			End If
-			
-		End If
-		
-		; Move through the INI file...
-		
-		INI_lOldPos = INI_lPos + 1
-		INI_lPos% = Instr(INI_sContents, Chr$(0), INI_lOldPos)
-		
-	Wend
-	
-	; KEY wasn't found in the INI file - Append a new SECTION if required and create our KEY=VALUE line
-	
-	If (INI_bWrittenKey = False) Then
-		If (INI_bSectionFound = False) Then INI_CreateSection INI_lFileHandle, INI_sSection
-		INI_CreateKey INI_lFileHandle, INI_sKey, INI_sValue
-	End If
-	
-	CloseFile INI_lFileHandle
-	
-	Return True ; Success
-End Function
-
-Function INI_FileToString$(INI_sFilename$)
-	INI_sString$ = ""
-	INI_lFileHandle% = ReadFile(INI_sFilename)
-	If INI_lFileHandle <> 0 Then
-		While Not(Eof(INI_lFileHandle))
-			INI_sString = INI_sString + ReadLine$(INI_lFileHandle) + Chr$(0)
-		Wend
-		CloseFile INI_lFileHandle
-	End If
-	Return INI_sString
-End Function
-
-Function INI_CreateSection$(INI_lFileHandle%, INI_sNewSection$)
-	If FilePos(INI_lFileHandle) <> 0 Then WriteLine INI_lFileHandle, "" ; Blank line between sections
-	WriteLine INI_lFileHandle, INI_sNewSection
-	Return INI_sNewSection
-End Function
-
-Function INI_CreateKey%(INI_lFileHandle%, INI_sKey$, INI_sValue$)
-	WriteLine INI_lFileHandle, INI_sKey + "=" + INI_sValue
-	Return True
 End Function
 
 Function Button%(x,y,width,height,txt$, disabled%=False)

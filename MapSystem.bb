@@ -24,7 +24,7 @@ Function LoadMaterials(file$)
 			mat\name = Lower(TemporaryString)
 			
 			If BumpEnabled Then
-				StrTemp = GetINIString(file, TemporaryString, "bump")
+				StrTemp = IniGetString(file, TemporaryString, "bump")
 				If StrTemp <> "" Then 
 					mat\Bump =  LoadTexture_Strict(StrTemp)
 					
@@ -38,7 +38,7 @@ Function LoadMaterials(file$)
 				EndIf
 			EndIf
 			
-			mat\StepSound = (GetINIInt(file, TemporaryString, "stepsound")+1)
+			mat\StepSound = (IniGetInt(file, TemporaryString, "stepsound")+1)
 		EndIf
 	Wend
 	
@@ -253,7 +253,7 @@ Function AddTextureToCache(texture%)
 		tc.Materials=New Materials
 		tc\name=StripPath(TextureName(texture))
 		If BumpEnabled Then
-			Local temp$=GetINIString("Data\materials.ini",tc\name,"bump")
+			Local temp$=IniGetString("Data\materials.ini",tc\name,"bump")
 			If temp<>"" Then
 				tc\Bump=LoadTexture_Strict(temp)
 				TextureBlend tc\Bump,6
@@ -1574,12 +1574,12 @@ Function LoadRoomTemplates(file$)
 		TemporaryString = Trim(ReadLine(f))
 		If Left(TemporaryString,1) = "[" Then
 			TemporaryString = Mid(TemporaryString, 2, Len(TemporaryString) - 2)
-			StrTemp = GetINIString(file, TemporaryString, "mesh path")
+			StrTemp = IniGetString(file, TemporaryString, "mesh path")
 			
 			rt = CreateRoomTemplate(StrTemp)
 			rt\Name = Lower(TemporaryString)
 			
-			StrTemp = Lower(GetINIString(file, TemporaryString, "shape"))
+			StrTemp = Lower(IniGetString(file, TemporaryString, "shape"))
 			
 			Select StrTemp
 				Case "room1", "1"
@@ -1596,20 +1596,20 @@ Function LoadRoomTemplates(file$)
 			End Select
 			
 			For i = 0 To 4
-				rt\zone[i]= GetINIInt(file, TemporaryString, "zone"+(i+1))
+				rt\zone[i]= IniGetInt(file, TemporaryString, "zone"+(i+1))
 			Next
 			
-			rt\Commonness = Max(Min(GetINIInt(file, TemporaryString, "commonness"), 100), 0)
-			rt\Large = GetINIInt(file, TemporaryString, "large")
-			rt\DisableDecals = GetINIInt(file, TemporaryString, "disabledecals")
-			rt\UseLightCones = GetINIInt(file, TemporaryString, "usevolumelighting")
-			rt\DisableOverlapCheck = GetINIInt(file, TemporaryString, "disableoverlapcheck")
+			rt\Commonness = Max(Min(IniGetInt(file, TemporaryString, "commonness"), 100), 0)
+			rt\Large = IniGetInt(file, TemporaryString, "large")
+			rt\DisableDecals = IniGetInt(file, TemporaryString, "disabledecals")
+			rt\UseLightCones = IniGetInt(file, TemporaryString, "usevolumelighting")
+			rt\DisableOverlapCheck = IniGetInt(file, TemporaryString, "disableoverlapcheck")
 		EndIf
 	Wend
 	
 	i = 1
 	Repeat
-		StrTemp = GetINIString(file, "room ambience", "ambience"+i)
+		StrTemp = IniGetString(file, "room ambience", "ambience"+i)
 		If StrTemp = "" Then Exit
 		
 		RoomAmbience[i]=LoadSound_Strict(StrTemp)
@@ -1664,7 +1664,7 @@ LoadRoomTemplates("Data\rooms.ini")
 
 Global RoomScale# = 8.0 / 2048.0
 Const ZONEAMOUNT = 3
-Global MapWidth% = GetINIInt("options.ini", "options", "map size"), MapHeight% = GetINIInt("options.ini", "options", "map size")
+Global MapWidth% = IniGetInt("options.ini", "options", "map size"), MapHeight% = IniGetInt("options.ini", "options", "map size")
 Dim MapTemp%(MapWidth+1, MapHeight+1)
 Dim MapFound%(MapWidth+1, MapHeight+1)
 
@@ -2775,11 +2775,11 @@ Function FillRoom(r.Rooms)
 			
 			it = CreateItem("cup", "cup", r\x-508.0*RoomScale, -187*RoomScale, r\z+284.0*RoomScale, 240,175,70)
 			EntityParent(it\collider, r\obj) : it\displayName = "一杯橙汁"
-			EntityParent(it\collider, r\obj) : it\name = "cup of orange"
+			EntityParent(it\collider, r\obj) : it\name = "cup of " + FindSCP294Drink("orange")
 			
 			it = CreateItem("cup", "cup", r\x+1412 * RoomScale, -187*RoomScale, r\z-716.0 * RoomScale, 87,62,45)
 			EntityParent(it\collider, r\obj) : it\displayName = "一杯咖啡"
-			EntityParent(it\collider, r\obj) : it\name = "cup of coffee"
+			EntityParent(it\collider, r\obj) : it\name = "cup of " + FindSCP294Drink("coffee")
 			
 			it = CreateItem("Empty Cup", "emptycup", r\x-540*RoomScale, -187*RoomScale, r\z+124.0*RoomScale)
 			EntityParent(it\collider, r\obj)
@@ -7849,7 +7849,7 @@ Function SetChunkDataValues()
 	
 	For i = 0 To 63
 		For j = 0 To 63
-			CHUNKDATA(i,j)=Rand(0,GetINIInt("Data\1499chunks.INI","general","count"))
+			CHUNKDATA(i,j)=Rand(0,IniGetInt("Data\1499chunks.INI","general","count"))
 		Next
 	Next
 	
@@ -7866,7 +7866,7 @@ End Type
 
 Function CreateChunkParts(r.Rooms)
 	Local File$ = "Data\1499chunks.INI"
-	Local ChunkAmount% = GetINIInt(File$,"general","count")
+	Local ChunkAmount% = IniGetInt(File$,"general","count")
 	Local i%,StrTemp$,j%
 	Local chp.ChunkPart,chp2.ChunkPart
 	Local obj%
@@ -7874,17 +7874,16 @@ Function CreateChunkParts(r.Rooms)
 	SeedRnd GenerateSeedNumber(RandomSeed)
 	
 	For i = 0 To ChunkAmount%
-		Local loc% = GetINISectionLocation(File$,"chunk"+i)
 		If loc > 0 Then
-			StrTemp$ = GetINIString2(File,loc%,"count")
+			StrTemp$ = IniGetString(File,"chunk"+i,"count")
 			chp = New ChunkPart
 			chp\Amount% = Int(StrTemp$)
 			DebugLog "------------------"
 			For j = 0 To Int(StrTemp$)
-				Local objID% = GetINIString2(File$,loc%,"obj"+j)
-				Local x$ = GetINIString2(File$,loc%,"obj"+j+"-x")
-				Local z$ = GetINIString2(File$,loc%,"obj"+j+"-z")
-				Local yaw$ = GetINIString2(File$,loc%,"obj"+j+"-yaw")
+				Local objID% = IniGetString(File$,"chunk"+i,"obj"+j)
+				Local x$ = IniGetString(File$,"chunk"+i,"obj"+j+"-x")
+				Local z$ = IniGetString(File$,"chunk"+i,"obj"+j+"-z")
+				Local yaw$ = IniGetString(File$,"chunk"+i,"obj"+j+"-yaw")
 				DebugLog "1499 chunk X/Z/Yaw: "+x$+"|"+z$+"|"+yaw$
 				chp\obj%[j] = CopyEntity(r\Objects[objID%])
 				If Lower(yaw$) = "random"
@@ -7934,7 +7933,7 @@ Function CreateChunk.Chunk(obj%,x#,y#,z#,isSpawnChunk%=False)
 	ch\IsSpawnChunk = isSpawnChunk
 	
 	If obj% > -1
-		ch\Amount% = GetINIInt("Data\1499chunks.INI","chunk"+obj,"count")
+		ch\Amount% = IniGetInt("Data\1499chunks.INI","chunk"+obj,"count")
 		For chp = Each ChunkPart
 			If chp\ID = obj%
 				For i = 0 To ch\Amount
@@ -7962,7 +7961,7 @@ Function UpdateChunks(r.Rooms,ChunkPartAmount%,spawnNPCs%=True)
 	x# = -ChunkMaxDistance#+(ChunkX*40)
 	z# = -ChunkMaxDistance#+(ChunkZ*40)
 	
-	Local CurrChunkData% = 0, MaxChunks% = GetINIInt("Data\1499chunks.INI","general","count")
+	Local CurrChunkData% = 0, MaxChunks% = IniGetInt("Data\1499chunks.INI","general","count")
 	
 	Repeat
 		Local chunkfound% = False

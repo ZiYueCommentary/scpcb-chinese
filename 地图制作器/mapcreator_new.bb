@@ -6,6 +6,14 @@
 ; 至于地图的名称和描述在游戏中的显示问题，转换编码即可（游戏编码为UTF-8）
 ; ——子悦 2022年4月29日
 
+Include "IniControler.bb"
+IniWriteBuffer("options.ini")
+IniWriteBuffer("..\options.ini")
+IniWriteBuffer("..\Data\rooms.ini")
+
+Global TraditionalChinese% = IniGetInt("..\options.ini","options","traditional chinese")
+If TraditionalChinese Then Notify("地图制作器除3D查看器外均不支持繁体中文，感谢您的理解。")
+
 Const ResWidth% = 910
 Const ResHeight% = 660
 Const versionnumber# = 2.1
@@ -179,13 +187,13 @@ author_descr = CreateMenu("修改作者和描述",19,options)
 CreateMenu "",1000,options
 CreateMenu "修改镜头设置",17,options
 
-Local option_event = GetINIInt("options.INI","general","events_default")
+Local option_event = IniGetInt("options.ini","general","events_default")
 If (Not option_event)
 	UncheckMenu event_default
 Else
 	CheckMenu event_default
 EndIf
-Local option_adjdoors = GetINIInt("options.INI","3d scene","adjdoors_place")
+Local option_adjdoors = IniGetInt("options.ini","3d scene","adjdoors_place")
 If (Not option_adjdoors)
 	UncheckMenu adjdoor_place
 Else
@@ -213,31 +221,31 @@ LabelRange = CreateLabel("",5,135,285,60, optionwin,1) ;70
 color_button = CreateButton("修改迷雾颜色", 25,20,150,30,optionwin)
 color_button2 = CreateButton("修改鼠标颜色", 25,85,150,30,optionwin)
 
-labelfogR=CreateLabel("R "+GetINIInt("options.INI","3d scene","bg color R"),225,15,40,15, optionwin)
-labelfogG=CreateLabel("G "+GetINIInt("options.INI","3d scene","bg color G"),225,30,40,15, optionwin)
-labelfogB=CreateLabel("B "+GetINIInt("options.INI","3d scene","bg color B"),225,45,40,15, optionwin)
+labelfogR=CreateLabel("R "+IniGetInt("options.ini","3d scene","bg color R"),225,15,40,15, optionwin)
+labelfogG=CreateLabel("G "+IniGetInt("options.ini","3d scene","bg color G"),225,30,40,15, optionwin)
+labelfogB=CreateLabel("B "+IniGetInt("options.ini","3d scene","bg color B"),225,45,40,15, optionwin)
 
-labelcursorR=CreateLabel("R "+GetINIInt("options.INI","3d scene","cursor color R"),225,80,40,15, optionwin)
-labelcursorG=CreateLabel("G "+GetINIInt("options.INI","3d scene","cursor color G"),225,95,40,15, optionwin)
-labelcursorB=CreateLabel("B "+GetINIInt("options.INI","3d scene","cursor color B"),225,110 ,40,15, optionwin)
+labelcursorR=CreateLabel("R "+IniGetInt("options.ini","3d scene","cursor color R"),225,80,40,15, optionwin)
+labelcursorG=CreateLabel("G "+IniGetInt("options.ini","3d scene","cursor color G"),225,95,40,15, optionwin)
+labelcursorB=CreateLabel("B "+IniGetInt("options.ini","3d scene","cursor color B"),225,110 ,40,15, optionwin)
 
-Global redfog = GetINIInt("options.INI","3d scene","bg color R")
-Global greenfog = GetINIInt("options.INI","3d scene","bg color G")
-Global bluefog = GetINIInt("options.INI","3d scene","bg color B")
+Global redfog = IniGetInt("options.ini","3d scene","bg color R")
+Global greenfog = IniGetInt("options.ini","3d scene","bg color G")
+Global bluefog = IniGetInt("options.ini","3d scene","bg color B")
 
-Global redcursor = GetINIInt("options.INI","3d scene","cursor color R")
-Global greencursor = GetINIInt("options.INI","3d scene","cursor color G")
-Global bluecursor = GetINIInt("options.INI","3d scene","cursor color B")
+Global redcursor = IniGetInt("options.ini","3d scene","cursor color R")
+Global greencursor = IniGetInt("options.ini","3d scene","cursor color G")
+Global bluecursor = IniGetInt("options.ini","3d scene","cursor color B")
 
 labelrange=CreateLabel("渲染距离",20,170,80,20, optionwin)
 Global camerarange = CreateTextField(25, 150, 40, 20, optionwin)
-SetGadgetText CameraRange, GetINIInt("options.INI","3d scene","camera range")
+SetGadgetText CameraRange, IniGetInt("options.ini","3d scene","camera range")
 
 Global vsync = CreateButton("垂直同步", 123, 145, 70, 30, optionwin, 2)
-SetButtonState vsync, GetINIInt("options.INI","3d scene","vsync")
+SetButtonState vsync, IniGetInt("options.ini","3d scene","vsync")
 
 Global showfps = CreateButton("显示FPS", 210, 145, 70, 30, optionwin, 2)
-SetButtonState showfps, GetINIInt("options.INI","3d scene","show fps")
+SetButtonState showfps, IniGetInt("options.ini","3d scene","show fps")
 
 cancelopt_button=CreateButton("取消",10,210,100,30,optionwin)
 saveopt_button=CreateButton("保存",185,210,100,30,optionwin) ;create button
@@ -1073,7 +1081,13 @@ Repeat
 				;Maybe a message or something here, dunno...
 			EndIf
 		EndIf
-		If EID=6 Then ExecFile "Manual.pdf"
+		If EID=6 Then 
+			If TraditionalChinese Then 
+				ExecFile "https://manual.scpcbgame.cn/general/map-creator/zh_hant"
+			Else 
+				ExecFile "Manual.pdf"
+			EndIf
+		EndIf
 		If EID=40  Then Notify "SCP - 收容失效 地图制作器 v"+versionnumber+Chr$(13)+"由Vane Brain和ENDSHN制作，子悦汉化组汉化"+Chr$(13)+"https://scpcbgame.cn/"
 		If EID=17 Then 
 			ShowGadget optionwin
@@ -1083,14 +1097,14 @@ Repeat
 			If value=0 Then CheckMenu(event_default)
 			If value=1 Then UncheckMenu(event_default)
 			UpdateWindowMenu winhandle
-			PutINIValue("options.INI","general","events_default",Not value)
+			IniWriteString("options.ini","general","events_default",Not value)
 		EndIf
 		If EID=16
 			value=MenuChecked(adjdoor_place)
 			If value=0 Then CheckMenu(adjdoor_place)
 			If value=1 Then UncheckMenu(adjdoor_place)
 			UpdateWindowMenu winhandle
-			PutINIValue("options.INI","3d scene","adjdoors_place",Not value)
+			IniWriteString("options.ini","3d scene","adjdoors_place",Not value)
 			WriteOptions()
 		EndIf
 		If EID=18
@@ -1164,7 +1178,7 @@ Repeat
 		EndIf
 		
 		If EventSource()=color_button Then 
-			If RequestColor(GetINIInt("options.INI","3d scene","bg color R"),GetINIInt("options.INI","3d scene","bg color G"),GetINIInt("options.INI","3d scene","bg color B"))=1 Then
+			If RequestColor(IniGetInt("options.ini","3d scene","bg color R"),IniGetInt("options.ini","3d scene","bg color G"),IniGetInt("options.ini","3d scene","bg color B"))=1 Then
 				redfog=RequestedRed()
 				greenfog=RequestedGreen()
 				bluefog=RequestedBlue()
@@ -1174,7 +1188,7 @@ Repeat
 			EndIf	
 		EndIf
 		If EventSource()=color_button2 Then
-			If RequestColor(GetINIInt("options.INI","3d scene","cursor color R"),GetINIInt("options.INI","3d scene","cursor color G"),GetINIInt("options.INI","3d scene","cursor color B"))=1 Then
+			If RequestColor(IniGetInt("options.ini","3d scene","cursor color R"),IniGetInt("options.ini","3d scene","cursor color G"),IniGetInt("options.ini","3d scene","cursor color B"))=1 Then
 				redcursor=RequestedRed()
 				greencursor=RequestedGreen()
 				bluecursor=RequestedBlue()
@@ -1184,29 +1198,29 @@ Repeat
 			EndIf
 		EndIf
 		If EventSource()=cancelopt_button Then
-			SetGadgetText labelfogR,"R "+GetINIInt("options.INI","3d scene","bg color R")
-			SetGadgetText labelfogG,"G "+GetINIInt("options.INI","3d scene","bg color G")
-			SetGadgetText labelfogB,"B "+GetINIInt("options.INI","3d scene","bg color B")
-			SetGadgetText labelcursorR,"R "+GetINIInt("options.INI","3d scene","cursor color R")
-			SetGadgetText labelcursorG,"G "+GetINIInt("options.INI","3d scene","cursor color G")
-			SetGadgetText labelcursorB,"B "+GetINIInt("options.INI","3d scene","cursor color B")
-			SetGadgetText CameraRange, GetINIInt("options.INI","3d scene","camera range")
-			SetButtonState vsync, GetINIInt("options.INI","3d scene","vsync")
-			SetButtonState showfps, GetINIInt("options.INI","3d scene","show fps")
+			SetGadgetText labelfogR,"R "+IniGetInt("options.ini","3d scene","bg color R")
+			SetGadgetText labelfogG,"G "+IniGetInt("options.ini","3d scene","bg color G")
+			SetGadgetText labelfogB,"B "+IniGetInt("options.ini","3d scene","bg color B")
+			SetGadgetText labelcursorR,"R "+IniGetInt("options.ini","3d scene","cursor color R")
+			SetGadgetText labelcursorG,"G "+IniGetInt("options.ini","3d scene","cursor color G")
+			SetGadgetText labelcursorB,"B "+IniGetInt("options.ini","3d scene","cursor color B")
+			SetGadgetText CameraRange, IniGetInt("options.ini","3d scene","camera range")
+			SetButtonState vsync, IniGetInt("options.ini","3d scene","vsync")
+			SetButtonState showfps, IniGetInt("options.ini","3d scene","show fps")
 			HideGadget optionwin
 		EndIf	
 		If EventSource()=saveopt_button Then
 			HideGadget optionwin
 			SetStatusText(winhandle, "新设置已保存")
-			PutINIValue("options.INI","3d scene","bg color R",redfog)
-			PutINIValue("options.INI","3d scene","bg color G",greenfog)
-			PutINIValue("options.INI","3d scene","bg color B",bluefog)
-			PutINIValue("options.INI","3d scene","cursor color R",redcursor)
-			PutINIValue("options.INI","3d scene","cursor color G",greencursor)
-			PutINIValue("options.INI","3d scene","cursor color B",bluecursor)
-			PutINIValue("options.INI","3d scene","camera range",TextFieldText$(CameraRange))
-			PutINIValue("options.INI","3d scene","vsync",ButtonState(vsync))
-			PutINIValue("options.INI","3d scene","show fps",ButtonState(showfps))
+			IniWriteString("options.ini","3d scene","bg color R",redfog)
+			IniWriteString("options.ini","3d scene","bg color G",greenfog)
+			IniWriteString("options.ini","3d scene","bg color B",bluefog)
+			IniWriteString("options.ini","3d scene","cursor color R",redcursor)
+			IniWriteString("options.ini","3d scene","cursor color G",greencursor)
+			IniWriteString("options.ini","3d scene","cursor color B",bluecursor)
+			IniWriteString("options.ini","3d scene","camera range",TextFieldText$(CameraRange))
+			IniWriteString("options.ini","3d scene","vsync",ButtonState(vsync))
+			IniWriteString("options.ini","3d scene","show fps",ButtonState(showfps))
 			WriteOptions()
 		EndIf
 		If EventSource()=resetzonetrans Then
@@ -1398,146 +1412,6 @@ Function Piece$(s$,entry,char$=" ")
 	Return a
 End Function
 
-Function GetINIString$(file$, section$, parameter$)
-	Local TemporaryString$ = ""
-	Local f = ReadFile(file)
-	
-	While Not Eof(f)
-		If ReadLine(f) = "["+section+"]" Then
-			Repeat 
-				TemporaryString = ReadLine(f)
-				If Trim( Left(TemporaryString, Max(Instr(TemporaryString,"=")-1,0)) ) = parameter Then
-					CloseFile f
-					Return Trim( Right(TemporaryString,Len(TemporaryString)-Instr(TemporaryString,"=")) )
-				EndIf
-			Until Left(TemporaryString,1) = "[" Or Eof(f)
-			CloseFile f
-			Return ""
-		EndIf
-	Wend
-	
-	CloseFile f
-End Function
-
-Function GetINIInt%(file$, section$, parameter$)
-	Local strtemp$ = Lower(GetINIString(file$, section$, parameter$))
-	
-	Select strtemp
-		Case "true"
-			Return 1
-		Case "false"
-			Return 0
-		Default
-			Return Int(strtemp)
-	End Select
-	Return 
-End Function
-
-Function GetINIFloat#(file$, section$, parameter$)
-	Return GetINIString(file$, section$, parameter$)
-End Function
-
-Function PutINIValue%(INI_sAppName$, INI_sSection$, INI_sKey$, INI_sValue$)
-; Returns: True (Success) or False (Failed)
-	
-	INI_sSection = "[" + Trim$(INI_sSection) + "]"
-	INI_sUpperSection$ = Upper$(INI_sSection)
-	INI_sKey = Trim$(INI_sKey)
-	INI_sValue = Trim$(INI_sValue)
-	INI_sFilename$ = CurrentDir$() + "\"  + INI_sAppName
-	
-; Retrieve the INI data (if it exists)
-	
-	INI_sContents$= INI_FileToString(INI_sFilename)
-	
-; (Re)Create the INI file updating/adding the SECTION, KEY and VALUE
-	
-	INI_bWrittenKey% = False
-	INI_bSectionFound% = False
-	INI_sCurrentSection$ = ""
-	
-	INI_lFileHandle = WriteFile(INI_sFilename)
-	If INI_lFileHandle = 0 Then Return False ; Create file failed!
-	
-	INI_lOldPos% = 1
-	INI_lPos% = Instr(INI_sContents, Chr$(0))
-	
-	While (INI_lPos <> 0)
-		
-		INI_sTemp$ =Trim$(Mid$(INI_sContents, INI_lOldPos, (INI_lPos - INI_lOldPos)))
-		
-		If (INI_sTemp <> "") Then
-			
-			If Left$(INI_sTemp, 1) = "[" And Right$(INI_sTemp, 1) = "]" Then
-				
-				; Process SECTION
-				
-				If (INI_sCurrentSection = INI_sUpperSection) And (INI_bWrittenKey = False) Then
-					INI_bWrittenKey = INI_CreateKey(INI_lFileHandle, INI_sKey, INI_sValue)
-				End If
-				INI_sCurrentSection = Upper$(INI_CreateSection(INI_lFileHandle, INI_sTemp))
-				If (INI_sCurrentSection = INI_sUpperSection) Then INI_bSectionFound = True
-				
-			Else
-				
-				; KEY=VALUE
-				
-				lEqualsPos% = Instr(INI_sTemp, "=")
-				If (lEqualsPos <> 0) Then
-					If (INI_sCurrentSection = INI_sUpperSection) And (Upper$(Trim$(Left$(INI_sTemp, (lEqualsPos - 1)))) = Upper$(INI_sKey)) Then
-						If (INI_sValue <> "") Then INI_CreateKey INI_lFileHandle, INI_sKey, INI_sValue
-						INI_bWrittenKey = True
-					Else
-						WriteLine INI_lFileHandle, INI_sTemp
-					End If
-				End If
-				
-			End If
-			
-		End If
-		
-		; Move through the INI file...
-		
-		INI_lOldPos = INI_lPos + 1
-		INI_lPos% = Instr(INI_sContents, Chr$(0), INI_lOldPos)
-		
-	Wend
-	
-	; KEY wasn't found in the INI file - Append a new SECTION if required and create our KEY=VALUE line
-	
-	If (INI_bWrittenKey = False) Then
-		If (INI_bSectionFound = False) Then INI_CreateSection INI_lFileHandle, INI_sSection
-		INI_CreateKey INI_lFileHandle, INI_sKey, INI_sValue
-	End If
-	
-	CloseFile INI_lFileHandle
-	
-	Return True ; Success
-End Function
-
-Function INI_FileToString$(INI_sFilename$)
-	INI_sString$ = ""
-	INI_lFileHandle% = ReadFile(INI_sFilename)
-	If INI_lFileHandle <> 0 Then
-		While Not(Eof(INI_lFileHandle))
-			INI_sString = INI_sString + ReadLine$(INI_lFileHandle) + Chr$(0)
-		Wend
-		CloseFile INI_lFileHandle
-	End If
-	Return INI_sString
-End Function
-
-Function INI_CreateSection$(INI_lFileHandle%, INI_sNewSection$)
-	If FilePos(INI_lFileHandle) <> 0 Then WriteLine INI_lFileHandle, "" ; Blank line between sections
-	WriteLine INI_lFileHandle, INI_sNewSection
-	Return INI_sNewSection
-End Function
-
-Function INI_CreateKey%(INI_lFileHandle%, INI_sKey$, INI_sValue$)
-	WriteLine INI_lFileHandle, INI_sKey + "=" + INI_sValue
-	Return True
-End Function
-
 Function Min#(a#,b#)
 	If a < b Then Return a Else Return b
 End Function
@@ -1593,7 +1467,7 @@ Function LoadRoomTemplates(file$)
 				rt = CreateRoomTemplate()
 				rt\Name = TemporaryString
 				
-				StrTemp = Lower(GetINIString(file, TemporaryString, "shape"))
+				StrTemp = Lower(IniGetString(file, TemporaryString, "shape"))
 				Select StrTemp
 					Case "room1", "1"
 						rt\Shape = ROOM1
@@ -1608,8 +1482,8 @@ Function LoadRoomTemplates(file$)
 					Default
 				End Select
 				
-				rt\Description = GetINIString(file, TemporaryString, "descr")
-				rt\Large = GetINIInt(file, TemporaryString, "large")
+				rt\Description = IniGetString(file, TemporaryString, "descr")
+				rt\Large = IniGetInt(file, TemporaryString, "large")
 				
 				rt\MapGrid = 0
 			EndIf
@@ -1714,10 +1588,10 @@ Function InitEvents(file$)
 			e = New Event
 			e\Name = TemporaryString
 			
-			e\Description = GetINIString(file, TemporaryString, "descr")
+			e\Description = IniGetString(file, TemporaryString, "descr")
 			
 			For i = 1 To MaxEvents
-				e\Room[i] = GetINIString(file, TemporaryString, "room"+i)
+				e\Room[i] = IniGetString(file, TemporaryString, "room"+i)
 			Next
 			
 		EndIf

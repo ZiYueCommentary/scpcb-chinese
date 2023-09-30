@@ -99,10 +99,10 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 				FreeTexture texFestive
 			EndIf
 			
-			temp# = (GetINIFloat("DATA\NPCs.ini", "SCP-173", "scale") / MeshDepth(n\obj))			
+			temp# = (IniGetFloat("DATA\NPCs.ini", "SCP-173", "scale") / MeshDepth(n\obj))			
 			ScaleEntity n\obj, temp,temp,temp
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-173", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-173", "speed") / 100.0)
 			
 			n\obj2 = LoadMesh_Strict("GFX\173box.b3d")
 			ScaleEntity n\obj2, RoomScale, RoomScale, RoomScale
@@ -120,12 +120,12 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			n\obj = LoadAnimMesh_Strict("GFX\npcs\106_2.b3d")
 			
-			temp# = (GetINIFloat("DATA\NPCs.ini", "SCP-106", "scale") / 2.2)		
+			temp# = (IniGetFloat("DATA\NPCs.ini", "SCP-106", "scale") / 2.2)		
 			ScaleEntity n\obj, temp, temp, temp
 			
 			Local OldManEyes% = LoadTexture_Strict("GFX\npcs\oldmaneyes.jpg")
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-106", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-106", "speed") / 100.0)
 			
 			n\obj2 = CreateSprite()
 			ScaleSprite(n\obj2, 0.03, 0.03)
@@ -144,8 +144,8 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			n\obj = CopyEntity(GuardObj)
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "Guard", "speed") / 100.0)
-			temp# = (GetINIFloat("DATA\NPCs.ini", "Guard", "scale") / 2.5)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "Guard", "speed") / 100.0)
+			temp# = (IniGetFloat("DATA\NPCs.ini", "Guard", "scale") / 2.5)
 			
 			ScaleEntity n\obj, temp, temp, temp
 			
@@ -159,9 +159,9 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			n\obj = CopyEntity(MTFObj)
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "MTF", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "MTF", "speed") / 100.0)
 			
-			temp# = (GetINIFloat("DATA\NPCs.ini", "MTF", "scale") / 2.5)
+			temp# = (IniGetFloat("DATA\NPCs.ini", "MTF", "scale") / 2.5)
 			
 			ScaleEntity n\obj, temp, temp, temp
 			
@@ -246,9 +246,9 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			n\obj = LoadAnimMesh_Strict("GFX\npcs\scp096.b3d")
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-096", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-096", "speed") / 100.0)
 			
-			temp# = (GetINIFloat("DATA\NPCs.ini", "SCP-096", "scale") / 3.0)
+			temp# = (IniGetFloat("DATA\NPCs.ini", "SCP-096", "scale") / 3.0)
 			ScaleEntity n\obj, temp, temp, temp	
 			
 			MeshCullBox (n\obj, -MeshWidth(n\obj)*2, -MeshHeight(n\obj)*2, -MeshDepth(n\obj)*2, MeshWidth(n\obj)*2, MeshHeight(n\obj)*4, MeshDepth(n\obj)*4)
@@ -263,9 +263,9 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			n\obj = CopyEntity(NPC049OBJ)
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-049", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-049", "speed") / 100.0)
 			
-			temp# = GetINIFloat("DATA\NPCs.ini", "SCP-049", "scale")
+			temp# = IniGetFloat("DATA\NPCs.ini", "SCP-049", "scale")
 			ScaleEntity n\obj, temp, temp, temp	
 			
 			n\Sound = LoadSound_Strict("SFX\Horror\Horror12.ogg")
@@ -284,13 +284,13 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			If n\obj = 0 Then 
 				n\obj = CopyEntity(NPC0492OBJ)
 				
-				temp# = (GetINIFloat("DATA\NPCs.ini", "SCP-049-2", "scale") / 2.5)
+				temp# = (IniGetFloat("DATA\NPCs.ini", "SCP-049-2", "scale") / 2.5)
 				ScaleEntity n\obj, temp, temp, temp
 				
 				MeshCullBox (n\obj, -MeshWidth(n\obj), -MeshHeight(n\obj), -MeshDepth(n\obj), MeshWidth(n\obj)*2, MeshHeight(n\obj)*2, MeshDepth(n\obj)*2)
 			EndIf
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-049-2", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-049-2", "speed") / 100.0)
 			
 			SetAnimTime(n\obj, 107)
 			
@@ -381,9 +381,9 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityBlend(n\obj2, 3)
 			SpriteViewMode(n\obj2, 2)
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "forestmonster", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "forestmonster", "speed") / 100.0)
 			
-			temp# = (GetINIFloat("DATA\NPCs.ini", "forestmonster", "scale") / 20.0)
+			temp# = (IniGetFloat("DATA\NPCs.ini", "forestmonster", "scale") / 20.0)
 			ScaleEntity n\obj, temp, temp, temp	
 			
 			MeshCullBox (n\obj, -MeshWidth(n\obj)*2, -MeshHeight(n\obj)*2, -MeshDepth(n\obj)*2, MeshWidth(n\obj)*2, MeshHeight(n\obj)*4, MeshDepth(n\obj)*4)
@@ -415,11 +415,11 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			
 			If n\obj = 0 Then 
 				n\obj = LoadAnimMesh_Strict("GFX\NPCs\scp-939.b3d")
-				temp# = GetINIFloat("DATA\NPCs.ini", "SCP-939", "scale")/2.5
+				temp# = IniGetFloat("DATA\NPCs.ini", "SCP-939", "scale")/2.5
 				ScaleEntity n\obj, temp, temp, temp		
 			EndIf
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-939", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-939", "speed") / 100.0)
 			
 			n\CollRadius = 0.3
 			;[End Block]
@@ -431,10 +431,10 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			
 			n\obj = LoadAnimMesh_Strict("GFX\NPCs\scp-066.b3d")
-			temp# = GetINIFloat("DATA\NPCs.ini", "SCP-066", "scale")/2.5
+			temp# = IniGetFloat("DATA\NPCs.ini", "SCP-066", "scale")/2.5
 			ScaleEntity n\obj, temp, temp, temp
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-066", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-066", "speed") / 100.0)
 			;[End Block]
 		Case NPCtype966
 			;[Block]
@@ -460,14 +460,14 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			
 			EntityFX n\obj,1
 			
-			temp# = GetINIFloat("DATA\NPCs.ini", "SCP-966", "scale")/40.0
+			temp# = IniGetFloat("DATA\NPCs.ini", "SCP-966", "scale")/40.0
 			ScaleEntity n\obj, temp, temp, temp
 			
 			SetAnimTime n\obj,15.0
 			
 			EntityType n\Collider,HIT_PLAYER
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-966", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-966", "speed") / 100.0)
 			;[End Block]
 		Case NPCtype1048a
 			;[Block]
@@ -496,8 +496,8 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 				n\obj = LoadAnimMesh_Strict("GFX\npcs\1499-1.b3d")
 			EndIf
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-1499-1", "speed") / 100.0) * Rnd(0.9,1.1)
-			temp# = (GetINIFloat("DATA\NPCs.ini", "SCP-1499-1", "scale") / 4.0) * Rnd(0.8,1.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-1499-1", "speed") / 100.0) * Rnd(0.9,1.1)
+			temp# = (IniGetFloat("DATA\NPCs.ini", "SCP-1499-1", "scale") / 4.0) * Rnd(0.8,1.0)
 			
 			ScaleEntity n\obj, temp, temp, temp
 			
@@ -6842,7 +6842,7 @@ Function GetNPCManipulationValue$(NPC$,bone$,section$,valuetype%=0)
 	;2 - Float
 	;3 - Boolean
 	
-	Local value$ = GetINIString("Data\NPCBones.ini",NPC$,bone$+"_"+section$)
+	Local value$ = IniGetString("Data\NPCBones.ini",NPC$,bone$+"_"+section$)
 	Select valuetype%
 		Case 0
 			Return value$

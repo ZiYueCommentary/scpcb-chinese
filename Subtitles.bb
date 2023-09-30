@@ -1,6 +1,6 @@
 ; 原终极版重生版源码
 ; https://github.com/Jabka666/scpcb-ue-my/blob/master/Source%20Code/Subtitles_Core.bb
-Global EnableSubtitles% = GetINIInt(OptionFile, "options", "enable subtitles")
+Global EnableSubtitles% = IniGetInt(OptionFile, "options", "enable subtitles")
 ;[Block]
 Const ANNOUNCEMENT% = 0
 Const FIRST_PERSON% = 1
@@ -59,9 +59,8 @@ Function ShowSubtitles%(Name$)
 	If (Not EnableSubtitles) Then Return
 	
 	Local sub.Subtitles, CurrSub.Subtitles
-	Local Loc% = GetINISectionLocation(SubtitlesFile, Name)
-	Local Person% = GetINIString2(SubtitlesFile, Loc, "Person")
-	Local LinesAmount% = GetINIInt2(SubtitlesFile, Loc, "LinesAmount")
+	Local Person% = IniGetString(SubtitlesFile, Name, "Person")
+	Local LinesAmount% = IniGetInt(SubtitlesFile, Name, "LinesAmount")
 	Local SubID%, i%
 	
 	Select Person
@@ -88,8 +87,8 @@ Function ShowSubtitles%(Name$)
 		Else
 			sub.Subtitles = CurrSub.Subtitles
 		EndIf
-		sub\Txt[SubID] = GetINIString2(SubtitlesFile, Loc, "Txt" + i)
-		sub\Timer[SubID] = 70.0 * GetINIFloat2(SubtitlesFile, Loc, "Timer" + i)
+		sub\Txt[SubID] = IniGetString(SubtitlesFile, Name, "Txt" + i)
+		sub\Timer[SubID] = 70.0 * IniGetFloat(SubtitlesFile, Name, "Timer" + i)
 	Next
 	
 	CatchErrors("ShowSubtitles")

@@ -27,7 +27,7 @@ Global MenuStr$, MenuStrX%, MenuStrY%
 
 Global MainMenuTab%
 
-Global IntroEnabled% = GetINIInt(OptionFile, "options", "intro enabled")
+Global IntroEnabled% = IniGetInt(OptionFile, "options", "intro enabled")
 
 Global SelectedInputBox%
 
@@ -216,7 +216,7 @@ Function UpdateMainMenu()
 		If DrawButton(x + width + 20 * MenuScale, y, 580 * MenuScale - width - 20 * MenuScale, height, "返回", False) Then 
 			Select MainMenuTab
 				Case 1
-					PutINIValue(OptionFile, "options", "intro enabled", IntroEnabled%)
+					IniWriteInt(OptionFile, "options", "intro enabled", IntroEnabled%)
 					MainMenuTab = 0
 				Case 2
 					CurrLoadGamePage = 0
@@ -386,7 +386,7 @@ Function UpdateMainMenu()
 					FlushKeys()
 					FlushMouse()
 					
-					PutINIValue(OptionFile, "options", "intro enabled", IntroEnabled%)
+					IniWriteInt(OptionFile, "options", "intro enabled", IntroEnabled%)
 					
 				EndIf
 				
@@ -1097,8 +1097,8 @@ Function UpdateLauncher()
 		End If
 	Next
 	
-	If GetINIInt(OptionFile, "options", "first launch", 1) Then ; 第一次启动
-		PutINIValue(OptionFile, "options", "first launch", 0)
+	If IniGetInt(OptionFile, "options", "first launch", 1) Then ; 第一次启动
+		IniWriteInt(OptionFile, "options", "first launch", 0)
 		If GetUserLanguage() <> "zh-CN" Then
 			Color 255, 255, 255
 			Repeat
@@ -1250,29 +1250,29 @@ Function UpdateLauncher()
 		Flip
 	Forever
 	
-	PutINIValue(OptionFile, "options", "width", GfxModeWidths(SelectedGFXMode))
-	PutINIValue(OptionFile, "options", "height", GfxModeHeights(SelectedGFXMode))
+	IniWriteString(OptionFile, "options", "width", GfxModeWidths(SelectedGFXMode))
+	IniWriteString(OptionFile, "options", "height", GfxModeHeights(SelectedGFXMode))
 	If Fullscreen Then
-		PutINIValue(OptionFile, "options", "fullscreen", "true")
+		IniWriteString(OptionFile, "options", "fullscreen", "true")
 	Else
-		PutINIValue(OptionFile, "options", "fullscreen", "false")
+		IniWriteString(OptionFile, "options", "fullscreen", "false")
 	EndIf
 	If LauncherEnabled Then
-		PutINIValue(OptionFile, "launcher", "launcher enabled", "true")
+		IniWriteString(OptionFile, "launcher", "launcher enabled", "true")
 	Else
-		PutINIValue(OptionFile, "launcher", "launcher enabled", "false")
+		IniWriteString(OptionFile, "launcher", "launcher enabled", "false")
 	EndIf
 	If BorderlessWindowed Then
-		PutINIValue(OptionFile, "options", "borderless windowed", "true")
+		IniWriteString(OptionFile, "options", "borderless windowed", "true")
 	Else
-		PutINIValue(OptionFile, "options", "borderless windowed", "false")
+		IniWriteString(OptionFile, "options", "borderless windowed", "false")
 	EndIf
 	If Bit16Mode Then
-		PutINIValue(OptionFile, "options", "16bit", "true")
+		IniWriteString(OptionFile, "options", "16bit", "true")
 	Else
-		PutINIValue(OptionFile, "options", "16bit", "false")
+		IniWriteString(OptionFile, "options", "16bit", "false")
 	EndIf
-	PutINIValue(OptionFile, "options", "gfx driver", SelectedGFXDriver)
+	IniWriteString(OptionFile, "options", "gfx driver", SelectedGFXDriver)
 	
 	FreeImage(LauncherIMG) : LauncherIMG = 0
 	If quit Then End
@@ -1318,16 +1318,16 @@ Function InitLoadingScreens(file$)
 			ls\ID = LoadingScreenAmount
 			
 			ls\title = TemporaryString
-			ls\imgpath = GetINIString(file, TemporaryString, "image path")
+			ls\imgpath = IniGetString(file, TemporaryString, "image path")
 			
 			For i = 0 To 4
-				ls\txt[i] = GetINIString(file, TemporaryString, "text"+(i+1))
+				ls\txt[i] = IniGetString(file, TemporaryString, "text"+(i+1))
 				If ls\txt[i]<> "" Then ls\txtamount=ls\txtamount+1
 			Next
 			
-			ls\disablebackground = GetINIInt(file, TemporaryString, "disablebackground")
+			ls\disablebackground = IniGetInt(file, TemporaryString, "disablebackground")
 			
-			Select Lower(GetINIString(file, TemporaryString, "align x"))
+			Select Lower(IniGetString(file, TemporaryString, "align x"))
 				Case "left"
 					ls\alignx = -1
 				Case "middle", "center"
@@ -1336,7 +1336,7 @@ Function InitLoadingScreens(file$)
 					ls\alignx = 1
 			End Select 
 			
-			Select Lower(GetINIString(file, TemporaryString, "align y"))
+			Select Lower(IniGetString(file, TemporaryString, "align y"))
 				Case "top", "up"
 					ls\aligny = -1
 				Case "middle", "center"

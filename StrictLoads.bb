@@ -132,8 +132,7 @@ Function LoadSound_Strict(file$)
 	snd\internalHandle = 0
 	snd\releaseTime = 0
 	If EnableSubtitles Then
-		; ~ Check if the sound has subtitles
-		If GetINISectionLocation(SubtitlesFile, File) <> 0 Then
+		If IniSectionExist(SubtitlesFile, File) <> 0 Then
 			snd\HasSubtitles = True
 		EndIf
 	EndIf
@@ -179,7 +178,7 @@ Function StreamSound_Strict(file$,volume#=1.0,custommode=Mode)
 	Local st.Stream = New Stream
 	st\name = file
 	If EnableSubtitles Then
-		If GetINISectionLocation(SubtitlesFile, File) <> 0 Then
+		If IniSectionExist(SubtitlesFile, File) <> 0 Then
 			st\HasSubtitles = True
 		EndIf
 	EndIf
