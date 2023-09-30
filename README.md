@@ -2,11 +2,11 @@
 
 游戏基于 [SCP 基金会](http://scp-wiki-cn.wikidot.com/) 背景
 
-汉化版基于 [SCP - Containment Breach TSS](https://github.com/ZiYueCommentary/scpcb-tss) 制作
+汉化计划基于 [SCP - Containment Breach TSS](https://github.com/ZiYueCommentary/scpcb-tss) 制作
 
 游戏遵循 [知识共享许可协议 BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.zh)（即必须署名、可商用、可二创、可二创商用）
 
-汉化版本由 [子悦汉化组](https://ziyuesinicization.site/) 制作
+汉化计划由 [子悦汉化组](https://ziyuesinicization.site/) 制作
 
 ## 需要软件
 
@@ -31,11 +31,15 @@
 
 ### “汉化计划”≠“汉化版”
 
-尽管**汉化计划**的主题为“汉化”，在部分情况下也可直接用“汉化版”代指。但该作品实际上属于**模组作品**，与普遍意义上的“汉化版”有不同之处。
+尽管**汉化计划**的主题为“汉化”，在部分情况下也可直接用“汉化版”代指。但该作品实际上属于**模组**，与普遍意义上的“汉化版”有不同之处。
 
 汉化计划添加了一些**相对于原版**的新内容，并在同时修改了部分文件的格式和储存目录。
 
 ### 字体
+
+汉化计划为了**减少字体文件大小**、**加快字体渲染速度**，对于部分字体进行了删减（部分只保留使用的字符）。
+
+请在基于汉化计划制作模组前替换掉需要的字体。
 
 以下字体需**付费商用**：
 
@@ -56,11 +60,13 @@
 
 请不要使用 IDEal 来进行开发，因为汉化计划项目的编码是 UTF-8，而 IDEal 的编码为 ANSI。
 
+您可以使用带 [Blitz3D拓展](https://marketplace.visualstudio.com/items?itemName=dones.blitz3d) 的 [Visual Studio Code](https://code.visualstudio.com/) 代替。
+
 ### 无大地址概念
 
 **无大地址概念 Not Address Large Aware**是 Blitz3D TSS 的一个编译选项，允许程序最多使用 4GB 内存，而不是 2GB。
 
-该选项对于 64 位系统有些许帮助，但其在汉化计划会引发一些无法预测的问题。建议使用 4GB patch 来替代此选项。
+该选项对于 64 位系统有些许帮助，但其会引发一些无法预测的问题。建议使用 4GB patch 来替代此选项。
 
 ### 排错模式
 

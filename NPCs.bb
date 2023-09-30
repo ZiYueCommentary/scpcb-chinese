@@ -99,10 +99,10 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 				FreeTexture texFestive
 			EndIf
 			
-			temp# = (GetINIFloat("DATA\NPCs.ini", "SCP-173", "scale") / MeshDepth(n\obj))			
+			temp# = (IniGetFloat("DATA\NPCs.ini", "SCP-173", "scale") / MeshDepth(n\obj))			
 			ScaleEntity n\obj, temp,temp,temp
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-173", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-173", "speed") / 100.0)
 			
 			n\obj2 = LoadMesh_Strict("GFX\173box.b3d")
 			ScaleEntity n\obj2, RoomScale, RoomScale, RoomScale
@@ -120,12 +120,12 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			n\obj = LoadAnimMesh_Strict("GFX\npcs\106_2.b3d")
 			
-			temp# = (GetINIFloat("DATA\NPCs.ini", "SCP-106", "scale") / 2.2)		
+			temp# = (IniGetFloat("DATA\NPCs.ini", "SCP-106", "scale") / 2.2)		
 			ScaleEntity n\obj, temp, temp, temp
 			
 			Local OldManEyes% = LoadTexture_Strict("GFX\npcs\oldmaneyes.jpg")
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-106", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-106", "speed") / 100.0)
 			
 			n\obj2 = CreateSprite()
 			ScaleSprite(n\obj2, 0.03, 0.03)
@@ -144,8 +144,8 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			n\obj = CopyEntity(GuardObj)
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "Guard", "speed") / 100.0)
-			temp# = (GetINIFloat("DATA\NPCs.ini", "Guard", "scale") / 2.5)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "Guard", "speed") / 100.0)
+			temp# = (IniGetFloat("DATA\NPCs.ini", "Guard", "scale") / 2.5)
 			
 			ScaleEntity n\obj, temp, temp, temp
 			
@@ -159,9 +159,9 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			n\obj = CopyEntity(MTFObj)
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "MTF", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "MTF", "speed") / 100.0)
 			
-			temp# = (GetINIFloat("DATA\NPCs.ini", "MTF", "scale") / 2.5)
+			temp# = (IniGetFloat("DATA\NPCs.ini", "MTF", "scale") / 2.5)
 			
 			ScaleEntity n\obj, temp, temp, temp
 			
@@ -216,6 +216,7 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			;[End Block]
 		Case NPCtype372
 			;[Block]
+			n\NVName = "SCP-372"
 			n\Collider = CreatePivot()
 			EntityRadius n\Collider, 0.2
 			n\obj = LoadAnimMesh_Strict("GFX\npcs\372.b3d")
@@ -245,9 +246,9 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			n\obj = LoadAnimMesh_Strict("GFX\npcs\scp096.b3d")
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-096", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-096", "speed") / 100.0)
 			
-			temp# = (GetINIFloat("DATA\NPCs.ini", "SCP-096", "scale") / 3.0)
+			temp# = (IniGetFloat("DATA\NPCs.ini", "SCP-096", "scale") / 3.0)
 			ScaleEntity n\obj, temp, temp, temp	
 			
 			MeshCullBox (n\obj, -MeshWidth(n\obj)*2, -MeshHeight(n\obj)*2, -MeshDepth(n\obj)*2, MeshWidth(n\obj)*2, MeshHeight(n\obj)*4, MeshDepth(n\obj)*4)
@@ -262,9 +263,9 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			n\obj = CopyEntity(NPC049OBJ)
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-049", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-049", "speed") / 100.0)
 			
-			temp# = GetINIFloat("DATA\NPCs.ini", "SCP-049", "scale")
+			temp# = IniGetFloat("DATA\NPCs.ini", "SCP-049", "scale")
 			ScaleEntity n\obj, temp, temp, temp	
 			
 			n\Sound = LoadSound_Strict("SFX\Horror\Horror12.ogg")
@@ -283,13 +284,13 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			If n\obj = 0 Then 
 				n\obj = CopyEntity(NPC0492OBJ)
 				
-				temp# = (GetINIFloat("DATA\NPCs.ini", "SCP-049-2", "scale") / 2.5)
+				temp# = (IniGetFloat("DATA\NPCs.ini", "SCP-049-2", "scale") / 2.5)
 				ScaleEntity n\obj, temp, temp, temp
 				
 				MeshCullBox (n\obj, -MeshWidth(n\obj), -MeshHeight(n\obj), -MeshDepth(n\obj), MeshWidth(n\obj)*2, MeshHeight(n\obj)*2, MeshDepth(n\obj)*2)
 			EndIf
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-049-2", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-049-2", "speed") / 100.0)
 			
 			SetAnimTime(n\obj, 107)
 			
@@ -377,12 +378,12 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			FreeTexture tex
 			
 			EntityFX(n\obj2, 1 + 8)
-			EntityBlend(n\obj2, BLEND_ADD)
+			EntityBlend(n\obj2, 3)
 			SpriteViewMode(n\obj2, 2)
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "forestmonster", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "forestmonster", "speed") / 100.0)
 			
-			temp# = (GetINIFloat("DATA\NPCs.ini", "forestmonster", "scale") / 20.0)
+			temp# = (IniGetFloat("DATA\NPCs.ini", "forestmonster", "scale") / 20.0)
 			ScaleEntity n\obj, temp, temp, temp	
 			
 			MeshCullBox (n\obj, -MeshWidth(n\obj)*2, -MeshHeight(n\obj)*2, -MeshDepth(n\obj)*2, MeshWidth(n\obj)*2, MeshHeight(n\obj)*4, MeshDepth(n\obj)*4)
@@ -414,11 +415,11 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			
 			If n\obj = 0 Then 
 				n\obj = LoadAnimMesh_Strict("GFX\NPCs\scp-939.b3d")
-				temp# = GetINIFloat("DATA\NPCs.ini", "SCP-939", "scale")/2.5
+				temp# = IniGetFloat("DATA\NPCs.ini", "SCP-939", "scale")/2.5
 				ScaleEntity n\obj, temp, temp, temp		
 			EndIf
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-939", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-939", "speed") / 100.0)
 			
 			n\CollRadius = 0.3
 			;[End Block]
@@ -430,10 +431,10 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			
 			n\obj = LoadAnimMesh_Strict("GFX\NPCs\scp-066.b3d")
-			temp# = GetINIFloat("DATA\NPCs.ini", "SCP-066", "scale")/2.5
+			temp# = IniGetFloat("DATA\NPCs.ini", "SCP-066", "scale")/2.5
 			ScaleEntity n\obj, temp, temp, temp
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-066", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-066", "speed") / 100.0)
 			;[End Block]
 		Case NPCtype966
 			;[Block]
@@ -459,14 +460,14 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			
 			EntityFX n\obj,1
 			
-			temp# = GetINIFloat("DATA\NPCs.ini", "SCP-966", "scale")/40.0
+			temp# = IniGetFloat("DATA\NPCs.ini", "SCP-966", "scale")/40.0
 			ScaleEntity n\obj, temp, temp, temp
 			
 			SetAnimTime n\obj,15.0
 			
 			EntityType n\Collider,HIT_PLAYER
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-966", "speed") / 100.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-966", "speed") / 100.0)
 			;[End Block]
 		Case NPCtype1048a
 			;[Block]
@@ -495,8 +496,8 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 				n\obj = LoadAnimMesh_Strict("GFX\npcs\1499-1.b3d")
 			EndIf
 			
-			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-1499-1", "speed") / 100.0) * Rnd(0.9,1.1)
-			temp# = (GetINIFloat("DATA\NPCs.ini", "SCP-1499-1", "scale") / 4.0) * Rnd(0.8,1.0)
+			n\Speed = (IniGetFloat("DATA\NPCs.ini", "SCP-1499-1", "speed") / 100.0) * Rnd(0.9,1.1)
+			temp# = (IniGetFloat("DATA\NPCs.ini", "SCP-1499-1", "scale") / 4.0) * Rnd(0.8,1.0)
 			
 			ScaleEntity n\obj, temp, temp, temp
 			
@@ -669,12 +670,12 @@ Function UpdateNPCs()
 							;player is looking at it -> doesn't move
 							If move=False Then
 								BlurVolume = Max(Max(Min((4.0 - dist) / 6.0, 0.9), 0.1), BlurVolume)
-								CurrCameraZoom = Max(CurrCameraZoom, (Sin(Float(MilliSecs2())/20.0)+1.0)*15.0*Max((3.5-dist)/3.5,0.0))								
+								CurrCameraZoom = Max(CurrCameraZoom, (Sin(Float(MilliSecs())/20.0)+1.0)*15.0*Max((3.5-dist)/3.5,0.0))								
 								
-								If dist < 3.5 And MilliSecs2() - n\LastSeen > 60000 And temp Then
+								If dist < 3.5 And MilliSecs() - n\LastSeen > 60000 And temp Then
 									PlaySound_Strict(HorrorSFX(Rand(3,4)))
 									
-									n\LastSeen = MilliSecs2()
+									n\LastSeen = MilliSecs()
 								EndIf
 								
 								If dist < 1.5 And Rand(700) = 1 Then PlaySound2(Scp173SFX(Rand(0, 2)), Camera, n\obj)
@@ -845,12 +846,12 @@ Function UpdateNPCs()
 							EndIf
 						EndIf
 						
-						PositionEntity(n\obj, EntityX(n\Collider), EntityY(n\Collider) + 0.05 + Sin(MilliSecs2()*0.08)*0.02, EntityZ(n\Collider))
+						PositionEntity(n\obj, EntityX(n\Collider), EntityY(n\Collider) + 0.05 + Sin(MilliSecs()*0.08)*0.02, EntityZ(n\Collider))
 						RotateEntity (n\obj, 0, EntityYaw(n\Collider)-180, 0)
 						
 						ShowEntity n\obj2
 						
-						PositionEntity(n\obj2, EntityX(n\Collider), EntityY(n\Collider) - 0.05 + Sin(MilliSecs2()*0.08)*0.02, EntityZ(n\Collider))
+						PositionEntity(n\obj2, EntityX(n\Collider), EntityY(n\Collider) - 0.05 + Sin(MilliSecs()*0.08)*0.02, EntityZ(n\Collider))
 						RotateEntity (n\obj2, 0, EntityYaw(n\Collider)-180, 0)
 					EndIf
 				EndIf
@@ -950,12 +951,12 @@ Function UpdateNPCs()
 										GiveAchievement(Achv106)
 										
 										BlurVolume = Max(Max(Min((4.0 - dist) / 6.0, 0.9), 0.1), BlurVolume)
-										CurrCameraZoom = Max(CurrCameraZoom, (Sin(Float(MilliSecs2())/20.0)+1.0) * 20.0 * Max((4.0-dist)/4.0,0))
+										CurrCameraZoom = Max(CurrCameraZoom, (Sin(Float(MilliSecs())/20.0)+1.0) * 20.0 * Max((4.0-dist)/4.0,0))
 										
-										If MilliSecs2() - n\LastSeen > 60000 Then 
+										If MilliSecs() - n\LastSeen > 60000 Then 
 											CurrCameraZoom = 40
 											PlaySound_Strict(HorrorSFX(6))
-											n\LastSeen = MilliSecs2()
+											n\LastSeen = MilliSecs()
 										EndIf
 									EndIf
 								Else
@@ -1223,7 +1224,7 @@ Function UpdateNPCs()
 						;[End Block]
 					Case 4
 						;[Block]
-						CurrCameraZoom = CurveValue(Max(CurrCameraZoom, (Sin(Float(MilliSecs2())/20.0)+1.0) * 10.0),CurrCameraZoom,8.0)
+						CurrCameraZoom = CurveValue(Max(CurrCameraZoom, (Sin(Float(MilliSecs())/20.0)+1.0) * 10.0),CurrCameraZoom,8.0)
 						
 						If n\Target = Null Then
 							If n\SoundChn = 0
@@ -1245,14 +1246,14 @@ Function UpdateNPCs()
 						
 						If KillTimer =>0 Then
 							
-							If MilliSecs2() > n\State3 Then
+							If MilliSecs() > n\State3 Then
 								n\LastSeen=0
 								If n\Target=Null Then
 									If EntityVisible(Collider, n\Collider) Then n\LastSeen=1
 								Else
 									If EntityVisible(n\Target\Collider, n\Collider) Then n\LastSeen=1
 								EndIf
-								n\State3=MilliSecs2()+3000
+								n\State3=MilliSecs()+3000
 							EndIf
 							
 							If n\LastSeen=1 Then
@@ -1448,7 +1449,7 @@ Function UpdateNPCs()
 										AnimateNPC(n,1383,1456,n\CurrSpeed*45)
 									EndIf
 									
-									If MilliSecs2() > n\State3 Then
+									If MilliSecs() > n\State3 Then
 										n\LastSeen=0
 										If EntityVisible(Collider, n\Collider) Then 
 											n\LastSeen=1
@@ -1460,7 +1461,7 @@ Function UpdateNPCs()
 											EndIf
 											ShowEntity n\Collider
 										EndIf
-										n\State3=MilliSecs2()+3000
+										n\State3=MilliSecs()+3000
 									EndIf
 									
 									If n\LastSeen Then 
@@ -1643,6 +1644,7 @@ Function UpdateNPCs()
 												Else
 													DeathMSG = "在[已编辑]发现了一个SCP-049-2活动实例，已被九尾狐击毙。"
 													Kill()
+													KillAnim = 0
 												EndIf
 												PlaySound_Strict HorrorSFX(13)
 												If n\Sound2 <> 0 Then FreeSound_Strict(n\Sound2)
@@ -2304,13 +2306,13 @@ Function UpdateNPCs()
 						
 						If Rand(400) = 1 Then n\Angle = Rnd(-180, 180)
 						
-						RotateEntity(n\Collider, 0, CurveAngle(n\Angle + Sin(MilliSecs2() / 50) * 2, EntityYaw(n\Collider), 150.0), 0, True)
+						RotateEntity(n\Collider, 0, CurveAngle(n\Angle + Sin(MilliSecs() / 50) * 2, EntityYaw(n\Collider), 150.0), 0, True)
 						
 						dist# = EntityDistance(n\Collider, Collider)
 						If dist < 15.0 Then
 							
 							If WrapAngle(EntityYaw(n\Collider)-DeltaYaw(n\Collider, Collider))<90 Then
-								If EntityVisible(pvt,Collider) Then n\State = 1
+								If EntityVisible(n\Collider,Collider) Then n\State = 1
 							EndIf
 							
 						EndIf
@@ -2562,7 +2564,7 @@ Function UpdateNPCs()
 						n\PathStatus = 0
 						AnimateNPC(n,77,201,0.2)
 						
-						RotateEntity(n\Collider, 0, CurveAngle(n\Angle + n\PrevState + Sin(MilliSecs2() / 50) * 2, EntityYaw(n\Collider), 50), 0, True)
+						RotateEntity(n\Collider, 0, CurveAngle(n\Angle + n\PrevState + Sin(MilliSecs() / 50) * 2, EntityYaw(n\Collider), 50), 0, True)
 						;[End Block]
 				End Select
 				
@@ -2575,6 +2577,9 @@ Function UpdateNPCs()
 				EndIf
 				
 				If n\Frame > 286.5 And n\Frame < 288.5
+					n\IsDead = True
+				EndIf
+				If AnimTime(n\obj) > 286.5 And AnimTime(n\obj) < 288.5 Then
 					n\IsDead = True
 				EndIf
 				
@@ -2695,7 +2700,7 @@ Function UpdateNPCs()
 						EndIf
 						
 						temp = Rnd(-1.0,1.0)
-						PositionEntity n\obj2, EntityX(n\Collider)+n\PrevX*temp, EntityY(n\Collider) - 0.2 + Sin((MilliSecs2()/8-45) Mod 360)*0.05, EntityZ(n\Collider)+n\PrevZ*temp
+						PositionEntity n\obj2, EntityX(n\Collider)+n\PrevX*temp, EntityY(n\Collider) - 0.2 + Sin((MilliSecs()/8-45) Mod 360)*0.05, EntityZ(n\Collider)+n\PrevZ*temp
 						RotateEntity n\obj2, 0, EntityYaw(n\obj), 0
 						If (Floor(AnimTime(n\obj2))<>Floor(n\Frame)) Then SetAnimTime n\obj2, n\Frame
 						
@@ -2779,7 +2784,7 @@ Function UpdateNPCs()
 							EndIf
 						EndIf
 						
-						PositionEntity(n\obj, EntityX(n\Collider), EntityY(n\Collider) - 0.2 + Sin((MilliSecs2()/8) Mod 360)*0.1, EntityZ(n\Collider))
+						PositionEntity(n\obj, EntityX(n\Collider), EntityY(n\Collider) - 0.2 + Sin((MilliSecs()/8) Mod 360)*0.1, EntityZ(n\Collider))
 						
 						Select n\State 
 							Case 1
@@ -2829,16 +2834,18 @@ Function UpdateNPCs()
 							n\Idle = False
 							n\State = Rand(20, 60)
 							
-							If Rand(300)=1 Then PlaySound2(RustleSFX(Rand(0,2)),Camera, n\obj, 8, Rnd(0.0,0.2))
+							If Rand(300)=1 Then PlaySound2(RustleSFX(Rand(0,2)),Camera, n\Collider, 8, Rnd(0.0,0.2))
 						End If
-					Else
-						PositionEntity(n\obj, EntityX(n\Collider) + Rnd(-0.005, 0.005), EntityY(n\Collider)+0.3+0.1*Sin(MilliSecs2()/2), EntityZ(n\Collider) + Rnd(-0.005, 0.005))
-						RotateEntity n\obj, 0, EntityYaw(n\Collider), ((MilliSecs2()/5) Mod 360)
+					EndIf
+
+					If (Not n\Idle) Then
+						PositionEntity(n\obj, EntityX(n\Collider) + Rnd(-0.005, 0.005), EntityY(n\Collider)+0.3+0.1*Sin(MilliSecs()/2), EntityZ(n\Collider) + Rnd(-0.005, 0.005))
+						RotateEntity n\obj, 0, EntityYaw(n\Collider), ((MilliSecs()/5) Mod 360)
 						
 						AnimateNPC(n, 32, 113, 0.4)
 						;Animate2(n\obj, AnimTime(n\obj), 32, 113, 0.4)
 						
-						If EntityInView(n\obj, Camera) Then
+						If EntityInView(n\obj, Camera) And (BlinkTimer < - 16 Or BlinkTimer > - 6) Then
 							GiveAchievement(Achv372)
 							
 							If Rand(30)=1 Then 
@@ -2866,7 +2873,10 @@ Function UpdateNPCs()
 							n\State = n\State-FPSfactor
 						EndIf
 						n\State=n\State-(FPSfactor/80.0)
-						If n\State <= 0 Then n\Idle = True	
+						If n\State <= 0 Then
+							n\Idle = True
+							PositionEntity(n\Collider, 0, 500, 0)
+						EndIf
 					End If
 					
 				EndIf
@@ -2990,7 +3000,7 @@ Function UpdateNPCs()
 							TurnEntity(n\obj2,0,20.0*FPSfactor,0)
 							TurnEntity(n\obj3,20.0*FPSfactor,0,0)
 							
-							TurnEntity n\Collider,0,-FPSfactor*7,0;Sin(MilliSecs2()/40)*FPSfactor
+							TurnEntity n\Collider,0,-FPSfactor*7,0;Sin(MilliSecs()/40)*FPSfactor
 							n\State2=n\State2+FPSfactor*0.3
 							
 							target=CreatePivot()
@@ -3140,6 +3150,17 @@ Function UpdateNPCs()
 									HideEntity ForestNPC
 								EndIf
 							EndIf
+							If ForestNPCData[1]=0.0
+								If Rand(200)=1
+									ForestNPCData[1]=FPSfactor
+									EntityTexture ForestNPC,ForestNPCTex,ForestNPCData[0]+1
+								EndIf
+							ElseIf ForestNPCData[1]>0.0 And ForestNPCData[1]<5.0
+								ForestNPCData[1]=Min(ForestNPCData[1]+FPSfactor,5.0)
+							Else
+								ForestNPCData[1]=0
+								EntityTexture ForestNPC,ForestNPCTex,ForestNPCData[0]
+							EndIf
 						Else
 							HideEntity ForestNPC
 						EndIf
@@ -3172,16 +3193,14 @@ Function UpdateNPCs()
 										If fr\grid[(z2*gridsize)+x2]=0 Then
 											;spawn the monster between the empty cell and the cell the player is in
 											TFormPoint(((x2+x)/2)*12.0,0,((z2+z)/2)*12.0,fr\Forest_Pivot,0)
+											PositionEntity n\Collider, TFormedX(), EntityY(fr\Forest_Pivot,True)+2.3, TFormedZ()
 											
 											;in view -> nope, keep searching for a more suitable cell
 											If EntityInView(n\Collider, Camera) Then
 												PositionEntity n\Collider, 0, -110, 0
 												DebugLog("spawned monster in view -> hide")
 											Else ; not in view -> all good
-												DebugLog("spawned monster successfully")
-												
-												PositionEntity n\Collider, TFormedX(), EntityY(fr\Forest_Pivot,True)+2.3, TFormedZ()
-												
+												DebugLog("spawned monster successfully")												
 												x2 = gridsize
 												Exit												
 											EndIf
@@ -3247,18 +3266,6 @@ Function UpdateNPCs()
 											EntityTexture ForestNPC,ForestNPCTex,ForestNPCData[0]
 										Else
 											ForestNPCData[2]=2
-										EndIf
-									ElseIf ForestNPCData[2]=1
-										If ForestNPCData[1]=0.0
-											If Rand(200)=1
-												ForestNPCData[1]=FPSfactor
-												EntityTexture ForestNPC,ForestNPCTex,ForestNPCData[0]+1
-											EndIf
-										ElseIf ForestNPCData[1]>0.0 And ForestNPCData[1]<5.0
-											ForestNPCData[1]=Min(ForestNPCData[1]+FPSfactor,5.0)
-										Else
-											ForestNPCData[1]=0
-											EntityTexture ForestNPC,ForestNPCTex,ForestNPCData[0]
 										EndIf
 									EndIf
 								EndIf
@@ -3651,7 +3658,7 @@ Function UpdateNPCs()
 						If dist > 20.0 Then
 							AnimateNPC(n, 451, 612, 0.2, True)
 							
-							If n\State2 < MilliSecs2() Then
+							If n\State2 < MilliSecs() Then
 								For w.waypoints = Each WayPoints
 									If w\door = Null Then
 										If Abs(EntityX(w\obj,True)-EntityX(n\Collider))<4.0 Then
@@ -3663,7 +3670,7 @@ Function UpdateNPCs()
 										EndIf
 									EndIf
 								Next
-								n\State2 = MilliSecs2()+5000
+								n\State2 = MilliSecs()+5000
 							EndIf
 						ElseIf dist < 8.0
 							n\LastDist = Rnd(1.0, 2.5)
@@ -3825,7 +3832,7 @@ Function UpdateNPCs()
 					
 					If (WearingNightVision=0) Then
 						HideEntity n\obj
-						If dist<1 And n\Reload <= 0 And MsgTimer <= 0 Then
+						If dist<1 And n\Reload <= 0 Then
 							Select Rand(6)
 								Case 1
 									Msg="你感觉你的身旁有东西在呼吸"
@@ -3911,18 +3918,12 @@ Function UpdateNPCs()
 							RotateEntity n\Collider,0.0,CurveAngle(angle,EntityYaw(n\Collider),20.0),0.0
 							
 							If n\State3<900 Then
-								BlurTimer = ((Sin(MilliSecs2()/50)+1.0)*200)/dist
+								BlurTimer = ((Sin(MilliSecs()/50)+1.0)*200)/dist
 								
 								If (WearingNightVision>0) Then GiveAchievement(Achv966)
 								
 								If (Not Wearing714) And (WearingGasMask<3) And (WearingHazmat<3) And dist<16 Then
-									BlinkEffect = Max(BlinkEffect, 1.5)
-									BlinkEffectTimer = 1000
-									
-									StaminaEffect = 2.0
-									StaminaEffectTimer = 1000
-									
-									If MsgTimer<=0 And StaminaEffect<1.5 Then
+									If StaminaEffect<1.5 Then
 										Select Rand(4)
 											Case 1
 												Msg = "你感觉很累"
@@ -3936,6 +3937,12 @@ Function UpdateNPCs()
 										
 										MsgTimer = 7*70
 									EndIf
+
+									BlinkEffect = Max(BlinkEffect, 1.5)
+									BlinkEffectTimer = 1000
+
+									StaminaEffect = 2.0
+									StaminaEffectTimer = 1000
 								EndIf							
 							EndIf
 							
@@ -3948,21 +3955,17 @@ Function UpdateNPCs()
 								If n\Frame > 456.0 Then n\State = 0
 							EndIf
 							
-							If n\Frame>271.0 And prevFrame<=271.0 Or n\Frame>354 Or n\Frame>314.0 And prevFrame<=314.0 Or n\Frame>301.0 And prevFrame<=301.0
+							If (n\Frame>271.0 And prevFrame<=271.0) Or (n\Frame>314.0 And prevFrame<=314.0) Or (n\Frame>301.0 And prevFrame<=301.0)
 								PlaySound2(LoadTempSound("SFX\SCP\966\Idle"+Rand(1,3)+".ogg"), Camera, n\Collider)
 							EndIf
 							
 							angle = VectorYaw(EntityX(Collider)-EntityX(n\Collider),0,EntityZ(Collider)-EntityZ(n\Collider))
 							RotateEntity n\Collider,0.0,CurveAngle(angle,EntityYaw(n\Collider),20.0),0.0
 						Case 5,6,8 ;walking or chasing
-							If n\Frame<580.0 And n\Frame>214.0 ;start walking
+							If n\Frame>213.0 And n\Frame<580.0 ;start walking
 								AnimateNPC(n, 556, 580, 0.25, False)
 							Else
-								If n\CurrSpeed >= 0.005 Then
-									AnimateNPC(n, 580, 628, n\CurrSpeed*25.0)
-								Else
-									AnimateNPC(n, 2, 214, 0.25)
-								EndIf
+								AnimateNPC(n, 580, 628, n\CurrSpeed*25.0)
 								
 								;chasing the player
 								If n\State = 8 And dist<32 Then
@@ -4024,7 +4027,7 @@ Function UpdateNPCs()
 										
 									EndIf
 								Else
-									If MilliSecs2() > n\State2 And dist<16.0 Then
+									If MilliSecs() > n\State2 And dist<16.0 Then
 										HideEntity n\Collider
 										EntityPick(n\Collider, 1.5)
 										If PickedEntity() <> 0 Then
@@ -4032,7 +4035,7 @@ Function UpdateNPCs()
 										EndIf
 										ShowEntity n\Collider
 										
-										n\State2=MilliSecs2()+1000
+										n\State2=MilliSecs()+1000
 										
 										If Rand(5)=1 Then n\State=0
 									EndIf	
@@ -4055,7 +4058,7 @@ Function UpdateNPCs()
 								n\LastSeen = 1
 							EndIf
 							
-							If n\Frame>557.0
+							If n\Frame>556.0
 								AnimateNPC(n, 628, 652, 0.25, False)
 								If n\Frame>651.0
 									Select Rand(3)
@@ -4082,7 +4085,7 @@ Function UpdateNPCs()
 							EndIf
 							
 							If dist<1.0 Then
-								If n\Frame>470.0 And prevFrame<=470.0 Or n\Frame>500.0 And prevFrame<=500.0 Or n\Frame>527.0 And prevFrame<=527.0
+								If (n\Frame>470.0 And prevFrame<=470.0) Or (n\Frame>500.0 And prevFrame<=500.0) Or (n\Frame>527.0 And prevFrame<=527.0)
 									PlaySound2(LoadTempSound("SFX\General\Slash"+Rand(1,2)+".ogg"), Camera, n\Collider)
 									Injuries = Injuries + Rnd(0.5,1.0)								
 								EndIf	
@@ -6289,7 +6292,7 @@ Function UpdateMTFUnit(n.NPCs)
 							Else
 								If (Not n\Target\IsDead)
 									If n\Sound <> 0 Then FreeSound_Strict n\Sound : n\Sound = 0
-									If n\NPCtype = NPCtypeZombie
+									If n\Target\NPCtype = NPCtypeZombie
 										n\Sound = LoadSound_Strict("SFX\Character\MTF\049\Player0492_2.ogg")
 										PlayMTFSound(n\Sound, n)
 									EndIf
@@ -6839,7 +6842,7 @@ Function GetNPCManipulationValue$(NPC$,bone$,section$,valuetype%=0)
 	;2 - Float
 	;3 - Boolean
 	
-	Local value$ = GetINIString("Data\NPCBones.ini",NPC$,bone$+"_"+section$)
+	Local value$ = IniGetString("Data\NPCBones.ini",NPC$,bone$+"_"+section$)
 	Select valuetype%
 		Case 0
 			Return value$

@@ -16,16 +16,15 @@ Const AchvKeter% = 36
 Global UsedConsole
 
 Global AchievementsMenu%
-Global AchvMSGenabled% = GetINIInt("options.ini", "options", "achievement popup enabled")
+Global AchvMSGenabled% = IniGetInt("options.ini", "options", "achievement popup enabled")
 Dim AchievementStrings$(MAXACHIEVEMENTS)
 Dim AchievementDescs$(MAXACHIEVEMENTS)
 Dim AchvIMG%(MAXACHIEVEMENTS)
 For i = 0 To MAXACHIEVEMENTS-1
-	Local loc2% = GetINISectionLocation("Data\achievementstrings.ini", "s"+Str(i))
-	AchievementStrings(i) = GetINIString2("Data\achievementstrings.ini", loc2, "string1")
-	AchievementDescs(i) = GetINIString2("Data\achievementstrings.ini", loc2, "AchvDesc")
+	AchievementStrings(i) = IniGetString("Data\achievementstrings.ini", "s"+Str(i), "string1")
+	AchievementDescs(i) = IniGetString("Data\achievementstrings.ini", "s"+Str(i), "AchvDesc")
 	
-	Local image$ = GetINIString2("Data\achievementstrings.ini", loc2, "image") 
+	Local image$ = IniGetString("Data\achievementstrings.ini", "s"+Str(i), "image") 
 	
 	AchvIMG(i) = LoadImage_Strict("GFX\menu\achievements\"+image+".jpg")
 	AchvIMG(i) = ResizeImage2(AchvIMG(i),ImageWidth(AchvIMG(i))*GraphicHeight/768.0,ImageHeight(AchvIMG(i))*GraphicHeight/768.0)
@@ -38,8 +37,7 @@ Function GiveAchievement(achvname%, showMessage%=True)
 	If Achievements(achvname)<>True Then
 		Achievements(achvname)=True
 		If AchvMSGenabled And showMessage Then
-			Local loc2% = GetINISectionLocation("Data\achievementstrings.ini", "s"+achvname)
-			Local AchievementName$ = GetINIString2("Data\achievementstrings.ini", loc2, "string1")
+			Local AchievementName$ = IniGetString("Data\achievementstrings.ini", "s"+achvname, "string1")
 			CreateAchievementMsg(achvname,AchievementName)
 		EndIf
 	EndIf

@@ -706,7 +706,7 @@ Function LoadGame(file$)
 	room2gw_z = ReadFloat(f)
 	
 	; 就因为这么个判断所以旧版存档没法读
-	; 包括但不限于汉化版和原版
+	; 包括但不限于汉化计划和原版
 	;If version = CompatibleNumber Then
 		I_Zone\Transition[0] = ReadByte(f)
 		I_Zone\Transition[1] = ReadByte(f)
@@ -776,7 +776,7 @@ Function LoadGame(file$)
 						EndIf
 					Next
 				Next
-				For x=0 To 5
+				For x=0 To 6
 					If r\grid\Meshes[x]<>0 Then
 						FreeEntity r\grid\Meshes[x]
 						r\grid\Meshes[x]=0
@@ -1610,7 +1610,7 @@ Function LoadGameQuick(file$)
 						EndIf
 					Next
 				Next
-				For x=0 To 5
+				For x=0 To 6
 					If r\grid\Meshes[x]<>0 Then
 						FreeEntity r\grid\Meshes[x]
 						r\grid\Meshes[x]=0
@@ -2060,15 +2060,15 @@ Function LoadSavedMaps()
 	Next
 	SavedMapsAmount = 0
 	
-	Dir=ReadDir("Map Creator\Maps")
+	Dir=ReadDir(ConvertToANSI("地图制作器\Maps"))
 	Repeat
 		file$=NextFile$(Dir)
 		
 		DebugLog file
 		
 		If file$="" Then Exit
-		DebugLog (CurrentDir()+"Map Creator\Maps\"+file$)
-		If FileType(CurrentDir()+"Map Creator\Maps\"+file$) = 1 Then 
+		DebugLog (CurrentDir()+ConvertToANSI("地图制作器\Maps\")+file$)
+		If FileType(CurrentDir()+ConvertToANSI("地图制作器\Maps\")+file$) = 1 Then 
 			If file <> "." And file <> ".." Then
 				If Right(file,6)="cbmap2" Or Right(file,5)="cbmap" Then
 					SavedMapsAmount = SavedMapsAmount + 1
@@ -2082,20 +2082,20 @@ Function LoadSavedMaps()
 	Dim SavedMapsAuthor$(SavedMapsAmount+1)
 	
 	i = 0
-	Dir=ReadDir("Map Creator\Maps") 
+	Dir=ReadDir(ConvertToANSI("地图制作器\Maps")) 
 	Repeat
 		file$=NextFile$(Dir)
 		
 		DebugLog file
 		
 		If file$="" Then Exit
-		DebugLog (CurrentDir()+"Map Creator\Maps\"+file$)
-		If FileType(CurrentDir()+"Map Creator\Maps\"+file$) = 1 Then 
+		DebugLog (CurrentDir()+ConvertToANSI("地图制作器\Maps\")+file$)
+		If FileType(CurrentDir()+ConvertToANSI("地图制作器\Maps\")+file$) = 1 Then 
 			If file <> "." And file <> ".." Then
 				If Right(file,6)="cbmap2" Or Right(file,5)="cbmap" Then
 					SavedMaps(i) = file
 					If Right(file,6)="cbmap2" Then
-						Local f = ReadFile("Map Creator\Maps\"+file)
+						Local f = ReadFile(ConvertToANSI("地图制作器\Maps\")+file)
 						SavedMapsAuthor$(i) = ConvertToUTF8(ReadLine(f))
 						CloseFile f
 					Else

@@ -1,7 +1,7 @@
 Graphics 640,480,0,2
 SetBuffer BackBuffer()
 
-SetFont LoadFont("GFX\font\Containment Breach.ttf", 15)
+SetFont LoadFont("GFX\fonts\Containment Breach.ttf", 15)
 
 Cls
 

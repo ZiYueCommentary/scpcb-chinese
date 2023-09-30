@@ -2,7 +2,7 @@
 
 ;    游戏基于SCP基金会背景(http://scp-wiki-cn.wikidot.com/)
 
-;	 汉化版基于SCP - Containment Breach TSS制作（https://github.com/ZiYueCommentary/scpcb-tss）
+;	 汉化计划基于SCP - Containment Breach TSS制作（https://github.com/ZiYueCommentary/scpcb-tss）
 
 ;	 游戏遵循知识共享许可协议BY-SA 3.0（即必须署名、可商用、可二创、可二创商用）
 ;	 https://creativecommons.org/licenses/by-sa/3.0/deed.zh
@@ -19,6 +19,19 @@ If Len(InitErrorStr)>0 Then
 	RuntimeError "游戏文件夹中缺失以下dll文件："+Chr(13)+Chr(10)+Chr(13)+Chr(10)+InitErrorStr
 EndIf
 
+Include "IniControler.bb"
+IniWriteBuffer("options.ini")
+IniWriteBuffer("Data\1499chunks.ini")
+IniWriteBuffer("Data\achievementstrings.ini")
+IniWriteBuffer("Data\events.ini")
+IniWriteBuffer("Data\materials.ini")
+IniWriteBuffer("Data\NPCBones.ini")
+IniWriteBuffer("Data\NPCs.ini")
+IniWriteBuffer("Data\rooms.ini")
+IniWriteBuffer("Data\SCP-294.ini")
+IniWriteBuffer("Data\subtitles.ini")
+IniWriteBuffer("Loadingscreens\loadingscreens.ini")
+
 Include "StrictLoads.bb"
 Include "KeyName.bb"
 
@@ -32,39 +45,38 @@ Global Font1%, Font2%, Font3%, Font4%, Font5%
 Global ConsoleFont%
 
 Global VersionNumber$ = "1.3.11"
-Global SinicizationNumber$ = "2023.01-Fourth Revise" ; 汉化版本
+Global SinicizationNumber$ = "2023.10-Fifth Revise" ; 汉化版本
 Global CompatibleNumber$ = "1.3.11-2022.5" ; 当存档与构建版本不兼容时再更改		——开发者 ENDSHN
 
 Global OpenCC% = CreateOpenCC("Traditional\OpenCC\s2twp.json") ; 繁简转换工具
 
 Global MenuWhite%, MenuBlack%
-Global ButtonSFX%
+Global ButtonSFX% = LoadSound_Strict("SFX\Interact\Button.ogg")
 
-Global EnableSFXRelease% = GetINIInt(OptionFile, "audio", "sfx release")
+Global EnableSFXRelease% = IniGetInt(OptionFile, "audio", "sfx release")
 Global EnableSFXRelease_Prev% = EnableSFXRelease%
 
-Global CanOpenConsole% = GetINIInt(OptionFile, "console", "enabled")
+Global CanOpenConsole% = IniGetInt(OptionFile, "console", "enabled")
 
 Dim ArrowIMG(4)
 
 ;[Block]
 
-Global LauncherWidth%= Min(GetINIInt(OptionFile, "launcher", "launcher width"), 1024)
-Global LauncherHeight% = Min(GetINIInt(OptionFile, "launcher", "launcher height"), 768)
-Global LauncherEnabled% = GetINIInt(OptionFile, "launcher", "launcher enabled")
-Global LauncherIMG%
+Global LauncherWidth%= Min(IniGetInt(OptionFile, "launcher", "launcher width"), 1024)
+Global LauncherHeight% = Min(IniGetInt(OptionFile, "launcher", "launcher height"), 768)
+Global LauncherEnabled% = IniGetInt(OptionFile, "launcher", "launcher enabled")
 
-Global GraphicWidth% = GetINIInt(OptionFile, "options", "width")
-Global GraphicHeight% = GetINIInt(OptionFile, "options", "height")
-Global Depth% = 0, Fullscreen% = GetINIInt(OptionFile, "options", "fullscreen")
+Global GraphicWidth% = IniGetInt(OptionFile, "options", "width")
+Global GraphicHeight% = IniGetInt(OptionFile, "options", "height")
+Global Depth% = 0, Fullscreen% = IniGetInt(OptionFile, "options", "fullscreen")
 
 Global SelectedGFXMode%
-Global SelectedGFXDriver% = Max(GetINIInt(OptionFile, "options", "gfx driver"), 1)
+Global SelectedGFXDriver% = Max(IniGetInt(OptionFile, "options", "gfx driver"), 1)
 
 Global fresize_image%, fresize_texture%, fresize_texture2%
 Global fresize_cam%
 
-Global ShowFPS = GetINIInt(OptionFile, "options", "show FPS")
+Global ShowFPS = IniGetInt(OptionFile, "options", "show FPS")
 
 Global WireframeState
 Global HalloweenTex
@@ -72,13 +84,13 @@ Global HalloweenTex
 Global TotalGFXModes% = CountGfxModes3D(), GFXModes%
 Dim GfxModeWidths%(TotalGFXModes), GfxModeHeights%(TotalGFXModes)
 
-Global BorderlessWindowed% = GetINIInt(OptionFile, "options", "borderless windowed")
+Global BorderlessWindowed% = IniGetInt(OptionFile, "options", "borderless windowed")
 Global RealGraphicWidth%,RealGraphicHeight%
 Global AspectRatioRatio#
 
-Global EnableRoomLights% = GetINIInt(OptionFile, "options", "room lights enabled")
+Global EnableRoomLights% = IniGetInt(OptionFile, "options", "room lights enabled")
 
-Global TextureDetails% = GetINIInt(OptionFile, "options", "texture details")
+Global TextureDetails% = IniGetInt(OptionFile, "options", "texture details")
 Global TextureFloat#
 Select TextureDetails%
 	Case 0
@@ -92,12 +104,12 @@ Select TextureDetails%
 	Case 4
 		TextureFloat# = -0.8
 End Select
-Global ConsoleOpening% = GetINIInt(OptionFile, "console", "auto opening")
-Global SFXVolume# = GetINIFloat(OptionFile, "audio", "sound volume")
+Global ConsoleOpening% = IniGetInt(OptionFile, "console", "auto opening")
+Global SFXVolume# = IniGetFloat(OptionFile, "audio", "sound volume")
 
-Global Bit16Mode = GetINIInt(OptionFile, "options", "16bit")
+Global Bit16Mode = IniGetInt(OptionFile, "options", "16bit")
 
-Global TraditionalChinese% = GetINIInt(OptionFile, "options", "traditional chinese")
+Global TraditionalChinese% = IniGetInt(OptionFile, "options", "traditional chinese")
 
 Include "Subtitles.bb"
 
@@ -176,14 +188,14 @@ SetBuffer(BackBuffer())
 Global CurTime%, PrevTime%, LoopDelay%, FPSfactor#, FPSfactor2#, PrevFPSFactor#
 Local CheckFPS%, ElapsedLoops%, FPS%, ElapsedTime#
 
-Global Framelimit% = GetINIInt(OptionFile, "options", "framelimit")
-Global Vsync% = GetINIInt(OptionFile, "options", "vsync")
+Global Framelimit% = IniGetInt(OptionFile, "options", "framelimit")
+Global Vsync% = IniGetInt(OptionFile, "options", "vsync")
 
-Global Opt_AntiAlias = GetINIInt(OptionFile, "options", "antialias")
+Global Opt_AntiAlias = IniGetInt(OptionFile, "options", "antialias")
 
 Global CurrFrameLimit# = (Framelimit%-19)/100.0
 
-Global ScreenGamma# = GetINIFloat(OptionFile, "options", "screengamma")
+Global ScreenGamma# = IniGetFloat(OptionFile, "options", "screengamma")
 
 Const HIT_MAP% = 1, HIT_PLAYER% = 2, HIT_ITEM% = 3, HIT_APACHE% = 4, HIT_178% = 5, HIT_DEAD% = 6
 SeedRnd MilliSecs()
@@ -194,7 +206,7 @@ Global GameSaved%
 
 Global CanSave% = True
 
-AppTitle "SCP - 收容失效 v" + VersionNumber + " 汉化版本"
+AppTitle "SCP - 收容失效 汉化计划 v" + VersionNumber
 
 PlayStartupVideos()
 
@@ -211,15 +223,15 @@ InitLoadingScreens("Loadingscreens\loadingscreens.ini")
 ; 由于玩家可以用输入法，所以输入的文本可能啥都有
 ; 为了让文字尽可能都显示，游戏最经常用的字体就没砍
 ; ——子悦 2022/12/22
-Font1% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(16 * (GraphicHeight / 1024.0)))
-Font2% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(55 * (GraphicHeight / 1024.0)))
-Font3% = LoadFont_Strict("GFX\font\Unifont.ttf", Int(19 * (GraphicHeight / 1024.0)))
-Font4% = LoadFont_Strict("GFX\font\Unifont.ttf", Int(57 * (GraphicHeight / 1024.0)))
-Font5% = LoadFont_Strict("GFX\font\Journal.ttf", Int(55 * (GraphicHeight / 1024.0)))
+Font1% = LoadFont_Strict("GFX\fonts\Containment Breach.ttf", Int(16 * (GraphicHeight / 1024.0)))
+Font2% = LoadFont_Strict("GFX\fonts\Containment Breach.ttf", Int(55 * (GraphicHeight / 1024.0)))
+Font3% = LoadFont_Strict("GFX\fonts\Unifont.ttf", Int(19 * (GraphicHeight / 1024.0)))
+Font4% = LoadFont_Strict("GFX\fonts\Unifont.ttf", Int(57 * (GraphicHeight / 1024.0)))
+Font5% = LoadFont_Strict("GFX\fonts\Journal.ttf", Int(55 * (GraphicHeight / 1024.0)))
 
 Global CreditsFont%, CreditsFont2%, CreditsFont3%
 
-ConsoleFont% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(17 * (GraphicHeight / 1024.0)))
+ConsoleFont% = LoadFont_Strict("GFX\fonts\Containment Breach.ttf", Int(17 * (GraphicHeight / 1024.0)))
 
 SetFont Font2
 
@@ -238,19 +250,19 @@ Global mouse_left_limit% = 250, mouse_right_limit% = GraphicsWidth () - 250
 Global mouse_top_limit% = 150, mouse_bottom_limit% = GraphicsHeight () - 150 ; As above.
 Global mouse_x_speed_1#, mouse_y_speed_1#
 
-Global KEY_RIGHT = GetINIInt(OptionFile, "binds", "Right key")
-Global KEY_LEFT = GetINIInt(OptionFile, "binds", "Left key")
-Global KEY_UP = GetINIInt(OptionFile, "binds", "Up key")
-Global KEY_DOWN = GetINIInt(OptionFile, "binds", "Down key")
+Global KEY_RIGHT = IniGetInt(OptionFile, "binds", "Right key")
+Global KEY_LEFT = IniGetInt(OptionFile, "binds", "Left key")
+Global KEY_UP = IniGetInt(OptionFile, "binds", "Up key")
+Global KEY_DOWN = IniGetInt(OptionFile, "binds", "Down key")
 
-Global KEY_BLINK = GetINIInt(OptionFile, "binds", "Blink key")
-Global KEY_SPRINT = GetINIInt(OptionFile, "binds", "Sprint key")
-Global KEY_INV = GetINIInt(OptionFile, "binds", "Inventory key")
-Global KEY_CROUCH = GetINIInt(OptionFile, "binds", "Crouch key")
-Global KEY_SAVE = GetINIInt(OptionFile, "binds", "Save key")
-Global KEY_CONSOLE = GetINIInt(OptionFile, "binds", "Console key")
+Global KEY_BLINK = IniGetInt(OptionFile, "binds", "Blink key")
+Global KEY_SPRINT = IniGetInt(OptionFile, "binds", "Sprint key")
+Global KEY_INV = IniGetInt(OptionFile, "binds", "Inventory key")
+Global KEY_CROUCH = IniGetInt(OptionFile, "binds", "Crouch key")
+Global KEY_SAVE = IniGetInt(OptionFile, "binds", "Save key")
+Global KEY_CONSOLE = IniGetInt(OptionFile, "binds", "Console key")
 
-Global MouseSmooth# = GetINIFloat(OptionFile,"options", "mouse smoothing", 1.0)
+Global MouseSmooth# = IniGetFloat(OptionFile,"options", "mouse smoothing", 1.0)
 
 Global Mesh_MinX#, Mesh_MinY#, Mesh_MinZ#
 Global Mesh_MaxX#, Mesh_MaxY#, Mesh_MaxZ#
@@ -294,7 +306,7 @@ Global PlayerZone%, PlayerRoom.Rooms
 
 Global GrabbedEntity%
 
-Global InvertMouse% = GetINIInt(OptionFile, "options", "invert mouse y")
+Global InvertMouse% = IniGetInt(OptionFile, "options", "invert mouse y")
 Global MouseHit1%, MouseDown1%, MouseHit2%, DoubleClick%, LastMouseHit1%, MouseUp1%
 
 Global GodMode%, NoClip%, NoClipSpeed# = 2.0
@@ -660,7 +672,7 @@ Function UpdateConsole()
 							CreateConsoleMsg("帮助 - spawnitem")
 							CreateConsoleMsg("******************************")
 							CreateConsoleMsg("在玩家的位置生成物品（可生成能在物品栏里出现的物品）。")
-							CreateConsoleMsg("在汉化版中，你可以使用物品中文名、物品英文名或物品ID生成物品。")
+							CreateConsoleMsg("在汉化计划中，你可以使用物品中文名、物品英文名或物品ID生成物品。")
 							CreateConsoleMsg("示例：spawnitem 万能钥匙卡 / spawnitem key card omni / spawnitem key6")
 							CreateConsoleMsg("******************************")
 						Case "spawn"
@@ -1478,20 +1490,20 @@ Global BlurVolume#, BlurTimer#
 
 Global LightBlink#, LightFlash#
 
-Global BumpEnabled% = GetINIInt("options.ini", "options", "bump mapping enabled")
-Global HUDenabled% = GetINIInt("options.ini", "options", "HUD enabled")
+Global BumpEnabled% = IniGetInt("options.ini", "options", "bump mapping enabled")
+Global HUDenabled% = IniGetInt("options.ini", "options", "HUD enabled")
 
 Global Camera%, CameraShake#, CurrCameraZoom#
 
-Global Brightness% = GetINIFloat("options.ini", "options", "brightness")
-Global CameraFogNear# = GetINIFloat("options.ini", "options", "camera fog near")
-Global CameraFogFar# = GetINIFloat("options.ini", "options", "camera fog far")
+Global Brightness% = IniGetFloat("options.ini", "options", "brightness")
+Global CameraFogNear# = IniGetFloat("options.ini", "options", "camera fog near")
+Global CameraFogFar# = IniGetFloat("options.ini", "options", "camera fog far")
 
 Global StoredCameraFogFar# = CameraFogFar
 
-Global MouseSens# = GetINIFloat("options.ini", "options", "mouse sensitivity")
+Global MouseSens# = IniGetFloat("options.ini", "options", "mouse sensitivity")
 
-Global EnableVRam% = GetINIInt("options.ini", "options", "enable vram")
+Global EnableVRam% = IniGetInt("options.ini", "options", "enable vram")
 
 Include "Dreamfilter.bb"
 
@@ -1535,7 +1547,7 @@ Music(23) = "Ending"
 Music(24) = "Credits"
 Music(25) = "SaveMeFrom"
 
-Global MusicVolume# = GetINIFloat(OptionFile, "audio", "music volume")
+Global MusicVolume# = IniGetFloat(OptionFile, "audio", "music volume")
 
 Global CurrMusicStream, MusicCHN
 MusicCHN = StreamSound_Strict("SFX\Music\"+Music(2)+".ogg",MusicVolume,Mode)
@@ -1676,8 +1688,8 @@ MaskImage NVGImages,255,0,255
 Global Wearing1499% = False
 Global AmbientLightRoomTex%, AmbientLightRoomVal%
 
-Global EnableUserTracks% = GetINIInt(OptionFile, "audio", "enable user tracks")
-Global UserTrackMode% = GetINIInt(OptionFile, "audio", "user track setting")
+Global EnableUserTracks% = IniGetInt(OptionFile, "audio", "enable user tracks")
+Global UserTrackMode% = IniGetInt(OptionFile, "audio", "user track setting")
 Global UserTrackCheck% = 0, UserTrackCheck2% = 0
 Global UserTrackMusicAmount% = 0, CurrUserTrack%, UserTrackFlag% = False
 Dim UserTrackName$(256)
@@ -1712,7 +1724,7 @@ Global menuroomscale# = 8.0 / 2048.0
 
 Global CurrMenu_TestIMG$ = ""
 
-Global ParticleAmount% = GetINIInt(OptionFile,"options","particle amount")
+Global ParticleAmount% = IniGetInt(OptionFile,"options","particle amount")
 
 Dim NavImages(5)
 For i = 0 To 3
@@ -2283,7 +2295,7 @@ Function UseDoor(d.Doors, showmsg%=True, playsfx%=True)
                             Msg = "门看起来被锁上了"
                         EndIf    
                     Else
-                        Msg = "电梯看起来坏了"
+                        Msg = "电梯似乎坏了"
                     EndIf
 					MsgTimer = 70 * 5
 				Else
@@ -2300,7 +2312,7 @@ Function UseDoor(d.Doors, showmsg%=True, playsfx%=True)
 									Msg = "不要再按按钮了"
 									MsgTimer = 70 * 7
 								Case 2
-									Msg = "一直按按钮不会让电梯来的更快"
+									Msg = "一直按按钮不会让电梯来得更快"
 									MsgTimer = 70 * 7
 								Case 3
 									Msg = "如果你再按按钮我就让游戏内存访问冲突"
@@ -2631,12 +2643,6 @@ Collisions HIT_178, HIT_MAP, 2, 2
 Collisions HIT_178, HIT_178, 1, 3
 Collisions HIT_DEAD, HIT_MAP, 2, 2
 
-Function MilliSecs2()
-	Local retVal% = MilliSecs()
-	If retVal < 0 Then retVal = retVal + 2147483648
-	Return retVal
-End Function
-
 DrawLoading(90, True)
 
 ;----------------------------------- meshes and textures ----------------------------------------------------------------
@@ -2725,7 +2731,7 @@ Global I_Zone.MapZones = New MapZones
 Repeat
 	Cls
 	
-	CurTime = MilliSecs2()
+	CurTime = MilliSecs()
 	ElapsedTime = (CurTime - PrevTime) / 1000.0
 	PrevTime = CurTime
 	PrevFPSFactor = FPSfactor
@@ -2736,17 +2742,17 @@ Repeat
 	
 	If Framelimit > 0 Then
 	    ;Framelimit
-		Local WaitingTime% = (1000.0 / Framelimit) - (MilliSecs2() - LoopDelay)
+		Local WaitingTime% = (1000.0 / Framelimit) - (MilliSecs() - LoopDelay)
 		Delay WaitingTime%
 		
-		LoopDelay = MilliSecs2()
+		LoopDelay = MilliSecs()
 	EndIf
 	
 	;Counting the fps
-	If CheckFPS < MilliSecs2() Then
+	If CheckFPS < MilliSecs() Then
 		FPS = ElapsedLoops
 		ElapsedLoops = 0
-		CheckFPS = MilliSecs2()+1000
+		CheckFPS = MilliSecs()+1000
 	EndIf
 	ElapsedLoops = ElapsedLoops + 1
 	
@@ -2754,8 +2760,8 @@ Repeat
 		DoubleClick = False
 		MouseHit1 = MouseHit(1)
 		If MouseHit1 Then
-			If MilliSecs2() - LastMouseHit1 < 800 Then DoubleClick = True
-			LastMouseHit1 = MilliSecs2()
+			If MilliSecs() - LastMouseHit1 < 800 Then DoubleClick = True
+			LastMouseHit1 = MilliSecs()
 		EndIf
 		
 		Local prevmousedown1 = MouseDown1
@@ -3147,12 +3153,6 @@ Repeat
 		
 		DrawGUI()
 		
-		If EndingTimer < 0 Then
-			If SelectedEnding <> "" Then DrawEnding()
-		Else
-			DrawMenu()			
-		EndIf
-		
 		UpdateSubtitles() ;字幕系统
 		UpdateConsole()
 		
@@ -3165,6 +3165,7 @@ Repeat
 								Msg = "双击文档来阅读"
 								MsgTimer=70*7
 								e\EventState3 = 50
+								Exit
 							EndIf
 						EndIf
 					EndIf
@@ -3198,6 +3199,12 @@ Repeat
 		
 		Color 255, 255, 255
 		If ShowFPS Then SetFont ConsoleFont : Text 20, 20, "FPS: " + FPS : SetFont Font1
+		
+		If EndingTimer < 0 Then
+			If SelectedEnding <> "" Then DrawEnding()
+		Else
+			DrawMenu()			
+		EndIf
 		
 		RenderSubtitles()
 		DrawQuickLoading()
@@ -3418,7 +3425,7 @@ Function QuickLoadEvents()
 			;[End Block]
 		Case "room205"
 			;[Block]
-			If e\EventState=0 Or e\room\Objects[0]=0 Then
+			If e\EventState=0 Or e\EventStr <> "loaddone" Then
 				If e\EventStr = "load0"
 					e\room\Objects[3] = LoadAnimMesh_Strict("GFX\npcs\205_demon1.b3d")
 					QuickLoadPercent = 10
@@ -3527,8 +3534,6 @@ Function QuickLoadEvents()
 						Local ch.Chunk
 						For i = -2 To 0 Step 2
 							ch = CreateChunk(-1,x#*(i*2.5),EntityY(e\room\obj),z#,True)
-						Next
-						For i = -2 To 0 Step 2
 							ch = CreateChunk(-1,x#*(i*2.5),EntityY(e\room\obj),z#-40,True)
 						Next
 						e\EventState = 2.0
@@ -3734,9 +3739,9 @@ Function InitCredits()
 	Local l$
 	
 	; 因为整个游戏只有制作人员名单用到了粗体字体，所以粗体就砍到几十个字了
-	CreditsFont% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(21 * (GraphicHeight / 1024.0)))
-	CreditsFont2% = LoadFont_Strict("GFX\font\Containment Breach Bold.ttf", Int(35 * (GraphicHeight / 1024.0)))
-	CreditsFont3% = LoadFont_Strict("GFX\font\Containment Breach Bold.ttf", Int(37 * (GraphicHeight / 1024.0)))
+	CreditsFont% = LoadFont_Strict("GFX\fonts\Containment Breach.ttf", Int(21 * (GraphicHeight / 1024.0)))
+	CreditsFont2% = LoadFont_Strict("GFX\fonts\Containment Breach Bold.ttf", Int(30 * (GraphicHeight / 1024.0)))
+	CreditsFont3% = LoadFont_Strict("GFX\fonts\Containment Breach Bold.ttf", Int(37 * (GraphicHeight / 1024.0)))
 	
 	If CreditsScreen = 0
 		CreditsScreen = LoadImage_Strict("GFX\creditsscreen.jpg")
@@ -3921,7 +3926,7 @@ Function MovePlayer()
 	
 	For i = 0 To MaxItemAmount-1
 		If Inventory(i)<>Null Then
-			If Inventory(i)\itemtemplate\tempname = "finevest" Then Stamina = Min(Stamina, 60)
+			If Inventory(i)\itemtemplate\tempname = "finevest" Then Stamina = Min(Stamina, 60) : Exit
 		EndIf
 	Next
 	
@@ -3970,33 +3975,27 @@ Function MovePlayer()
 				If CurrStepSFX=0 Then
 					temp = GetStepSound(Collider)
 					
-					If Sprint = 1.0 Then
+					If Sprint = 2.5 Then
 						PlayerSoundVolume = Max(4.0,PlayerSoundVolume)
 						tempchn% = PlaySound_Strict(StepSFX(temp, 0, Rand(0, 7)))
-						ChannelVolume tempchn, (1.0-(Crouch*0.6))*SFXVolume#
 					Else
 						PlayerSoundVolume = Max(2.5-(Crouch*0.6),PlayerSoundVolume)
 						tempchn% = PlaySound_Strict(StepSFX(temp, 1, Rand(0, 7)))
-						ChannelVolume tempchn, (1.0-(Crouch*0.6))*SFXVolume#
 					End If
 				ElseIf CurrStepSFX=1
 					tempchn% = PlaySound_Strict(Step2SFX(Rand(0, 2)))
-					ChannelVolume tempchn, (1.0-(Crouch*0.4))*SFXVolume#
 				ElseIf CurrStepSFX=2
 					tempchn% = PlaySound_Strict(Step2SFX(Rand(3,5)))
-					ChannelVolume tempchn, (1.0-(Crouch*0.4))*SFXVolume#
 				ElseIf CurrStepSFX=3
-					If Sprint = 1.0 Then
+					If Sprint = 2.5 Then
 						PlayerSoundVolume = Max(4.0,PlayerSoundVolume)
 						tempchn% = PlaySound_Strict(StepSFX(0, 0, Rand(0, 7)))
-						ChannelVolume tempchn, (1.0-(Crouch*0.6))*SFXVolume#
 					Else
 						PlayerSoundVolume = Max(2.5-(Crouch*0.6),PlayerSoundVolume)
 						tempchn% = PlaySound_Strict(StepSFX(0, 1, Rand(0, 7)))
-						ChannelVolume tempchn, (1.0-(Crouch*0.6))*SFXVolume#
 					End If
 				EndIf
-				
+				If tempchn <> 0 Then ChannelVolume tempchn, (1.0-(Crouch*0.6))*SFXVolume#
 			EndIf	
 		EndIf
 	Else ;noclip on
@@ -4108,7 +4107,7 @@ Function MovePlayer()
 	
 	If Injuries > 1.0 Then
 		temp2 = Bloodloss
-		BlurTimer = Max(Max(Sin(MilliSecs2()/100.0)*Bloodloss*30.0,Bloodloss*2*(2.0-CrouchState)),BlurTimer)
+		BlurTimer = Max(Max(Sin(MilliSecs()/100.0)*Bloodloss*30.0,Bloodloss*2*(2.0-CrouchState)),BlurTimer)
 		If (Not I_427\Using And I_427\Timer < 70*360) Then
 			Bloodloss = Min(Bloodloss + (Min(Injuries,3.5)/300.0)*FPSfactor,100)
 		EndIf
@@ -4136,7 +4135,7 @@ Function MovePlayer()
 			FreeEntity pvt
 		EndIf
 		
-		CurrCameraZoom = Max(CurrCameraZoom, (Sin(Float(MilliSecs2())/20.0)+1.0)*Bloodloss*0.2)
+		CurrCameraZoom = Max(CurrCameraZoom, (Sin(Float(MilliSecs())/20.0)+1.0)*Bloodloss*0.2)
 		
 		If Bloodloss > 60 Then Crouch = True
 		If Bloodloss => 100 Then 
@@ -4239,7 +4238,7 @@ Function MouseLook()
 		
 		If PlayerRoom\RoomTemplate\Name = "pocketdimension" Then
 			If EntityY(Collider)<2000*RoomScale Or EntityY(Collider)>2608*RoomScale Then
-				RotateEntity Camera, WrapAngle(EntityPitch(Camera)),WrapAngle(EntityYaw(Camera)), roll+WrapAngle(Sin(MilliSecs2()/150.0)*30.0) ; Pitch the user;s camera up And down.
+				RotateEntity Camera, WrapAngle(EntityPitch(Camera)),WrapAngle(EntityYaw(Camera)), roll+WrapAngle(Sin(MilliSecs()/150.0)*30.0) ; Pitch the user;s camera up And down.
 			EndIf
 		EndIf
 		
@@ -4374,10 +4373,16 @@ Function MouseLook()
 						SCP1025state[i]=SCP1025state[i]+FPSfactor*0.0005
 					EndIf
 					If SCP1025state[i]>20.0 Then
-						If SCP1025state[i]-FPSfactor<=20.0 Then Msg="你胃痛得难以忍受"
+						If SCP1025state[i]-FPSfactor<=20.0 Then 
+							Msg="你胃痛得难以忍受"
+							MsgTimer = 70*4
+						EndIf
 						Stamina = Stamina - FPSfactor * 0.3
 					ElseIf SCP1025state[i]>10.0
-						If SCP1025state[i]-FPSfactor<=10.0 Then Msg="你开始胃痛"
+						If SCP1025state[i]-FPSfactor<=10.0 Then 
+							Msg="你开始胃痛"
+							MsgTimer = 70*4
+						EndIf
 					EndIf
 				Case 4 ;asthma
 					If Stamina < 35 Then
@@ -4863,7 +4868,7 @@ Function DrawGUI()
 		spacing% = 35
 		
 		x = GraphicWidth / 2 - (width * MaxItemAmount /2 + spacing * (MaxItemAmount / 2 - 1)) / 2
-		y = GraphicHeight / 2 - (height * OtherSize /5 + spacing * (OtherSize / 5 - 1)) / 2;height
+		y = GraphicHeight / 2 - (height * OtherSize /5 + height * (OtherSize / 5 - 1)) / 2;height
 		
 		ItemAmount = 0
 		For  n% = 0 To OtherSize - 1
@@ -4890,6 +4895,9 @@ Function DrawGUI()
 			DebugLog "otheropen: "+(OtherOpen<>Null)
 			If OtherOpen\SecondInv[n] <> Null And SelectedItem <> OtherOpen\SecondInv[n] Then
 				If isMouseOn Then
+					SetFont Font1
+					Color 0,0,0
+					Text(x + width / 2 + 1, y + height + spacing - 15 + 1, OtherOpen\SecondInv[n]\itemtemplate\name, True)
 					Color 255, 255, 255	
 					Text(x + width / 2, y + height + spacing - 15, OtherOpen\SecondInv[n]\itemtemplate\displayName, True)				
 					If SelectedItem = Null Then
@@ -4915,7 +4923,7 @@ Function DrawGUI()
 			Else
 				If isMouseOn And MouseHit1 Then
 					For z% = 0 To OtherSize - 1
-						If OtherOpen\SecondInv[z] = SelectedItem Then OtherOpen\SecondInv[z] = Null
+						If OtherOpen\SecondInv[z] = SelectedItem Then OtherOpen\SecondInv[z] = Null : Exit
 					Next
 					OtherOpen\SecondInv[n] = SelectedItem
 				EndIf
@@ -4953,7 +4961,7 @@ Function DrawGUI()
 					
 					SelectedItem\Picked = False
 					For z% = 0 To OtherSize - 1
-						If OtherOpen\SecondInv[z] = SelectedItem Then OtherOpen\SecondInv[z] = Null
+						If OtherOpen\SecondInv[z] = SelectedItem Then OtherOpen\SecondInv[z] = Null : Exit
 					Next
 					
 					isEmpty=True
@@ -4997,7 +5005,7 @@ Function DrawGUI()
 					
 					If PrevOtherOpen\SecondInv[MouseSlot] = Null Then
 						For z% = 0 To OtherSize - 1
-							If PrevOtherOpen\SecondInv[z] = SelectedItem Then PrevOtherOpen\SecondInv[z] = Null
+							If PrevOtherOpen\SecondInv[z] = SelectedItem Then PrevOtherOpen\SecondInv[z] = Null : Exit
 						Next
 						PrevOtherOpen\SecondInv[MouseSlot] = SelectedItem
 						SelectedItem = Null
@@ -5045,7 +5053,7 @@ Function DrawGUI()
 		spacing% = 35
 		
 		x = GraphicWidth / 2 - (width * MaxItemAmount /2 + spacing * (MaxItemAmount / 2 - 1)) / 2
-		y = GraphicHeight / 2 - height
+		y = GraphicHeight / 2 - (height * MaxItemAmount /5 + height * (MaxItemAmount / 5 - 1)) / 2
 		
 		ItemAmount = 0
 		For  n% = 0 To MaxItemAmount - 1
@@ -5141,7 +5149,7 @@ Function DrawGUI()
 			Else
 				If isMouseOn And MouseHit1 Then
 					For z% = 0 To MaxItemAmount - 1
-						If Inventory(z) = SelectedItem Then Inventory(z) = Null
+						If Inventory(z) = SelectedItem Then Inventory(z) = Null : Exit
 					Next
 					Inventory(n) = SelectedItem
 				End If
@@ -5187,7 +5195,7 @@ Function DrawGUI()
 				Else
 					If Inventory(MouseSlot) = Null Then
 						For z% = 0 To MaxItemAmount - 1
-							If Inventory(z) = SelectedItem Then Inventory(z) = Null
+							If Inventory(z) = SelectedItem Then Inventory(z) = Null : Exit
 						Next
 						Inventory(MouseSlot) = SelectedItem
 						SelectedItem = Null
@@ -5213,6 +5221,7 @@ Function DrawGUI()
 														If Inventory(ri) = SelectedItem Then
 															Inventory(ri) = Null
 															PlaySound_Strict(PickSFX(SelectedItem\itemtemplate\sound))
+															Exit
 														EndIf
 													Next
 													added = SelectedItem
@@ -5255,6 +5264,7 @@ Function DrawGUI()
 														If Inventory(ri) = SelectedItem Then
 															Inventory(ri) = Null
 															PlaySound_Strict(PickSFX(SelectedItem\itemtemplate\sound))
+															Exit
 														EndIf
 													Next
 													added = SelectedItem
@@ -5655,7 +5665,7 @@ Function DrawGUI()
 											Case 5
 												Bloodloss = 0
 												Injuries = 0
-												Msg = "你用绷带包扎伤口，出血完全停止了。你感觉很好"
+												Msg = "你用绷带包扎伤口，血完全止住了。你感觉良好"
 											Case 6
 												Msg = "你用绷带包扎伤口，血从绷带里大量流出"
 												Injuries = 3.5
@@ -5734,7 +5744,7 @@ Function DrawGUI()
 								SelectedItem\itemtemplate\img=LoadImage_Strict(SelectedItem\itemtemplate\imgpath)	
 								
 								If (SelectedItem\state = 0) Then
-									Msg = "“嘿，我记得这个电影！”"
+									Msg = "“嘿，我记得这部电影！”"
 									MsgTimer = 70*10
 									PlaySound_Strict LoadTempSound("SFX\SCP\1162\NostalgiaCancer"+Rand(1,5)+".ogg")
 									SelectedItem\state = 1
@@ -5767,49 +5777,45 @@ Function DrawGUI()
 				Case "cup"
 					;[Block]
 					If CanUseItem(False,False,True)
-						SelectedItem\name = Trim(Lower(SelectedItem\name))
-						If Left(SelectedItem\name, Min(6,Len(SelectedItem\name))) = "cup of" Then
+						SelectedItem\name = Trim(SelectedItem\name)
+						If Lower(Left(SelectedItem\name, Min(6,Len(SelectedItem\name)))) = "cup of" Then
 							SelectedItem\name = Right(SelectedItem\name, Len(SelectedItem\name)-7)
-						ElseIf Left(SelectedItem\name, Min(8,Len(SelectedItem\name))) = "a cup of" 
+						ElseIf Lower(Left(SelectedItem\name, Min(8,Len(SelectedItem\name)))) = "a cup of" 
 							SelectedItem\name = Right(SelectedItem\name, Len(SelectedItem\name)-9)
 						EndIf
-						
+
 						;the state of refined items is more than 1.0 (fine setting increases it by 1, very fine doubles it)
 						x2 = (SelectedItem\state+1.0)
 						
-						Local iniStr$ = "DATA\SCP-294.ini"
+						Local iniStr$ = "Data\SCP-294.ini"
 						
-						Local loc% = GetINISectionLocation(iniStr, SelectedItem\name)
-						
-						;Stop
-						
-						strtemp = GetINIString2(iniStr, loc, "message")
+						strtemp = IniGetString(iniStr, SelectedItem\name, "message")
 						If strtemp <> "" Then Msg = strtemp : MsgTimer = 70*6
 						
-						If GetINIInt2(iniStr, loc, "lethal") Or GetINIInt2(iniStr, loc, "deathtimer") Then 
-							DeathMSG = GetINIString2(iniStr, loc, "deathmessage")
-							If GetINIInt2(iniStr, loc, "lethal") Then Kill()
+						If IniGetInt(iniStr, SelectedItem\name, "lethal") Or IniGetInt(iniStr, SelectedItem\name, "deathtimer") Then 
+							DeathMSG = IniGetString(iniStr, SelectedItem\name, "deathmessage")
+							If IniGetInt(iniStr, SelectedItem\name, "lethal") Then Kill()
 						EndIf
-						BlurTimer = GetINIInt2(iniStr, loc, "blur")*70;*temp
-						If VomitTimer = 0 Then VomitTimer = GetINIInt2(iniStr, loc, "vomit")
-						CameraShakeTimer = GetINIString2(iniStr, loc, "camerashake")
-						Injuries = Max(Injuries + GetINIInt2(iniStr, loc, "damage"),0);*temp
-						Bloodloss = Max(Bloodloss + GetINIInt2(iniStr, loc, "blood loss"),0);*temp
-						strtemp =  GetINIString2(iniStr, loc, "sound")
+						BlurTimer = IniGetInt(iniStr, SelectedItem\name, "blur")*70;*temp
+						If VomitTimer = 0 Then VomitTimer = IniGetInt(iniStr, SelectedItem\name, "vomit")
+						CameraShakeTimer = IniGetString(iniStr, SelectedItem\name, "camerashake")
+						Injuries = Max(Injuries + IniGetInt(iniStr, SelectedItem\name, "damage"),0);*temp
+						Bloodloss = Max(Bloodloss + IniGetInt(iniStr, SelectedItem\name, "blood loss"),0);*temp
+						strtemp =  IniGetString(iniStr, SelectedItem\name, "sound")
 						If strtemp<>"" Then
 							PlaySound_Strict LoadTempSound(strtemp)
 						EndIf
-						If GetINIInt2(iniStr, loc, "stomachache") Then SCP1025state[3]=1
+						If IniGetInt(iniStr, SelectedItem\name, "stomachache") Then SCP1025state[3]=1
 						
-						DeathTimer=GetINIInt2(iniStr, loc, "deathtimer")*70
+						DeathTimer=IniGetInt(iniStr, SelectedItem\name, "deathtimer")*70
 						
-						BlinkEffect = Float(GetINIString2(iniStr, loc, "blink effect", 1.0))*x2
-						BlinkEffectTimer = Float(GetINIString2(iniStr, loc, "blink effect timer", 1.0))*x2
+						BlinkEffect = Float(IniGetString(iniStr, SelectedItem\name, "blink effect", 1.0))*x2
+						BlinkEffectTimer = Float(IniGetString(iniStr, SelectedItem\name, "blink effect timer", 1.0))*x2
+
+						StaminaEffect = Float(IniGetString(iniStr, SelectedItem\name, "stamina effect", 1.0))*x2
+						StaminaEffectTimer = Float(IniGetString(iniStr, SelectedItem\name, "stamina effect timer", 1.0))*x2
 						
-						StaminaEffect = Float(GetINIString2(iniStr, loc, "stamina effect", 1.0))*x2
-						StaminaEffectTimer = Float(GetINIString2(iniStr, loc, "stamina effect timer", 1.0))*x2
-						
-						strtemp = GetINIString2(iniStr, loc, "refusemessage")
+						strtemp = IniGetString(iniStr, SelectedItem\name, "refusemessage")
 						If strtemp <> "" Then
 							Msg = strtemp 
 							MsgTimer = 70*6		
@@ -6183,7 +6189,7 @@ Function DrawGUI()
 							
 							SetFont Font3
 							If strtemp <> "" Then
-								strtemp = Right(Left(strtemp, (Int(MilliSecs2()/300) Mod Len(strtemp))),10)
+								strtemp = Right(Left(strtemp, (Int(MilliSecs()/300) Mod Len(strtemp))),10)
 								Text(x+5, y+33, strtemp)
 							EndIf
 							
@@ -6411,7 +6417,7 @@ Function DrawGUI()
 					EndIf
 					
 					If (Not NavWorks) Then
-						If (MilliSecs2() Mod 1000) > 300 Then
+						If (MilliSecs() Mod 1000) > 300 Then
 							Color(200, 0, 0)
 							Text(x, y + height / 2 - 80, "错误 06", True)
 							Text(x, y + height / 2 - 60, "未知位置", True)						
@@ -6485,7 +6491,7 @@ Function DrawGUI()
 							Else
 								Color (30,30,30)
 							EndIf
-							If (MilliSecs2() Mod 1000) > 300 Then
+							If (MilliSecs() Mod 1000) > 300 Then
 								If SelectedItem\itemtemplate\name <> "S-NAV 310 Navigator" And SelectedItem\itemtemplate\name <> "S-NAV Navigator Ultimate" Then
 									Text(x - width/2 + 10, y - height/2 + 10, "地图数据库离线")
 								EndIf
@@ -6501,7 +6507,7 @@ Function DrawGUI()
 							EndIf
 							
 							Local SCPs_found% = 0
-							If SelectedItem\itemtemplate\name = "S-NAV Navigator Ultimate" And (MilliSecs2() Mod 600) < 400 Then
+							If SelectedItem\itemtemplate\name = "S-NAV Navigator Ultimate" And (MilliSecs() Mod 600) < 400 Then
 								If Curr173<>Null Then
 									Local dist# = EntityDistance(Camera, Curr173\obj)
 									dist = Ceil(dist / 8.0) * 8.0
@@ -6772,15 +6778,12 @@ Function DrawGUI()
 				Default
 					;[Block]
 					;check if the item is an inventory-type object
-					If SelectedItem\invSlots>0 Then
-						DoubleClick = 0
-						MouseHit1 = 0
-						MouseDown1 = 0
-						LastMouseHit1 = 0
-						OtherOpen = SelectedItem
-						SelectedItem = Null
-					EndIf
-					
+					DoubleClick = 0
+					MouseHit1 = 0
+					MouseDown1 = 0
+					LastMouseHit1 = 0
+					If SelectedItem\invSlots>0 Then OtherOpen = SelectedItem
+					SelectedItem = Null					
 					;[End Block]
 			End Select
 			
@@ -6796,6 +6799,7 @@ Function DrawGUI()
 										If a_it\itemtemplate\img <> SelectedItem\itemtemplate\img
 											FreeImage(a_it\itemtemplate\img)
 											a_it\itemtemplate\img = 0
+											Exit
 										EndIf
 									EndIf
 								EndIf
@@ -7275,14 +7279,14 @@ Function DrawMenu()
 						Framelimit% = 19+(CurrFrameLimit*100.0)
 						Color 255,255,0
 						Text(x + 5 * MenuScale, y + 40 * MenuScale, Framelimit%+" FPS")
+						If MouseOn(x+150*MenuScale,y+30*MenuScale,100*MenuScale+14,20)
+							DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
+						EndIf
 					Else
 						CurrFrameLimit# = 0.0
 						Framelimit = 0
 					EndIf
 					If MouseOn(x+270*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-						DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
-					EndIf
-					If MouseOn(x+150*MenuScale,y+30*MenuScale,100*MenuScale+14,20)
 						DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
 					EndIf
 					
@@ -7572,9 +7576,9 @@ Function LoadEntities()
 	MaskImage(Panel294, 255,0,255)
 	
 	
-	Brightness% = GetINIFloat("options.ini", "options", "brightness")
-	CameraFogNear# = GetINIFloat("options.ini", "options", "camera fog near")
-	CameraFogFar# = GetINIFloat("options.ini", "options", "camera fog far")
+	Brightness% = IniGetFloat("options.ini", "options", "brightness")
+	CameraFogNear# = IniGetFloat("options.ini", "options", "camera fog near")
+	CameraFogFar# = IniGetFloat("options.ini", "options", "camera fog far")
 	StoredCameraFogFar# = CameraFogFar
 	
 	;TextureLodBias
@@ -7594,7 +7598,7 @@ Function LoadEntities()
 	CameraRange(Camera, 0.05, CameraFogFar)
 	CameraFogMode (Camera, 1)
 	CameraFogRange (Camera, CameraFogNear, CameraFogFar)
-	CameraFogColor (Camera, GetINIInt("options.ini", "options", "fog r"), GetINIInt("options.ini", "options", "fog g"), GetINIInt("options.ini", "options", "fog b"))
+	CameraFogColor (Camera, IniGetInt("options.ini", "options", "fog r"), IniGetInt("options.ini", "options", "fog g"), IniGetInt("options.ini", "options", "fog b"))
 	AmbientLight Brightness, Brightness, Brightness
 	
 	ScreenTexs[0] = CreateTexture(512, 512, 1+256)
@@ -8038,7 +8042,7 @@ Function InitNewGame()
 	If SelectedMap = "" Then
 		CreateMap()
 	Else
-		LoadMap("Map Creator\Maps\"+SelectedMap)
+		LoadMap(ConvertToANSI("地图制作器\Maps\")+SelectedMap)
 	EndIf
 	InitWayPoints()
 	
@@ -8074,7 +8078,11 @@ Function InitNewGame()
 	
 	For r.Rooms = Each Rooms
 		For i = 0 To MaxRoomLights
-			If r\Lights[i]<>0 Then EntityParent(r\Lights[i],0)
+			If r\Lights[i]<>0 Then 
+				EntityParent(r\Lights[i],0)
+			Else
+				Exit
+			EndIf
 		Next
 		
 		If (Not r\RoomTemplate\DisableDecals) Then
@@ -8127,6 +8135,11 @@ Function InitNewGame()
 	Local tw.TempWayPoints
 	For tw.TempWayPoints = Each TempWayPoints
 		Delete tw
+	Next
+
+	Local ts.TempScreens
+	For ts.TempScreens = Each TempScreens
+		Delete ts
 	Next
 	
 	TurnEntity(Collider, 0, Rand(160, 200), 0)
@@ -8221,6 +8234,16 @@ Function InitLoadGame()
 	For rt.RoomTemplates = Each RoomTemplates
 		If rt\obj <> 0 Then FreeEntity(rt\obj) : rt\obj = 0
 	Next
+
+	Local tw.TempWayPoints
+	For tw.TempWayPoints = Each TempWayPoints
+		Delete tw
+	Next
+
+	Local ts.TempScreens
+	For ts.TempScreens = Each TempScreens
+		Delete ts
+	Next
 	
 	DropSpeed = 0.0
 	
@@ -8230,12 +8253,8 @@ Function InitLoadGame()
 			If e\EventState = 2
 				;[Block]
 				DrawLoading(91)
-				e\room\Objects[0] = CreatePlane()
-				Local planetex% = LoadTexture_Strict("GFX\map\dimension1499\grit3.jpg")
-				EntityTexture e\room\Objects[0],planetex%
-				FreeTexture planetex%
-				PositionEntity e\room\Objects[0],0,EntityY(e\room\obj),0
-				EntityType e\room\Objects[0],HIT_MAP
+				e\room\Objects[0] = LoadMesh_Strict("GFX\map\dimension1499\1499plane.b3d")
+				HideEntity(e\room\Objects[0])
 				DrawLoading(92)
 				NTF_1499Sky = sky_CreateSky("GFX\map\sky\1499sky")
 				DrawLoading(93)
@@ -8250,7 +8269,8 @@ Function InitLoadGame()
 				z# = EntityZ(e\room\obj)
 				Local ch.Chunk
 				For i = -2 To 2 Step 2
-					ch = CreateChunk(-1,x#*(i*2.5),EntityY(e\room\obj),z#)
+					ch = CreateChunk(-1,x#*(i*2.5),EntityY(e\room\obj),z#,True)
+					ch = CreateChunk(-1,x#*(i*2.5),EntityY(e\room\obj),z#-40,True)
 				Next
 				DrawLoading(98)
 				UpdateChunks(e\room,15,False)
@@ -8960,7 +8980,7 @@ End Function
 ;--------------------------------------- random -------------------------------------------------------
 
 Function f2s$(n#, count%)
-	Return Left(n, Len(Int(n))+count+1)
+	Return Left(n, Len(Int(Str(n)))+count+1)
 End Function
 
 Function AnimateNPC(n.NPCs, start#, quit#, speed#, loop=True)
@@ -9584,25 +9604,17 @@ Function Use914(item.Items, setting$, x#, y#, z#)
 							d.Decals = CreateDecal(0, x, 8 * RoomScale + 0.010, z, 90, Rand(360), 0)
 							d\Size = 0.2 : EntityAlpha(d\obj, 0.8) : ScaleSprite(d\obj, d\Size, d\Size)
 						Case "1:1"
-							it2 = CreateItem("cup", "cup", x,y,z)
+							it2 = CreateItem("cup", "cup", x,y,z, 255-item\r,255-item\g,255-item\b,item\a)
 							it2\name = item\name
-							it2\r = 255-item\r
-							it2\g = 255-item\g
-							it2\b = 255-item\b
+							it2\state = item\state
 						Case "fine"
-							it2 = CreateItem("cup", "cup", x,y,z)
+							it2 = CreateItem("cup", "cup", x,y,z, Min(item\r*Rnd(0.9,1.1),255),Min(item\g*Rnd(0.9,1.1),255),Min(item\b*Rnd(0.9,1.1),255),item\a)
 							it2\name = item\name
-							it2\state = 1.0
-							it2\r = Min(item\r*Rnd(0.9,1.1),255)
-							it2\g = Min(item\g*Rnd(0.9,1.1),255)
-							it2\b = Min(item\b*Rnd(0.9,1.1),255)
+							it2\state = item\state+1.0
 						Case "very fine"
-							it2 = CreateItem("cup", "cup", x,y,z)
+							it2 = CreateItem("cup", "cup", x,y,z, Min(item\r*Rnd(0.5,1.5),255),Min(item\g*Rnd(0.5,1.5),255),Min(item\b*Rnd(0.5,1.5),255),item\a)
 							it2\name = item\name
-							it2\state = Max(it2\state*2.0,2.0)	
-							it2\r = Min(item\r*Rnd(0.5,1.5),255)
-							it2\g = Min(item\g*Rnd(0.5,1.5),255)
-							it2\b = Min(item\b*Rnd(0.5,1.5),255)
+							it2\state = item\state*2
 							If Rand(5)=1 Then
 								ExplosionTimer = 135
 							EndIf
@@ -9760,24 +9772,24 @@ Function Use294()
 					Input294 = Right(Input294, Len(Input294)-9)
 				EndIf
 				
-				If Input294<>""
-					Local loc% = GetINISectionLocation("DATA\SCP-294.ini",Input294)
+				If Input294 <> ""
+					Local drink$ = FindSCP294Drink(Input294)
 				EndIf
 				
-				If loc > 0 Then
-					strtemp$ = GetINIString2("DATA\SCP-294.ini", loc, "dispensesound")
+				If drink <> "Null" Then
+					strtemp$ = IniGetString("Data\SCP-294.ini", drink, "dispensesound")
 					If strtemp="" Then
 						PlayerRoom\SoundCHN = PlaySound_Strict (LoadTempSound("SFX\SCP\294\dispense1.ogg"))
 					Else
 						PlayerRoom\SoundCHN = PlaySound_Strict (LoadTempSound(strtemp))
 					EndIf
 					
-					If GetINIInt2("DATA\SCP-294.ini", loc, "explosion")=True Then 
+					If IniGetInt("Data\SCP-294.ini", drink, "explosion") Then 
 						ExplosionTimer = 135
-						DeathMSG = GetINIString2("DATA\SCP-294.ini", loc, "deathmessage")
+						DeathMSG = IniGetString("Data\SCP-294.ini", drink, "deathmessage")
 					EndIf
 					
-					strtemp$ = GetINIString2("DATA\SCP-294.ini", loc, "color")
+					strtemp$ = IniGetString("Data\SCP-294.ini", drink, "color")
 					
 					sep1 = Instr(strtemp, ",", 1)
 					sep2 = Instr(strtemp, ",", sep1+1)
@@ -9785,13 +9797,13 @@ Function Use294()
 					g% = Trim(Mid(strtemp, sep1+1, sep2-sep1-1))
 					b% = Trim(Right(strtemp, Len(strtemp)-sep2))
 					
-					alpha# = Float(GetINIString2("DATA\SCP-294.ini", loc, "alpha",1.0))
-					glow = GetINIInt2("DATA\SCP-294.ini", loc, "glow")
+					alpha# = Float(IniGetString("Data\SCP-294.ini", drink, "alpha",1.0))
+					glow = IniGetInt("Data\SCP-294.ini", drink, "glow")
 					If glow Then alpha = -alpha
 					
 					it.items = CreateItem("Cup", "cup", EntityX(PlayerRoom\Objects[1],True),EntityY(PlayerRoom\Objects[1],True),EntityZ(PlayerRoom\Objects[1],True), r,g,b,alpha)
 					it\displayName = "一杯"+Input294
-					it\name = "Cup of "+Input294
+					it\name = "Cup of "+drink
 					EntityType (it\collider, HIT_ITEM)
 					
 				Else
@@ -10044,7 +10056,7 @@ Function UpdateInfect()
 			HeartBeatRate = Max(HeartBeatRate, 100)
 			HeartBeatVolume = Max(HeartBeatVolume, Infect/120.0)
 			
-			EntityAlpha InfectOverlay, Min(((Infect*0.2)^2)/1000.0,0.5) * (Sin(MilliSecs2()/8.0)+2.0)
+			EntityAlpha InfectOverlay, Min(((Infect*0.2)^2)/1000.0,0.5) * (Sin(MilliSecs()/8.0)+2.0)
 			
 			For i = 0 To 6
 				If Infect>i*15+10 And temp =< i*15+10 Then
@@ -10096,7 +10108,7 @@ Function UpdateInfect()
 			
 			If teleportForInfect
 				If Infect < 94.7 Then
-					EntityAlpha InfectOverlay, 0.5 * (Sin(MilliSecs2()/8.0)+2.0)
+					EntityAlpha InfectOverlay, 0.5 * (Sin(MilliSecs()/8.0)+2.0)
 					BlurTimer = 900
 					
 					If Infect > 94.5 Then BlinkTimer = Max(Min(-50*(Infect-94.5),BlinkTimer),-10)
@@ -10111,7 +10123,7 @@ Function UpdateInfect()
 					Animate2(PlayerRoom\NPC[0]\obj, AnimTime(PlayerRoom\NPC[0]\obj), 357, 381, 0.3)
 				ElseIf Infect < 98.5
 					
-					EntityAlpha InfectOverlay, 0.5 * (Sin(MilliSecs2()/5.0)+2.0)
+					EntityAlpha InfectOverlay, 0.5 * (Sin(MilliSecs()/5.0)+2.0)
 					BlurTimer = 950
 					
 					ForceMove = 0.0
@@ -10155,9 +10167,9 @@ Function UpdateInfect()
 					EndIf
 					
 					PositionEntity Head, EntityX(PlayerRoom\NPC[0]\Collider,True), EntityY(PlayerRoom\NPC[0]\Collider,True)+0.65,EntityZ(PlayerRoom\NPC[0]\Collider,True),True
-					RotateEntity Head, (1.0+Sin(MilliSecs2()/5.0))*15, PlayerRoom\angle-180, 0, True
+					RotateEntity Head, (1.0+Sin(MilliSecs()/5.0))*15, PlayerRoom\angle-180, 0, True
 					MoveEntity Head, 0,0,-0.4
-					TurnEntity Head, 80+(Sin(MilliSecs2()/5.0))*30,(Sin(MilliSecs2()/5.0))*40,0
+					TurnEntity Head, 80+(Sin(MilliSecs()/5.0))*30,(Sin(MilliSecs()/5.0))*40,0
 				EndIf
 			Else
 				Kill()
@@ -10421,329 +10433,45 @@ Function UpdateDecals()
 	Next
 End Function
 
-
-;--------------------------------------- INI-functions -------------------------------------------------------
-
-Type INIFile
-	Field name$
-	Field bank%
-	Field bankOffset% = 0
-	Field size%
-End Type
-
-Function ReadINILine$(file.INIFile)
-	Local rdbyte%
-	Local firstbyte% = True
-	Local offset% = file\bankOffset
-	Local bank% = file\bank
-	Local retStr$ = ""
-	rdbyte = PeekByte(bank,offset)
-	While ((firstbyte) Or ((rdbyte<>13) And (rdbyte<>10))) And (offset<file\size)
-		rdbyte = PeekByte(bank,offset)
-		If ((rdbyte<>13) And (rdbyte<>10)) Then
-			firstbyte = False
-			retStr=retStr+Chr(rdbyte)
-		EndIf
-		offset=offset+1
-	Wend
-	file\bankOffset = offset
-	Return retStr
-End Function
-
-Function UpdateINIFile$(filename$)
-	Local file.INIFile = Null
-	For k.INIFile = Each INIFile
-		If k\name = Lower(filename) Then
-			file = k
-		EndIf
-	Next
-	
-	If file=Null Then Return
-	
-	If file\bank<>0 Then FreeBank file\bank
-	Local f% = ReadFile(file\name)
-	Local fleSize% = 1
-	While fleSize<FileSize(file\name)
-		fleSize=fleSize*2
-	Wend
-	file\bank = CreateBank(fleSize)
-	file\size = 0
-	While Not Eof(f)
-		PokeByte(file\bank,file\size,ReadByte(f))
-		file\size=file\size+1
-	Wend
-	CloseFile(f)
-End Function
-
-Function GetINIString$(file$, section$, parameter$, defaultvalue$="")
-	Local TemporaryString$ = ""
-	
-	Local lfile.INIFile = Null
-	For k.INIFile = Each INIFile
-		If k\name = Lower(file) Then
-			lfile = k
-		EndIf
-	Next
-	
-	If lfile = Null Then
-		DebugLog "CREATE BANK FOR "+file
-		lfile = New INIFile
-		lfile\name = Lower(file)
-		lfile\bank = 0
-		UpdateINIFile(lfile\name)
-	EndIf
-	
-	lfile\bankOffset = 0
-	
-	section = Lower(section)
-	
-	While lfile\bankOffset<lfile\size
-		Local strtemp$ = ReadINILine(lfile)
-		If Left(strtemp,1) = "[" Then
-			strtemp$ = Lower(strtemp)
-			If Mid(strtemp, 2, Len(strtemp)-2)=section Then
-				Repeat
-					TemporaryString = ReadINILine(lfile)
-					If Lower(Trim(Left(TemporaryString, Max(Instr(TemporaryString, "=") - 1, 0)))) = Lower(parameter) Then
-						Return Trim( Right(TemporaryString,Len(TemporaryString)-Instr(TemporaryString,"=")) )
-					EndIf
-				Until (Left(TemporaryString, 1) = "[") Or (lfile\bankOffset>=lfile\size)
-				
-				Return defaultvalue
-			EndIf
-		EndIf
-	Wend
-	
-	Return defaultvalue
-End Function
-
-Function GetINIInt%(file$, section$, parameter$, defaultvalue% = 0)
-	Local txt$ = GetINIString(file$, section$, parameter$, defaultvalue)
-	If Lower(txt) = "true" Then
-		Return 1
-	ElseIf Lower(txt) = "false"
-		Return 0
-	Else
-		Return Int(txt)
-	EndIf
-End Function
-
-Function GetINIFloat#(file$, section$, parameter$, defaultvalue# = 0.0)
-	Return Float(GetINIString(file$, section$, parameter$, defaultvalue))
-End Function
-
-Function GetINIFloat2#(File$, Section$, Parameter$, DefaultValue# = 0.0)
-	Return(Float(GetINIString2(File, Section, Parameter, DefaultValue)))
-End Function
-
-Function GetINIString2$(file$, start%, parameter$, defaultvalue$="")
-	Local TemporaryString$ = ""
-	Local f% = ReadFile(file)
-	
-	Local n%=0
-	While Not Eof(f)
-		Local strtemp$ = ReadLine(f)
-		n=n+1
-		If n=start Then 
-			Repeat
-				TemporaryString = ReadLine(f)
-				If Lower(Trim(Left(TemporaryString, Max(Instr(TemporaryString, "=") - 1, 0)))) = Lower(parameter) Then
-					CloseFile f
-					Return Trim( Right(TemporaryString,Len(TemporaryString)-Instr(TemporaryString,"=")) )
-				EndIf
-			Until Left(TemporaryString, 1) = "[" Or Eof(f)
-			CloseFile f
-			Return defaultvalue
-		EndIf
-	Wend
-	
-	CloseFile f	
-	
-	Return defaultvalue
-End Function
-
-Function GetINIInt2%(file$, start%, parameter$, defaultvalue$="")
-	Local txt$ = GetINIString2(file$, start%, parameter$, defaultvalue$)
-	If Lower(txt) = "true" Then
-		Return 1
-	ElseIf Lower(txt) = "false"
-		Return 0
-	Else
-		Return Int(txt)
-	EndIf
-End Function
-
-Function GetINISectionLocation%(file$, section$)
-	Local Temp%
-	Local f% = ReadFile(file)
-	
-	section = Lower(section)
-	
-	Local n%=0
-	While Not Eof(f)
-		Local strtemp$ = ReadLine(f)
-		n=n+1
-		If Left(strtemp,1) = "[" Then
-			strtemp$ = Lower(strtemp)
-			Temp = Instr(strtemp, section)
-			If Temp>0 Then
-				If Mid(strtemp, Temp-1, 1)="[" Or Mid(strtemp, Temp-1, 1)="|" Then
-					CloseFile f
-					Return n
-				EndIf
-			EndIf
-		EndIf
-	Wend
-	
-	CloseFile f
-End Function
-
-
-Function PutINIValue%(file$, INI_sSection$, INI_sKey$, INI_sValue$)
-	
-	; Returns: True (Success) Or False (Failed)
-	
-	INI_sSection = "[" + Trim$(INI_sSection) + "]"
-	Local INI_sUpperSection$ = Upper$(INI_sSection)
-	INI_sKey = Trim$(INI_sKey)
-	INI_sValue = Trim$(INI_sValue)
-	Local INI_sFilename$ = file$
-	
-	; Retrieve the INI Data (If it exists)
-	
-	Local INI_sContents$ = INI_FileToString(INI_sFilename)
-	
-		; (Re)Create the INI file updating/adding the SECTION, KEY And VALUE
-	
-	Local INI_bWrittenKey% = False
-	Local INI_bSectionFound% = False
-	Local INI_sCurrentSection$ = ""
-	
-	Local INI_lFileHandle% = WriteFile(INI_sFilename)
-	If INI_lFileHandle = 0 Then Return False ; Create file failed!
-	
-	Local INI_lOldPos% = 1
-	Local INI_lPos% = Instr(INI_sContents, Chr$(0))
-	
-	While (INI_lPos <> 0)
-		
-		Local INI_sTemp$ = Mid$(INI_sContents, INI_lOldPos, (INI_lPos - INI_lOldPos))
-		
-		If (INI_sTemp <> "") Then
-			
-			If Left$(INI_sTemp, 1) = "[" And Right$(INI_sTemp, 1) = "]" Then
-				
-					; Process SECTION
-				
-				If (INI_sCurrentSection = INI_sUpperSection) And (INI_bWrittenKey = False) Then
-					INI_bWrittenKey = INI_CreateKey(INI_lFileHandle, INI_sKey, INI_sValue)
-				End If
-				INI_sCurrentSection = Upper$(INI_CreateSection(INI_lFileHandle, INI_sTemp))
-				If (INI_sCurrentSection = INI_sUpperSection) Then INI_bSectionFound = True
-				
-			Else
-				If Left(INI_sTemp, 1) = ":" Then
-					WriteLine INI_lFileHandle, INI_sTemp
-				Else
-						; KEY=VALUE				
-					Local lEqualsPos% = Instr(INI_sTemp, "=")
-					If (lEqualsPos <> 0) Then
-						If (INI_sCurrentSection = INI_sUpperSection) And (Upper$(Trim$(Left$(INI_sTemp, (lEqualsPos - 1)))) = Upper$(INI_sKey)) Then
-							If (INI_sValue <> "") Then INI_CreateKey INI_lFileHandle, INI_sKey, INI_sValue
-							INI_bWrittenKey = True
-						Else
-							WriteLine INI_lFileHandle, INI_sTemp
-						End If
-					End If
-				EndIf
-				
-			End If
-			
-		End If
-		
-			; Move through the INI file...
-		
-		INI_lOldPos = INI_lPos + 1
-		INI_lPos% = Instr(INI_sContents, Chr$(0), INI_lOldPos)
-		
-	Wend
-	
-		; KEY wasn;t found in the INI file - Append a New SECTION If required And create our KEY=VALUE Line
-	
-	If (INI_bWrittenKey = False) Then
-		If (INI_bSectionFound = False) Then INI_CreateSection INI_lFileHandle, INI_sSection
-		INI_CreateKey INI_lFileHandle, INI_sKey, INI_sValue
-	End If
-	
-	CloseFile INI_lFileHandle
-	
-	Return True ; Success
-	
-End Function
-
-Function INI_FileToString$(INI_sFilename$)
-	Local INI_sString$ = ""
-	Local INI_lFileHandle%= ReadFile(INI_sFilename)
-	If INI_lFileHandle <> 0 Then
-		While Not(Eof(INI_lFileHandle))
-			INI_sString = INI_sString + ReadLine$(INI_lFileHandle) + Chr$(0)
-		Wend
-		CloseFile INI_lFileHandle
-	End If
-	Return INI_sString
-End Function
-
-Function INI_CreateSection$(INI_lFileHandle%, INI_sNewSection$)
-	If FilePos(INI_lFileHandle) <> 0 Then WriteLine INI_lFileHandle, "" ; Blank Line between sections
-	WriteLine INI_lFileHandle, INI_sNewSection
-	Return INI_sNewSection
-End Function
-
-Function INI_CreateKey%(INI_lFileHandle%, INI_sKey$, INI_sValue$)
-	WriteLine INI_lFileHandle, INI_sKey + " = " + INI_sValue
-	Return True
-End Function
-
 ;Save options to .ini.
 Function SaveOptionsINI()
+	IniWriteString(OptionFile, "options", "mouse sensitivity", MouseSens)
+	IniWriteString(OptionFile, "options", "invert mouse y", InvertMouse)
+	IniWriteString(OptionFile, "options", "bump mapping enabled", BumpEnabled)			
+	IniWriteString(OptionFile, "options", "HUD enabled", HUDenabled)
+	IniWriteString(OptionFile, "options", "screengamma", ScreenGamma)
+	IniWriteString(OptionFile, "options", "antialias", Opt_AntiAlias)
+	IniWriteString(OptionFile, "options", "vsync", Vsync)
+	IniWriteString(OptionFile, "options", "show FPS", ShowFPS)
+	IniWriteString(OptionFile, "options", "framelimit", Framelimit%)
+	IniWriteString(OptionFile, "options", "achievement popup enabled", AchvMSGenabled%)
+	IniWriteString(OptionFile, "options", "room lights enabled", EnableRoomLights%)
+	IniWriteString(OptionFile, "options", "texture details", TextureDetails%)
+	IniWriteString(OptionFile, "options", "particle amount", ParticleAmount)
+	IniWriteString(OptionFile, "options", "enable vram", EnableVRam)
+	IniWriteString(OptionFile, "options", "mouse smoothing", MouseSmooth)
+	IniWriteString(OptionFile, "options", "enable subtitles", EnableSubtitles)
+	IniWriteString(OptionFile, "options", "traditional chinese", TraditionalChinese)
 	
-	PutINIValue(OptionFile, "options", "mouse sensitivity", MouseSens)
-	PutINIValue(OptionFile, "options", "invert mouse y", InvertMouse)
-	PutINIValue(OptionFile, "options", "bump mapping enabled", BumpEnabled)			
-	PutINIValue(OptionFile, "options", "HUD enabled", HUDenabled)
-	PutINIValue(OptionFile, "options", "screengamma", ScreenGamma)
-	PutINIValue(OptionFile, "options", "antialias", Opt_AntiAlias)
-	PutINIValue(OptionFile, "options", "vsync", Vsync)
-	PutINIValue(OptionFile, "options", "show FPS", ShowFPS)
-	PutINIValue(OptionFile, "options", "framelimit", Framelimit%)
-	PutINIValue(OptionFile, "options", "achievement popup enabled", AchvMSGenabled%)
-	PutINIValue(OptionFile, "options", "room lights enabled", EnableRoomLights%)
-	PutINIValue(OptionFile, "options", "texture details", TextureDetails%)
-	PutINIValue(OptionFile, "options", "particle amount", ParticleAmount)
-	PutINIValue(OptionFile, "options", "enable vram", EnableVRam)
-	PutINIValue(OptionFile, "options", "mouse smoothing", MouseSmooth)
-	PutINIValue(OptionFile, "options", "enable subtitles", EnableSubtitles)
-	PutINIValue(OptionFile, "options", "traditional chinese", TraditionalChinese)
+	IniWriteString(OptionFile, "console", "enabled", CanOpenConsole%)
+	IniWriteString(OptionFile, "console", "auto opening", ConsoleOpening%)
 	
-	PutINIValue(OptionFile, "console", "enabled", CanOpenConsole%)
-	PutINIValue(OptionFile, "console", "auto opening", ConsoleOpening%)
+	IniWriteString(OptionFile, "audio", "music volume", MusicVolume)
+	IniWriteString(OptionFile, "audio", "sound volume", PrevSFXVolume)
+	IniWriteString(OptionFile, "audio", "sfx release", EnableSFXRelease)
+	IniWriteString(OptionFile, "audio", "enable user tracks", EnableUserTracks%)
+	IniWriteString(OptionFile, "audio", "user track setting", UserTrackMode%)
 	
-	PutINIValue(OptionFile, "audio", "music volume", MusicVolume)
-	PutINIValue(OptionFile, "audio", "sound volume", PrevSFXVolume)
-	PutINIValue(OptionFile, "audio", "sfx release", EnableSFXRelease)
-	PutINIValue(OptionFile, "audio", "enable user tracks", EnableUserTracks%)
-	PutINIValue(OptionFile, "audio", "user track setting", UserTrackMode%)
-	
-	PutINIValue(OptionFile, "binds", "Right key", KEY_RIGHT)
-	PutINIValue(OptionFile, "binds", "Left key", KEY_LEFT)
-	PutINIValue(OptionFile, "binds", "Up key", KEY_UP)
-	PutINIValue(OptionFile, "binds", "Down key", KEY_DOWN)
-	PutINIValue(OptionFile, "binds", "Blink key", KEY_BLINK)
-	PutINIValue(OptionFile, "binds", "Sprint key", KEY_SPRINT)
-	PutINIValue(OptionFile, "binds", "Inventory key", KEY_INV)
-	PutINIValue(OptionFile, "binds", "Crouch key", KEY_CROUCH)
-	PutINIValue(OptionFile, "binds", "Save key", KEY_SAVE)
-	PutINIValue(OptionFile, "binds", "Console key", KEY_CONSOLE)
+	IniWriteString(OptionFile, "binds", "Right key", KEY_RIGHT)
+	IniWriteString(OptionFile, "binds", "Left key", KEY_LEFT)
+	IniWriteString(OptionFile, "binds", "Up key", KEY_UP)
+	IniWriteString(OptionFile, "binds", "Down key", KEY_DOWN)
+	IniWriteString(OptionFile, "binds", "Blink key", KEY_BLINK)
+	IniWriteString(OptionFile, "binds", "Sprint key", KEY_SPRINT)
+	IniWriteString(OptionFile, "binds", "Inventory key", KEY_INV)
+	IniWriteString(OptionFile, "binds", "Crouch key", KEY_CROUCH)
+	IniWriteString(OptionFile, "binds", "Save key", KEY_SAVE)
+	IniWriteString(OptionFile, "binds", "Console key", KEY_CONSOLE)
 End Function
 
 ;--------------------------------------- MakeCollBox -functions -------------------------------------------------------
@@ -10803,7 +10531,7 @@ End Function
 Function Graphics3DExt%(width%,height%,depth%=32,mode%=2)
 	Graphics3D width,height,depth,mode
 	InitFastResize()
-	AntiAlias GetINIInt(OptionFile,"options","antialias")
+	AntiAlias IniGetInt(OptionFile,"options","antialias")
 End Function
 
 Function ResizeImage2(image%,width%,height%)
@@ -10974,7 +10702,7 @@ Function RenderWorld2()
 	CameraProjMode ark_blur_cam,0
 	
 	If BlinkTimer < - 16 Or BlinkTimer > - 6
-		If (WearingNightVision=1 Or WearingNightVision=2) And (hasBattery=1) And ((MilliSecs2() Mod 800) < 400) Then
+		If (WearingNightVision=1 Or WearingNightVision=2) And (hasBattery=1) And ((MilliSecs() Mod 800) < 400) Then
 			Color 255,0,0
 			SetFont Font3
 			
@@ -11219,8 +10947,8 @@ End Function
 
 Function CatchErrors(location$)
 	InitErrorMsgs(10, True) ; 声明报错内有宏存在
-	SetErrorMsg(0, "SCP - 收容失效 v" + VersionNumber + " 汉化版本 出现错误！")
-	SetErrorMsg(1, "汉化版版本号：" + SinicizationNumber)
+	SetErrorMsg(0, "SCP - 收容失效 汉化计划 v" + VersionNumber + " 出现错误！")
+	SetErrorMsg(1, "汉化计划版本号：" + SinicizationNumber)
 	SetErrorMsg(2, "地图种子：" + RandomSeed)
 	SetErrorMsg(3, "日期和时间：" + CurrentDate() + "，" + CurrentTime())
 	SetErrorMsg(4, "系统：" + SystemProperty("os") + " " + (32 + (GetEnv("ProgramFiles(X86)") <> 0) * 32) + " bit (Build: " + SystemProperty("osbuild") + ")" + Chr(10))
@@ -11306,8 +11034,8 @@ Function UpdateStreamSounds()
 					EndIf
 					If e\SoundCHN2<>0 And e\SoundCHN2_isStream Then
 						StopStream_Strict(e\SoundCHN2)
-						e\SoundCHN = 0
-						e\SoundCHN_isStream = 0
+						e\SoundCHN2 = 0
+						e\SoundCHN2_isStream = 0
 					EndIf
 				Next
 			EndIf
@@ -11345,7 +11073,7 @@ Function TeleportEntity(entity%,x#,y#,z#,customradius#=0.3,isglobal%=False,pickr
 End Function
 
 Function PlayStartupVideos()
-	If GetINIInt("options.ini","options","play startup video")=0 Then Return
+	If IniGetInt("options.ini","options","play startup video")=0 Then Return
 	
 	HidePointer()
 	Local SplashScreenAudio%
@@ -11401,6 +11129,8 @@ Function CanUseItem(canUseWithHazmat%, canUseWithGasMask%, canUseWithEyewear%)
 		Return False
 	Else If (canUseWithEyewear = False And (WearingNightVision))
 		Msg = "你不能在戴着夜视仪时使用物品"
+		MsgTimer = 70*5
+		Return False
 	EndIf
 	
 	Return True

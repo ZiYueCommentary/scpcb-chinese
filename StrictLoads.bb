@@ -39,13 +39,13 @@ Function AutoReleaseSounds()
 			If snd\channels[i] <> 0 Then
 				If ChannelPlaying(snd\channels[i]) Then
 					tryRelease = False
-					snd\releaseTime = MilliSecs2()+5000
+					snd\releaseTime = MilliSecs()+5000
 					Exit
 				EndIf
 			EndIf
 		Next
 		If tryRelease Then
-			If snd\releaseTime < MilliSecs2() Then
+			If snd\releaseTime < MilliSecs() Then
 				If snd\internalHandle <> 0 Then
 					FreeSound snd\internalHandle
 					snd\internalHandle = 0
@@ -87,7 +87,7 @@ Function PlaySound_Strict%(sndHandle%)
 						If snd\HasSubtitles Then ShowSubtitles(snd\Name)
 					EndIf
 					ChannelVolume snd\channels[i],SFXVolume#
-					snd\releaseTime = MilliSecs2()+5000 ;release after 5 seconds
+					snd\releaseTime = MilliSecs()+5000 ;release after 5 seconds
 					Return snd\channels[i]
 				EndIf
 			Else
@@ -117,7 +117,7 @@ Function PlaySound_Strict%(sndHandle%)
 					If snd\HasSubtitles Then ShowSubtitles(snd\Name)
 				EndIf
 				ChannelVolume snd\channels[i],SFXVolume#
-				snd\releaseTime = MilliSecs2()+5000 ;release after 5 seconds
+				snd\releaseTime = MilliSecs()+5000 ;release after 5 seconds
 				Return snd\channels[i]
 			EndIf
 		Next
@@ -132,8 +132,7 @@ Function LoadSound_Strict(file$)
 	snd\internalHandle = 0
 	snd\releaseTime = 0
 	If EnableSubtitles Then
-		; ~ Check if the sound has subtitles
-		If GetINISectionLocation(SubtitlesFile, File) <> 0 Then
+		If IniSectionExist(SubtitlesFile, File) <> 0 Then
 			snd\HasSubtitles = True
 		EndIf
 	EndIf
@@ -179,7 +178,7 @@ Function StreamSound_Strict(file$,volume#=1.0,custommode=Mode)
 	Local st.Stream = New Stream
 	st\name = file
 	If EnableSubtitles Then
-		If GetINISectionLocation(SubtitlesFile, File) <> 0 Then
+		If IniSectionExist(SubtitlesFile, File) <> 0 Then
 			st\HasSubtitles = True
 		EndIf
 	EndIf

@@ -6,8 +6,8 @@
 
 ***********************************************************************************
 
-				 www.scpcbgame.cn
-							
+				www.scpcbgame.cn
+				
 
 
 游戏基于 SCP基金会 背景 (https://scp-wiki-cn.wikidot.com/)
@@ -20,11 +20,11 @@ https://creativecommons.org/licenses/by-sa/3.0/deed.zh
 原版游戏源代码可从 Github 下载：https://github.com/Regalis11/scpcb
 汉化计划源码可从 Github 下载：https://github.com/ZiYueCommentary/scpcb-chinese
 
-汉化版本由 子悦汉化组 制作（https://ziyuesinicization.site/）
+汉化计划由 子悦汉化组 制作（https://ziyuesinicization.site/）
 
 **** 启动游戏 ***********************************
 
-	运行文件夹中的 SCP - Containment Breach.exe
+	运行文件夹中的 SCP - 收容失效 汉化计划.exe
 	选择适合你屏幕的分辨率并点击“启动”按钮
 
 	SCP - 收容失效使用 Blitz3D 引擎，但该引擎已过于古老且过时
@@ -44,7 +44,7 @@ https://creativecommons.org/licenses/by-sa/3.0/deed.zh
 	WASD			-	移动
 	空格				-	手动眨眼
 	左 Shift			-	奔跑
-	左 Control	-	蹲下
+	左 Control		-	蹲下
 	Tab				-	物品栏
 	F5				-	保存
 	F3				-	[数据删除]

@@ -1,0 +1,27 @@
+name: 🤔 问题提问
+description: 如何优雅地问问题
+labels: ["提问"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 先决条件
+        - **这个问题有没有意义在 Github 上提问？** 如果你的问题是“*这个游戏怎么玩*”或者“*怎么躲过九尾狐*”等游戏内问题，请转至[汉化交流群](https://jq.qq.com/?_wv=1027&k=u7Dm0Vc4)或[官方论坛](https://forum.ziyuesinicization.site/t/scpcb)提问。该类问题在 Github 仓库上属于**无意义提问**。
+          
+          值得在 Github 上讨论的应是“*繁简转换是怎么实现的*”、“*中文显示是怎么做到的*”等**技术性问题**。
+
+        任何无意义提问的 Issue 将会以“无效”关闭。
+  - type: textarea
+    id: description
+    attributes:
+      label: 描述
+      description: 描述一下你的问题。如果你在实现类似功能时遇到了问题，也请在此描述。
+    validations:
+        required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图
+      description: 一般来说不需要，但如果你遇到了问题，也可以在此贴图片。
+    validations:
+        required: false

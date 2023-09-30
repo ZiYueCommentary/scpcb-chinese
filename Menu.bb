@@ -27,7 +27,7 @@ Global MenuStr$, MenuStrX%, MenuStrY%
 
 Global MainMenuTab%
 
-Global IntroEnabled% = GetINIInt(OptionFile, "options", "intro enabled")
+Global IntroEnabled% = IniGetInt(OptionFile, "options", "intro enabled")
 
 Global SelectedInputBox%
 
@@ -62,7 +62,7 @@ Function UpdateMainMenu()
 	
 	DrawImage(MenuBack, 0, 0)
 	
-	If (MilliSecs2() Mod MenuBlinkTimer(0)) >= Rand(MenuBlinkDuration(0)) Then
+	If (MilliSecs() Mod MenuBlinkTimer(0)) >= Rand(MenuBlinkDuration(0)) Then
 		DrawImage(Menu173, GraphicWidth - ImageWidth(Menu173), GraphicHeight - ImageHeight(Menu173))
 	EndIf
 	
@@ -216,7 +216,7 @@ Function UpdateMainMenu()
 		If DrawButton(x + width + 20 * MenuScale, y, 580 * MenuScale - width - 20 * MenuScale, height, "返回", False) Then 
 			Select MainMenuTab
 				Case 1
-					PutINIValue(OptionFile, "options", "intro enabled", IntroEnabled%)
+					IniWriteInt(OptionFile, "options", "intro enabled", IntroEnabled%)
 					MainMenuTab = 0
 				Case 2
 					CurrLoadGamePage = 0
@@ -368,10 +368,13 @@ Function UpdateMainMenu()
 					
 					SeedRnd GenerateSeedNumber(RandomSeed)
 					
-					Local SameFound% = False
-					
-					For  i% = 1 To SaveGameAmount
-						If SaveGames(i - 1) = CurrSave Then SameFound = SameFound + 1
+					Local SameFound% = 0
+
+					For i% = 1 To SaveGameAmount
+						If (SameFound = 0 And SaveGames(i - 1) = CurrSave) Or (SameFound > 0 And SaveGames(i - 1) = CurrSave + " (" + (SameFound + 1) + ")") Then
+							SameFound = SameFound + 1
+							i = 0
+						EndIf
 					Next
 						
 					If SameFound > 0 Then CurrSave = CurrSave + " (" + (SameFound + 1) + ")"
@@ -383,7 +386,7 @@ Function UpdateMainMenu()
 					FlushKeys()
 					FlushMouse()
 					
-					PutINIValue(OptionFile, "options", "intro enabled", IntroEnabled%)
+					IniWriteInt(OptionFile, "options", "intro enabled", IntroEnabled%)
 					
 				EndIf
 				
@@ -918,14 +921,14 @@ Function UpdateMainMenu()
 							Framelimit% = 19+(CurrFrameLimit*100.0)
 							Color 255,255,0
 							Text(x + 25 * MenuScale, y + 25 * MenuScale + 7, Framelimit%+" FPS")
+							If MouseOn(x+150*MenuScale,y+30*MenuScale,100*MenuScale+14,20)
+								DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
+							EndIf
 						Else
 							CurrFrameLimit# = 0.0
 							Framelimit = 0
 						EndIf
 						If MouseOn(x+310*MenuScale,y+MenuScale,20*MenuScale,20*MenuScale)
-							DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
-						EndIf
-						If MouseOn(x+150*MenuScale,y+30*MenuScale,100*MenuScale+14,20)
 							DrawOptionsTooltip(tx,ty,tw,th,"framelimit",Framelimit)
 						EndIf
 
@@ -1067,13 +1070,12 @@ Function UpdateLauncher()
 	RealGraphicWidth = GraphicWidth
 	RealGraphicHeight = GraphicHeight
 	
-	Font1 = LoadFont_Strict("GFX\font\Containment Breach.ttf", 16)
+	Font1 = LoadFont_Strict("GFX\fonts\Containment Breach.ttf", 16)
 	SetFont Font1
 	MenuWhite = LoadImage_Strict("GFX\menu\menuwhite.jpg")
 	MenuBlack = LoadImage_Strict("GFX\menu\menublack.jpg")	
 	MaskImage MenuBlack, 255,255,0
-	LauncherIMG = LoadImage_Strict("GFX\menu\launcher.jpg")
-	ButtonSFX% = LoadSound_Strict("SFX\Interact\Button.ogg")
+	Local LauncherIMG% = LoadImage_Strict("GFX\menu\launcher.jpg")
 	Local i%	
 	
 	For i = 0 To 3
@@ -1095,13 +1097,38 @@ Function UpdateLauncher()
 		End If
 	Next
 	
+	If IniGetInt(OptionFile, "options", "first launch", 1) Then ; 第一次启动
+		IniWriteInt(OptionFile, "options", "first launch", 0)
+		If GetUserLanguage() <> "zh-CN" Then
+			Color 255, 255, 255
+			Repeat
+				MouseHit1 = MouseHit(1)
+				Text 320, 200, "遊戲檢測到您的系統語言不是簡體中文", 1, 0
+				Text 320, 220, "是否需要開啟繁簡轉換？", 1, 0
+				If DrawButton(200, 250, 100, 30, "是", False, False, False)
+					Delay 100
+					TraditionalChinese = True
+					Exit
+				EndIf
+				If DrawButton(LauncherWidth - 300, 250, 100, 30, "否", False, False, False)
+					Delay 100
+					TraditionalChinese = False
+					Exit
+				EndIf
+				Delay 8
+				Flip
+				Cls
+			Forever
+		EndIf
+	EndIf
+	
 	BlinkMeterIMG% = LoadImage_Strict("GFX\blinkmeter.jpg")
-	Local TimeOut = False
-	If CheckForUpdates() = -1 Then TimeOut = True
+	Local UpdaterStatus% = 0
 	
+	AppTitle "SCP - 收容失效 汉化计划 启动器"
 	
-	AppTitle "SCP - 收容失效 启动器"
-	
+	Local quit% = False
+
 	Repeat
 		Color 0,0,0
 		Rect 0,0,LauncherWidth,LauncherHeight,True
@@ -1110,7 +1137,13 @@ Function UpdateLauncher()
 		
 		DrawImage(LauncherIMG, 0, 0)
 		
-		If TimeOut Then Color 255,255,0 : Text(0,5,"警告： 检查更新失败（连接超时）")
+		Color 255,255,0
+		Select UpdaterStatus
+			Case 1
+				Text(0,5,"检查更新完毕，无新更新。")
+			Case -1
+				Text(0,5,"警告： 检查更新失败（连接超时）。")
+		End Select
 		Color 255, 255, 255
 		
 		Text(20, 240 - 65 + 3, "分辨率：")
@@ -1200,10 +1233,9 @@ Function UpdateLauncher()
 			EndIf
 		EndIf
 		
-		UpdateCheckEnabled = DrawTick(LauncherWidth - 275+17, LauncherHeight - 50, UpdateCheckEnabled)
-		Color 255,255,255
-		Text LauncherWidth-250+17,LauncherHeight-55,"打开启动器"
-		Text LauncherWidth-250+17,LauncherHeight-35,"时检查更新"
+		If DrawButton(LauncherWidth - 275 + 17, LauncherHeight - 50, 100, 30, "检查更新", False, False, -1) Then
+			UpdaterStatus = CheckForUpdates()
+		EndIf
 		
 		If DrawButton(LauncherWidth - 30 - 90, LauncherHeight - 50 - 55, 100, 30, "启动", False, False, -1) Then
 			GraphicWidth = GfxModeWidths(SelectedGFXMode)
@@ -1214,49 +1246,45 @@ Function UpdateLauncher()
 			Exit
 		EndIf
 		
-		If DrawButton(LauncherWidth - 30 - 90, LauncherHeight - 50, 100, 30, "退出", False, False, -1) Then End
+		If DrawButton(LauncherWidth - 30 - 90, LauncherHeight - 50, 100, 30, "退出", False, False, -1) Then quit = True : Exit
 		Flip
 	Forever
 	
-	PutINIValue(OptionFile, "options", "width", GfxModeWidths(SelectedGFXMode))
-	PutINIValue(OptionFile, "options", "height", GfxModeHeights(SelectedGFXMode))
+	IniWriteString(OptionFile, "options", "width", GfxModeWidths(SelectedGFXMode))
+	IniWriteString(OptionFile, "options", "height", GfxModeHeights(SelectedGFXMode))
 	If Fullscreen Then
-		PutINIValue(OptionFile, "options", "fullscreen", "true")
+		IniWriteString(OptionFile, "options", "fullscreen", "true")
 	Else
-		PutINIValue(OptionFile, "options", "fullscreen", "false")
+		IniWriteString(OptionFile, "options", "fullscreen", "false")
 	EndIf
 	If LauncherEnabled Then
-		PutINIValue(OptionFile, "launcher", "launcher enabled", "true")
+		IniWriteString(OptionFile, "launcher", "launcher enabled", "true")
 	Else
-		PutINIValue(OptionFile, "launcher", "launcher enabled", "false")
+		IniWriteString(OptionFile, "launcher", "launcher enabled", "false")
 	EndIf
 	If BorderlessWindowed Then
-		PutINIValue(OptionFile, "options", "borderless windowed", "true")
+		IniWriteString(OptionFile, "options", "borderless windowed", "true")
 	Else
-		PutINIValue(OptionFile, "options", "borderless windowed", "false")
+		IniWriteString(OptionFile, "options", "borderless windowed", "false")
 	EndIf
 	If Bit16Mode Then
-		PutINIValue(OptionFile, "options", "16bit", "true")
+		IniWriteString(OptionFile, "options", "16bit", "true")
 	Else
-		PutINIValue(OptionFile, "options", "16bit", "false")
+		IniWriteString(OptionFile, "options", "16bit", "false")
 	EndIf
-	PutINIValue(OptionFile, "options", "gfx driver", SelectedGFXDriver)
-	If UpdateCheckEnabled Then
-		PutINIValue(OptionFile, "options", "check for updates", "true")
-	Else
-		PutINIValue(OptionFile, "options", "check for updates", "false")
-	EndIf
+	IniWriteString(OptionFile, "options", "gfx driver", SelectedGFXDriver)
 	
+	FreeImage(LauncherIMG) : LauncherIMG = 0
+	If quit Then End
 End Function
 
 Function DrawTiledImageRect(img%, srcX%, srcY%, srcwidth#, srcheight#, x%, y%, width%, height%)
 	Local x2% = x
 	While x2 < x+width
+		If x2 + srcwidth > x + width Then srcwidth = (x + width) - x2
 		Local y2% = y
 		While y2 < y+height
-			If x2 + srcwidth > x + width Then srcwidth = srcwidth - Max((x2 + srcwidth) - (x + width), 1)
-			If y2 + srcheight > y + height Then srcheight = srcheight - Max((y2 + srcheight) - (y + height), 1)
-			DrawImageRect(img, x2, y2, srcX, srcY, srcwidth, srcheight)
+			DrawImageRect(img, x2, y2, srcX, srcY, srcwidth, Min((y + height) - y2, srcheight))
 			y2 = y2 + srcheight
 		Wend
 		x2 = x2 + srcwidth
@@ -1290,16 +1318,16 @@ Function InitLoadingScreens(file$)
 			ls\ID = LoadingScreenAmount
 			
 			ls\title = TemporaryString
-			ls\imgpath = GetINIString(file, TemporaryString, "image path")
+			ls\imgpath = IniGetString(file, TemporaryString, "image path")
 			
 			For i = 0 To 4
-				ls\txt[i] = GetINIString(file, TemporaryString, "text"+(i+1))
+				ls\txt[i] = IniGetString(file, TemporaryString, "text"+(i+1))
 				If ls\txt[i]<> "" Then ls\txtamount=ls\txtamount+1
 			Next
 			
-			ls\disablebackground = GetINIInt(file, TemporaryString, "disablebackground")
+			ls\disablebackground = IniGetInt(file, TemporaryString, "disablebackground")
 			
-			Select Lower(GetINIString(file, TemporaryString, "align x"))
+			Select Lower(IniGetString(file, TemporaryString, "align x"))
 				Case "left"
 					ls\alignx = -1
 				Case "middle", "center"
@@ -1308,7 +1336,7 @@ Function InitLoadingScreens(file$)
 					ls\alignx = 1
 			End Select 
 			
-			Select Lower(GetINIString(file, TemporaryString, "align y"))
+			Select Lower(IniGetString(file, TemporaryString, "align y"))
 				Case "top", "up"
 					ls\aligny = -1
 				Case "middle", "center"
@@ -1418,7 +1446,7 @@ Function DrawLoading(percent%, shortloading=False)
 						Case 1
 							SelectedLoadingScreen\txt[0] = "一个超精的对讲机可能会有用"
 						Case 2
-							SelectedLoadingScreen\txt[0] = "这地个方将燃会烧"
+							SelectedLoadingScreen\txt[0] = "這  个  方 地   將  燃   會  烧"
 						Case 3
 							SelectedLoadingScreen\txt[0] = "你无法控制它"
 						Case 4
@@ -1426,7 +1454,7 @@ Function DrawLoading(percent%, shortloading=False)
 						Case 5
 							SelectedLoadingScreen\txt[0] = "你需要相信它。"
 						Case 6 
-							SelectedLoadingScreen\txt[0] = "当你叫我的朋友时看着他的眼睛，这不是绅士的方式吗？"
+							SelectedLoadingScreen\txt[0] = "当你叫我的朋友时看着他的眼睛，这不是十分绅士的举止吗?"
 						Case 7
 							SelectedLoadingScreen\txt[0] = "???____??_???__????n?"
 						Case 8, 9
@@ -1552,7 +1580,7 @@ Function InputBox$(x%, y%, width%, height%, Txt$, ID% = 0)
 	
 	If SelectedInputBox = ID Then
 		Txt = TextInput(Txt)
-		If (MilliSecs2() Mod 800) < 400 Then Rect (x + width / 2 + StringWidth(Txt) / 2 + 2, y + height / 2 - 5, 2, 12)
+		If (MilliSecs() Mod 800) < 400 Then Rect (x + width / 2 + StringWidth(Txt) / 2 + 2, y + height / 2 - 5, 2, 12)
 	EndIf	
 	
 	Text(x + width / 2, y + height / 2, Txt, True, True)
@@ -2069,7 +2097,7 @@ Function DrawMapCreatorTooltip(x%,y%,width%,height%,mapname$)
 	Local txt$[5]
 	If Right(mapname,6)="cbmap2" Then
 		txt[0] = Left(ConvertToUTF8(mapname$),Len(ConvertToUTF8(mapname$))-7)
-		Local f% = OpenFile("Map Creator\Maps\"+mapname$)
+		Local f% = OpenFile(ConvertToANSI("地图制作器\Maps\")+mapname$)
 		
 		Local author$ = ConvertToUTF8(ReadLine(f))
 		Local descr$ = ConvertToUTF8(ReadLine(f))

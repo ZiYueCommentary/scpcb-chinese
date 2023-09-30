@@ -11,10 +11,9 @@
 
 ; 捋一下更新检查器的流程：
 ; 原版： 下载更新日志->检查第一行文本->如果与版本号不同->弹更新检查界面
-; 汉化版： 获取域名TXT回答->如果与汉化版本号不同->下载更新日志->弹更新检查界面
-; 所以汉化版的更新检查很省性能，把这事当个热知识就行
-Global UpdateCheckEnabled% = GetINIInt(OptionFile, "options", "check for updates")
-Global UpdaterBG
+; 汉化计划： 获取域名TXT回答->如果与汉化计划版本号不同->下载更新日志->弹更新检查界面
+; 所以汉化计划的更新检查很省性能，把这事当个热知识就行
+Global UpdaterBG%
 
 Type ChangeLogLines
 	Field txt$
@@ -24,9 +23,7 @@ Global UpdaterIMG
 Global LinesAmount% = 0
 
 Function CheckForUpdates%()
-	AppTitle "SCP - 收容失效汉化版 更新检查器"
-	
-	If !UpdateCheckEnabled Then Return 0
+	AppTitle "SCP - 收容失效 汉化计划 更新检查器"
 	
 	SetBuffer BackBuffer()
 	Cls
@@ -66,7 +63,7 @@ Function CheckForUpdates%()
 		Return -1
 	EndIf
 
-	If version != SinicizationNumber Then ; 检测到新版本（TXT回答与汉化版本号不符）
+	If version != SinicizationNumber Then ; 检测到新版本（TXT回答与汉化计划版本号不符）
 		DebugLog "Newer version!"
 		DownloadFile("https://scpcbgame.cn/changelog.txt", "changelog_website.txt") ; 下载文件，命名为changelog_website.txt
 		;Local ChangeLogFile% = ReadFile(ConvertToANSI("汉化更新日志.txt"))
@@ -105,7 +102,7 @@ Function CheckForUpdates%()
 			chl.ChangeLogLines = New ChangeLogLines
 			chl\txt$ = "更新日志链接： https://scpcbgame.cn/changelog.txt"
 		EndIf
-		UpdaterFont = LoadFont_Strict("GFX\font\Containment Breach.ttf",16)
+		UpdaterFont = LoadFont_Strict("GFX\fonts\Containment Breach.ttf",16)
 		
 		RightTopDisplay$ = "当前版本： " + SinicizationNumber
 		If isUpdate Then RightTopDisplay = "该更新支持自动更新！"
@@ -153,23 +150,23 @@ Function CheckForUpdates%()
 				ScrollMenuHeight# = LinesAmount
 			EndIf
 			Color 255,255,255
-			Rect 480, 200, 140, 95
+			Rect 480, 195, 140, 95
 			Color 0,0,0
 			
-			RowText2(RightTopDisplay,482,210,137,90)
+			RowText2(RightTopDisplay,482,199,137,90)
 			
 			If !DownloadCompleted Then
 				If isUpdate Then 
-					If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 100, 100, 30, "自动更新", False, False, False)
-						; 汉化版的更新系统和原版的更新系统有本质上的区别
+					If DrawButton(480, LauncherHeight - 65 - 100, 140, 30, "自动更新", False, False, False)
+						; 汉化计划的更新系统和原版的更新系统有本质上的区别
 						; 原版的更新系统想让你不需要自己去网站下载，只需要一键式下载，然后等着更新完毕
 						; （我不太确定原版自动更新的稳定程度，因为我现在让它检查更新它查不出来）
-						; 而汉化版的更新检查实质上是提示你有新版本，应该去网站上下载
-						; 汉化版的自动更新是为了那些非常小的更新而准备的（比如只有几个文件的更新，这些文件类似原版更新日志这种无关紧要的玩意），而原版大小通吃
+						; 而汉化计划的更新检查实质上是提示你有新版本，应该去网站上下载
+						; 汉化计划的自动更新是为了那些非常小的更新而准备的（比如只有几个文件的更新，这些文件类似原版更新日志这种无关紧要的玩意），而原版大小通吃
 						; 实际上自动更新系统是万恶之源Box of Horror模组搞出来的，这种没有正式网站也没上ModDB的模组搞这玩意再正常不过
 						; （因为原版源码里的Update.bb有一行读取Box of Horror设置的代码...）
 						; 而原版直接搬过来就...显得有点鸡肋，但总体来说非常有用
-						; 原版要是没有更新系统我哪来的壳做汉化版更新检查呢
+						; 原版要是没有更新系统我哪来的壳做汉化计划更新检查呢
 						; 其实相比于关心原版那玩意管没管用，我更担心这玩意出bug，这东西的开发难度已经简单到了令人发指的程度
 						; ——子悦 2022.7.31
 					
@@ -194,39 +191,39 @@ Function CheckForUpdates%()
 						RightTopDisplay = "更新完毕，建议重新启动游戏。"
 						DownloadCompleted = True
 					EndIf
-					If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 50, 100, 30, "手动下载", False, False, False)
+					If DrawButton(480, LauncherHeight - 65 - 50, 140, 30, "手动下载", False, False, False)
 						ExecFile("https://scpcbgame.cn/#download")
 						Delay 100
 						End
 					EndIf
 				Else
-					If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 100, 100, 30, "重试", False, False, False)
+					If DrawButton(480, LauncherHeight - 65 - 100, 140, 30, "重试", False, False, False)
 						Delete Each ChangeLogLines
 						If UpdaterIMG != 0 Then FreeImage UpdaterIMG
 						CheckForUpdates()
 						Return 0
 					EndIf
-					If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 50, 100, 30, "下载", False, False, False)
+					If DrawButton(480, LauncherHeight - 65 - 50, 140, 30, "下载", False, False, False)
 						ExecFile("https://scpcbgame.cn/#download")
 						Delay 100
 						End
 					EndIf
 				EndIf
-				If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65, 100, 30, "忽略", False, False, False)
+				If DrawButton(480, LauncherHeight - 65, 140, 30, "忽略", False, False, False)
 					Delay 100
 					Exit
 				EndIf
 			Else
-				If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 100, 100, 30, "网站", False, False, False)
+				If DrawButton(480, LauncherHeight - 65 - 100, 140, 30, "网站", False, False, False)
 					ExecFile("https://scpcbgame.cn/")
 					Delay 100
 					End
 				EndIf
-				If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 50, 100, 30, "继续", False, False, False)
+				If DrawButton(480, LauncherHeight - 65 - 50, 140, 30, "继续", False, False, False)
 					Delay 100
 					Exit
 				EndIf
-				If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65, 100, 30, "退出", False, False, False)
+				If DrawButton(480, LauncherHeight - 65, 140, 30, "退出", False, False, False)
 					Delay 100
 					End
 				EndIf
@@ -237,6 +234,7 @@ Function CheckForUpdates%()
 		Forever
 	Else 
 		DebugLog "No newer version!"
+		Return 1
 	EndIf
 	Delete Each ChangeLogLines
 	If UpdaterIMG != 0 Then FreeImage UpdaterIMG

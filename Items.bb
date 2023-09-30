@@ -177,9 +177,9 @@ Function InitItemTemplates()
 	it = CreateItemTemplate("一页日记", "Journal Page", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\docGonzales.jpg", 0.0025) : it\sound = 0
 	
 	
-	it = CreateItemTemplate("日志#1", "Log #1", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f4.jpg", 0.004, "GFX\items\f4.jpg") : it\sound = 0
-	it = CreateItemTemplate("日志#2", "Log #2", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f5.jpg", 0.004, "GFX\items\f4.jpg") : it\sound = 0
-	it = CreateItemTemplate("日志#3", "Log #3", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f6.jpg", 0.004, "GFX\items\f4.jpg") : it\sound = 0
+	it = CreateItemTemplate("日志#1", "Log #1", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f4.jpg", 0.0017, "GFX\items\f4.jpg") : it\sound = 0
+	it = CreateItemTemplate("日志#2", "Log #2", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f5.jpg", 0.0017, "GFX\items\f4.jpg") : it\sound = 0
+	it = CreateItemTemplate("日志#3", "Log #3", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\f6.jpg", 0.0017, "GFX\items\f4.jpg") : it\sound = 0
 	
 	it = CreateItemTemplate("奇怪的笔记", "Strange Note", "paper", "GFX\items\paper.x", "GFX\items\INVnote.jpg", "GFX\items\docStrange.jpg", 0.0025, "GFX\items\notetexture.jpg") : it\sound = 0
 	
@@ -382,6 +382,7 @@ Function CreateItem.Items(name$, tempname$, x#, y#, z#, r%=0,g%=0,b%=0,a#=1.0,in
 				i\displayName = it\displayName
 				ShowEntity i\collider
 				ShowEntity i\model
+				Exit
 			EndIf
 		EndIf
 	Next 
@@ -397,6 +398,8 @@ Function CreateItem.Items(name$, tempname$, x#, y#, z#, r%=0,g%=0,b%=0,a#=1.0,in
 	i\DropSpeed = 0.0
 	
 	If tempname = "cup" Then
+		i\state = 1.0
+
 		i\r=r
 		i\g=g
 		i\b=b
@@ -495,9 +498,9 @@ Function UpdateItems()
 		i\Dropped = 0
 		
 		If (Not i\Picked) Then
-			If i\disttimer < MilliSecs2() Then
+			If i\disttimer < MilliSecs() Then
 				i\dist = EntityDistance(Camera, i\collider)
-				i\disttimer = MilliSecs2() + 700
+				i\disttimer = MilliSecs() + 700
 				If i\dist < HideDist Then ShowEntity i\collider
 			EndIf
 			
@@ -759,7 +762,7 @@ Function DropItem(item.Items,playdropsound%=True)
 	
 	item\Picked = False
 	For z% = 0 To MaxItemAmount - 1
-		If Inventory(z) = item Then Inventory(z) = Null
+		If Inventory(z) = item Then Inventory(z) = Null : Exit
 	Next
 	Select item\itemtemplate\tempname
 		Case "gasmask", "supergasmask", "gasmask3"
@@ -799,22 +802,22 @@ Function Update294()
 		DebugLog VomitTimer
 		VomitTimer = VomitTimer - (FPSfactor/70)
 		
-		If (MilliSecs2() Mod 1600) < Rand(200, 400) Then
+		If (MilliSecs() Mod 1600) < Rand(200, 400) Then
 			If BlurTimer = 0 Then BlurTimer = Rnd(10, 20)*70
 			CameraShake = Rnd(0, 2)
 		EndIf
 		
-		If Rand(50) = 50 And (MilliSecs2() Mod 4000) < 200 Then PlaySound_Strict(CoughSFX(Rand(0,2)))
+		If Rand(50) = 50 And (MilliSecs() Mod 4000) < 200 Then PlaySound_Strict(CoughSFX(Rand(0,2)))
 		
 		;Regurgitate when timer is below 10 seconds. (ew)
 		If VomitTimer < 10 And Rnd(0, 500 * VomitTimer) < 2 Then
 			If (Not ChannelPlaying(VomitCHN)) And (Not Regurgitate) Then
 				VomitCHN = PlaySound_Strict(LoadTempSound("SFX\SCP\294\Retch" + Rand(1, 2) + ".ogg"))
-				Regurgitate = MilliSecs2() + 50
+				Regurgitate = MilliSecs() + 50
 			EndIf
 		EndIf
 		
-		If Regurgitate > MilliSecs2() And Regurgitate <> 0 Then
+		If Regurgitate > MilliSecs() And Regurgitate <> 0 Then
 			mouse_y_speed_1 = mouse_y_speed_1 + 1.0
 		Else
 			Regurgitate = 0
@@ -824,7 +827,7 @@ Function Update294()
 		VomitTimer = VomitTimer - (FPSfactor/70)
 		
 		If VomitTimer > -5 Then
-			If (MilliSecs2() Mod 400) < 50 Then CameraShake = 4 
+			If (MilliSecs() Mod 400) < 50 Then CameraShake = 4 
 			mouse_x_speed_1 = 0.0
 			Playable = False
 		Else
