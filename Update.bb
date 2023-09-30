@@ -102,7 +102,7 @@ Function CheckForUpdates%()
 			chl.ChangeLogLines = New ChangeLogLines
 			chl\txt$ = "更新日志链接： https://scpcbgame.cn/changelog.txt"
 		EndIf
-		UpdaterFont = LoadFont_Strict("GFX\font\Containment Breach.ttf",16)
+		UpdaterFont = LoadFont_Strict("GFX\fonts\Containment Breach.ttf",16)
 		
 		RightTopDisplay$ = "当前版本： " + SinicizationNumber
 		If isUpdate Then RightTopDisplay = "该更新支持自动更新！"

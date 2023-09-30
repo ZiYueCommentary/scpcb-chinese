@@ -66,7 +66,7 @@ Global x#,y#,width#,height#
 Global PrevBarTime# = 0.0, CurrBarTime# = 0.0
 Global CurrPitch# = 1.0
 
-SetFont LoadFont("GFX\font\Containment Breach.ttf", 14)
+SetFont LoadFont("GFX\fonts\Containment Breach.ttf", 14)
 
 Repeat
 	Cls

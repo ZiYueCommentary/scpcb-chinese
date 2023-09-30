@@ -210,15 +210,15 @@ InitLoadingScreens("Loadingscreens\loadingscreens.ini")
 ; 由于玩家可以用输入法，所以输入的文本可能啥都有
 ; 为了让文字尽可能都显示，游戏最经常用的字体就没砍
 ; ——子悦 2022/12/22
-Font1% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(16 * (GraphicHeight / 1024.0)))
-Font2% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(55 * (GraphicHeight / 1024.0)))
-Font3% = LoadFont_Strict("GFX\font\Unifont.ttf", Int(19 * (GraphicHeight / 1024.0)))
-Font4% = LoadFont_Strict("GFX\font\Unifont.ttf", Int(57 * (GraphicHeight / 1024.0)))
-Font5% = LoadFont_Strict("GFX\font\Journal.ttf", Int(55 * (GraphicHeight / 1024.0)))
+Font1% = LoadFont_Strict("GFX\fonts\Containment Breach.ttf", Int(16 * (GraphicHeight / 1024.0)))
+Font2% = LoadFont_Strict("GFX\fonts\Containment Breach.ttf", Int(55 * (GraphicHeight / 1024.0)))
+Font3% = LoadFont_Strict("GFX\fonts\Unifont.ttf", Int(19 * (GraphicHeight / 1024.0)))
+Font4% = LoadFont_Strict("GFX\fonts\Unifont.ttf", Int(57 * (GraphicHeight / 1024.0)))
+Font5% = LoadFont_Strict("GFX\fonts\Journal.ttf", Int(55 * (GraphicHeight / 1024.0)))
 
 Global CreditsFont%, CreditsFont2%, CreditsFont3%
 
-ConsoleFont% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(17 * (GraphicHeight / 1024.0)))
+ConsoleFont% = LoadFont_Strict("GFX\fonts\Containment Breach.ttf", Int(17 * (GraphicHeight / 1024.0)))
 
 SetFont Font2
 
@@ -3726,9 +3726,9 @@ Function InitCredits()
 	Local l$
 	
 	; 因为整个游戏只有制作人员名单用到了粗体字体，所以粗体就砍到几十个字了
-	CreditsFont% = LoadFont_Strict("GFX\font\Containment Breach.ttf", Int(21 * (GraphicHeight / 1024.0)))
-	CreditsFont2% = LoadFont_Strict("GFX\font\Containment Breach Bold.ttf", Int(30 * (GraphicHeight / 1024.0)))
-	CreditsFont3% = LoadFont_Strict("GFX\font\Containment Breach Bold.ttf", Int(37 * (GraphicHeight / 1024.0)))
+	CreditsFont% = LoadFont_Strict("GFX\fonts\Containment Breach.ttf", Int(21 * (GraphicHeight / 1024.0)))
+	CreditsFont2% = LoadFont_Strict("GFX\fonts\Containment Breach Bold.ttf", Int(30 * (GraphicHeight / 1024.0)))
+	CreditsFont3% = LoadFont_Strict("GFX\fonts\Containment Breach Bold.ttf", Int(37 * (GraphicHeight / 1024.0)))
 	
 	If CreditsScreen = 0
 		CreditsScreen = LoadImage_Strict("GFX\creditsscreen.jpg")

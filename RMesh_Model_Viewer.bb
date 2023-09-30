@@ -1,6 +1,6 @@
 Global XE_XF,XE_MAXtextures
 
-SetFont LoadFont("GFX\font\Containment Breach.ttf", 15)
+SetFont LoadFont("GFX\fonts\Containment Breach.ttf", 15)
 
 Type XE_texdata
 	Field idx,h,fn$
@@ -650,7 +650,7 @@ Next
 Local fname$ = Input("RMesh文件路径：")
 
 Graphics3D 1280,720,32,2
-SetFont LoadFont("GFX\font\Containment Breach.ttf", 15)
+SetFont LoadFont("GFX\fonts\Containment Breach.ttf", 15)
 
 Global mesh% = LoadRMesh(fname)
 
