@@ -150,14 +150,14 @@ Function CheckForUpdates%()
 				ScrollMenuHeight# = LinesAmount
 			EndIf
 			Color 255,255,255
-			Rect 480, 200, 140, 95
+			Rect 480, 195, 140, 95
 			Color 0,0,0
 			
-			RowText2(RightTopDisplay,482,210,137,90)
+			RowText2(RightTopDisplay,482,199,137,90)
 			
 			If !DownloadCompleted Then
 				If isUpdate Then 
-					If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 100, 100, 30, "自动更新", False, False, False)
+					If DrawButton(480, LauncherHeight - 65 - 100, 140, 30, "自动更新", False, False, False)
 						; 汉化计划的更新系统和原版的更新系统有本质上的区别
 						; 原版的更新系统想让你不需要自己去网站下载，只需要一键式下载，然后等着更新完毕
 						; （我不太确定原版自动更新的稳定程度，因为我现在让它检查更新它查不出来）
@@ -191,39 +191,39 @@ Function CheckForUpdates%()
 						RightTopDisplay = "更新完毕，建议重新启动游戏。"
 						DownloadCompleted = True
 					EndIf
-					If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 50, 100, 30, "手动下载", False, False, False)
+					If DrawButton(480, LauncherHeight - 65 - 50, 140, 30, "手动下载", False, False, False)
 						ExecFile("https://scpcbgame.cn/#download")
 						Delay 100
 						End
 					EndIf
 				Else
-					If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 100, 100, 30, "重试", False, False, False)
+					If DrawButton(480, LauncherHeight - 65 - 100, 140, 30, "重试", False, False, False)
 						Delete Each ChangeLogLines
 						If UpdaterIMG != 0 Then FreeImage UpdaterIMG
 						CheckForUpdates()
 						Return 0
 					EndIf
-					If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 50, 100, 30, "下载", False, False, False)
+					If DrawButton(480, LauncherHeight - 65 - 50, 140, 30, "下载", False, False, False)
 						ExecFile("https://scpcbgame.cn/#download")
 						Delay 100
 						End
 					EndIf
 				EndIf
-				If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65, 100, 30, "忽略", False, False, False)
+				If DrawButton(480, LauncherHeight - 65, 140, 30, "忽略", False, False, False)
 					Delay 100
 					Exit
 				EndIf
 			Else
-				If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 100, 100, 30, "网站", False, False, False)
+				If DrawButton(480, LauncherHeight - 65 - 100, 140, 30, "网站", False, False, False)
 					ExecFile("https://scpcbgame.cn/")
 					Delay 100
 					End
 				EndIf
-				If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65 - 50, 100, 30, "继续", False, False, False)
+				If DrawButton(480, LauncherHeight - 65 - 50, 140, 30, "继续", False, False, False)
 					Delay 100
 					Exit
 				EndIf
-				If DrawButton(LauncherWidth - 30 - 90 - 20, LauncherHeight - 65, 100, 30, "退出", False, False, False)
+				If DrawButton(480, LauncherHeight - 65, 140, 30, "退出", False, False, False)
 					Delay 100
 					End
 				EndIf
