@@ -2,7 +2,7 @@
 
 ;    游戏基于SCP基金会背景(http://scp-wiki-cn.wikidot.com/)
 
-;	 汉化版基于SCP - Containment Breach TSS制作（https://github.com/ZiYueCommentary/scpcb-tss）
+;	 汉化计划基于SCP - Containment Breach TSS制作（https://github.com/ZiYueCommentary/scpcb-tss）
 
 ;	 游戏遵循知识共享许可协议BY-SA 3.0（即必须署名、可商用、可二创、可二创商用）
 ;	 https://creativecommons.org/licenses/by-sa/3.0/deed.zh
@@ -32,7 +32,7 @@ Global Font1%, Font2%, Font3%, Font4%, Font5%
 Global ConsoleFont%
 
 Global VersionNumber$ = "1.3.11"
-Global SinicizationNumber$ = "2023.01-Fourth Revise" ; 汉化版本
+Global SinicizationNumber$ = "2023.10-Fifth Revise" ; 汉化版本
 Global CompatibleNumber$ = "1.3.11-2022.5" ; 当存档与构建版本不兼容时再更改		——开发者 ENDSHN
 
 Global OpenCC% = CreateOpenCC("Traditional\OpenCC\s2twp.json") ; 繁简转换工具
@@ -659,7 +659,7 @@ Function UpdateConsole()
 							CreateConsoleMsg("帮助 - spawnitem")
 							CreateConsoleMsg("******************************")
 							CreateConsoleMsg("在玩家的位置生成物品（可生成能在物品栏里出现的物品）。")
-							CreateConsoleMsg("在汉化版中，你可以使用物品中文名、物品英文名或物品ID生成物品。")
+							CreateConsoleMsg("在汉化计划中，你可以使用物品中文名、物品英文名或物品ID生成物品。")
 							CreateConsoleMsg("示例：spawnitem 万能钥匙卡 / spawnitem key card omni / spawnitem key6")
 							CreateConsoleMsg("******************************")
 						Case "spawn"
@@ -11225,7 +11225,7 @@ End Function
 Function CatchErrors(location$)
 	InitErrorMsgs(10, True) ; 声明报错内有宏存在
 	SetErrorMsg(0, "SCP - 收容失效 汉化计划 v" + VersionNumber + " 出现错误！")
-	SetErrorMsg(1, "汉化版版本号：" + SinicizationNumber)
+	SetErrorMsg(1, "汉化计划版本号：" + SinicizationNumber)
 	SetErrorMsg(2, "地图种子：" + RandomSeed)
 	SetErrorMsg(3, "日期和时间：" + CurrentDate() + "，" + CurrentTime())
 	SetErrorMsg(4, "系统：" + SystemProperty("os") + " " + (32 + (GetEnv("ProgramFiles(X86)") <> 0) * 32) + " bit (Build: " + SystemProperty("osbuild") + ")" + Chr(10))
