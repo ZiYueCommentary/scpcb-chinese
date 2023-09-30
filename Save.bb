@@ -706,7 +706,7 @@ Function LoadGame(file$)
 	room2gw_z = ReadFloat(f)
 	
 	; 就因为这么个判断所以旧版存档没法读
-	; 包括但不限于汉化版和原版
+	; 包括但不限于汉化计划和原版
 	;If version = CompatibleNumber Then
 		I_Zone\Transition[0] = ReadByte(f)
 		I_Zone\Transition[1] = ReadByte(f)
