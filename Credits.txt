@@ -36,6 +36,7 @@ ZiYueCommentary ("子悦解说")
 
 *测试及宣传
 
+MorningDemon ("晨魔")
 Mr. ("掌柜KETER")
 ZiYueCommentary ("子悦解说")
 
@@ -49,9 +50,9 @@ ZiYueCommentary ("子悦解说")
 *鸣谢
 
 HJ itfkqqug ("HJ浩鈞")
-kill ("Kill")
 Nikita Sidorov ("Jabka")
 TheZihanGu ("Fr0zen_F1sh")
+kill ("Kill")
 liweigvdio12
 爱发电用户_21d9f ("EasyT_T")
 爱发电用户_3df2b
