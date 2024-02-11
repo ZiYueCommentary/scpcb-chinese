@@ -34,9 +34,14 @@ ICD ("InkICD")
 ZiYueCommentary ("子悦解说")
 
 
-*测试及宣传
+*测试
 
 MorningDemon ("晨魔")
+ZiYueCommentary ("子悦解说")
+
+
+*宣传
+
 Mr. ("掌柜KETER")
 ZiYueCommentary ("子悦解说")
 
