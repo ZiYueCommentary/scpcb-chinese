@@ -15,27 +15,28 @@ ZiYueCommentary ("子悦解说")
 飘流瓶儿
 
 
-*翻译工作
+*翻译
 
-Four_P ("four")
-ZiYueCommentary ("子悦解说")
 ________________________
 amigo
+Four_P ("four")
+ZiYueCommentary ("子悦解说")
 德意志战车
 南柯
 虚茼
 一只孤独的屑d级
-与或非
 
 
-*翻译润色
+*润色
 
 ICD ("InkICD")
 ZiYueCommentary ("子悦解说")
+与或非
 
 
 *测试
 
+wsswlgm ("我是谁我来干嘛")
 MorningDemon ("晨魔")
 ZiYueCommentary ("子悦解说")
 
@@ -46,7 +47,7 @@ Mr. ("掌柜KETER")
 ZiYueCommentary ("子悦解说")
 
 
-*字幕系统
+*字幕
 
 Nikita Sidorov ("Jabka")
 ZiYueCommentary ("子悦解说")
@@ -54,11 +55,11 @@ ZiYueCommentary ("子悦解说")
 
 *鸣谢
 
+kill ("Kill")
+liweigvdio12
 HJ itfkqqug ("HJ浩鈞")
 Nikita Sidorov ("Jabka")
 TheZihanGu ("Fr0zen_F1sh")
-kill ("Kill")
-liweigvdio12
 爱发电用户_21d9f ("EasyT_T")
 爱发电用户_3df2b
 爱发电用户_86cdf
