@@ -1630,7 +1630,7 @@ Function LoadRoomMesh(rt.RoomTemplates)
 		If rt\objPath <> "" Then rt\obj = LoadWorld(rt\objPath, rt) Else rt\obj = CreatePivot()
 	EndIf
 	
-	If (Not rt\obj) Then RuntimeError "Failed to load map file "+Chr(34)+mapfile+Chr(34)+"."
+	If (Not rt\obj) Then RuntimeError "加载地图失败："+mapfile
 	
 	CalculateRoomTemplateExtents(rt)
 	
@@ -1651,7 +1651,7 @@ Function LoadRoomMeshes()
 		Else ;file is b3d
 			If rt\objpath <> "" Then rt\obj = LoadWorld(rt\objPath, rt) Else rt\obj = CreatePivot()
 		EndIf
-		If (Not rt\obj) Then RuntimeError "Failed to load map file "+Chr(34)+mapfile+Chr(34)+"."
+		If (Not rt\obj) Then RuntimeError "加载地图失败："+mapfile
 		
 		HideEntity(rt\obj)
 		DrawLoading(Int(30 + (15.0 / temp)*i))
@@ -6146,8 +6146,7 @@ Function UpdateSecurityCams()
 					EndIf
 					
 					If Sanity < (-1000) Then 
-						DeathMSG = Chr(34)+"What we know is that he died of cardiac arrest. My guess is that it was caused by SCP-895, although it has never been observed affecting video equipment from this far before. "
-						DeathMSG = DeathMSG + "Further testing is needed to determine whether SCP-895's "+Chr(34)+"Red Zone"+Chr(34)+" is increasing."+Chr(34)
+						DeathMSG = "“我们知道他是死于心脏病。我猜这是SCP-895造成的，尽管我们从未观察到它影响到这么远的视频设备。需要进一步测试以确定SCP-895的‘红区’是否在增加。”"
 						
 						If VomitTimer < -10 Then
 							Kill()
@@ -6288,10 +6287,10 @@ Function UpdateSecurityCams()
 				If sc\room<>Null Then
 					CatchErrors("UpdateSecurityCameras ("+sc\room\RoomTemplate\Name+")")
 				Else
-					CatchErrors("UpdateSecurityCameras (screen has no room)")
+					CatchErrors("UpdateSecurityCameras（显示器不属于任何房间）")
 				EndIf
 			Else
-				CatchErrors("UpdateSecurityCameras (screen doesn't exist anymore)")
+				CatchErrors("UpdateSecurityCameras（显示器已不存在）")
 			EndIf
 		EndIf
 	Next
