@@ -4897,7 +4897,7 @@ Function DrawGUI()
 				If isMouseOn Then
 					SetFont Font1
 					Color 0,0,0
-					Text(x + width / 2 + 1, y + height + spacing - 15 + 1, OtherOpen\SecondInv[n]\itemtemplate\name, True)
+					Text(x + width / 2 + 1, y + height + spacing - 15 + 1, OtherOpen\SecondInv[n]\itemtemplate\displayName, True)
 					Color 255, 255, 255	
 					Text(x + width / 2, y + height + spacing - 15, OtherOpen\SecondInv[n]\itemtemplate\displayName, True)				
 					If SelectedItem = Null Then
