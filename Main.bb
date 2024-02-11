@@ -10946,17 +10946,19 @@ Function ScaledMouseY%()
 End Function
 
 Function CatchErrors(location$)
-	InitErrorMsgs(10, True) ; 声明报错内有宏存在
+	InitErrorMsgs(12, True) ; 声明报错内有宏存在
 	SetErrorMsg(0, "SCP - 收容失效 汉化计划 v" + VersionNumber + " 出现错误！")
 	SetErrorMsg(1, "汉化计划版本号：" + SinicizationNumber)
 	SetErrorMsg(2, "地图种子：" + RandomSeed)
 	SetErrorMsg(3, "日期和时间：" + CurrentDate() + "，" + CurrentTime())
-	SetErrorMsg(4, "系统：" + SystemProperty("os") + " " + (32 + (GetEnv("ProgramFiles(X86)") <> 0) * 32) + " bit (Build: " + SystemProperty("osbuild") + ")" + Chr(10))
-	SetErrorMsg(5, "显示内存：" + ((TotalVidMem() / 1024) - (AvailVidMem() / 1024)) + " MB/" + (TotalVidMem() / 1024) + " MB")
-	SetErrorMsg(6, "全局内存状态：" + ((TotalPhys() / 1024) - (AvailPhys() / 1024)) + " MB/" + (TotalPhys() / 1024) + " MB")
-	SetErrorMsg(7, "出错位置：" + location)
-	SetErrorMsg(8, "抛出异常：_CaughtError_" + Chr(10)) ; _CaughtError_是一个宏，在显示时会被替换为引擎最后抛出的异常
-	SetErrorMsg(9, "请带着游戏截图联系我们！")
+	SetErrorMsg(4, "显示驱动：" + GfxDriverName(SelectedGFXDriver))
+	SetErrorMsg(5, "CPU型号：" + Trim(SystemProperty("cpuname")))
+	SetErrorMsg(6, "系统：" + SystemProperty("os") + " " + (32 + (GetEnv("ProgramFiles(X86)") <> 0) * 32) + " bit (Build: " + SystemProperty("osbuild") + ")" + Chr(10))
+	SetErrorMsg(7, "显示内存：" + ((TotalVidMem() / 1024) - (AvailVidMem() / 1024)) + " MB/" + (TotalVidMem() / 1024) + " MB")
+	SetErrorMsg(8, "全局内存状态：" + ((TotalPhys() / 1024) - (AvailPhys() / 1024)) + " MB/" + (TotalPhys() / 1024) + " MB")
+	SetErrorMsg(9, "出错位置：" + location)
+	SetErrorMsg(10, "抛出异常：_CaughtError_" + Chr(10)) ; _CaughtError_是一个宏，在显示时会被替换为引擎最后抛出的异常
+	SetErrorMsg(11, "请带着游戏截图联系我们！")
 End Function
 
 Function Create3DIcon(width%,height%,modelpath$,modelX#=0,modelY#=0,modelZ#=0,modelPitch#=0,modelYaw#=0,modelRoll#=0,modelscaleX#=1,modelscaleY#=1,modelscaleZ#=1,withfog%=False)
