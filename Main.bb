@@ -3837,8 +3837,8 @@ Function DrawCredits()
 	If GetKey() Then CreditsTimer=-1
 	
 	If CreditsTimer=-1
-		FreeFont CreditsFont
-		FreeFont CreditsFont2
+		;FreeFont CreditsFont
+		;FreeFont CreditsFont2
 		FreeImage CreditsScreen
 		CreditsScreen = 0
 		FreeImage EndingScreen
