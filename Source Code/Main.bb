@@ -1,13 +1,4 @@
-;SCP - 收容失效 汉化计划
-
-;    游戏基于SCP基金会背景(http://scp-wiki-cn.wikidot.com/)
-
-;	 汉化计划基于SCP - Containment Breach TSS制作（https://github.com/ZiYueCommentary/scpcb-tss）
-
-;	 游戏遵循知识共享许可协议BY-SA 3.0（即必须署名、可商用、可二创、可二创商用）
-;	 https://creativecommons.org/licenses/by-sa/3.0/deed.zh
-
-;    打开"Credits.txt"文件查看详细制作人员名单
+;编译目录的Game.bb,不要编译这个文件
 
 Local InitErrorStr$ = ""
 If FileSize("dplayx.dll")=0 Then InitErrorStr=InitErrorStr+ "dplayx.dll"+Chr(13)+Chr(10)
@@ -19,7 +10,7 @@ If Len(InitErrorStr)>0 Then
 	RuntimeError "游戏文件夹中缺失以下dll文件："+Chr(13)+Chr(10)+Chr(13)+Chr(10)+InitErrorStr
 EndIf
 
-Include "IniControler.bb"
+Include "Source Code\IniControler.bb"
 IniWriteBuffer("options.ini")
 IniWriteBuffer("Data\1499chunks.ini")
 IniWriteBuffer("Data\achievementstrings.ini")
@@ -32,13 +23,13 @@ IniWriteBuffer("Data\SCP-294.ini")
 IniWriteBuffer("Data\subtitles.ini")
 IniWriteBuffer("Loadingscreens\loadingscreens.ini")
 
-Include "StrictLoads.bb"
-Include "KeyName.bb"
+Include "Source Code\StrictLoads.bb"
+Include "Source Code\KeyName.bb"
 
 Global OptionFile$ = "options.ini"
-Include "Update.bb"
+Include "Source Code\Update.bb"
 
-Include "DevilParticleSystem.bb"
+Include "Source Code\DevilParticleSystem.bb"
 
 Global UpdaterFont%
 Global Font1%, Font2%, Font3%, Font4%, Font5%
@@ -111,7 +102,7 @@ Global Bit16Mode = IniGetInt(OptionFile, "options", "16bit")
 
 Global TraditionalChinese% = IniGetInt(OptionFile, "options", "traditional chinese")
 
-Include "Subtitles.bb"
+Include "Source Code\Subtitles.bb"
 
 If LauncherEnabled Then 
 	AspectRatioRatio = 1.0
@@ -295,7 +286,7 @@ Global Injuries#, Bloodloss#, Infect#, HealTimer#
 
 Global RefinedItems%
 
-Include "Achievements.bb"
+Include "Source Code\Achievements.bb"
 
 ;player coordinates, angle, speed, movement etc ---------------------------------------------------------------------
 Global DropSpeed#, HeadDropSpeed#, CurrSpeed#
@@ -339,7 +330,7 @@ Dim DrawArrowIcon%(4)
 
 ;misc ---------------------------------------------------------------------------------------------------------------
 
-Include "Difficulty.bb"
+Include "Source Code\Difficulty.bb"
 
 Global MTFtimer#, MTFrooms.Rooms[10], MTFroomState%[10]
 
@@ -1505,7 +1496,7 @@ Global MouseSens# = IniGetFloat("options.ini", "options", "mouse sensitivity")
 
 Global EnableVRam% = IniGetInt("options.ini", "options", "enable vram")
 
-Include "Dreamfilter.bb"
+Include "Source Code\Dreamfilter.bb"
 
 Dim LightSpriteTex(10)
 
@@ -1770,11 +1761,11 @@ DrawLoading(35, True)
 
 ;----------------------------------------------  Items  -----------------------------------------------------
 
-Include "Items.bb"
+Include "Source Code\Items.bb"
 
 ;--------------------------------------- Particles ------------------------------------------------------------
 
-Include "Particles.bb"
+Include "Source Code\Particles.bb"
 
 ;-------------------------------------  Doors --------------------------------------------------------------
 
@@ -2372,11 +2363,11 @@ End Function
 
 DrawLoading(40,True)
 
-Include "MapSystem.bb"
+Include "Source Code\MapSystem.bb"
 
 DrawLoading(80,True)
 
-Include "NPCs.bb"
+Include "Source Code\NPCs.bb"
 
 ;-------------------------------------  Events --------------------------------------------------------------
 
@@ -2626,7 +2617,7 @@ Function InitEvents()
 	
 End Function
 
-Include "UpdateEvents.bb"
+Include "Source Code\UpdateEvents.bb"
 
 Function RemoveEvent(e.Events)
 	If e\Sound<>0 Then FreeSound_Strict e\Sound
@@ -2688,7 +2679,7 @@ Global MTF_CameraCheckDetected% = False
 
 ;---------------------------------------------------------------------------------------------------
 
-Include "menu.bb"
+Include "Source Code\menu.bb"
 MainMenuOpen = True
 
 ;---------------------------------------------------------------------------------------------------
@@ -7546,7 +7537,7 @@ End Function
 
 ;----------------------------------------------------------------------------------------------
 
-Include "LoadAllSounds.bb"
+Include "Source Code\LoadAllSounds.bb"
 Function LoadEntities()
 	CatchErrors("Uncaught (LoadEntities)")
 	DrawLoading(0)
@@ -8571,7 +8562,7 @@ Function NullGame(playbuttonsfx%=True)
 	CatchErrors("NullGame")
 End Function
 
-Include "save.bb"
+Include "Source Code\save.bb"
 
 ;--------------------------------------- music & sounds ----------------------------------------------
 
