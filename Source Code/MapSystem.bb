@@ -777,7 +777,7 @@ Const max_deviation_distance% = 3
 Const return_chance% = 27
 Const center = 5
 
-Include "Drawportals.bb"
+Include "Source Code\Drawportals.bb"
 
 Type Forest
 	Field TileMesh%[6]
@@ -7555,7 +7555,7 @@ Function load_terrain(hmap,yscale#=0.7,t1%,t2%,mask%)
 End Function
 
 
-Include "Skybox.bb"
+Include "Source Code\Skybox.bb"
 
 Global UpdateRoomLightsTimer# = 0.0
 
