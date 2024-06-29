@@ -1,3 +1,8 @@
+2024/8/1 Sixth Revise第六版
+兼容二期任意版本、任意发布版本和原版1.3.11的存档
+- 修复bug：
+    - 修复了检查点未解锁也可打开的bug
+
 2023/10/1 Fifth Revise第五版
 兼容二期任意版本、任意发布版本和原版1.3.11的存档
 - 更新了部分贴图的汉化（docGonzales.jpg、012.jpg、drL.jpg、860.jpg、205.jpg、conf.jpg、hooper.jpg、rosewood.sc、lebel008.jpg、label012.jpg、label035.jpg、label049.jpg、lebel079.jpg、label106.jpg、label1123.png、label173.jpg、label205.jpg、label372.jpg、label513.jpg、label895.jpg、label914.jpg、label966.jpg、labelmedicalbay.jpg）
