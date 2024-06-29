@@ -10,6 +10,7 @@ Include "IniControler.bb"
 IniWriteBuffer("options.ini")
 IniWriteBuffer("..\options.ini")
 IniWriteBuffer("..\Data\rooms.ini")
+IniWriteBuffer("..\Data\events.ini")
 
 Global TraditionalChinese% = IniGetInt("..\options.ini","options","traditional chinese")
 If TraditionalChinese Then Notify("地图制作器除3D查看器外均不支持繁体中文，感谢您的理解。")
