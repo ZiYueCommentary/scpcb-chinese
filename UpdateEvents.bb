@@ -1407,8 +1407,6 @@ Function UpdateEvents()
 									e\room\RoomDoors[1]\locked = True
 								EndIf
 							EndIf
-						Else
-							Exit
 						EndIf
 					Next
 				Else
