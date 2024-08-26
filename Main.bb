@@ -21,7 +21,7 @@ EndIf
 
 Include "IniControler.bb"
 IniWriteBuffer("options.ini")
-IniWriteBuffer("Data\1499chunks.ini")
+IniWriteBuffer("Data\1499chunks.INI")
 IniWriteBuffer("Data\achievementstrings.ini")
 IniWriteBuffer("Data\events.ini")
 IniWriteBuffer("Data\materials.ini")
@@ -10951,7 +10951,7 @@ Function CatchErrors(location$)
 	SetErrorMsg(1, "汉化计划版本号：" + SinicizationNumber)
 	SetErrorMsg(2, "地图种子：" + RandomSeed)
 	SetErrorMsg(3, "日期和时间：" + CurrentDate() + "，" + CurrentTime())
-	SetErrorMsg(4, "显示驱动：" + GfxDriverName(SelectedGFXDriver))
+	SetErrorMsg(4, "显示驱动：" + ConvertToANSI(GfxDriverName(SelectedGFXDriver)))
 	SetErrorMsg(5, "CPU型号：" + Trim(SystemProperty("cpuname")))
 	SetErrorMsg(6, "系统：" + SystemProperty("os") + " " + (32 + (GetEnv("ProgramFiles(X86)") <> 0) * 32) + " bit (Build: " + SystemProperty("osbuild") + ")" + Chr(10))
 	SetErrorMsg(7, "显示内存：" + ((TotalVidMem() / 1024) - (AvailVidMem() / 1024)) + " MB/" + (TotalVidMem() / 1024) + " MB")
