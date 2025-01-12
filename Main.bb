@@ -12,7 +12,6 @@
 Local InitErrorStr$ = ""
 If FileSize("dplayx.dll")=0 Then InitErrorStr=InitErrorStr+ "dplayx.dll"+Chr(13)+Chr(10)
 If FileSize("FreeImage.dll")=0 Then InitErrorStr=InitErrorStr+ "FreeImage.dll"+Chr(13)+Chr(10)
-If FileSize("fmod.dll")=0 Then InitErrorStr=InitErrorStr+ "fmod.dll"+Chr(13)+Chr(10)
 If FileSize("opencc.dll")=0 Then InitErrorStr=InitErrorStr+ "opencc.dll"+Chr(13)+Chr(10)
 
 If Len(InitErrorStr)>0 Then
@@ -1550,7 +1549,7 @@ Music(25) = "SaveMeFrom"
 Global MusicVolume# = IniGetFloat(OptionFile, "audio", "music volume")
 
 Global CurrMusicStream, MusicCHN
-MusicCHN = StreamSound_Strict("SFX\Music\"+Music(2)+".ogg",MusicVolume,Mode)
+MusicCHN = StreamSound_Strict("SFX\Music\"+Music(2)+".ogg",MusicVolume)
 
 Global CurrMusicVolume# = 1.0, NowPlaying%=2, ShouldPlay%=11
 Global CurrMusic% = 1
@@ -3611,7 +3610,7 @@ Function DrawEnding()
 			
 			CurrMusicVolume = MusicVolume
 			StopStream_Strict(MusicCHN)
-			MusicCHN = StreamSound_Strict("SFX\Music\"+Music(23)+".ogg",CurrMusicVolume,0)
+			MusicCHN = StreamSound_Strict("SFX\Music\"+Music(23)+".ogg",CurrMusicVolume,False)
 			NowPlaying = ShouldPlay
 			
 			PlaySound_Strict LightSFX
@@ -3701,7 +3700,7 @@ Function DrawEnding()
 							If TempSounds[i]<>0 Then FreeSound_Strict TempSounds[i] : TempSounds[i]=0
 						Next
 						StopStream_Strict(MusicCHN)
-						MusicCHN = StreamSound_Strict("SFX\Music\"+Music(NowPlaying)+".ogg",0.0,Mode)
+						MusicCHN = StreamSound_Strict("SFX\Music\"+Music(NowPlaying)+".ogg",0.0)
 						SetStreamVolume_Strict(MusicCHN,1.0*MusicVolume)
 						FlushKeys()
 						EndingTimer=-2000
@@ -8660,7 +8659,7 @@ Function UpdateMusic()
 		
 		If NowPlaying < 66
 			If CurrMusic = 0
-				MusicCHN = StreamSound_Strict("SFX\Music\"+Music(NowPlaying)+".ogg",0.0,Mode)
+				MusicCHN = StreamSound_Strict("SFX\Music\"+Music(NowPlaying)+".ogg",0.0)
 				CurrMusic = 1
 			EndIf
 			SetStreamVolume_Strict(MusicCHN,CurrMusicVolume)
