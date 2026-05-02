@@ -163,10 +163,7 @@ Type Stream
 	Field name%
 End Type
 
-Const Mode% = 2
-Const TwoD% = 8192
-
-Function StreamSound_Strict(file$,volume#=1.0,custommode=Mode)
+Function StreamSound_Strict(file$,volume#=1.0,loop%=True)
 	If FileType(file$)<>1
 		CreateConsoleMsg("声音未找到：" + file$)
 		If ConsoleOpening
@@ -183,7 +180,7 @@ Function StreamSound_Strict(file$,volume#=1.0,custommode=Mode)
 		EndIf
 	EndIf
 	
-	st\chn = PlayMusic(File, CustomMode + TwoD)
+	st\chn = PlayMusic(File, volume)
 	
 	If st\chn = -1
 		CreateConsoleMsg("声音流加载失败（返回值-1）：" + file$)
@@ -195,7 +192,7 @@ Function StreamSound_Strict(file$,volume#=1.0,custommode=Mode)
 		If st\HasSubtitles Then ShowSubtitles(st\Name)
 	EndIf
 	
-	ChannelVolume(st\chn, Volume * 1.0)
+	ChannelLoop(st\chn, loop)
 	
 	Return Handle(st)
 End Function

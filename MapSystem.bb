@@ -7873,38 +7873,36 @@ Function CreateChunkParts(r.Rooms)
 	SeedRnd GenerateSeedNumber(RandomSeed)
 	
 	For i = 0 To ChunkAmount%
-		If loc > 0 Then
-			StrTemp$ = IniGetString(File,"chunk"+i,"count")
-			chp = New ChunkPart
-			chp\Amount% = Int(StrTemp$)
-			DebugLog "------------------"
-			For j = 0 To Int(StrTemp$)
-				Local objID% = IniGetString(File$,"chunk"+i,"obj"+j)
-				Local x$ = IniGetString(File$,"chunk"+i,"obj"+j+"-x")
-				Local z$ = IniGetString(File$,"chunk"+i,"obj"+j+"-z")
-				Local yaw$ = IniGetString(File$,"chunk"+i,"obj"+j+"-yaw")
-				DebugLog "1499 chunk X/Z/Yaw: "+x$+"|"+z$+"|"+yaw$
-				chp\obj%[j] = CopyEntity(r\Objects[objID%])
-				If Lower(yaw$) = "random"
-					chp\RandomYaw#[j] = Rnd(360)
-					RotateEntity chp\obj[j],0,chp\RandomYaw[j],0
-				Else
-					RotateEntity chp\obj[j],0,Float(yaw),0
-				EndIf
-				PositionEntity chp\obj[j],Float(x),0,Float(z)
-				ScaleEntity chp\obj[j],RoomScale,RoomScale,RoomScale
-				EntityType chp\obj[j],HIT_MAP
-				EntityPickMode chp\obj[j],2
-				HideEntity chp\obj[j]
-				;EntityParent chp\obj[j],r\obj
-			Next
-			chp2 = Before(chp)
-			If chp2 <> Null
-				chp\ID = chp2\ID+1
+		StrTemp$ = IniGetString(File,"chunk"+i,"count")
+		chp = New ChunkPart
+		chp\Amount% = Int(StrTemp$)
+		DebugLog "------------------"
+		For j = 0 To Int(StrTemp$)
+			Local objID% = IniGetString(File$,"chunk"+i,"obj"+j)
+			Local x$ = IniGetString(File$,"chunk"+i,"obj"+j+"-x")
+			Local z$ = IniGetString(File$,"chunk"+i,"obj"+j+"-z")
+			Local yaw$ = IniGetString(File$,"chunk"+i,"obj"+j+"-yaw")
+			DebugLog "1499 chunk X/Z/Yaw: "+x$+"|"+z$+"|"+yaw$
+			chp\obj%[j] = CopyEntity(r\Objects[objID%])
+			If Lower(yaw$) = "random"
+				chp\RandomYaw#[j] = Rnd(360)
+				RotateEntity chp\obj[j],0,chp\RandomYaw[j],0
+			Else
+				RotateEntity chp\obj[j],0,Float(yaw),0
 			EndIf
-			DebugLog "<<<<<<<<<<<<<<<<"
-			DebugLog "Generated 1499 chunk "+chp\ID+" sucessfully"
+			PositionEntity chp\obj[j],Float(x),0,Float(z)
+			ScaleEntity chp\obj[j],RoomScale,RoomScale,RoomScale
+			EntityType chp\obj[j],HIT_MAP
+			EntityPickMode chp\obj[j],2
+			HideEntity chp\obj[j]
+			;EntityParent chp\obj[j],r\obj
+		Next
+		chp2 = Before(chp)
+		If chp2 <> Null
+			chp\ID = chp2\ID+1
 		EndIf
+		DebugLog "<<<<<<<<<<<<<<<<"
+		DebugLog "Generated 1499 chunk "+chp\ID+" sucessfully"
 	Next
 	
 	SeedRnd MilliSecs()

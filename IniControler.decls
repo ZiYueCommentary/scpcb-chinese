@@ -18,7 +18,7 @@ IniBufferKeyExist%(path$, section$, key$):"_IniBufferKeyExist@12"
 IniCreateSection(path$, section$):"_IniCreateSection@8"
 IniRemoveBufferKey(path$, section$, key$):"_IniRemoveBufferKey@12"
 IniRemoveBufferSection(path$, section$):"_IniRemoveBufferSection@8"
-IniSetExportBufferValue(buffer%, section$, key$, value$)"_IniSetExportBufferValue@16"
+IniSetExportBufferValue(buffer%, section$, key$, value$):"_IniSetExportBufferValue@16"
 
 ; Custom for scpcb-ue.
 FindSCP294Drink_$(file$, drink$):"_FindSCP294Drink@8"

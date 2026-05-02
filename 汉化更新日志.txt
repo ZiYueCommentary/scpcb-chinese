@@ -1,3 +1,14 @@
+2024/10/10 Sixth Revise第六版
+兼容二期任意版本、任意发布版本和原版1.3.11的存档
+- 完善了错误日志
+- 更新了繁简转换系统
+- 补充了缺失的翻译
+- 修复bug：
+    - 修复了检查点未解锁也可打开的bug
+    - 修复了文件夹中物品名为英文的bug
+    - 修复了地图制作器中事件消失的bug
+    - 修复了SCP-1499维度没有建筑的bug
+
 2023/10/1 Fifth Revise第五版
 兼容二期任意版本、任意发布版本和原版1.3.11的存档
 - 更新了部分贴图的汉化（docGonzales.jpg、012.jpg、drL.jpg、860.jpg、205.jpg、conf.jpg、hooper.jpg、rosewood.sc、lebel008.jpg、label012.jpg、label035.jpg、label049.jpg、lebel079.jpg、label106.jpg、label1123.png、label173.jpg、label205.jpg、label372.jpg、label513.jpg、label895.jpg、label914.jpg、label966.jpg、labelmedicalbay.jpg）
