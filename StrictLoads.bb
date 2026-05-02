@@ -192,7 +192,9 @@ Function StreamSound_Strict(file$,volume#=1.0,loop%=True)
 		If st\HasSubtitles Then ShowSubtitles(st\Name)
 	EndIf
 	
-	ChannelLoop(st\chn, loop)
+	If loop
+      LoopSound(File)
+   EndIf
 	
 	Return Handle(st)
 End Function
