@@ -74,6 +74,12 @@
 
 请注意，排错模式会极大影响程序运行性能，建议您在编译可执行文件前关闭排错模式。
 
+### Wine运行游戏
+
+用wine运行时，先调用winetricks mfc42 vcrun6，补全运行库。
+
+**由于未知原因，游戏音效可能会为全损音质！**
+
 <br>
 
 <p align="center"><a href="https://www.scpcbgame.com/">收容失效英文官网</a> | <a href="https://www.scpcbgame.cn/">收容失效中文网站</a> | <a href="https://scpcbgame.cn/help.html">常见问题解决方案</a></p>

@@ -11074,6 +11074,7 @@ Function TeleportEntity(entity%,x#,y#,z#,customradius#=0.3,isglobal%=False,pickr
 End Function
 
 Function PlayStartupVideos()
+    If RunningOnWine() Then Return
 	If IniGetInt("options.ini","options","play startup video")=0 Then Return
 	
 	HidePointer()
